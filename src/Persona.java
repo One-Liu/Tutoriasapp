@@ -1,4 +1,4 @@
-//author @liu
+// author @liu
 
 public class Persona {
 	private int idPersona;
