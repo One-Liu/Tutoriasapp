@@ -1,8 +1,9 @@
 module uv.fei.tutorias.tutoriasapp {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
-    opens uv.fei.tutorias.tutoriasapp to javafx.fxml;
-    exports uv.fei.tutorias.tutoriasapp;
+    opens main to javafx.fxml;
+    exports main;
 }
