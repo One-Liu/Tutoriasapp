@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TutoriasApp.iml" filepath="$PROJECT_DIR$/TutoriasApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bussinesLogic/bussinesLogic.iml" filepath="$PROJECT_DIR$/bussinesLogic/bussinesLogic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dataAccess.iml" filepath="$PROJECT_DIR$/dataAccess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tutoriasapp.iml" filepath="$PROJECT_DIR$/tutoriasapp.iml" />
     </modules>
   </component>
 </project>

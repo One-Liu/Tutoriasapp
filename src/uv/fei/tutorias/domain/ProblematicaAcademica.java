@@ -3,33 +3,33 @@ package uv.fei.tutorias.domain;
 // author @liu
 
 public class ProblematicaAcademica() {
-	private int idProblematicaAcademica;
-	private String descripcion;
-	private int idExperienciaEducativa;
-	
-	// Getters of uv.fei.tutorias.domain.ProblematicaAcademica
-	public int getIdProblematicaAcademica() {
-		return idProblematicaAcademica;
-	}
+    private int idProblematicaAcademica;
+    private String descripcion;
+    private int idExperienciaEducativa;
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    // Getters of uv.fei.tutorias.domain.ProblematicaAcademica
+    public int getIdProblematicaAcademica() {
+        return idProblematicaAcademica;
+    }
 
-	public int getIdExperienciaEducativa() {
-		return idExperienciaEducativa;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	// Setters of uv.fei.tutorias.domain.ProblematicaAcademica
-	public void setIdProblematicaAcademica(int idProblematicaAcademica) {
-		this.idProblematicaAcademica = idProblematicaAcademica;
-	}
+    public int getIdExperienciaEducativa() {
+        return idExperienciaEducativa;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    // Setters of uv.fei.tutorias.domain.ProblematicaAcademica
+    public void setIdProblematicaAcademica(int idProblematicaAcademica) {
+        this.idProblematicaAcademica = idProblematicaAcademica;
+    }
 
-	public void setIdExperienciaEducativa(int idExperienciaEducativa) {
-		this.idExperienciaEducativa = idExperienciaEducativa;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setIdExperienciaEducativa(int idExperienciaEducativa) {
+        this.idExperienciaEducativa = idExperienciaEducativa;
+    }
 }
