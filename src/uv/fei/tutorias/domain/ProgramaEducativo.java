@@ -1,4 +1,6 @@
-package uv.fei.tutorias.domain;// author @liu
+package uv.fei.tutorias.domain;
+
+// author @liu
 
 public class ProgramaEducativo {
 	private int idProgramaEducativo;
