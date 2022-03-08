@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class PersonaDAO implements IPersonaDAO {
 
     @Override
-    public List<Persona> findPersonaByName(String searchName) {
+    public List<Persona> findPersonasByName(String searchName) {
         ArrayList<Persona> personas = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
@@ -42,6 +42,7 @@ public class PersonaDAO implements IPersonaDAO {
                     telefono = resultSet.getString("telefono");
                     correoInstitucional = resultSet.getString("correoInstitucional");
                     Persona persona = new Persona();
+                    persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
@@ -56,6 +57,50 @@ public class PersonaDAO implements IPersonaDAO {
         }
         return personas;
     }
+    @Override
+    public Persona findPersonaById(int searchId){
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        Persona persona = new Persona();
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            String query = "Select * from persona where idPersona like ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + searchId + "%");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() == false) {
+                throw new SQLException("Persona not found");
+            } else {
+                int idPersona = 0;
+                String nombre = "";
+                String apellidoPaterno = "";
+                String apellidoMaterno = "";
+                int edad = 0;
+                String telefono = "";
+                String correoInstitucional = "";
+                do {
+                    idPersona = resultSet.getInt("idPersona");
+                    nombre = resultSet.getString("nombre");
+                    apellidoPaterno = resultSet.getString("apellidoPaterno");
+                    apellidoMaterno = resultSet.getString("apellidoMaterno");
+                    edad = resultSet.getInt("edad");
+                    telefono = resultSet.getString("telefono");
+                    correoInstitucional = resultSet.getString("correoInstitucional");
+
+                    persona.setIdPersona(idPersona);
+                    persona.setNombre(nombre);
+                    persona.setApellidoPaterno(apellidoPaterno);
+                    persona.setApellidoMaterno(apellidoMaterno);
+                    persona.setEdad(edad);
+                    persona.setTelefono(telefono);
+                    persona.setCorreoInstitucional(correoInstitucional);
+                } while (resultSet.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return persona;
+
+    }
+
 
 
 }

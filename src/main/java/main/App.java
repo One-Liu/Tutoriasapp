@@ -31,11 +31,9 @@ public class App extends Application {
             @Override
             public void handle(ActionEvent event) {
                 PersonaDAO personaDao = new PersonaDAO();
-                ArrayList<Persona> personas= (ArrayList<Persona>) personaDao.findPersonaByName("Joshua");
-                for(Persona persona : personas){
-                    System.out.println(String.format("Person found: %s %s",persona.getApellidoPaterno(), persona.getNombre()));
+                Persona persona = personaDao.findPersonaById(2);
+                System.out.println(String.format("Person found: %s %s %s %d",persona.getApellidoPaterno(), persona.getNombre(), persona.getTelefono(), persona.getIdPersona()));
 
-                }
             }
         });
 
