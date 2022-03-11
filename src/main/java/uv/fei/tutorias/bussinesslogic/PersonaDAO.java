@@ -146,5 +146,25 @@ public class PersonaDAO implements IPersonaDAO {
         }
         return true;
     }
+    
+    // author @liu
+    public int findIdPersona(Persona persona) {
+        int idPersona = 0;
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            // Un correo institucional es único para cada Persona
+            String query = "SELECT idPersona FROM Persona WHERE correoInstitucional = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, persona.getCorreoInstitucional());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() == false) {
+                throw new SQLException("idPersona not found");
+            }
+            idPersona = resultSet.getInt("idPersona");
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idPersona;
+    }
 }
 
