@@ -57,21 +57,20 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     
     @Override
     public boolean addTutorAcademico(Persona tutorAcademico) {
-        PersonaDAO persona = new PersonaDAO();
+        PersonaDAO personaDao = new PersonaDAO();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            if (persona.findPersonaById(tutorAcademico.getIdPersona()) != null) {
-                return false;
-            } else {
+            if (personaDao.addPersona(tutorAcademico)) {
                 String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
                 PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, tutorAcademico.getIdPersona());
-                statement.executeQuery();
+                statement.setInt(1, personaDao.findIdPersona(tutorAcademico));
+                statement.executeUpdate();
+                return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        return false;
     }
     
     @Override
@@ -86,7 +85,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             String query = "DELETE FROM TutorAcademico WHERE idTutorAcademico = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idTutorAcademico);
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
