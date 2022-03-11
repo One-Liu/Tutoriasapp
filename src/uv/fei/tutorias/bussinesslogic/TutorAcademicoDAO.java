@@ -64,7 +64,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
                 String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, personaDao.findIdPersona(tutorAcademico));
-                statement.executeQuery();
+                statement.executeUpdate();
                 return true;
             }
         } catch (SQLException ex) {
@@ -85,7 +85,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             String query = "DELETE FROM TutorAcademico WHERE idTutorAcademico = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idTutorAcademico);
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
