@@ -77,11 +77,27 @@ public class Tutoriasapp extends Application {
             }
         });
         
+        Button btnDeleteTutorAcademico = new Button();
+        btnDeleteTutorAcademico.setText("Delete Tutor Academico");
+        btnDeleteTutorAcademico.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
+                if(tutorAcademicoDao.deleteTutorAcademicoById(3)) {
+                    System.out.println("Tutor Academico borrado");
+                } else {
+                    System.out.println("No se ha borrado/encontrado el tutor");
+                }
+            }
+        });
+        
         StackPane root = new StackPane();
         //root.getChildren().add(btnGetPerson);
         //root.getChildren().add(btnGetTutorAcademicoById);
         //root.getChildren().add(btnGetTutorAcademicoByName);
-        root.getChildren().add(btnAddTutorAcademico);
+        //root.getChildren().add(btnAddTutorAcademico);
+        root.getChildren().add(btnDeleteTutorAcademico);
         
         Scene scene = new Scene(root, 300, 250);
 
