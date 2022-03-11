@@ -101,7 +101,29 @@ public class PersonaDAO implements IPersonaDAO {
 
     }
 
+    @Override
+    public boolean addPersona(Persona persona) {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()) {
 
-
+            String query = "INSERT INTO persona(nombre, apellidoMaterno, apellidoPaterno, edad, telefono, correoInstitucional) VALUES(?,?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, persona.getNombre());
+            statement.setString(2, persona.getApellidoMaterno());
+            statement.setString(3, persona.getApellidoPaterno());
+            statement.setInt(4, persona.getEdad());
+            statement.setString(5,persona.getTelefono());
+            statement.setString(6,persona.getCorreoInstitucional());
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate == 0) {
+                throw new SQLException("ERROR: La persona no se ha agregado");
+            } else {
+                System.out.println("Persona agregada");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }
 

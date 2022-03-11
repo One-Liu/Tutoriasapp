@@ -11,9 +11,40 @@ public class Persona {
     private String telefono;
     private String correoInstitucional;
 
+
     // Getters of uv.fei.tutorias.domain.Persona
     public int getIdPersona() {
         return idPersona;
+    }
+
+    public int getEdad() {return edad;}
+
+    public Persona() {
+        nombre = "";
+        apellidoPaterno = "";
+        apellidoMaterno = "";
+        edad = 0;
+        telefono = "";
+        correoInstitucional = "";
+    }
+
+    public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String telefono, String correoInstitucional) {
+        this.idPersona = idPersona;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.edad = edad;
+        this.telefono = telefono;
+        this.correoInstitucional = correoInstitucional;
+    }
+
+    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String telefono, String correoInstitucional) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.edad = edad;
+        this.telefono = telefono;
+        this.correoInstitucional = correoInstitucional;
     }
 
     public String getNombre() {

@@ -7,4 +7,5 @@ import java.util.List;
 public interface IPersonaDAO {
     public List<Persona> findPersonasByName(String serchName);
     public Persona findPersonaById(int searchId);
+    public boolean addPersona(Persona persona);
 }

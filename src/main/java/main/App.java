@@ -31,9 +31,8 @@ public class App extends Application {
             @Override
             public void handle(ActionEvent event) {
                 PersonaDAO personaDao = new PersonaDAO();
-                Persona persona = personaDao.findPersonaById(2);
-                System.out.println(String.format("Person found: %s %s %s %d",persona.getApellidoPaterno(), persona.getNombre(), persona.getTelefono(), persona.getIdPersona()));
-
+                Persona persona = new Persona("Daniela","Gutierrez","Hernandez",19,"2112","cxczxc@sdasd.com");
+                personaDao.addPersona(persona);
             }
         });
 
