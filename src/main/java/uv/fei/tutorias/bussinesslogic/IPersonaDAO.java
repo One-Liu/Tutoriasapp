@@ -8,4 +8,5 @@ public interface IPersonaDAO {
     public List<Persona> findPersonasByName(String serchName);
     public Persona findPersonaById(int searchId);
     public boolean addPersona(Persona persona);
+    public boolean eliminarPersonaById(int searchId);
 }

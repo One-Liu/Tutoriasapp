@@ -32,7 +32,7 @@ public class App extends Application {
             public void handle(ActionEvent event) {
                 PersonaDAO personaDao = new PersonaDAO();
                 Persona persona = new Persona("Daniela","Gutierrez","Hernandez",19,"2112","cxczxc@sdasd.com");
-                personaDao.addPersona(persona);
+                personaDao.eliminarPersonaById(6);
             }
         });
 

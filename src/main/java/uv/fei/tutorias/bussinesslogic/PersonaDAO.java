@@ -123,7 +123,28 @@ public class PersonaDAO implements IPersonaDAO {
         } catch (SQLException ex) {
             Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean eliminarPersonaById(int searchId) {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()) {
+
+            String query = "DELETE FROM persona WHERE (idPersona = ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, searchId);
+
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate == 0) {
+                throw new SQLException("ERROR: No se ha eliminado ninguna tabla");
+            } else {
+                System.out.println("Persona eliminada satisfactoriamente");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }
 
