@@ -9,7 +9,6 @@ package main;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -30,9 +29,22 @@ public class App extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                PersonaDAO personaDao = new PersonaDAO();
-                Persona persona = new Persona("Daniela","Gutierrez","Hernandez",19,"2112","cxczxc@sdasd.com");
-                personaDao.eliminarPersonaById(6);
+                TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
+                PersonaDAO personaDAO = new PersonaDAO();
+
+                Persona persona = new Persona("dasd","dasd","Madasdsadcho",19,"1212","dasdsad@ESTUDINTES.UV.MX");
+                Persona persona1 = new Persona("Fer","Gutierrez","Hernandez",19,"2123","fdsfsdf@sdasd.com");
+
+//                tutorAcademicoDAO.addTutorAcademico(persona);
+//                personaDAO.addPersona(persona);
+
+                personaDAO.deletePersonById(25);
+
+                ArrayList<Persona> personas= (ArrayList<Persona>) personaDAO.findPersonsByName("Paulo");
+                for(Persona persona2 : personas) {
+                    System.out.println(String.format("Person found: %s %s", persona2.getApellidoPaterno(), persona2.getNombre()));
+                }
+
             }
         });
 

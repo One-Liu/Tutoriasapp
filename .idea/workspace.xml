@@ -5,17 +5,69 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d406e7-aa38-4a71-ae65-b2f5515e0cf0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_78.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_13_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_testng_testng_7_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_jquery_3_5_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TutoriasApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TutoriasApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/EstudianteDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/IEstudianteDAO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/IPersonaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/IPersonaDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/TutorAcademicoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/TutorAcademicoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Persona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/TutorAcademico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/TutorAcademico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/App$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/App$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/IPersonaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/IPersonaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/ITutorDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/PersonaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/PersonaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Persona.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Persona.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/TutorAcademico.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/TutorAcademico.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="JUnit3 Test Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/main/App.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/TutorAcademicoDAO.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/IPersonaDAO.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -29,20 +81,37 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3" value="junit.framework.TestCase" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/resources" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.28.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.37586206" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.junit.jupiter.api" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\paulo\IdeaProjects\TutoriasApp\src\main\java\uv\fei\tutorias" />
       <recent name="C:\Users\paulo\IdeaProjects\TutoriasApp\src\main\java" />
       <recent name="C:\Users\paulo\IdeaProjects\TutoriasApp\src\main\java\uv\fei\tutorias\tutoriasapp" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="test" />
+      <recent name="uv.fei.tutorias.bussinesslogic" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="JUnit.PersonaDAOTest.findPersonsByName (1)">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.App" />
       <module name="tutoriasapp" />
@@ -56,23 +125,76 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.tutoriasapp.HelloApplication" />
+    <configuration name="PersonaDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tutoriasapp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="uv.fei.tutorias.tutoriasapp.*" />
+          <option name="PATTERN" value="test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="test.PersonaDAOTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonaDAOTest.findPersonaByIdSucces" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tutoriasapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="test.PersonaDAOTest" />
+      <option name="METHOD_NAME" value="findPersonaByIdSucces" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonaDAOTest.findPersonsByName (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tutoriasapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uv.fei.tutorias.bussinesslogic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uv.fei.tutorias.bussinesslogic" />
+      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.bussinesslogic.PersonaDAOTest" />
+      <option name="METHOD_NAME" value="findPersonsByName" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonaDAOTest.findPersonsByName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tutoriasapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="test.PersonaDAOTest" />
+      <option name="METHOD_NAME" value="findPersonsByName" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PersonaDAOTest.findPersonsByName (1)" />
+        <item itemvalue="JUnit.PersonaDAOTest.findPersonsByName" />
+        <item itemvalue="JUnit.PersonaDAOTest.findPersonaByIdSucces" />
         <item itemvalue="Application.App" />
-        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="JUnit.PersonaDAOTest" />
       </list>
     </recent_temporary>
   </component>
@@ -87,7 +209,11 @@
       <workItem from="1646680429045" duration="4563000" />
       <workItem from="1646692031742" duration="4436000" />
       <workItem from="1646867382975" duration="1949000" />
-      <workItem from="1646958652953" duration="3092000" />
+      <workItem from="1646958652953" duration="3245000" />
+      <workItem from="1647028471974" duration="10751000" />
+      <workItem from="1647385655927" duration="3694000" />
+      <workItem from="1647565301613" duration="3585000" />
+      <workItem from="1647741548215" duration="3221000" />
     </task>
     <servers />
   </component>

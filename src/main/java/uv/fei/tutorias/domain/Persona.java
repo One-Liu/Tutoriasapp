@@ -2,6 +2,8 @@ package uv.fei.tutorias.domain;
 
 // author @liu
 
+import java.util.Objects;
+
 public class Persona {
     private int idPersona;
     private String nombre;
@@ -37,6 +39,21 @@ public class Persona {
         this.telefono = telefono;
         this.correoInstitucional = correoInstitucional;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Persona)) return false;
+        Persona persona = (Persona) o;
+        return getIdPersona() == persona.getIdPersona()
+                && getEdad() == persona.getEdad()
+                && Objects.equals(getNombre(), persona.getNombre())
+                && Objects.equals(getApellidoPaterno(), persona.getApellidoPaterno())
+                && Objects.equals(getApellidoMaterno(), persona.getApellidoMaterno())
+                && Objects.equals(getTelefono(), persona.getTelefono())
+                && Objects.equals(getCorreoInstitucional(), persona.getCorreoInstitucional());
+    }
+
 
     public Persona(String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String telefono, String correoInstitucional) {
         this.nombre = nombre;

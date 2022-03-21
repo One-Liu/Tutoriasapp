@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class PersonaDAO implements IPersonaDAO {
 
     @Override
-    public List<Persona> findPersonasByName(String searchName) {
+    public List<Persona> findPersonsByName(String searchName) {
         ArrayList<Persona> personas = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
@@ -58,7 +58,7 @@ public class PersonaDAO implements IPersonaDAO {
         return personas;
     }
     @Override
-    public Persona findPersonaById(int searchId){
+    public Persona findPersonById(int searchId){
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         Persona persona = new Persona();
         try (Connection connection = dataBaseConnection.getConnection()) {
@@ -102,7 +102,7 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public boolean addPersona(Persona persona) {
+    public boolean addPerson(Persona persona) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
 
@@ -117,8 +117,6 @@ public class PersonaDAO implements IPersonaDAO {
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: La persona no se ha agregado");
-            } else {
-                System.out.println("Persona agregada");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,7 +125,7 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public boolean eliminarPersonaById(int searchId) {
+    public boolean deletePersonById(int searchId) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
 

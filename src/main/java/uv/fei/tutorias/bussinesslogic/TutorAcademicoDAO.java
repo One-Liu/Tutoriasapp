@@ -60,7 +60,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         PersonaDAO personaDao = new PersonaDAO();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            if (personaDao.addPersona(tutorAcademico)) {
+            if (personaDao.addPerson(tutorAcademico)) {
                 String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, personaDao.findIdPersona(tutorAcademico));

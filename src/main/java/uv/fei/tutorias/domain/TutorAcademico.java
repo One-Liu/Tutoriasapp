@@ -6,6 +6,7 @@ public class TutorAcademico {
     private int idTutorAcademico;
     private int idPersona;
 
+
     // Getters of uv.fei.tutorias.domain.TutorAcademico
     public int getIdTutorAcademico() {
         return idTutorAcademico;
