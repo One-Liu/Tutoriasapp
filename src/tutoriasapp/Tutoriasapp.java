@@ -10,26 +10,27 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.*;
 import uv.fei.tutorias.domain.Persona;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
 
 public class Tutoriasapp extends Application {
     
     @Override
     public void start(Stage primaryStage) {
         
-        Button btnGetPerson = new Button();
-        btnGetPerson.setText("Get person");
-        btnGetPerson.setOnAction(new EventHandler<ActionEvent>() {
+        Button btnGetPersonById = new Button();
+        btnGetPersonById.setText("Get Person By Id");
+        btnGetPersonById.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 PersonaDAO personaDao = new PersonaDAO();
-                Persona persona = personaDao.findPersonaById(2);
+                Persona persona = personaDao.findPersonaById(1);
                 System.out.println(String.format("Person found: %s %s %s %d",persona.getApellidoPaterno(), persona.getNombre(), persona.getTelefono(), persona.getIdPersona()));
             }
         });
@@ -41,8 +42,8 @@ public class Tutoriasapp extends Application {
             @Override
             public void handle(ActionEvent event) {
                 TutorAcademicoDAO tutorAcademico = new TutorAcademicoDAO();
-                Persona persona = tutorAcademico.findTutorAcademicoById(1);
-                System.out.println(String.format("Tutor Academico found: %s %s %s", persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno()));
+                Persona tutor = tutorAcademico.findTutorAcademicoById(1);
+                System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getTelefono(), tutor.getCorreoInstitucional()));
             }
         });
         
@@ -54,9 +55,9 @@ public class Tutoriasapp extends Application {
             public void handle(ActionEvent event) {
                 TutorAcademicoDAO tutorAcademico = new TutorAcademicoDAO();
                 List<Persona> tutoresAcademicos = new ArrayList<>();
-                tutoresAcademicos = tutorAcademico.findTutoresAcademicosByName("GARCIA");
+                tutoresAcademicos = tutorAcademico.findTutoresAcademicosByName("A");
                 for(Persona tutor : tutoresAcademicos) {
-                    System.out.println(tutor.getNombre() + " " + tutor.getApellidoPaterno() + " " + tutor.getApellidoMaterno());
+                    System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getTelefono(), tutor.getCorreoInstitucional()));
                 }
             }
         });
@@ -68,7 +69,7 @@ public class Tutoriasapp extends Application {
             @Override
             public void handle(ActionEvent event) {
                 TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
-                Persona tutorAcademico = new Persona("TUTOR","DE","PRUEBA","1234","tutor@uv.mx");
+                Persona tutorAcademico = new Persona("TUTOR","DE","PRUEBA1","123456","tutor1@uv.mx");
                 if(tutorAcademicoDao.addTutorAcademico(tutorAcademico)) {
                     System.out.println("Tutor registrado");
                 } else {
@@ -92,16 +93,17 @@ public class Tutoriasapp extends Application {
             }
         });
         
-        StackPane root = new StackPane();
-        //root.getChildren().add(btnGetPerson);
-        //root.getChildren().add(btnGetTutorAcademicoById);
-        //root.getChildren().add(btnGetTutorAcademicoByName);
-        //root.getChildren().add(btnAddTutorAcademico);
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(15));
+        root.getChildren().add(btnGetPersonById);
+        root.getChildren().add(btnGetTutorAcademicoById);
+        root.getChildren().add(btnGetTutorAcademicoByName);
+        root.getChildren().add(btnAddTutorAcademico);
         root.getChildren().add(btnDeleteTutorAcademico);
         
         Scene scene = new Scene(root, 300, 250);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Sistema de Tutorias Academicas");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

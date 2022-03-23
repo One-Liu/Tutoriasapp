@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,13 +59,14 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     @Override
     public boolean addTutorAcademico(Persona tutorAcademico) {
         PersonaDAO personaDao = new PersonaDAO();
+        int idTutorAcademico = 0;
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            if (personaDao.addPersona(tutorAcademico)) {
-                String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, personaDao.findIdPersona(tutorAcademico));
-                statement.executeUpdate();
+            String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, personaDao.addPersonaReturnId(tutorAcademico));
+            idTutorAcademico = statement.executeUpdate();
+            if(findTutorAcademicoById(idTutorAcademico) != null) {
                 return true;
             }
         } catch (SQLException ex) {

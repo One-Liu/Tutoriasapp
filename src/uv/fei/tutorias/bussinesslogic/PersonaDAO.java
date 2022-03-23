@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -141,22 +142,28 @@ public class PersonaDAO implements IPersonaDAO {
     }
     
     // author @liu
-    public int findIdPersona(Persona persona) {
-        int idPersona = 0;
+    public int addPersonaReturnId(Persona persona) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            // Un correo institucional es único para cada Persona
-            String query = "SELECT idPersona FROM Persona WHERE correoInstitucional = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, persona.getCorreoInstitucional());
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
-                throw new SQLException("idPersona not found");
+            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, telefono, correoInstitucional) VALUES (?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, persona.getNombre());
+            statement.setString(2, persona.getApellidoPaterno());
+            statement.setString(3, persona.getApellidoMaterno());
+            statement.setString(4,persona.getTelefono());
+            statement.setString(5,persona.getCorreoInstitucional());
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if(resultSet.next()) {
+                int idPersona = resultSet.getInt(1);
+                System.out.println("Persona agregada");
+                return idPersona;
+            } else {
+                throw new SQLException("ERROR: La persona no se ha agregado");
             }
-            idPersona = resultSet.getInt("idPersona");
         } catch (SQLException ex) {
             Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return idPersona;
+        return 0;
     }
 }

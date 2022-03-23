@@ -84,4 +84,17 @@ public class Persona {
     public void setCorreoInstitucional(String correoInstitucional) {
         this.correoInstitucional = correoInstitucional;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Persona) {
+            Persona tmpPersona = (Persona)obj;
+            if(this.idPersona == tmpPersona.getIdPersona() && this.nombre.equals(tmpPersona.getNombre()) 
+                    && this.apellidoPaterno.equals(tmpPersona.getApellidoPaterno()) && this.apellidoMaterno.equals(tmpPersona.getApellidoMaterno())
+                    && this.telefono.equals(tmpPersona.getTelefono()) && this.correoInstitucional.equals(tmpPersona.getCorreoInstitucional())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
