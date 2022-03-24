@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.ResultSet;
@@ -17,7 +12,6 @@ import static org.junit.Assert.*;
 import uv.fei.tutorias.domain.Persona;
 
 // author @liu
- 
 public class TutorAcademicoDAOTest {
     
     // Test of findTutoresAcademicosByName method, of class TutorAcademicoDAO.
@@ -27,9 +21,9 @@ public class TutorAcademicoDAOTest {
         String searchName = "A";
         TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
         List<Persona> expResult = new ArrayList<>();
-        Persona tutorAcademico1 = new Persona(2,"MAX WILLIAM","MILLAN","MARTINEZ","2283407808","mmillan@uv.mx");
+        Persona tutorAcademico1 = new Persona(1,"MAX WILLIAM","MILLAN","MARTINEZ","2283407808","mmillan@uv.mx");
         expResult.add(tutorAcademico1);
-        Persona tutorAcademico2 = new Persona(1,"ANGEL JUAN","SANCHEZ","GARCIA","2281394728","angesanchez@uv.mx");
+        Persona tutorAcademico2 = new Persona(2,"ANGEL JUAN","SANCHEZ","GARCIA","2281394728","angesanchez@uv.mx");
         expResult.add(tutorAcademico2);
         List<Persona> result = tutorAcademicoDao.findTutoresAcademicosByName(searchName);
         boolean listasIguales = true;

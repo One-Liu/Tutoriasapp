@@ -7,7 +7,7 @@ import java.util.List;
 // author @liu
 
 public interface IProgramaEducativoDAO {
-    public List<ProgramaEducativo> findProgramasEducativosById(String searchName);
+    public List<ProgramaEducativo> findProgramasEducativosByName(String searchName);
     public ProgramaEducativo findProgramaEducativoById(int idProgramaEducativo);
     public boolean addProgramaEducativo(ProgramaEducativo programaEducativo);
     public boolean deleteProgramaEducativoById(int idProgramaEducativo);
