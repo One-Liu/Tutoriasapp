@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class Persona {
     private int idPersona;
     private String nombre;

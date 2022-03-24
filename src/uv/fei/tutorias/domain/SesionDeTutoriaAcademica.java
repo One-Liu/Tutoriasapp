@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class SesionDeTutoriaAcademica {
     private int idSesionDeTutoriaAcademica;
     private String fecha;

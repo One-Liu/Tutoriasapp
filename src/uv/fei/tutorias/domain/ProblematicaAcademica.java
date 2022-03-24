@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class ProblematicaAcademica {
     private int idProblematicaAcademica;
     private String descripcion;

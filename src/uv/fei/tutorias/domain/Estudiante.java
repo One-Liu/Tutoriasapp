@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class Estudiante {
     private int idEstudiante;
     private String matricula;

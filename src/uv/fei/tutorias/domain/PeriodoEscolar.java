@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class PeriodoEscolar {
     private int idPeriodoEscolar;
     private String fechaInicio;

@@ -5,7 +5,6 @@ import uv.fei.tutorias.domain.Persona;
 import java.util.List;
 
 // author @liu
-
 public interface IEstudianteDAO {
     public List<Persona> findEstudianteByName(String searchName);
     public Persona findEstudianteById(int idEstudiante);

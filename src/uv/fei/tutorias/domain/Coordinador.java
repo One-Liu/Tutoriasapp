@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class Coordinador {
     private int idCoordinador;
     private int idPersona;
