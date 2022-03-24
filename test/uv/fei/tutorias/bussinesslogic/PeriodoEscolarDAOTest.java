@@ -65,20 +65,4 @@ public class PeriodoEscolarDAOTest {
         boolean result = periodoEscolarDao.deletePeriodoEscolarById(idPeriodoEscolar);
         assertTrue(result);
     }
-
-    /**
-     * Test of getPeriodoEscolar method, of class PeriodoEscolarDAO.
-     */
-    @Test
-    public void testGetPeriodoEscolar() {
-        System.out.println("getPeriodoEscolar");
-        ResultSet resultSet = null;
-        PeriodoEscolarDAO instance = new PeriodoEscolarDAO();
-        PeriodoEscolar expResult = null;
-        PeriodoEscolar result = instance.getPeriodoEscolar(resultSet);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
