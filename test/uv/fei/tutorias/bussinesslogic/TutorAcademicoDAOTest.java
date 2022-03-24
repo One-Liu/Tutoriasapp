@@ -20,15 +20,15 @@ public class TutorAcademicoDAOTest {
         System.out.println("findTutoresAcademicosByName");
         String searchName = "A";
         TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
-        List<Persona> expResult = new ArrayList<>();
+        List<Persona> tutoresAcademicosEsperados = new ArrayList<>();
         Persona tutorAcademico1 = new Persona(1,"MAX WILLIAM","MILLAN","MARTINEZ","2283407808","mmillan@uv.mx");
-        expResult.add(tutorAcademico1);
+        tutoresAcademicosEsperados.add(tutorAcademico1);
         Persona tutorAcademico2 = new Persona(2,"ANGEL JUAN","SANCHEZ","GARCIA","2281394728","angesanchez@uv.mx");
-        expResult.add(tutorAcademico2);
-        List<Persona> result = tutorAcademicoDao.findTutoresAcademicosByName(searchName);
+        tutoresAcademicosEsperados.add(tutorAcademico2);
+        List<Persona> tutoresAcademicosObtenidos = tutorAcademicoDao.findTutoresAcademicosByName(searchName);
         boolean listasIguales = true;
-        for (int i=0; i<result.size(); i++) {
-            if (result.get(i).equals(expResult.get(i)) == false) {
+        for (int i=0; i<tutoresAcademicosObtenidos.size(); i++) {
+            if (tutoresAcademicosObtenidos.get(i).equals(tutoresAcademicosEsperados.get(i)) == false) {
                 listasIguales = false;
             }
         }
