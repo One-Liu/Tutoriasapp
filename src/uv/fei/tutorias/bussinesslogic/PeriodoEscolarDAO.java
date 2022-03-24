@@ -20,8 +20,9 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         List<PeriodoEscolar> periodosEscolares = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
+            String query = "SELECT * FROM PeriodoEscolar WHERE FechaInicio LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,"%" + date + "%");
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
                 throw new SQLException("Periodo Escolar not found");
