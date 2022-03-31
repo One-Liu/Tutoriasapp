@@ -1,4 +1,4 @@
-module uv.fei.tutorias.tutoriasapp {
+module uv.fei.tutorias {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
@@ -7,6 +7,6 @@ module uv.fei.tutorias.tutoriasapp {
     requires org.testng;
 
 
-    opens main to javafx.fxml;
-    exports main;
+    opens uv.fei.tutorias to javafx.fxml;
+    exports uv.fei.tutorias.test to junit;
 }
