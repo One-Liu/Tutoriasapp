@@ -1,4 +1,4 @@
-package uv.fei.tutorias;
+package uv.fei.tutorias.main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

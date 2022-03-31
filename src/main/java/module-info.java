@@ -7,6 +7,7 @@ module uv.fei.tutorias {
     requires org.testng;
 
 
-    opens uv.fei.tutorias to javafx.fxml;
     exports uv.fei.tutorias.test to junit;
+    opens uv.fei.tutorias.main to javafx.fxml;
+    exports uv.fei.tutorias.main;
 }

@@ -5,21 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d406e7-aa38-4a71-ae65-b2f5515e0cf0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TutoriasApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TutoriasApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/test/PersonaDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/test/PersonaDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/test/TutorAcademicoDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/test/TutorAcademicoDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/HelloController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/main/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/main/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/PersonaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/PersonaDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Persona.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Persona.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/HelloController.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +40,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/App.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/main/App.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/IPersonaDAO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/TutorAcademicoDAO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" root0="FORCE_HIGHLIGHTING" />
@@ -92,6 +84,7 @@
       <recent name="junit.framework.TestCase" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="uv.fei.tutorias.main" />
       <recent name="uv.fei.tutorias" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
@@ -99,13 +92,26 @@
       <recent name="uv.fei.tutorias.bussinesslogic" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App (1)">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.App" />
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App$OKButton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.main.App$OKButton" />
       <module name="tutoriasapp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="uv.fei.tutorias.*" />
+          <option name="PATTERN" value="uv.fei.tutorias.main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.main.App" />
+      <module name="tutoriasapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uv.fei.tutorias.main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -154,22 +160,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TutorAcademicoDAOTest.testAddTutorAcademico" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tutoriasapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="uv.fei.tutorias.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="uv.fei.tutorias.test" />
-      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.test.TutorAcademicoDAOTest" />
-      <option name="METHOD_NAME" value="testAddTutorAcademico" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TutorAcademicoDAOTest.verTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tutoriasapp" />
       <extension name="coverage">
@@ -188,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App (1)" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.App$OKButton" />
         <item itemvalue="JUnit.TutorAcademicoDAOTest.verTest" />
         <item itemvalue="JUnit.PersonaDAOTest.probarText" />
         <item itemvalue="JUnit.PersonaDAOTest" />
-        <item itemvalue="JUnit.TutorAcademicoDAOTest.testAddTutorAcademico" />
       </list>
     </recent_temporary>
   </component>
@@ -213,6 +203,7 @@
       <workItem from="1647565301613" duration="3585000" />
       <workItem from="1647741548215" duration="3221000" />
       <workItem from="1648604366924" duration="4945000" />
+      <workItem from="1648756846631" duration="1691000" />
     </task>
     <servers />
   </component>
