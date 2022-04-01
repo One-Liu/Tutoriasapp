@@ -5,6 +5,21 @@ public class TutorAcademico {
     private int idTutorAcademico;
     private Persona persona;
 
+    public TutorAcademico() {
+        this.idTutorAcademico = 0;
+        this.persona = null;
+    }
+    
+    public TutorAcademico(int idTutorAcademico, Persona persona) {
+        this.idTutorAcademico = idTutorAcademico;
+        this.persona = persona;
+    }
+    
+    public TutorAcademico(Persona persona) {
+        idTutorAcademico = 0;
+        this.persona = persona;
+    }
+    
     // Getters of uv.fei.tutorias.domain.TutorAcademico
     public int getIdTutorAcademico() {
         return idTutorAcademico;
@@ -21,5 +36,17 @@ public class TutorAcademico {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof TutorAcademico) {
+            TutorAcademico tmpTutorAcademico = (TutorAcademico)obj;
+            if(this.idTutorAcademico == tmpTutorAcademico.getIdTutorAcademico()
+                    && this.persona.equals(tmpTutorAcademico.getPersona())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

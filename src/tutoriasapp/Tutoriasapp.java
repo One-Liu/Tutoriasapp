@@ -41,9 +41,7 @@ public class Tutoriasapp extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                TutorAcademicoDAO tutorAcademico = new TutorAcademicoDAO();
-                Persona tutor = tutorAcademico.findTutorAcademicoById(1);
-                System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getCorreoInstitucional()));
+                
             }
         });
         
@@ -53,12 +51,7 @@ public class Tutoriasapp extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                TutorAcademicoDAO tutorAcademico = new TutorAcademicoDAO();
-                List<Persona> tutoresAcademicos = new ArrayList<>();
-                tutoresAcademicos = tutorAcademico.findTutoresAcademicosByName("A");
-                for(Persona tutor : tutoresAcademicos) {
-                    System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getCorreoInstitucional()));
-                }
+                
             }
         });
         
@@ -102,15 +95,16 @@ public class Tutoriasapp extends Application {
         root.getChildren().add(btnDeleteTutorAcademico);
         
         Scene scene = new Scene(root, 300, 250);
-
+        
         primaryStage.setTitle("Sistema de Tutorias Academicas");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    // @param args the command line arguments
+    
     public static void main(String[] args) {
         launch(args);
     }

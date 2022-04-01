@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.TutorAcademico;
 
 // author @liu
 public class TutorAcademicoDAOTest {
@@ -20,12 +21,14 @@ public class TutorAcademicoDAOTest {
         System.out.println("findTutoresAcademicosByName");
         String searchName = "A";
         TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
-        List<Persona> tutoresAcademicosEsperados = new ArrayList<>();
-        Persona tutorAcademico1 = new Persona(1,"MAX WILLIAM","MILLAN","MARTINEZ","2283407808","mmillan@uv.mx");
+        List<TutorAcademico> tutoresAcademicosEsperados = new ArrayList<>();
+        Persona personaTutorAcademico1 = new Persona("MAX WILLIAM","MILLAN","MARTINEZ","mmillan@uv.mx","maxMillan@gmail.com");
+        TutorAcademico tutorAcademico1 = new TutorAcademico(personaTutorAcademico1);
         tutoresAcademicosEsperados.add(tutorAcademico1);
-        Persona tutorAcademico2 = new Persona(2,"ANGEL JUAN","SANCHEZ","GARCIA","2281394728","angesanchez@uv.mx");
+        Persona personaTutorAcademico2 = new Persona("ANGEL JUAN","SANCHEZ","GARCIA","angesanchez@uv.mx","angelSanchez@gmail.com");
+        TutorAcademico tutorAcademico2 = new TutorAcademico(personaTutorAcademico2);
         tutoresAcademicosEsperados.add(tutorAcademico2);
-        List<Persona> tutoresAcademicosObtenidos = tutorAcademicoDao.findTutoresAcademicosByName(searchName);
+        List<TutorAcademico> tutoresAcademicosObtenidos = tutorAcademicoDao.findTutoresAcademicosByName(searchName);
         boolean listasIguales = true;
         for (int i=0; i<tutoresAcademicosObtenidos.size(); i++) {
             if (tutoresAcademicosObtenidos.get(i).equals(tutoresAcademicosEsperados.get(i)) == false) {
@@ -39,10 +42,11 @@ public class TutorAcademicoDAOTest {
     @Test
     public void testFindTutorAcademicoById() {
         System.out.println("findTutorAcademicoById");
-        int idTutorAcademico = 1;
+        int idTutorAcademico = 2;
         TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
-        Persona tutorAcademicoEsperado = new Persona(1,"ANGEL JUAN","SANCHEZ","GARCIA","2281394728","angesanchez@uv.mx");
-        Persona tutorAcademicoObtenido = tutorAcademicoDao.findTutorAcademicoById(idTutorAcademico);
+        Persona personaTutorAcademicoEsperado = new Persona("ANGEL JUAN","SANCHEZ","GARCIA","angesanchez@uv.mx","angelSanchez@gmail.com");
+        TutorAcademico tutorAcademicoEsperado = new TutorAcademico(personaTutorAcademicoEsperado);
+        TutorAcademico tutorAcademicoObtenido = tutorAcademicoDao.findTutorAcademicoById(idTutorAcademico);
         assertTrue(tutorAcademicoEsperado.equals(tutorAcademicoObtenido));
     }
     
@@ -50,9 +54,9 @@ public class TutorAcademicoDAOTest {
     @Test
     public void testAddTutorAcademico() {
         System.out.println("addTutorAcademico");
-        Persona tutorAcademico = new Persona("TUTOR1","DE","PRUEBA","2281818181","tutor1@uv.mx");
+        Persona personaTutorAcademico = new Persona("TUTOR1","DE","PRUEBA","tutor1@uv.mx","tutorPrueba1@gmail.com");
         TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
-        boolean result = tutorAcademicoDao.addTutorAcademico(tutorAcademico);
+        boolean result = tutorAcademicoDao.addTutorAcademico(personaTutorAcademico);
         assertTrue(result);
     }
 

@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 // author @liu
-
 public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
 
     @Override
@@ -21,7 +20,9 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         List<ProgramaEducativo> programasEducativos = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM ProgramaEducativo WHERE nombre LIKE ?";
+            String query = "SELECT nombre AS nombreProgramaEducativo \n" +
+                "FROM ProgramaEducativo\n" +
+                "WHERE nombre LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -42,7 +43,9 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
     public ProgramaEducativo findProgramaEducativoById(int idProgramaEducativo) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM ProgramaEducativo WHERE idProgramaEducativo = ?";
+            String query = "SELECT nombre AS nombreProgramaEducativo \n" +
+                "FROM ProgramaEducativo\n" +
+                "WHERE idProgramaEducativo = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProgramaEducativo);
             ResultSet resultSet = statement.executeQuery();
@@ -97,13 +100,10 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
     }
     
     public ProgramaEducativo getProgramaEducativo(ResultSet resultSet) {
-        int idProgramaEducativo = 0;
         String nombre = "";
         ProgramaEducativo programaEducativo = new ProgramaEducativo();
         try {
-            idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
-            programaEducativo.setIdProgramaEducativo(idProgramaEducativo);
-            nombre = resultSet.getString("nombre");
+            nombre = resultSet.getString("nombreProgramaEducativo");
             programaEducativo.setNombre(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -2,6 +2,7 @@ package uv.fei.tutorias.bussinesslogic;
 
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,18 +14,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 // author @liu
-
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     @Override
-    public List<Persona> findTutoresAcademicosByName(String searchName) {
-        List<Persona> tutores = new ArrayList<>();
+    public List<TutorAcademico> findTutoresAcademicosByName(String searchName) {
+        List<TutorAcademico> tutores = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT TA.idTutorAcademico, P.* FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona WHERE CONCAT(nombre, \" \", apellidoPaterno, \" \", apellidoMaterno) LIKE ?";
+            String query = "SELECT P.nombre AS nombreTutorAcademico, P.apellidoPaterno AS apellidoPaternoTutorAcademico, P.apellidoMaterno AS apellidoMaternoTutorAcademico,\n" +
+                "P.correoInstitucional AS correoInstitucionalTutorAcademico, P.correoPersonal AS correoPersonalTutorAcademico\n" +
+                "FROM TutorAcademico TA \n" +
+                "LEFT JOIN Persona P ON P.idPersona = TA.idPersona \n" +
+                "WHERE CONCAT(nombre,\" \", apellidoPaterno,\" \",apellidoMaterno) LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,"%" + searchName + "%");
+            statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+            if(resultSet.next() == false) {
                 throw new SQLException("Tutor Academico not found");
             } else {
                 do {
@@ -38,10 +42,14 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     }
     
     @Override
-    public Persona findTutorAcademicoById(int idTutorAcademico) {
+    public TutorAcademico findTutorAcademicoById(int idTutorAcademico) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT TA.idTutorAcademico, P.* FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona WHERE idTutorAcademico = ?";
+            String query = "SELECT P.nombre AS nombreTutorAcademico, P.apellidoPaterno AS apellidoPaternoTutorAcademico, P.apellidoMaterno AS apellidoMaternoTutorAcademico,\n" +
+                "P.correoInstitucional AS correoInstitucionalTutorAcademico, P.correoPersonal AS correoPersonalTutorAcademico\n" +
+                "FROM TutorAcademico TA \n" +
+                "LEFT JOIN Persona P ON P.idPersona = TA.idPersona \n" +
+                "WHERE idTutorAcademico = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idTutorAcademico);
             ResultSet resultSet = statement.executeQuery();
@@ -96,27 +104,26 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         return false;
     }
     
-    public Persona getTutorAcademico(ResultSet resultSet) {
-        int idTutorAcademico = 0;
+    public TutorAcademico getTutorAcademico(ResultSet resultSet) {
+        TutorAcademico tutorAcademico = new TutorAcademico();
+        Persona personaTutorAcademico = new Persona();
         String nombre = "";
         String apellidoPaterno = "";
         String apellidoMaterno = "";
         String correoInstitucional = "";
         String correoPersonal = "";
-        Persona tutorAcademico = new Persona();
         try {
-            idTutorAcademico = resultSet.getInt("idTutorAcademico");
-            tutorAcademico.setIdPersona(idTutorAcademico);
-            nombre = resultSet.getString("nombre");
-            tutorAcademico.setNombre(nombre);
-            apellidoPaterno = resultSet.getString("apellidoPaterno");
-            tutorAcademico.setApellidoPaterno(apellidoPaterno);
-            apellidoMaterno = resultSet.getString("apellidoMaterno");
-            tutorAcademico.setApellidoMaterno(apellidoMaterno);
-            correoInstitucional = resultSet.getString("correoInstitucional");
-            tutorAcademico.setCorreoInstitucional(correoInstitucional);
-            correoPersonal = resultSet.getString("correoPersonal");
-            tutorAcademico.setCorreoPersonal(correoPersonal);
+            nombre = resultSet.getString("nombreTutorAcademico");
+            personaTutorAcademico.setNombre(nombre);
+            apellidoPaterno = resultSet.getString("apellidoPaternoTutorAcademico");
+            personaTutorAcademico.setApellidoPaterno(apellidoPaterno);
+            apellidoMaterno = resultSet.getString("apellidoMaternoTutorAcademico");
+            personaTutorAcademico.setApellidoMaterno(apellidoMaterno);
+            correoInstitucional = resultSet.getString("correoInstitucionalTutorAcademico");
+            personaTutorAcademico.setCorreoInstitucional(correoInstitucional);
+            correoPersonal = resultSet.getString("correoPersonalTutorAcademico");
+            personaTutorAcademico.setCorreoPersonal(correoPersonal);
+            tutorAcademico.setPersona(personaTutorAcademico);
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -21,8 +21,10 @@ public class ProgramaEducativoDAOTest {
         String searchName = "I";
         ProgramaEducativoDAO programaEducativoDao = new ProgramaEducativoDAO();
         List<ProgramaEducativo> expResult = new ArrayList<>();
-        ProgramaEducativo programaEducativo1 = new ProgramaEducativo(1,"INGENIERÍA DE SOFTWARE");
+        ProgramaEducativo programaEducativo1 = new ProgramaEducativo("INGENIERÍA DE SOFTWARE");
         expResult.add(programaEducativo1);
+        ProgramaEducativo programaEducativo2 = new ProgramaEducativo("TECNOLOGÍAS COMPUTACIONALES");
+        expResult.add(programaEducativo2);
         List<ProgramaEducativo> result = programaEducativoDao.findProgramasEducativosByName(searchName);
         boolean listasIguales = true;
         for (int i=0; i<result.size(); i++) {
@@ -39,7 +41,7 @@ public class ProgramaEducativoDAOTest {
         System.out.println("findProgramaEducativoById");
         int idProgramaEducativo = 1;
         ProgramaEducativoDAO programaEducativoDao = new ProgramaEducativoDAO();
-        ProgramaEducativo programaEducativoEsperado = new ProgramaEducativo(1,"INGENIERÍA DE SOFTWARE");
+        ProgramaEducativo programaEducativoEsperado = new ProgramaEducativo("INGENIERÍA DE SOFTWARE");
         ProgramaEducativo programaEducativoObtenido = programaEducativoDao.findProgramaEducativoById(idProgramaEducativo);
         assertTrue(programaEducativoEsperado.equals(programaEducativoObtenido));
     }

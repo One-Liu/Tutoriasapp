@@ -7,15 +7,17 @@ public class ProgramaEducativo {
     
     // Constructors of uv.fei.tutorias.domain.ProgramaEducativo
     public ProgramaEducativo() {
+        this.idProgramaEducativo = 0;
         this.nombre = "";
-    }
-    
-    public ProgramaEducativo(String nombre) {
-        this.nombre = nombre;
     }
     
     public ProgramaEducativo(int idProgramaEducativo, String nombre) {
         this.idProgramaEducativo = idProgramaEducativo;
+        this.nombre = nombre;
+    }
+    
+    public ProgramaEducativo(String nombre) {
+        this.idProgramaEducativo = 0;
         this.nombre = nombre;
     }
     

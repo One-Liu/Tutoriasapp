@@ -143,27 +143,49 @@ public class PersonaDAO implements IPersonaDAO {
     
     // author @liu
     public int addPersonaReturnId(Persona persona) {
+        // Para evitar duplicidad de información (registrar 2 veces a una misma persona)
+        int idPersona = findIdPersonaByGivenData(persona);
+        if (idPersona == -1) {
+            DataBaseConnection dataBaseConnection = new DataBaseConnection();
+            try (Connection connection = dataBaseConnection.getConnection()) {
+                String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES (?,?,?,?,?)";
+                PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                statement.setString(1, persona.getNombre());
+                statement.setString(2, persona.getApellidoPaterno());
+                statement.setString(3, persona.getApellidoMaterno());
+                statement.setString(4, persona.getCorreoInstitucional());
+                statement.setString(5, persona.getCorreoPersonal());
+                statement.executeUpdate();
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if(resultSet.next()) {
+                    idPersona = resultSet.getInt(1);
+                    System.out.println("Persona agregada");
+                } else {
+                    throw new SQLException("ERROR: La persona no se ha agregado");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return idPersona;
+    }
+    
+    // author @liu
+    public int findIdPersonaByGivenData(Persona persona) {
+        int idPersona = -1;
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES (?,?,?,?,?)";
-            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, persona.getNombre());
-            statement.setString(2, persona.getApellidoPaterno());
-            statement.setString(3, persona.getApellidoMaterno());
-            statement.setString(4, persona.getCorreoInstitucional());
-            statement.setString(5, persona.getCorreoPersonal());
-            statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if(resultSet.next()) {
-                int idPersona = resultSet.getInt(1);
-                System.out.println("Persona agregada");
-                return idPersona;
-            } else {
-                throw new SQLException("ERROR: La persona no se ha agregado");
+            String query = "SELECT (idPersona) FROM Persona WHERE CONCAT(nombre, \" \", apellidoPaterno, \" \", apellidoMaterno) = ? && correoInstitucional = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+            statement.setString(2, persona.getCorreoInstitucional());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() != false) {
+                idPersona = resultSet.getInt("idPersona");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return idPersona;
     }
 }

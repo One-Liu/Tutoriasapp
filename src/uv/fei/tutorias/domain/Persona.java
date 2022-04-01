@@ -10,11 +10,12 @@ public class Persona {
     private String correoPersonal;
 
     public Persona() {
-        nombre = "";
-        apellidoPaterno = "";
-        apellidoMaterno = "";
-        correoInstitucional = "";
-        correoPersonal = "";
+        this.idPersona = 0;
+        this.nombre = "";
+        this.apellidoPaterno = "";
+        this.apellidoMaterno = "";
+        this.correoInstitucional = "";
+        this.correoPersonal = "";
     }
 
     public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, String correoInstitucional, String correoPersonal) {
@@ -27,6 +28,7 @@ public class Persona {
     }
 
     public Persona(String nombre, String apellidoPaterno, String apellidoMaterno, String correoInstitucional, String correoPersonal) {
+        this.idPersona = 0;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -88,7 +90,8 @@ public class Persona {
     public boolean equals(Object obj) {
         if(obj instanceof Persona) {
             Persona tmpPersona = (Persona)obj;
-            if(this.idPersona == tmpPersona.getIdPersona() && this.nombre.equals(tmpPersona.getNombre()) 
+            if(this.idPersona == tmpPersona.getIdPersona() 
+                    && this.nombre.equals(tmpPersona.getNombre()) 
                     && this.apellidoPaterno.equals(tmpPersona.getApellidoPaterno()) 
                     && this.apellidoMaterno.equals(tmpPersona.getApellidoMaterno()) 
                     && this.correoInstitucional.equals(tmpPersona.getCorreoInstitucional())
