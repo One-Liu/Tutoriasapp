@@ -4,7 +4,7 @@ package uv.fei.tutorias.domain;
 public class ExperienciaEducativa {
     private int idExperienciaEducativa;
     private String nombre;
-    private int idProfesor;
+    private Profesor profesor;
 
     // Getters of uv.fei.tutorias.domain.ExperienciaEducativa
     public int getIdExperienciaEducativa() {
@@ -15,8 +15,8 @@ public class ExperienciaEducativa {
         return nombre;
     }
 
-    public int getIdProfesor() {
-        return idProfesor;
+    public Profesor getProfesor() {
+        return profesor;
     }
 
     // Setters of uv.fei.tutorias.domain.ExperienciaEducativa
@@ -28,7 +28,7 @@ public class ExperienciaEducativa {
         this.nombre = nombre;
     }
 
-    public void setIdProfesor(int idProfesor) {
-        this.idProfesor = idProfesor;
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 }

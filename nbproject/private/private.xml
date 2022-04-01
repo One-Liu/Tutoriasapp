@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/src/uv/fei/tutorias/domain/ProgramaEducativo.java</file>
             <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/src/uv/fei/tutorias/bussinesslogic/TutorAcademicoDAO.java</file>
-            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/src/uv/fei/tutorias/bussinesslogic/ProgramaEducativoDAO.java</file>
-            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/test/uv/fei/tutorias/bussinesslogic/TutorAcademicoDAOTest.java</file>
-            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/test/uv/fei/tutorias/bussinesslogic/ProgramaEducativoDAOTest.java</file>
+            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/src/uv/fei/tutorias/bussinesslogic/PersonaDAO.java</file>
+            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/src/uv/fei/tutorias/bussinesslogic/PeriodoEscolarDAO.java</file>
+            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/src/uv/fei/tutorias/bussinesslogic/EstudianteDAO.java</file>
+            <file>file:/C:/Users/rocks/Desktop/Tutoriasapp/test/uv/fei/tutorias/bussinesslogic/PeriodoEscolarDAOTest.java</file>
         </group>
     </open-files>
 </project-private>

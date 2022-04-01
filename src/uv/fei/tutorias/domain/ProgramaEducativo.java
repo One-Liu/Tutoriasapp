@@ -3,20 +3,20 @@ package uv.fei.tutorias.domain;
 // author @liu
 public class ProgramaEducativo {
     private int idProgramaEducativo;
-    private String nombreProgramaEducativo;
+    private String nombre;
     
     // Constructors of uv.fei.tutorias.domain.ProgramaEducativo
     public ProgramaEducativo() {
-        this.nombreProgramaEducativo = "";
+        this.nombre = "";
     }
     
-    public ProgramaEducativo(String nombreProgramaEducativo) {
-        this.nombreProgramaEducativo = nombreProgramaEducativo;
+    public ProgramaEducativo(String nombre) {
+        this.nombre = nombre;
     }
     
-    public ProgramaEducativo(int idProgramaEducativo, String nombreProgramaEducativo) {
+    public ProgramaEducativo(int idProgramaEducativo, String nombre) {
         this.idProgramaEducativo = idProgramaEducativo;
-        this.nombreProgramaEducativo = nombreProgramaEducativo;
+        this.nombre = nombre;
     }
     
     // Getters of uv.fei.tutorias.domain.ProgramaEducativo
@@ -24,8 +24,8 @@ public class ProgramaEducativo {
         return idProgramaEducativo;
     }
 
-    public String getNombreProgramaEducativo() {
-        return nombreProgramaEducativo;
+    public String getNombre() {
+        return nombre;
     }
 
     // Setters of uv.fei.tutorias.domain.ProgramaEducativo
@@ -33,8 +33,8 @@ public class ProgramaEducativo {
         this.idProgramaEducativo = idProgramaEducativo;
     }
 
-    public void setNombreProgramaEducativo(String nombreProgramaEducativo) {
-        this.nombreProgramaEducativo = nombreProgramaEducativo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     @Override
@@ -42,7 +42,7 @@ public class ProgramaEducativo {
         if(obj instanceof ProgramaEducativo) {
             ProgramaEducativo tmpProgramaEducativo = (ProgramaEducativo)obj;
             if(this.idProgramaEducativo == tmpProgramaEducativo.getIdProgramaEducativo() 
-                    && this.nombreProgramaEducativo.equals(tmpProgramaEducativo.getNombreProgramaEducativo())) {
+                    && this.nombre.equals(tmpProgramaEducativo.getNombre())) {
                 return true;
             }
         }

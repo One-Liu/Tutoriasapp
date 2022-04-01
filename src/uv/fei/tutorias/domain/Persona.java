@@ -6,32 +6,32 @@ public class Persona {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private String telefono;
     private String correoInstitucional;
+    private String correoPersonal;
 
     public Persona() {
         nombre = "";
         apellidoPaterno = "";
         apellidoMaterno = "";
-        telefono = "";
         correoInstitucional = "";
+        correoPersonal = "";
     }
 
-    public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correoInstitucional) {
+    public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, String correoInstitucional, String correoPersonal) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
         this.correoInstitucional = correoInstitucional;
+        this.correoPersonal = correoPersonal;
     }
 
-    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correoInstitucional) {
+    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno, String correoInstitucional, String correoPersonal) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
         this.correoInstitucional = correoInstitucional;
+        this.correoPersonal = correoPersonal;
     }
     
     // Getters of uv.fei.tutorias.domain.Persona
@@ -51,12 +51,12 @@ public class Persona {
         return apellidoMaterno;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
     public String getCorreoInstitucional() {
         return correoInstitucional;
+    }
+
+    public String getCorreoPersonal() {
+        return correoPersonal;
     }
 
     // Setters of uv.fei.tutorias.domain.Persona
@@ -76,12 +76,12 @@ public class Persona {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public void setCorreoInstitucional(String correoInstitucional) {
         this.correoInstitucional = correoInstitucional;
+    }
+
+    public void setCorreoPersonal(String correoPersonal) {
+        this.correoPersonal = correoPersonal;
     }
     
     @Override
@@ -89,8 +89,10 @@ public class Persona {
         if(obj instanceof Persona) {
             Persona tmpPersona = (Persona)obj;
             if(this.idPersona == tmpPersona.getIdPersona() && this.nombre.equals(tmpPersona.getNombre()) 
-                    && this.apellidoPaterno.equals(tmpPersona.getApellidoPaterno()) && this.apellidoMaterno.equals(tmpPersona.getApellidoMaterno())
-                    && this.telefono.equals(tmpPersona.getTelefono()) && this.correoInstitucional.equals(tmpPersona.getCorreoInstitucional())) {
+                    && this.apellidoPaterno.equals(tmpPersona.getApellidoPaterno()) 
+                    && this.apellidoMaterno.equals(tmpPersona.getApellidoMaterno()) 
+                    && this.correoInstitucional.equals(tmpPersona.getCorreoInstitucional())
+                    && this.correoPersonal.equals(tmpPersona.getCorreoPersonal())) {
                 return true;
             }
         }

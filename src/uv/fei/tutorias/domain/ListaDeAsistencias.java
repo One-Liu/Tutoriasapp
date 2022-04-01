@@ -3,20 +3,20 @@ package uv.fei.tutorias.domain;
 // author @liu
 public class ListaDeAsistencias {
     private int idListaDeAsistencias;
-    private int idSesionDeTutoriaAcademica;
-    private int idEstudiante;
+    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
+    private Estudiante estudiante;
 
     // Getters of uv.fei.tutorias.domain.ListaDeAsistencias
     public int getIdListaDeAsistencias() {
         return idListaDeAsistencias;
     }
 
-    public int getIdSesionDeTutoriaAcademica() {
-        return idSesionDeTutoriaAcademica;
+    public SesionDeTutoriaAcademica getSesionDeTutoriaAcademica() {
+        return sesionDeTutoriaAcademica;
     }
 
-    public int getIdEstudiante() {
-        return idEstudiante;
+    public Estudiante getEstudiante() {
+        return estudiante;
     }
 
     // Setters of uv.fei.tutorias.domain.ListaDeAsistencias
@@ -24,11 +24,11 @@ public class ListaDeAsistencias {
         this.idListaDeAsistencias = idListaDeAsistencias;
     }
 
-    public void setIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
-        this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
+    public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
-        this.idEstudiante = idEstudiante;
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 }

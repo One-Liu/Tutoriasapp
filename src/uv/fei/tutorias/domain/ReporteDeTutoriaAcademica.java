@@ -4,8 +4,8 @@ package uv.fei.tutorias.domain;
 public class ReporteDeTutoriaAcademica {
     private int idReporteDeTutoriaAcademica;
     private String descripcionGeneral;
-    private int idSesionDeTutoriaAcademica;
-    private int idTutorAcademico;
+    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
+    private TutorAcademico tutorAcademico;
 
     // Getters of uv.fei.tutorias.domain.ReporteDeTutoriaAcademica
     public int getIdReporteDeTutoriaAcademica() {
@@ -16,28 +16,28 @@ public class ReporteDeTutoriaAcademica {
         return descripcionGeneral;
     }
 
-    public int getIdSesionDeTutoriaAcademica() {
-        return idSesionDeTutoriaAcademica;
+    public SesionDeTutoriaAcademica getSesionDeTutoriaAcademica() {
+        return sesionDeTutoriaAcademica;
     }
 
-    public int getIdTutorAcademico() {
-        return idTutorAcademico;
+    public TutorAcademico getTutorAcademico() {
+        return tutorAcademico;
     }
 
     // Setters of uv.fei.tutorias.domain.ReporteDeTutoriaAcademica
-    public void setIdReporteDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
-        this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
+    public void setIdReporteDeTutoriaAcademica(int idReporteDeTutoriaAcademica) {
+        this.idReporteDeTutoriaAcademica = idReporteDeTutoriaAcademica;
     }
 
     public void setDescripcionGeneral(String descripcionGeneral) {
         this.descripcionGeneral = descripcionGeneral;
     }
 
-    public void setIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
-        this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
+    public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
     }
 
-    public void setIdTutorAcademico(int idTutorAcademico) {
-        this.idTutorAcademico = idTutorAcademico;
+    public void setTutorAcademico(TutorAcademico tutorAcademico) {
+        this.tutorAcademico = tutorAcademico;
     }
 }

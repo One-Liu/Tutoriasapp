@@ -3,15 +3,15 @@ package uv.fei.tutorias.domain;
 // author @liu
 public class Profesor {
     private int idProfesor;
-    private int idPersona;
+    private Persona persona;
 
     // Getters of uv.fei.tutorias.domain.Profesor
     public int getIdProfesor() {
         return idProfesor;
     }
 
-    public int getIdPersona() {
-        return idPersona;
+    public Persona getPersona() {
+        return persona;
     }
 
     // Setters of uv.fei.tutorias.domain.Profesor
@@ -19,7 +19,7 @@ public class Profesor {
         this.idProfesor = idProfesor;
     }
 
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 }

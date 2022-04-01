@@ -3,20 +3,20 @@ package uv.fei.tutorias.domain;
 // author @liu
 public class Coordinador {
     private int idCoordinador;
-    private int idPersona;
-    private int idProgramaEducativo;
+    private Persona persona;
+    private ProgramaEducativo programaEducativo;
 
     // Getters of uv.fei.tutorias.domain.Coordinador
     public int getIdCoordinador() {
         return idCoordinador;
     }
 
-    public int getIdPersona() {
-        return idPersona;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public int getIdProgramaEducativo() {
-        return idProgramaEducativo;
+    public ProgramaEducativo getProgramaEducativo() {
+        return programaEducativo;
     }
 
     // Setters of uv.fei.tutorias.domain.Coordinador
@@ -24,11 +24,11 @@ public class Coordinador {
         this.idCoordinador = idCoordinador;
     }
 
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
-    public void setIdProgramaEducativo(int idProgramaEducativo) {
-        this.idProgramaEducativo = idProgramaEducativo;
+    public void setProgramaEducativo(ProgramaEducativo programaEducativo) {
+        this.programaEducativo = programaEducativo;
     }
 }

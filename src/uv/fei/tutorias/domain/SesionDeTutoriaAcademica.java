@@ -4,8 +4,7 @@ package uv.fei.tutorias.domain;
 public class SesionDeTutoriaAcademica {
     private int idSesionDeTutoriaAcademica;
     private String fecha;
-    private String hora;
-    private int idPeriodoEscolar;
+    private PeriodoEscolar periodoEscolar;
 
     // Getters of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
     public int getIdSesionDeTutoriaAcademica() {
@@ -16,12 +15,8 @@ public class SesionDeTutoriaAcademica {
         return fecha;
     }
 
-    public String getHora() {
-        return hora;
-    }
-
-    public int getIdPeriodoEscolar() {
-        return idPeriodoEscolar;
+    public PeriodoEscolar getPeriodoEscolar() {
+        return periodoEscolar;
     }
 
     // Setters of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
@@ -33,11 +28,7 @@ public class SesionDeTutoriaAcademica {
         this.fecha = fecha;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-
-    public void setIdPeriodoEscolar(int idPeriodoEscolar) {
-        this.idPeriodoEscolar = idPeriodoEscolar;
+    public void setPeriodoEscolar(PeriodoEscolar periodoEscolar) {
+        this.periodoEscolar = periodoEscolar;
     }
 }

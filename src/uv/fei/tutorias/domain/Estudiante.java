@@ -4,9 +4,9 @@ package uv.fei.tutorias.domain;
 public class Estudiante {
     private int idEstudiante;
     private String matricula;
-    private int idPersona;
-    private int idTutorAcademico;
-    private int idProgramaEducativo;
+    private Persona persona;
+    private TutorAcademico tutorAcademico;
+    private ProgramaEducativo programaEducativo;
 
     // Getters of uv.fei.tutorias.domain.Estudiante
     public int getIdEstudiante() {
@@ -17,16 +17,16 @@ public class Estudiante {
         return matricula;
     }
 
-    public int getIdPersona() {
-        return idPersona;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public int getIdTutorAcademico() {
-        return idTutorAcademico;
+    public TutorAcademico getTutorAcademico() {
+        return tutorAcademico;
     }
 
-    public int getIdProgramaEducativo() {
-        return idProgramaEducativo;
+    public ProgramaEducativo getProgramaEducativo() {
+        return programaEducativo;
     }
 
     // Setters of uv.fei.tutorias.domain.Estudiante
@@ -38,15 +38,15 @@ public class Estudiante {
         this.matricula = matricula;
     }
 
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
-    public void setIdTutorAcademico(int idTutorAcademico) {
-        this.idTutorAcademico = idTutorAcademico;
+    public void setTutorAcademico(TutorAcademico tutorAcademico) {
+        this.tutorAcademico = tutorAcademico;
     }
 
-    public void setIdProgramaEducativo(int idProgramaEducativo) {
-        this.idProgramaEducativo = idProgramaEducativo;
+    public void setProgramaEducativo(ProgramaEducativo programaEducativo) {
+        this.programaEducativo = programaEducativo;
     }
 }
