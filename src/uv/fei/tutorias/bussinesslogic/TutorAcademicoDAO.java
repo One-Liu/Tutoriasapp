@@ -101,8 +101,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         String nombre = "";
         String apellidoPaterno = "";
         String apellidoMaterno = "";
-        String telefono = "";
         String correoInstitucional = "";
+        String correoPersonal = "";
         Persona tutorAcademico = new Persona();
         try {
             idTutorAcademico = resultSet.getInt("idTutorAcademico");
@@ -113,10 +113,10 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             tutorAcademico.setApellidoPaterno(apellidoPaterno);
             apellidoMaterno = resultSet.getString("apellidoMaterno");
             tutorAcademico.setApellidoMaterno(apellidoMaterno);
-            telefono = resultSet.getString("telefono");
-            tutorAcademico.setTelefono(telefono);
             correoInstitucional = resultSet.getString("correoInstitucional");
             tutorAcademico.setCorreoInstitucional(correoInstitucional);
+            correoPersonal = resultSet.getString("correoPersonal");
+            tutorAcademico.setCorreoPersonal(correoPersonal);
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

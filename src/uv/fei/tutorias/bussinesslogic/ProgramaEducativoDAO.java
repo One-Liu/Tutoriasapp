@@ -21,7 +21,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         List<ProgramaEducativo> programasEducativos = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM ProgramaEducativo WHERE nombreProgramaEducativo LIKE ?";
+            String query = "SELECT * FROM ProgramaEducativo WHERE nombre LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -60,9 +60,9 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
     public boolean addProgramaEducativo(ProgramaEducativo programaEducativo) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO ProgramaEducativo (nombreProgramaEducativo) VALUES (?)";
+            String query = "INSERT INTO ProgramaEducativo (nombre) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, programaEducativo.getNombreProgramaEducativo());
+            statement.setString(1, programaEducativo.getNombre());
             int affectedRows = statement.executeUpdate();
             if(affectedRows != 0) {
                 System.out.println("Programa Educativo added");
@@ -98,13 +98,13 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
     
     public ProgramaEducativo getProgramaEducativo(ResultSet resultSet) {
         int idProgramaEducativo = 0;
-        String nombreProgramaEducativo = "";
+        String nombre = "";
         ProgramaEducativo programaEducativo = new ProgramaEducativo();
         try {
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
             programaEducativo.setIdProgramaEducativo(idProgramaEducativo);
-            nombreProgramaEducativo = resultSet.getString("nombreProgramaEducativo");
-            programaEducativo.setNombreProgramaEducativo(nombreProgramaEducativo);
+            nombre = resultSet.getString("nombre");
+            programaEducativo.setNombre(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

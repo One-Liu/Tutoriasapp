@@ -31,22 +31,22 @@ public class PersonaDAO implements IPersonaDAO {
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                String telefono = "";
                 String correoInstitucional = "";
+                String correoPersonal = "";
                 do {
                     idPersona = resultSet.getInt("idPersona");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    telefono = resultSet.getString("telefono");
                     correoInstitucional = resultSet.getString("correoInstitucional");
+                    correoPersonal = resultSet.getString("correoPersonal");
                     Persona persona = new Persona();
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
-                    persona.setTelefono(telefono);
                     persona.setCorreoInstitucional(correoInstitucional);
+                    persona.setCorreoPersonal(correoPersonal);
                     personas.add(persona);
                 } while (resultSet.next());
             }
@@ -72,22 +72,22 @@ public class PersonaDAO implements IPersonaDAO {
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                String telefono = "";
                 String correoInstitucional = "";
+                String correoPersonal = "";
                 do {
                     idPersona = resultSet.getInt("idPersona");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    telefono = resultSet.getString("telefono");
                     correoInstitucional = resultSet.getString("correoInstitucional");
+                    correoPersonal = resultSet.getString("correoPersonal");
 
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
-                    persona.setTelefono(telefono);
                     persona.setCorreoInstitucional(correoInstitucional);
+                    persona.setCorreoPersonal(correoPersonal);
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
@@ -101,13 +101,13 @@ public class PersonaDAO implements IPersonaDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
 
-            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, telefono, correoInstitucional) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES (?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, persona.getNombre());
             statement.setString(2, persona.getApellidoPaterno());
             statement.setString(3, persona.getApellidoMaterno());
-            statement.setString(4,persona.getTelefono());
-            statement.setString(5,persona.getCorreoInstitucional());
+            statement.setString(4,persona.getCorreoInstitucional());
+            statement.setString(5,persona.getCorreoPersonal());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: La persona no se ha agregado");
@@ -145,13 +145,13 @@ public class PersonaDAO implements IPersonaDAO {
     public int addPersonaReturnId(Persona persona) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, telefono, correoInstitucional) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES (?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, persona.getNombre());
             statement.setString(2, persona.getApellidoPaterno());
             statement.setString(3, persona.getApellidoMaterno());
-            statement.setString(4,persona.getTelefono());
-            statement.setString(5,persona.getCorreoInstitucional());
+            statement.setString(4, persona.getCorreoInstitucional());
+            statement.setString(5, persona.getCorreoPersonal());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if(resultSet.next()) {
