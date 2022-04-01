@@ -31,7 +31,7 @@ public class Tutoriasapp extends Application {
             public void handle(ActionEvent event) {
                 PersonaDAO personaDao = new PersonaDAO();
                 Persona persona = personaDao.findPersonaById(1);
-                System.out.println(String.format("Person found: %s %s %s %d",persona.getApellidoPaterno(), persona.getNombre(), persona.getTelefono(), persona.getIdPersona()));
+                System.out.println(String.format("Person found: %s %s %s %d",persona.getApellidoPaterno(), persona.getNombre(), persona.getIdPersona()));
             }
         });
         
@@ -43,7 +43,7 @@ public class Tutoriasapp extends Application {
             public void handle(ActionEvent event) {
                 TutorAcademicoDAO tutorAcademico = new TutorAcademicoDAO();
                 Persona tutor = tutorAcademico.findTutorAcademicoById(1);
-                System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getTelefono(), tutor.getCorreoInstitucional()));
+                System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getCorreoInstitucional()));
             }
         });
         
@@ -57,7 +57,7 @@ public class Tutoriasapp extends Application {
                 List<Persona> tutoresAcademicos = new ArrayList<>();
                 tutoresAcademicos = tutorAcademico.findTutoresAcademicosByName("A");
                 for(Persona tutor : tutoresAcademicos) {
-                    System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getTelefono(), tutor.getCorreoInstitucional()));
+                    System.out.println(String.format("Tutor Academico found: %d %s %s %s %s %s", tutor.getIdPersona(), tutor.getNombre(), tutor.getApellidoPaterno(), tutor.getApellidoMaterno(), tutor.getCorreoInstitucional()));
                 }
             }
         });
