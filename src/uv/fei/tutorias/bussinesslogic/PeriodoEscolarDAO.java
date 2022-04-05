@@ -33,12 +33,15 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             }
         } catch(SQLException ex) {
             Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return periodosEscolares;
         }
-        return periodosEscolares;
     }
 
     @Override
     public PeriodoEscolar findPeriodoEscolarById(int idPeriodoEscolar) {
+        PeriodoEscolar periodoEscolar = new PeriodoEscolar();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
             String query = "SELECT * FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
@@ -48,11 +51,13 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             if (resultSet.next() == false) {
                 throw new SQLException("Periodo Escolar not found");
             }
-            return getPeriodoEscolar(resultSet);
+            periodoEscolar = getPeriodoEscolar(resultSet);
         } catch (SQLException ex) {
             Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return periodoEscolar;
         }
-        return null;
     }
 
     @Override
@@ -64,6 +69,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             statement.setString(1, periodoEscolar.getFechaInicio());
             statement.setString(2, periodoEscolar.getFechaTermino());
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows != 0) {
                 System.out.println("Periodo Escolar added");
                 return true;
@@ -84,6 +90,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows != 0) {
                 System.out.println("Periodo Escolar deleted");
                 return true;
@@ -110,7 +117,8 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             periodoEscolar.setFechaTermino(fechaTermino);
         } catch (SQLException ex) {
             Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return periodoEscolar;
         }
-        return periodoEscolar;
     }
 }

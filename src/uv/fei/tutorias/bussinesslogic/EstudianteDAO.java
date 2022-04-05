@@ -34,7 +34,7 @@ public class EstudianteDAO implements IEstudianteDAO {
                 "LEFT JOIN ProgramaEducativo PE ON PE.idProgramaEducativo = E.idProgramaEducativo\n" +
                 "LEFT JOIN TutorAcademico TA ON TA.idTutorAcademico = E.idTutorAcademico\n" +
                 "LEFT JOIN Persona PTA ON TA.idPersona = PTA.idPersona\n" +
-                "WHERE CONCAT(nombre,\" \", apellidoPaterno,\" \",apellidoMaterno) LIKE ?";
+                "WHERE CONCAT(P.nombre,\" \", P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -47,12 +47,15 @@ public class EstudianteDAO implements IEstudianteDAO {
             }
         } catch(SQLException ex) {
             Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return estudiantes;
         }
-        return estudiantes;
     }
 
     @Override
     public Estudiante findEstudianteById(int idEstudiante) {
+        Estudiante estudiante = new Estudiante();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
             String query = "SELECT E.matricula, P.nombre AS nombreEstudiante, P.apellidoPaterno AS apellidoPaternoEstudiante, P.apellidoMaterno AS apellidoMaternoEstudiante, P.correoInstitucional AS correoInstitucionalEstudiante, P.correoPersonal AS correoPersonalEstudiante, PE.nombre AS nombreProgramaEducativo, PTA.nombre AS nombreTutorAcademico, PTA.apellidoPaterno AS apellidoPaternoTutorAcademico, PTA.apellidoMaterno AS apellidoMaternoTutorAcademico, PTA.correoInstitucional AS correoInstitucionalTutorAcademico, PTA.correoPersonal AS correoPersonalTutorAcademico FROM Estudiante E LEFT JOIN Persona P ON P.idPersona = E.idPersona LEFT JOIN ProgramaEducativo PE ON PE.idProgramaEducativo = E.idProgramaEducativo LEFT JOIN TutorAcademico TA ON TA.idTutorAcademico = E.idTutorAcademico LEFT JOIN Persona PTA ON TA.idPersona = PTA.idPersona WHERE idEstudiante = ?";
@@ -62,11 +65,13 @@ public class EstudianteDAO implements IEstudianteDAO {
             if(resultSet.next() == false) {
                 throw new SQLException("Estudiante not found");
             }
-            return getEstudiante(resultSet);
+            estudiante = getEstudiante(resultSet);
         } catch(SQLException ex) {
             Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return estudiante;
         }
-        return null;
     }
 
     @Override
@@ -81,6 +86,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             statement.setInt(3, estudiante.getProgramaEducativo().getIdProgramaEducativo());
             statement.setInt(4, personaDao.addPersonaReturnId(estudiante.getPersona()));
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: Estudiante not added");
             } else {
@@ -101,6 +107,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idEstudiante);
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: Estudiante not deleted");
             } else {
@@ -146,7 +153,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             estudiante.setTutorAcademico(tutorAcademico);
         } catch(SQLException ex) {
             Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return estudiante;
         }
-        return estudiante;
     }
 }

@@ -1,6 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,13 +21,24 @@ public class EstudianteDAOTest {
     @Test
     public void testFindEstudianteByName() {
         System.out.println("findEstudianteByName");
-        String searchName = "";
-        EstudianteDAO instance = new EstudianteDAO();
-        List<Estudiante> expResult = null;
-        List<Estudiante> result = instance.findEstudianteByName(searchName);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // ¿POR QUÉ ME MARCA BIEN LA PRUEBA?
+        String searchName = "MAX";
+        Persona personaEstudiante1 = new Persona("JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ","zS20015728@estudiantes.uv.mx","lesterhero2002@gmail.com");
+        Persona personaTutorAcademico1 = new Persona("MAX WILLIAM","MILLAN","MARTINEZ","mmillan@uv.mx","maxMillan@gmail.com");
+        TutorAcademico tutorAcademico1 = new TutorAcademico(personaTutorAcademico1);
+        ProgramaEducativo programaEducativo1 = new ProgramaEducativo("INGENIERÍA DE SOFTWARE");
+        Estudiante estudianteEsperado1 = new Estudiante("S20015728", personaEstudiante1, tutorAcademico1, programaEducativo1);
+        List<Estudiante> estudiantesEsperados = new ArrayList<>();
+        estudiantesEsperados.add(estudianteEsperado1);
+        EstudianteDAO estudianteDao = new EstudianteDAO();
+        List<Estudiante> estudiantesObtenidos = estudianteDao.findEstudianteByName(searchName);
+        boolean listasIguales = true;
+        for (int i=0; i<estudiantesObtenidos.size(); i++) {
+            if (estudiantesObtenidos.get(i).equals(estudiantesEsperados.get(i)) == false) {
+                listasIguales = false;
+            }
+        }
+        assertTrue(listasIguales);
     }
     
     // Test of findEstudianteById method, of class EstudianteDAO.

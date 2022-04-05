@@ -35,12 +35,15 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return programasEducativos;
         }
-        return programasEducativos;
     }
 
     @Override
     public ProgramaEducativo findProgramaEducativoById(int idProgramaEducativo) {
+        ProgramaEducativo programaEducativo = new ProgramaEducativo();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
             String query = "SELECT nombre AS nombreProgramaEducativo \n" +
@@ -52,11 +55,13 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             if (resultSet.next() == false) {
                 throw new SQLException("Programa Educativo not found");
             }
-            return getProgramaEducativo(resultSet);
+            programaEducativo = getProgramaEducativo(resultSet);
         } catch (SQLException ex) {
             Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return programaEducativo;
         }
-        return null;
     }
 
     @Override
@@ -67,6 +72,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, programaEducativo.getNombre());
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows != 0) {
                 System.out.println("Programa Educativo added");
                 return true;
@@ -87,6 +93,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProgramaEducativo);
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows != 0) {
                 System.out.println("Programa Educativo deleted");
                 return true;
@@ -107,7 +114,8 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             programaEducativo.setNombre(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return programaEducativo;
         }
-        return programaEducativo;
     }
 }

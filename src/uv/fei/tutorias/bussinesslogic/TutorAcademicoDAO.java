@@ -37,12 +37,15 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return tutores;
         }
-        return tutores;
     }
     
     @Override
     public TutorAcademico findTutorAcademicoById(int idTutorAcademico) {
+        TutorAcademico tutorAcademico = new TutorAcademico();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
             String query = "SELECT P.nombre AS nombreTutorAcademico, P.apellidoPaterno AS apellidoPaternoTutorAcademico, P.apellidoMaterno AS apellidoMaternoTutorAcademico,\n" +
@@ -56,11 +59,13 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             if (resultSet.next() == false) {
                 throw new SQLException("Tutor Academico not found");
             }
-            return getTutorAcademico(resultSet);
+            tutorAcademico = getTutorAcademico(resultSet);
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return tutorAcademico;
         }
-        return null;
     }
     
     @Override
@@ -72,6 +77,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, personaDao.addPersonaReturnId(tutorAcademico));
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows != 0) {
                 System.out.println("Tutor Academico added");
                 return true;
@@ -92,6 +98,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idTutorAcademico);
             int affectedRows = statement.executeUpdate();
+            dataBaseConnection.cerrarConexion();
             if(affectedRows != 0) {
                 System.out.println("Tutor Academico deleted");
                 return true;
@@ -126,7 +133,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             tutorAcademico.setPersona(personaTutorAcademico);
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return tutorAcademico;
         }
-        return tutorAcademico;
     }
 }
