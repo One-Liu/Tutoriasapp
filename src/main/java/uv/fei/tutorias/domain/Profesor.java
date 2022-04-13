@@ -4,23 +4,33 @@ package uv.fei.tutorias.domain;
 
 public class Profesor {
     private int idProfesor;
-    private int idPersona;
+    private Persona persona;
+
+    public Profesor(int idProfesor, Persona persona) {
+        this.idProfesor = idProfesor;
+        this.persona = persona;
+    }
+
+    public Profesor() {
+
+    }
 
     // Getters of uv.fei.tutorias.domain.Profesor
     public int getIdProfesor() {
         return idProfesor;
     }
 
-    public int getIdPersona() {
-        return idPersona;
-    }
 
     // Setters of uv.fei.tutorias.domain.Profesor
     public void setIdProfesor(int idProfesor) {
         this.idProfesor = idProfesor;
     }
 
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 }

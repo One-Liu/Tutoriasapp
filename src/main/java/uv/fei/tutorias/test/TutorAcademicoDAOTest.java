@@ -5,18 +5,15 @@
  */
 package uv.fei.tutorias.test;
 
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.Persona;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 // author @liu
  
@@ -69,13 +66,14 @@ public class TutorAcademicoDAOTest {
         assertTrue(result);
     }
 
+
     /**
      * Test of deleteTutorAcademicoById method, of class TutorAcademicoDAO.
      */
     @Test
     public void testDeleteTutorAcademicoById() {
         System.out.println("deleteTutorAcademicoById");
-        int idTutorAcademico = 7;
+        int idTutorAcademico = 11;
         TutorAcademicoDAO tutorAcademicoDao = new TutorAcademicoDAO();
         boolean result = tutorAcademicoDao.deleteTutorAcademicoById(idTutorAcademico);
         assertFalse(result);

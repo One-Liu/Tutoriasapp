@@ -5,13 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d406e7-aa38-4a71-ae65-b2f5515e0cf0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7e454147-4283-4655-8ba7-3b9e7d495457.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7e454147-4283-4655-8ba7-3b9e7d495457/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7e454147-4283-4655-8ba7-3b9e7d495457/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7e454147-4283-4655-8ba7-3b9e7d495457/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7e454147-4283-4655-8ba7-3b9e7d495457/storage_v2/_src_/schema/sys.zb4BAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f36a265a-86e0-4caf-bae8-bd362740e127.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f36a265a-86e0-4caf-bae8-bd362740e127/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f36a265a-86e0-4caf-bae8-bd362740e127/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f36a265a-86e0-4caf-bae8-bd362740e127/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f36a265a-86e0-4caf-bae8-bd362740e127/storage_v2/_src_/schema/sys.zb4BAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_2_0_0_alpha7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_2_0_0_alpha7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/IProfesorDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/ProfesorDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/test/ProfesorDaoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/IProfesorDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/ProfesorDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/test/ProfesorDaoTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TutoriasApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TutoriasApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/main/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/main/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/bussinesslogic/PersonaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Persona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Profesor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/domain/Profesor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/main/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/main/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/test/PersonaDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/test/PersonaDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/test/TutorAcademicoDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uv/fei/tutorias/test/TutorAcademicoDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/App.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/HelloController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/PersonaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/PersonaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/bussinesslogic/PersonaDAOTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Persona.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Persona.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Profesor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/domain/Profesor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/main/App$OKButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/main/App$OKButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/main/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/main/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/test/PersonaDAOTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/test/PersonaDAOTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/test/TutorAcademicoDAOTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uv/fei/tutorias/test/TutorAcademicoDAOTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +60,9 @@
         <option value="AnnotationType" />
         <option value="JUnit3 Test Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="JUnit4 Test Class" />
+        <option value="Tag Library Descriptor" />
         <option value="Class" />
       </list>
     </option>
@@ -55,29 +94,39 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect" value="SQL92" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3" value="junit.framework.TestCase" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/resources" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.28.jar" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/modulos 4/slf4j-simple-1.0.jar" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.37586206" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.junit.jupiter.api" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\paulo\IdeaProjects\Tutoriasapp\src\main" />
+      <recent name="C:\Users\paulo\IdeaProjects\Tutoriasapp\src" />
+      <recent name="C:\Users\paulo\IdeaProjects\Tutoriasapp\src\main\resources" />
+      <recent name="C:\Users\paulo\IdeaProjects\Tutoriasapp\src\main\resources\main" />
       <recent name="C:\Users\paulo\IdeaProjects\Tutoriasapp\src\main\java\uv\fei\tutorias" />
-      <recent name="C:\Users\paulo\IdeaProjects\TutoriasApp\src\main\java\uv\fei\tutorias" />
-      <recent name="C:\Users\paulo\IdeaProjects\TutoriasApp\src\main\java" />
-      <recent name="C:\Users\paulo\IdeaProjects\TutoriasApp\src\main\java\uv\fei\tutorias\tutoriasapp" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -88,11 +137,12 @@
       <recent name="uv.fei.tutorias" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="test" />
+      <recent name="uv.fei.tutorias.test" />
       <recent name="uv.fei.tutorias.bussinesslogic" />
+      <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="JUnit.PersonaDAOTest.addPerson">
     <configuration name="App$OKButton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.main.App$OKButton" />
       <module name="tutoriasapp" />
@@ -129,7 +179,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonaDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonaDAOTest.addPerson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tutoriasapp" />
       <extension name="coverage">
         <pattern>
@@ -139,28 +189,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="uv.fei.tutorias.test" />
       <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.test.PersonaDAOTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PersonaDAOTest.probarText" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tutoriasapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="uv.fei.tutorias.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="uv.fei.tutorias.test" />
-      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.test.PersonaDAOTest" />
-      <option name="METHOD_NAME" value="probarText" />
+      <option name="METHOD_NAME" value="addPerson" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TutorAcademicoDAOTest.verTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonaDAOTest.findPersonById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tutoriasapp" />
       <extension name="coverage">
         <pattern>
@@ -169,8 +204,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="uv.fei.tutorias.test" />
-      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.test.TutorAcademicoDAOTest" />
-      <option name="METHOD_NAME" value="verTest" />
+      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.test.PersonaDAOTest" />
+      <option name="METHOD_NAME" value="findPersonById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfesorDaoTest.addProfesor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tutoriasapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uv.fei.tutorias.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uv.fei.tutorias.test" />
+      <option name="MAIN_CLASS_NAME" value="uv.fei.tutorias.test.ProfesorDaoTest" />
+      <option name="METHOD_NAME" value="addProfesor" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -178,11 +229,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PersonaDAOTest.addPerson" />
         <item itemvalue="Application.App" />
         <item itemvalue="Application.App$OKButton" />
-        <item itemvalue="JUnit.TutorAcademicoDAOTest.verTest" />
-        <item itemvalue="JUnit.PersonaDAOTest.probarText" />
-        <item itemvalue="JUnit.PersonaDAOTest" />
+        <item itemvalue="JUnit.PersonaDAOTest.findPersonById" />
+        <item itemvalue="JUnit.ProfesorDaoTest.addProfesor" />
       </list>
     </recent_temporary>
   </component>
@@ -203,7 +254,14 @@
       <workItem from="1647565301613" duration="3585000" />
       <workItem from="1647741548215" duration="3221000" />
       <workItem from="1648604366924" duration="4945000" />
-      <workItem from="1648756846631" duration="1691000" />
+      <workItem from="1648756846631" duration="9351000" />
+      <workItem from="1648783840730" duration="3632000" />
+      <workItem from="1648828829304" duration="18288000" />
+      <workItem from="1649114766706" duration="1788000" />
+      <workItem from="1649119070390" duration="3648000" />
+      <workItem from="1649196626246" duration="4959000" />
+      <workItem from="1649379175766" duration="13261000" />
+      <workItem from="1649457376018" duration="1314000" />
     </task>
     <servers />
   </component>

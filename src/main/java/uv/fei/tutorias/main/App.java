@@ -1,6 +1,7 @@
 
 package uv.fei.tutorias.main;
 
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +19,7 @@ public class App {
             Button btn = new Button("OK");
             Scene scene = new Scene(btn, 200, 250);
             stage.setScene(scene);
-            stage.show();
         }
     }
+
 }

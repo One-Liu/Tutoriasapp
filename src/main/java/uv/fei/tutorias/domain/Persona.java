@@ -11,6 +11,24 @@ public class Persona {
     private String apellidoMaterno;
     private String telefono;
     private String correoInstitucional;
+    private String correoPersonal;
+
+    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correoInstitucional, String correoPersonal) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
+        this.correoInstitucional = correoInstitucional;
+        this.correoPersonal = correoPersonal;
+    }
+
+    public String getCorreoPersonal() {
+        return correoPersonal;
+    }
+
+    public void setCorreoPersonal(String correoPersonal) {
+        this.correoPersonal = correoPersonal;
+    }
 
     public Persona() {
         nombre = "";
@@ -89,16 +107,22 @@ public class Persona {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Persona)) return false;
-        Persona persona = (Persona) o;
-        return getIdPersona() == persona.getIdPersona()
-                && Objects.equals(getNombre(), persona.getNombre())
-                && Objects.equals(getApellidoPaterno(), persona.getApellidoPaterno())
-                && Objects.equals(getApellidoMaterno(), persona.getApellidoMaterno())
-                && Objects.equals(getTelefono(), persona.getTelefono())
-                && Objects.equals(getCorreoInstitucional(), persona.getCorreoInstitucional());
+    public boolean equals(Object obj) {
+        if(obj instanceof Persona) {
+            Persona tmpPersona = (Persona)obj;
+            if(this.idPersona == tmpPersona.getIdPersona() && this.nombre.equals(tmpPersona.getNombre())
+                    && this.apellidoPaterno.equals(tmpPersona.getApellidoPaterno()) && this.apellidoMaterno.equals(tmpPersona.getApellidoMaterno())
+                    && this.telefono.equals(tmpPersona.getTelefono()) && this.correoInstitucional.equals(tmpPersona.getCorreoInstitucional())) {
+                return true;
+            }
+        }else {
+            return false;
+        }
+        return false;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdPersona(), getNombre(), getApellidoPaterno(), getApellidoMaterno(), getTelefono(), getCorreoInstitucional());
+    }
 }

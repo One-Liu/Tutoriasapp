@@ -1,5 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Persona;
 
@@ -10,10 +12,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class PersonaDAO implements IPersonaDAO {
+
+    private final Logger log = LoggerFactory.getLogger(PersonaDAO.class);
 
     @Override
     public List<Persona> findPersonsByName(String searchName) {
@@ -24,22 +27,21 @@ public class PersonaDAO implements IPersonaDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+            if (!resultSet.next()) {
                 throw new SQLException("Persona not found");
             } else {
                 int idPersona = 0;
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                int edad = 0;
                 String telefono = "";
                 String correoInstitucional = "";
+                String correoPersonal = "";
                 do {
                     idPersona = resultSet.getInt("idPersona");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    edad = resultSet.getInt("edad");
                     telefono = resultSet.getString("telefono");
                     correoInstitucional = resultSet.getString("correoInstitucional");
                     Persona persona = new Persona();
@@ -53,7 +55,9 @@ public class PersonaDAO implements IPersonaDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
         }
         return personas;
     }
@@ -73,15 +77,14 @@ public class PersonaDAO implements IPersonaDAO {
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                int edad = 0;
                 String telefono = "";
                 String correoInstitucional = "";
+                String correoPersona = "";
                 do {
                     idPersona = resultSet.getInt("idPersona");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    edad = resultSet.getInt("edad");
                     telefono = resultSet.getString("telefono");
                     correoInstitucional = resultSet.getString("correoInstitucional");
 
@@ -94,7 +97,9 @@ public class PersonaDAO implements IPersonaDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
         }
         return persona;
 
@@ -102,22 +107,26 @@ public class PersonaDAO implements IPersonaDAO {
 
     @Override
     public boolean addPerson(Persona persona) {
+//        log.info("Hola mundo");
+        log.info("Agregando persona: {}" ,persona.getNombre());
+
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-
-            String query = "INSERT INTO persona(nombre, apellidoMaterno, apellidoPaterno, telefono, correoInstitucional) VALUES(?,?,?,?,?,?)";
+            String query = "INSERT INTO persona(nombre, apellidoMaterno, apellidoPaterno, correoInstitucional, correoPersonal) VALUES(?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, persona.getNombre());
             statement.setString(2, persona.getApellidoMaterno());
             statement.setString(3, persona.getApellidoPaterno());
-            statement.setString(5,persona.getTelefono());
-            statement.setString(6,persona.getCorreoInstitucional());
+            statement.setString(4,persona.getCorreoInstitucional());
+            statement.setString(5,persona.getCorreoPersonal());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: La persona no se ha agregado");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            dataBaseConnection.cerrarConexion();
         }
         return true;
     }
@@ -138,7 +147,9 @@ public class PersonaDAO implements IPersonaDAO {
                 System.out.println("Persona eliminada satisfactoriamente");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
         }
         return true;
     }
@@ -164,7 +175,9 @@ public class PersonaDAO implements IPersonaDAO {
                 throw new SQLException("ERROR: La persona no se ha agregado");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            dataBaseConnection.cerrarConexion();
         }
         return 0;
     }
@@ -183,7 +196,9 @@ public class PersonaDAO implements IPersonaDAO {
             }
             idPersona = resultSet.getInt("idPersona");
         } catch (SQLException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
         }
         return idPersona;
     }
