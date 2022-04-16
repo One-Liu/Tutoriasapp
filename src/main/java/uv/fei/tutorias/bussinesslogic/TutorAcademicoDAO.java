@@ -112,7 +112,6 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             persona.setNombre(nombre);
             persona.setApellidoPaterno(apellidoPaterno);
             persona.setApellidoMaterno(apellidoMaterno);
-            persona.setTelefono(telefono);
             persona.setCorreoInstitucional(correoInstitucional);
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);

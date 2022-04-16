@@ -16,21 +16,7 @@ import java.util.List;
 public class PersonaDAO implements IPersonaDAO {
 
     private final Logger log = Logger.getLogger(PersonaDAO.class);
-    public void runMe(String parameter){
 
-        if(log.isDebugEnabled()){
-            log.debug("This is debug : " + parameter);
-        }
-
-        if(log.isInfoEnabled()){
-            log.info("This is info : " + parameter);
-        }
-
-        log.warn("This is warn : " + parameter);
-        log.error("This is error : " + parameter);
-        log.fatal("This is fatal : " + parameter);
-
-    }
 
     @Override
     public List<Persona> findPersonsByName(String searchName) {
@@ -48,7 +34,6 @@ public class PersonaDAO implements IPersonaDAO {
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                String telefono = "";
                 String correoInstitucional = "";
                 String correoPersonal = "";
                 do {
@@ -56,15 +41,16 @@ public class PersonaDAO implements IPersonaDAO {
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    telefono = resultSet.getString("telefono");
                     correoInstitucional = resultSet.getString("correoInstitucional");
+                    correoPersonal = resultSet.getString("correoPersonal");
+
                     Persona persona = new Persona();
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
-                    persona.setTelefono(telefono);
                     persona.setCorreoInstitucional(correoInstitucional);
+                    persona.setCorreoPersonal(correoPersonal);
                     personas.add(persona);
                 } while (resultSet.next());
             }
@@ -91,22 +77,22 @@ public class PersonaDAO implements IPersonaDAO {
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                String telefono = "";
                 String correoInstitucional = "";
+                String correoPersonal = "";
                 do {
                     idPersona = resultSet.getInt("idPersona");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    telefono = resultSet.getString("telefono");
                     correoInstitucional = resultSet.getString("correoInstitucional");
+                    correoPersonal = resultSet.getString("correoPersonal");
 
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
-                    persona.setTelefono(telefono);
                     persona.setCorreoInstitucional(correoInstitucional);
+                    persona.setCorreoPersonal(correoPersonal);
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
@@ -120,14 +106,13 @@ public class PersonaDAO implements IPersonaDAO {
 
     @Override
     public boolean addPerson(Persona persona) {
-
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO persona(nombre, apellidoMaterno, apellidoPaterno, correoInstitucional, correoPersonal) VALUES(?,?,?,?,?)";
+            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES(?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, persona.getNombre());
-            statement.setString(2, persona.getApellidoMaterno());
-            statement.setString(3, persona.getApellidoPaterno());
+            statement.setString(2, persona.getApellidoPaterno());
+            statement.setString(3, persona.getApellidoMaterno());
             statement.setString(4,persona.getCorreoInstitucional());
             statement.setString(5,persona.getCorreoPersonal());
             int executeUpdate = statement.executeUpdate();
@@ -135,7 +120,7 @@ public class PersonaDAO implements IPersonaDAO {
                 throw new SQLException("ERROR: La persona no se ha agregado");
             }
         } catch (SQLException ex) {
-//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -158,7 +143,7 @@ public class PersonaDAO implements IPersonaDAO {
                 System.out.println("Persona eliminada satisfactoriamente");
             }
         } catch (SQLException ex) {
-//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -169,13 +154,13 @@ public class PersonaDAO implements IPersonaDAO {
     public int addPersonaReturnId(Persona persona) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, telefono, correoInstitucional) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES (?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, persona.getNombre());
             statement.setString(2, persona.getApellidoPaterno());
             statement.setString(3, persona.getApellidoMaterno());
-            statement.setString(4,persona.getTelefono());
-            statement.setString(5,persona.getCorreoInstitucional());
+            statement.setString(4,persona.getCorreoInstitucional());
+            statement.setString(5,persona.getCorreoPersonal());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if(resultSet.next()) {
@@ -186,7 +171,7 @@ public class PersonaDAO implements IPersonaDAO {
                 throw new SQLException("ERROR: La persona no se ha agregado");
             }
         } catch (SQLException ex) {
-//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -207,7 +192,7 @@ public class PersonaDAO implements IPersonaDAO {
             }
             idPersona = resultSet.getInt("idPersona");
         } catch (SQLException ex) {
-//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
