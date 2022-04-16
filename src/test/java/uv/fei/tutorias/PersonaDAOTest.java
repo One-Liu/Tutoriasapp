@@ -34,8 +34,11 @@ public class PersonaDAOTest {
         PersonaDAO personaDAO = new PersonaDAO();
         boolean result = personaDAO.deletePersonById(74);
         assertTrue(result);
-
-
+    }
+    @Test
+    public void runme(){
+        PersonaDAO personaDAO = new PersonaDAO();
+        personaDAO.runMe("Holaj");
     }
 
 

@@ -1,4 +1,4 @@
-package uv.fei.tutorias.test;
+package uv.fei.tutorias;
 
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.ProfesorDao;

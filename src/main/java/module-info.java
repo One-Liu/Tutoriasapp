@@ -5,8 +5,7 @@ module uv.fei.tutorias {
     requires junit;
     requires org.junit.jupiter.api;
     requires org.testng;
-    requires slf4j.simple;
-
+    requires log4j;
 
 
     exports uv.fei.tutorias.bussinesslogic to test.uv.fei.tutorias ;

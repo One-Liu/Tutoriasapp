@@ -1,7 +1,6 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Persona;
 
@@ -16,7 +15,22 @@ import java.util.List;
 
 public class PersonaDAO implements IPersonaDAO {
 
-    private final Logger log = LoggerFactory.getLogger(PersonaDAO.class);
+    private final Logger log = Logger.getLogger(PersonaDAO.class);
+    public void runMe(String parameter){
+
+        if(log.isDebugEnabled()){
+            log.debug("This is debug : " + parameter);
+        }
+
+        if(log.isInfoEnabled()){
+            log.info("This is info : " + parameter);
+        }
+
+        log.warn("This is warn : " + parameter);
+        log.error("This is error : " + parameter);
+        log.fatal("This is fatal : " + parameter);
+
+    }
 
     @Override
     public List<Persona> findPersonsByName(String searchName) {
@@ -79,7 +93,6 @@ public class PersonaDAO implements IPersonaDAO {
                 String apellidoMaterno = "";
                 String telefono = "";
                 String correoInstitucional = "";
-                String correoPersona = "";
                 do {
                     idPersona = resultSet.getInt("idPersona");
                     nombre = resultSet.getString("nombre");
@@ -107,8 +120,6 @@ public class PersonaDAO implements IPersonaDAO {
 
     @Override
     public boolean addPerson(Persona persona) {
-//        log.info("Hola mundo");
-        log.info("Agregando persona: {}" ,persona.getNombre());
 
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
