@@ -8,9 +8,12 @@ module uv.fei.tutorias {
     requires slf4j.simple;
 
 
-    exports uv.fei.tutorias.test to junit;
-    exports uv.fei.tutorias.bussinesslogic to org.slf4j;
+
+    exports uv.fei.tutorias.bussinesslogic to test.uv.fei.tutorias ;
+    exports uv.fei.tutorias.dataaccess to  test.uv.fei.tutorias;
+    exports uv.fei.tutorias.domain to  test.uv.fei.tutorias;
     opens uv.fei.tutorias.bussinesslogic;
     opens uv.fei.tutorias.main to javafx.fxml;
     exports uv.fei.tutorias.main;
+
 }
