@@ -64,11 +64,13 @@ local.properties
 ##############################
 ## NetBeans
 ##############################
+nbproject/
 nbproject/private/
 build/
 nbbuild/
 dist/
 nbdist/
+manifest.mf
 nbactions.xml
 nb-configuration.xml
 
@@ -82,3 +84,7 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+##############################
+## log
+##############################
+log/
