@@ -14,15 +14,15 @@ public class PersonaDAOTest {
     @Test
     public void findPersonById() {
         System.out.println("personaDao.findPersonById");
-        Persona persona = new Persona(27,"Paulo", "Hernandez", "Rosado", "2282522839", "zs20020854");
+        Persona persona = new Persona("Paulo", "Gutierrez", "Rosado", "zs20020854@estudiantes.uv.mx", "paulocesarhero@gmail.com");
         PersonaDAO personaDAO = new PersonaDAO();
-        assertTrue(persona.equals(personaDAO.findPersonById(27)));
+        assertTrue(persona.equals(personaDAO.findPersonById(77)));
     }
 
     @Test
     public void addPerson() {
         System.out.println("personaDao.addPerson");
-        Persona persona = new Persona("Paulo", "Gutierrez", "Rosado", "2282522839", "zs20020854@estudiantes.uv.mx", "paulocesarhero@gmail.com");
+        Persona persona = new Persona("Paulo", "Gutierrez", "Rosado", "zs20020854@estudiantes.uv.mx", "paulocesarhero@gmail.com");
         PersonaDAO personaDAO = new PersonaDAO();
         boolean result = personaDAO.addPerson(persona);
         assertTrue(result);
@@ -48,7 +48,7 @@ public class PersonaDAOTest {
         String searchName = "Dani";
         PersonaDAO personaDAO = new PersonaDAO();
         List<Persona> expectedResult = new ArrayList<>();
-        Persona persona1 = new Persona(7,"Daniela","Hernandez", "Gutierrez", "2112", "cxczxc@sdasd.com");
+        Persona persona1 = new Persona(7,"Daniela","Hernandez", "Gutierrez", "cxczxc@sdasd.com");
         expectedResult.add(persona1);
         List<Persona> result = personaDAO.findPersonsByName(searchName);
         boolean listasIguales = false;

@@ -69,7 +69,7 @@ public class PersonaDAO implements IPersonaDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -110,7 +110,7 @@ public class PersonaDAO implements IPersonaDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-//            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
