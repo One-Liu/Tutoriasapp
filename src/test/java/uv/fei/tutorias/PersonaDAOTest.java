@@ -1,4 +1,4 @@
-package uv.fei.tutorias.test;
+package uv.fei.tutorias;
 
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.PersonaDAO;
@@ -22,7 +22,7 @@ public class PersonaDAOTest {
     @Test
     public void addPerson() {
         System.out.println("personaDao.addPerson");
-        Persona persona = new Persona("Paulo", "Hernandez", "Rosado", "2282522839", "zs20020854@estudiantes.uv.mx", "paulocesarhero@gmail.com");
+        Persona persona = new Persona("Paulo", "Gutierrez", "Rosado", "2282522839", "zs20020854@estudiantes.uv.mx", "paulocesarhero@gmail.com");
         PersonaDAO personaDAO = new PersonaDAO();
         boolean result = personaDAO.addPerson(persona);
         assertTrue(result);
@@ -32,7 +32,7 @@ public class PersonaDAOTest {
     public void deletePersonById() {
         System.out.println("personaDao.deletePersonByID");
         PersonaDAO personaDAO = new PersonaDAO();
-        boolean result = personaDAO.deletePersonById(28);
+        boolean result = personaDAO.deletePersonById(74);
         assertTrue(result);
 
 
