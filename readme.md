@@ -1,4 +1,4 @@
-# Este es el brench de Paulo
+# Este es el branch de Paulo
 
 ## Los dao que me tocan implementar son
 + Persona
