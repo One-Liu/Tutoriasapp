@@ -9,10 +9,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+
+
 
 public class ProfesorDao implements IProfesorDao{
+    private final Logger log = Logger.getLogger(PersonaDAO.class);
+
+    @Override
+    public boolean addProfesor(Persona profesor) {
+        PersonaDAO personaDao = new PersonaDAO();
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            if (personaDao.addPerson(profesor)) {
+                String query = "INSERT INTO profesor (Persona_idPersona) VALUES ( ?)";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, personaDao.findIdPersona(profesor));
+                statement.executeUpdate();
+                return true;
+            }
+        } catch (SQLException ex) {
+            log.warn(PersonaDAO.class.getName(), ex);
+        }
+        return false;
+    }
+
 
     @Override
     public List<Profesor> findProfesoresByName(String searchName) {
@@ -32,11 +53,36 @@ public class ProfesorDao implements IProfesorDao{
             }
             return getProfesor(resultSet);
         } catch(SQLException ex) {
-            Logger.getLogger(ProfesorDao.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         }
         return null;
 
     }
+
+
+
+
+    @Override
+    public boolean deleteProfesorById(int idProfesor) {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()) {
+
+            String query = "DELETE FROM profesor WHERE (idProfesor = ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idProfesor);
+
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate == 0) {
+                throw new SQLException("ERROR: No se ha eliminado ningun profesor");
+            } else {
+                System.out.println("Profesor eliminada satisfactoriamente");
+            }
+        } catch (SQLException ex) {
+            log.warn(PersonaDAO.class.getName(), ex);
+        }
+        return true;
+    }
+
 
     private Profesor getProfesor(ResultSet resultSet) {
         Profesor profesor = new Profesor();
@@ -60,47 +106,9 @@ public class ProfesorDao implements IProfesorDao{
             profesor.getPersona().setCorreoPersonal(correoPersonalPersona);
 
         } catch(SQLException ex) {
-            Logger.getLogger(ProfesorDao.class.getName()).log(Level.SEVERE, null, ex);
+            log.warn(PersonaDAO.class.getName(), ex);
         }
         return profesor;
-}
-
-    @Override
-    public boolean addProfesor(Persona profesor) {
-        PersonaDAO personaDao = new PersonaDAO();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
-            if (personaDao.addPerson(profesor)) {
-                String query = "INSERT INTO profesor (Persona_idPersona) VALUES ( ?)";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, personaDao.findIdPersona(profesor));
-                statement.executeUpdate();
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
     }
 
-    @Override
-    public boolean deleteProfesorById(int idProfesor) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
-
-            String query = "DELETE FROM profesor WHERE (idProfesor = ?)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idProfesor);
-
-            int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0) {
-                throw new SQLException("ERROR: No se ha eliminado ningun profesor");
-            } else {
-                System.out.println("Profesor eliminada satisfactoriamente");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return true;
-    }
 }
