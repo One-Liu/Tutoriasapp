@@ -54,7 +54,7 @@ public class PersonaDAOTest {
     @Test
     public void addPerson() {
         System.out.println("personaDao.addPerson");
-        Persona persona = new Persona("Paulo", "Blandon", "Rocord", "zs20020854@estudiantes.uv.mx", "paulocesarhero@gmail.com");
+        Persona persona = new Persona("Joshua", "Hernandez", "Rocord", "zs20020854@estudiantes.uv.mx", "paulocesarhero@gmail.com");
         PersonaDAO personaDAO = new PersonaDAO();
         boolean result = personaDAO.addPerson(persona);
         assertTrue(result);

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -34,32 +35,48 @@ public class ProfesorDao implements IProfesorDao{
         return false;
     }
 
-
-    @Override
-    public List<Profesor> findProfesoresByName(String searchName) {
-        return null;
-    }
-
     @Override
     public Profesor findProfesorById(int idProfesor) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT E.matricula, P.nombre AS nombreEstudiante, P.apellidoPaterno AS apellidoPaternoEstudiante, P.apellidoMaterno AS apellidoMaternoEstudiante, P.correoInstitucional AS correoInstitucionalEstudiante, P.correoPersonal AS correoPersonalEstudiante, PE.nombre AS nombreProgramaEducativo, PTA.nombre AS nombreTutorAcademico, PTA.apellidoPaterno AS apellidoPaternoTutorAcademico, PTA.apellidoMaterno AS apellidoMaternoTutorAcademico, PTA.correoInstitucional AS correoInstitucionalTutorAcademico, PTA.correoPersonal AS correoPersonalTutorAcademico FROM Estudiante E LEFT JOIN Persona P ON P.idPersona = E.idPersona LEFT JOIN ProgramaEducativo PE ON PE.idProgramaEducativo = E.idProgramaEducativo LEFT JOIN TutorAcademico TA ON TA.idTutorAcademico = E.idTutorAcademico LEFT JOIN Persona PTA ON TA.idPersona = PTA.idPersona WHERE idEstudiante = ?";
+            String query = "Select PROFE.idProfesor, P.*  from profesor PROFE left join persona P on P.idPersona = PROFE.Persona_idPersona where idProfesor = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProfesor);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
-                throw new SQLException("Estudiante not found");
+                throw new SQLException("Profesor not found");
             }
             return getProfesor(resultSet);
         } catch(SQLException ex) {
             log.warn(PersonaDAO.class.getName(), ex);
         }
         return null;
-
     }
 
 
+    @Override
+    public List<Profesor> findProfesoresByName(String searchName) {
+        List<Profesor> profesors = new ArrayList<>();
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()){
+            String query = "SELECT p.*, profe.idProfesor From profesor profe Left Join persona p on p.idPersona = profe.Persona_idPersona Where nombre sounds like ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, searchName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() == false){
+                throw new SQLException("Profesores not found");
+            } else {
+                do {
+                    profesors.add(getProfesor(resultSet));
+                }while (resultSet.next());
+            }
+        } catch (SQLException e) {
+            log.warn(PersonaDAO.class.getName(), e);
+        }
+
+
+        return profesors;
+    }
 
 
     @Override

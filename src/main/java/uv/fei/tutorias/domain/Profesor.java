@@ -12,6 +12,8 @@ public class Profesor {
     }
 
     public Profesor() {
+        this.idProfesor = 0;
+        this.persona = new Persona();
 
     }
 
