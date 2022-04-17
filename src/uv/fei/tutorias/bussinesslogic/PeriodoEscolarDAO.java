@@ -20,7 +20,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         List<PeriodoEscolar> periodosEscolares = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM PeriodoEscolar WHERE FechaInicio LIKE ?";
+            String query = "SELECT fechaInicio, fechaTermino FROM PeriodoEscolar WHERE FechaInicio LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + date + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -44,7 +44,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         PeriodoEscolar periodoEscolar = new PeriodoEscolar();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
+            String query = "SELECT fechaInicio, fechaTermino FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             ResultSet resultSet = statement.executeQuery();
@@ -104,13 +104,10 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
     }
     
     public PeriodoEscolar getPeriodoEscolar(ResultSet resultSet) {
-        int idPeriodoEscolar = 0;
         String fechaInicio = "";
         String fechaTermino = "";
         PeriodoEscolar periodoEscolar = new PeriodoEscolar();
         try {
-            idPeriodoEscolar = resultSet.getInt("idPeriodoEscolar");
-            periodoEscolar.setIdPeriodoEscolar(idPeriodoEscolar);
             fechaInicio = resultSet.getString("fechaInicio");
             periodoEscolar.setFechaInicio(fechaInicio);
             fechaTermino = resultSet.getString("fechaTermino");

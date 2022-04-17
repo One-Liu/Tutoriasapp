@@ -6,6 +6,24 @@ public class FechaDeCierreEntregaReporte {
     private String fecha;
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica;
     
+    public FechaDeCierreEntregaReporte() {
+        this.idFechaDeCierreEntregaReporte = 0;
+        this.fecha = "";
+        this.reporteDeTutoriaAcademica = null;
+    }
+    
+    public FechaDeCierreEntregaReporte(int idFechaDeCierreEntregaReporte, String fecha, ReporteDeTutoriaAcademica reporteDeTutoriaAcademica) {
+        this.idFechaDeCierreEntregaReporte = idFechaDeCierreEntregaReporte;
+        this.fecha = fecha;
+        this.reporteDeTutoriaAcademica = reporteDeTutoriaAcademica;
+    }
+    
+    public FechaDeCierreEntregaReporte(String fecha, ReporteDeTutoriaAcademica reporteDeTutoriaAcademica) {
+        this.idFechaDeCierreEntregaReporte = 0;
+        this.fecha = fecha;
+        this.reporteDeTutoriaAcademica = reporteDeTutoriaAcademica;
+    }
+    
     // Getters of uv.fei.tutorias.domain.FechaDeCierreEntregaReporte
     public int getIdFechaDeCierreEntregaReporte() {
         return idFechaDeCierreEntregaReporte;
@@ -30,5 +48,18 @@ public class FechaDeCierreEntregaReporte {
 
     public void setReporteDeTutoriaAcademica(ReporteDeTutoriaAcademica reporteDeTutoriaAcademica) {
         this.reporteDeTutoriaAcademica = reporteDeTutoriaAcademica;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof FechaDeCierreEntregaReporte) {
+            FechaDeCierreEntregaReporte tmpFechaDeCierreEntregaReporte = (FechaDeCierreEntregaReporte)obj;
+            if(this.idFechaDeCierreEntregaReporte == tmpFechaDeCierreEntregaReporte.getIdFechaDeCierreEntregaReporte()
+                    && this.fecha.equals(tmpFechaDeCierreEntregaReporte.getFecha())
+                    && this.reporteDeTutoriaAcademica.equals(tmpFechaDeCierreEntregaReporte.getReporteDeTutoriaAcademica())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

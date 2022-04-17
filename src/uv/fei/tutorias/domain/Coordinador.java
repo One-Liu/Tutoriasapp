@@ -6,6 +6,24 @@ public class Coordinador {
     private Persona persona;
     private ProgramaEducativo programaEducativo;
 
+    public Coordinador() {
+        this.idCoordinador = 0;
+        this.persona = null;
+        this.programaEducativo = null;
+    }
+    
+    public Coordinador(int idCoordinador, Persona persona, ProgramaEducativo programaEducativo) {
+        this.idCoordinador = idCoordinador;
+        this.persona = persona;
+        this.programaEducativo = programaEducativo;
+    }
+
+    public Coordinador(Persona persona, ProgramaEducativo programaEducativo) {
+        this.idCoordinador = 0;
+        this.persona = persona;
+        this.programaEducativo = programaEducativo;
+    }
+    
     // Getters of uv.fei.tutorias.domain.Coordinador
     public int getIdCoordinador() {
         return idCoordinador;
@@ -30,5 +48,18 @@ public class Coordinador {
 
     public void setProgramaEducativo(ProgramaEducativo programaEducativo) {
         this.programaEducativo = programaEducativo;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Coordinador) {
+            Coordinador tmpCoordinador = (Coordinador)obj;
+            if(this.idCoordinador == tmpCoordinador.getIdCoordinador()
+                    && this.persona.equals(tmpCoordinador.getPersona())
+                    && this.programaEducativo.equals(tmpCoordinador.getProgramaEducativo())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

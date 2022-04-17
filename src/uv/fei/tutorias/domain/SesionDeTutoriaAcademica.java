@@ -6,6 +6,24 @@ public class SesionDeTutoriaAcademica {
     private String fecha;
     private PeriodoEscolar periodoEscolar;
 
+    public SesionDeTutoriaAcademica() {
+        this.idSesionDeTutoriaAcademica = 0;
+        this.fecha = "";
+        this.periodoEscolar = null;
+    }
+
+    public SesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica, String fecha, PeriodoEscolar periodoEscolar) {
+        this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
+        this.fecha = fecha;
+        this.periodoEscolar = periodoEscolar;
+    }
+
+    public SesionDeTutoriaAcademica(String fecha, PeriodoEscolar periodoEscolar) {
+        this.idSesionDeTutoriaAcademica = 0;
+        this.fecha = fecha;
+        this.periodoEscolar = periodoEscolar;
+    }
+    
     // Getters of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
     public int getIdSesionDeTutoriaAcademica() {
         return idSesionDeTutoriaAcademica;
@@ -31,4 +49,19 @@ public class SesionDeTutoriaAcademica {
     public void setPeriodoEscolar(PeriodoEscolar periodoEscolar) {
         this.periodoEscolar = periodoEscolar;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof SesionDeTutoriaAcademica) {
+            SesionDeTutoriaAcademica tmpSesionDeTutoriaAcademica = (SesionDeTutoriaAcademica)obj;
+            if(this.idSesionDeTutoriaAcademica == tmpSesionDeTutoriaAcademica.getIdSesionDeTutoriaAcademica()
+                    && this.fecha.equals(tmpSesionDeTutoriaAcademica.getFecha())
+                    && this.periodoEscolar.equals(tmpSesionDeTutoriaAcademica.getPeriodoEscolar())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
 }

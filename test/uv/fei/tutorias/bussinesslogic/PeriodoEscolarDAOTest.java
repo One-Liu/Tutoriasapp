@@ -13,17 +13,15 @@ import uv.fei.tutorias.domain.PeriodoEscolar;
 
 // author @liu
 public class PeriodoEscolarDAOTest {
-
-    // Test of findPeriodosEscolaresByFechaInicio method, of class PeriodoEscolarDAO.
     @Test
     public void testFindPeriodosEscolaresByFechaInicio() {
         System.out.println("findPeriodosEscolaresByFechaInicio");
         String date = "2022";
         PeriodoEscolarDAO periodoEscolarDao = new PeriodoEscolarDAO();
         List<PeriodoEscolar> periodosEscolaresEsperados = new ArrayList<>();
-        PeriodoEscolar periodoEscolar1 = new PeriodoEscolar(1,"2022-02-01","2022-07-01");
+        PeriodoEscolar periodoEscolar1 = new PeriodoEscolar("2022-02-01","2022-07-01");
         periodosEscolaresEsperados.add(periodoEscolar1);
-        PeriodoEscolar periodoEscolar2 = new PeriodoEscolar(2,"2022-08-01","2023-01-01");
+        PeriodoEscolar periodoEscolar2 = new PeriodoEscolar("2022-08-01","2023-01-01");
         periodosEscolaresEsperados.add(periodoEscolar2);
         List<PeriodoEscolar> periodosEscolaresObtenidos = periodoEscolarDao.findPeriodosEscolaresByFechaInicio(date);
         boolean listasIguales = true;
@@ -35,7 +33,6 @@ public class PeriodoEscolarDAOTest {
         assertTrue(listasIguales);
     }
 
-    // Test of findPeriodoEscolarById method, of class PeriodoEscolarDAO.
     @Test
     public void testFindPeriodoEscolarById() {
         System.out.println("findPeriodoEscolarById");
@@ -46,7 +43,6 @@ public class PeriodoEscolarDAOTest {
         assertTrue(periodoEscolarEsperado.equals(periodoEscolarObtenido));
     }
 
-    // Test of addPeriodoEscolar method, of class PeriodoEscolarDAO.
     @Test
     public void testAddPeriodoEscolar() {
         System.out.println("addPeriodoEscolar");
@@ -56,7 +52,6 @@ public class PeriodoEscolarDAOTest {
         assertTrue(result);
     }
 
-    // Test of deletePeriodoEscolarById method, of class PeriodoEscolarDAO.
     @Test
     public void testDeletePeriodoEscolarById() {
         System.out.println("deletePeriodoEscolarById");

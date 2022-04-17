@@ -16,8 +16,6 @@ import uv.fei.tutorias.domain.TutorAcademico;
 
 // author @liu
 public class EstudianteDAOTest {
-
-    // Test of findEstudianteByName method, of class EstudianteDAO.
     @Test
     public void testFindEstudianteByName() {
         System.out.println("findEstudianteByName");
@@ -41,7 +39,6 @@ public class EstudianteDAOTest {
         assertTrue(listasIguales);
     }
     
-    // Test of findEstudianteById method, of class EstudianteDAO.
     @Test
     public void testFindEstudianteById() {
         System.out.println("findEstudianteById");
@@ -55,8 +52,7 @@ public class EstudianteDAOTest {
         Estudiante estudianteObtenido = estudianteDao.findEstudianteById(idEstudiante);
         assertTrue(estudianteEsperado.equals(estudianteObtenido));
     }
-
-    // Test of addEstudiante method, of class EstudianteDAO.
+    
     @Test
     public void testAddEstudiante() {
         System.out.println("addEstudiante");
@@ -69,8 +65,7 @@ public class EstudianteDAOTest {
         boolean result = estudianteDao.addEstudiante(estudiante);
         assertTrue(result);
     }
-
-    // Test of deleteEstudianteById method, of class EstudianteDAO.
+    
     @Test
     public void testDeleteEstudianteById() {
         System.out.println("deleteEstudianteById");

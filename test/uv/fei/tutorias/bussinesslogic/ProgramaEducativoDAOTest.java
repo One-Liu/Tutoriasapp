@@ -13,8 +13,6 @@ import uv.fei.tutorias.domain.ProgramaEducativo;
 
 // author @liu
 public class ProgramaEducativoDAOTest {
-    
-    // Test of findProgramasEducativosByName method, of class ProgramaEducativoDAO.
     @Test
     public void testFindProgramasEducativosByName() {
         System.out.println("findProgramasEducativosByName");
@@ -34,8 +32,7 @@ public class ProgramaEducativoDAOTest {
         }
         assertTrue(listasIguales);
     }
-
-    // Test of findProgramaEducativoById method, of class ProgramaEducativoDAO.
+    
     @Test
     public void testFindProgramaEducativoById() {
         System.out.println("findProgramaEducativoById");
@@ -45,8 +42,7 @@ public class ProgramaEducativoDAOTest {
         ProgramaEducativo programaEducativoObtenido = programaEducativoDao.findProgramaEducativoById(idProgramaEducativo);
         assertTrue(programaEducativoEsperado.equals(programaEducativoObtenido));
     }
-
-    // Test of addProgramaEducativo method, of class ProgramaEducativoDAO.
+    
     @Test
     public void testAddProgramaEducativo() {
         System.out.println("addProgramaEducativo");
@@ -56,7 +52,6 @@ public class ProgramaEducativoDAOTest {
         assertTrue(result);
     }
 
-    // Test of deleteProgramaEducativoById method, of class ProgramaEducativoDAO.
     @Test
     public void testDeleteProgramaEducativoById() {
         System.out.println("deleteProgramaEducativoById");

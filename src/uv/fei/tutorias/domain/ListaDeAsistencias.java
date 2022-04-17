@@ -6,6 +6,24 @@ public class ListaDeAsistencias {
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
     private Estudiante estudiante;
 
+    public ListaDeAsistencias() {
+        this.idListaDeAsistencias = 0;
+        this.sesionDeTutoriaAcademica = null;
+        this.estudiante = null;
+    }
+
+    public ListaDeAsistencias(int idListaDeAsistencias, SesionDeTutoriaAcademica sesionDeTutoriaAcademica, Estudiante estudiante) {
+        this.idListaDeAsistencias = idListaDeAsistencias;
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
+        this.estudiante = estudiante;
+    }
+
+    public ListaDeAsistencias(SesionDeTutoriaAcademica sesionDeTutoriaAcademica, Estudiante estudiante) {
+        this.idListaDeAsistencias = 0;
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
+        this.estudiante = estudiante;
+    }
+    
     // Getters of uv.fei.tutorias.domain.ListaDeAsistencias
     public int getIdListaDeAsistencias() {
         return idListaDeAsistencias;
@@ -30,5 +48,18 @@ public class ListaDeAsistencias {
 
     public void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ListaDeAsistencias) {
+            ListaDeAsistencias tmpListaDeAsistencias = (ListaDeAsistencias)obj;
+            if(this.idListaDeAsistencias == tmpListaDeAsistencias.getIdListaDeAsistencias()
+                    && this.sesionDeTutoriaAcademica.equals(tmpListaDeAsistencias.getSesionDeTutoriaAcademica())
+                    && this.estudiante.equals(tmpListaDeAsistencias.getEstudiante())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

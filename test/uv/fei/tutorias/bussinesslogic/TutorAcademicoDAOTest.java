@@ -14,8 +14,6 @@ import uv.fei.tutorias.domain.TutorAcademico;
 
 // author @liu
 public class TutorAcademicoDAOTest {
-    
-    // Test of findTutoresAcademicosByName method, of class TutorAcademicoDAO.
     @Test
     public void testFindTutoresAcademicosByName() {
         System.out.println("findTutoresAcademicosByName");
@@ -38,7 +36,6 @@ public class TutorAcademicoDAOTest {
         assertTrue(listasIguales);
     }
     
-    // Test of findTutorAcademicoById method, of class TutorAcademicoDAO.
     @Test
     public void testFindTutorAcademicoById() {
         System.out.println("findTutorAcademicoById");
@@ -50,7 +47,6 @@ public class TutorAcademicoDAOTest {
         assertTrue(tutorAcademicoEsperado.equals(tutorAcademicoObtenido));
     }
     
-    // Test of addTutorAcademico method, of class TutorAcademicoDAO.
     @Test
     public void testAddTutorAcademico() {
         System.out.println("addTutorAcademico");
@@ -60,7 +56,6 @@ public class TutorAcademicoDAOTest {
         assertTrue(result);
     }
 
-    // Test of deleteTutorAcademicoById method, of class TutorAcademicoDAO.
     @Test
     public void testDeleteTutorAcademicoById() {
         System.out.println("deleteTutorAcademicoById");
