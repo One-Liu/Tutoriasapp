@@ -2,7 +2,11 @@ package uv.fei.tutorias;
 
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
+import uv.fei.tutorias.domain.ExperienciaEducativa;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -15,6 +19,33 @@ public class ProblematicaAcademicaDAOTest {
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
         boolean result = problematicaAcademicaDAO.addProblematicaAcademica(problematicaAcademica);
         assertTrue(result);
+    }
+
+    @Test
+    public void findProblematicaAcademicaByDescription(){
+        System.out.println("problematicaAcademicaDAO.findProblematicaAcademicaByDescription()");
+        String searchname = "No entraba a clases";
+        ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
+        ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica(2,searchname,1);
+        List<ProblematicaAcademica> expectedResult = new ArrayList<>();
+        expectedResult.add(problematicaAcademica);
+        List<ProblematicaAcademica> result = problematicaAcademicaDAO.findProblematicaAcademicaByDescription("No entraba a clases");
+        boolean listasIguales = false;
+        for (int i = 0; i < result.size(); i++) {
+            if (result.get(i).equals(expectedResult.get(i))){
+                listasIguales=true;
+            }
+        }
+        for (ProblematicaAcademica pA :
+                result) {
+            System.out.println(pA.getIdProblematicaAcademica() +" " + pA.getDescripcion() + " " + pA.getIdExperienciaEducativa());
+        }  for (ProblematicaAcademica pA :
+                expectedResult) {
+            System.out.println(pA.getIdProblematicaAcademica() +" " + pA.getDescripcion() + " " + pA.getIdExperienciaEducativa());
+        }
+        assertTrue(listasIguales);
+
+
     }
 
 }

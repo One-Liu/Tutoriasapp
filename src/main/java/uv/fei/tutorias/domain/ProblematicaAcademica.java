@@ -50,4 +50,24 @@ public class ProblematicaAcademica {
     public void setIdExperienciaEducativa(int idExperienciaEducativa) {
         this.idExperienciaEducativa = idExperienciaEducativa;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProblematicaAcademica)) return false;
+
+        ProblematicaAcademica that = (ProblematicaAcademica) o;
+
+        if (getIdProblematicaAcademica() != that.getIdProblematicaAcademica()) return false;
+        if (getIdExperienciaEducativa() != that.getIdExperienciaEducativa()) return false;
+        return getDescripcion() != null ? getDescripcion().equals(that.getDescripcion()) : that.getDescripcion() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getIdProblematicaAcademica();
+        result = 31 * result + (getDescripcion() != null ? getDescripcion().hashCode() : 0);
+        result = 31 * result + getIdExperienciaEducativa();
+        return result;
+    }
 }
