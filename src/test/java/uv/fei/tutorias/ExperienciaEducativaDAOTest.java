@@ -11,7 +11,7 @@ public class ExperienciaEducativaDAOTest {
     @Test
     public void addExperienciasEducativas(){
         System.out.println("experienciaEducativaDao.addExperienciaEducativa()");
-        ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa("Mate Discretas",7);
+        ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa("Paradigmas De Programacion",8);
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
         boolean result = experienciaEducativaDAO.addExperienciaEducativa(experienciaEducativa);
         assertTrue(result);
@@ -41,5 +41,12 @@ public class ExperienciaEducativaDAOTest {
 
         }
         assertTrue(listasIguales);
+    }
+    @Test
+    public void deleteExperienciaEducativa(){
+        System.out.println("experienciaEducativaDAO.deleteExperienciaEducativa()");
+        ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
+        boolean result = experienciaEducativaDAO.deleteExperienciaEducativa(2);
+        assertFalse(result);
     }
 }

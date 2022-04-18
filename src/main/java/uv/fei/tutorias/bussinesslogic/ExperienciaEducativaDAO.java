@@ -66,7 +66,23 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
 
     @Override
     public boolean deleteExperienciaEducativa(int searchId) {
-        return false;
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()){
+            String query = "DELETE FROM experienciaeducativa where (idExperienciaEducativa = ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,searchId);
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate == 0){
+                throw new SQLException("Error: No se ha eliminado ninguna experiencia educativa");
+            }else {
+                log.info("Experiencia educativa eliminada con id" + searchId);
+            }
+        } catch (SQLException e) {
+            log.warn(PersonaDAO.class.getName(), e);
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return true;
     }
 
     private ExperienciaEducativa getExperienciaEducativa(ResultSet resultSet){
