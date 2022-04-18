@@ -44,8 +44,16 @@ public class ProblematicaAcademicaDAOTest {
             System.out.println(pA.getIdProblematicaAcademica() +" " + pA.getDescripcion() + " " + pA.getIdExperienciaEducativa());
         }
         assertTrue(listasIguales);
-
-
     }
+
+    @Test
+    public void deleteProblematicaAcademicaById(){
+        System.out.println("problematicaAcademmicaDAO.deleteProblematicaAcademicaById()");
+        ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
+        boolean result = problematicaAcademicaDAO.deleteProblematicaAcademicaById(2);
+        assertTrue(result);
+    }
+
+
 
 }

@@ -76,6 +76,23 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
     @Override
     public boolean deleteProblematicaAcademicaById(int searchId) {
-        return false;
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()){
+            String query = "DELETE FROM problematicaacademica WHERE (idProblematicaAcademica = ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, searchId);
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate == 0){
+                throw new SQLException("Error la problematica academica no se ha eliminado");
+            }else {
+                log.info("Problematica academica eliminada con el id " + searchId);
+            }
+        } catch (SQLException e) {
+            log.warn(PersonaDAO.class.getName(), e);
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+
+        return true;
     }
 }
