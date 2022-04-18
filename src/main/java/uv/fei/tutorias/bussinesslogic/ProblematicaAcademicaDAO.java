@@ -51,7 +51,31 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
     @Override
     public ProblematicaAcademica findProblematicaAcademicaById(int searchId) {
-        return null;
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
+        try (Connection connection = dataBaseConnection.getConnection()){
+            String query = "SELECT * from problematicaacademica where idProblematicaAcademica like ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,"%" + searchId + "%");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() == false){
+                throw new SQLException("Problematica academica not found");
+            }else {
+                int idProblematicaAcademica = 0;
+                String descripcion = "";
+                int idExperienciaEducativa = 0;
+                do {
+                    idProblematicaAcademica = resultSet.getInt("idProblematicaAcademica");
+                    descripcion = resultSet.getString("descripcion");
+                    idExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
+
+
+                }while (resultSet.next());
+            }
+
+        } catch (SQLException e) {
+            log.warn(PersonaDAO.class.getName(), e);
+        }
     }
 
     @Override
