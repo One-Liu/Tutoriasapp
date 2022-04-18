@@ -4,8 +4,8 @@
 + Persona 👌
 + Reporte de tutoría académica 
 + Profesor 👌
-+ Estudiante Problemática Académica
++ Estudiante Problemática Académica 
 + Horario de sesión de tutoría
 + Experiencia educativa 👌
-+ Problemática académica
++ Problemática académica 👌
 + Solución a la problemática académica

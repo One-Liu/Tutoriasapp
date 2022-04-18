@@ -47,11 +47,19 @@ public class ProblematicaAcademicaDAOTest {
     }
 
     @Test
-    public void deleteProblematicaAcademicaById(){
+    public void deleteProblematicaAcademicaById() {
         System.out.println("problematicaAcademmicaDAO.deleteProblematicaAcademicaById()");
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
         boolean result = problematicaAcademicaDAO.deleteProblematicaAcademicaById(2);
         assertTrue(result);
+    }
+
+    @Test
+    public void findProblematicaAcademicaById(){
+        System.out.println(" ProblematicaAcdemicaDAO.findProblematicaAcademicById");
+        ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
+        ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica(4,"No entraba a clases",1);
+        assertTrue(problematicaAcademica.equals(problematicaAcademicaDAO.findProblematicaAcademicaById(4)));
     }
 
 

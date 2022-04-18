@@ -53,6 +53,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     public ProblematicaAcademica findProblematicaAcademicaById(int searchId) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
+
         try (Connection connection = dataBaseConnection.getConnection()){
             String query = "SELECT * from problematicaacademica where idProblematicaAcademica like ?";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -69,18 +70,21 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
                     descripcion = resultSet.getString("descripcion");
                     idExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
 
-
+                    problematicaAcademica.setIdProblematicaAcademica(idProblematicaAcademica);
+                    problematicaAcademica.setDescripcion(descripcion);
+                    problematicaAcademica.setIdExperienciaEducativa(idExperienciaEducativa);
                 }while (resultSet.next());
             }
-
         } catch (SQLException e) {
             log.warn(PersonaDAO.class.getName(), e);
         }
+        return problematicaAcademica;
     }
 
     @Override
     public boolean addProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()){
             String query = "INSERT INTO problematicaacademica(descripcion, ExperienciaEducativa_idExperienciaEducativa) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -90,12 +94,13 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
             if (excecuteUpadate == 0){
                 throw new SQLException("Error problematica academica no se ha agregado");
             }
+            result = true;
         } catch (SQLException e) {
             log.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
-        return true;
+        return result;
     }
 
     @Override
