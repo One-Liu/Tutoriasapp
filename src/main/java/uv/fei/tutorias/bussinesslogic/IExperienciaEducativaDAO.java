@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IExperienciaEducativaDAO {
     public List<ExperienciaEducativa> findExperienciasEducativasByName(String serchName);
-    public ExperienciaEducativa findExperienciaEducativa(int searchId);
+    public ExperienciaEducativa findExperienciaEducativaById(int searchId);
     public boolean addExperienciaEducativa(ExperienciaEducativa experienciaEducativa);
     public boolean deleteExperienciaEducativa(int searchId);
 }

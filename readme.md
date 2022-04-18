@@ -6,6 +6,6 @@
 + Profesor 👌
 + Estudiante Problemática Académica
 + Horario de sesión de tutoría
-+ Experiencia educativa 
++ Experiencia educativa 👌
 + Problemática académica
 + Solución a la problemática académica

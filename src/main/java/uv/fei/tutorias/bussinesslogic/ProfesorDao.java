@@ -49,6 +49,8 @@ public class ProfesorDao implements IProfesorDao{
             return getProfesor(resultSet);
         } catch(SQLException ex) {
             log.warn(PersonaDAO.class.getName(), ex);
+        }finally {
+            dataBaseConnection.cerrarConexion();
         }
         return null;
     }

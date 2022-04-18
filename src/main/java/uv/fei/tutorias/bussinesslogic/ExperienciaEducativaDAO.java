@@ -40,8 +40,26 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     }
 
     @Override
-    public ExperienciaEducativa findExperienciaEducativa(int searchId) {
+    public ExperienciaEducativa findExperienciaEducativaById(int searchId) {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa();
+        try (Connection connection = dataBaseConnection.getConnection()){
+            String query = "SELECT * FROM experienciaeducativa WHERE idExperienciaEducativa like ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + searchId + "%");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() == false){
+                throw new SQLException("Experiencia educativa not found");
+            }else {
+                return getExperienciaEducativa(resultSet);
+            }
+        } catch (SQLException e) {
+            log.warn(PersonaDAO.class.getName(), e);
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
         return null;
+
     }
 
     @Override

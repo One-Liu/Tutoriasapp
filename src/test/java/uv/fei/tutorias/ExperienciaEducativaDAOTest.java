@@ -49,4 +49,15 @@ public class ExperienciaEducativaDAOTest {
         boolean result = experienciaEducativaDAO.deleteExperienciaEducativa(2);
         assertFalse(result);
     }
+
+    @Test
+    public void findExperienciaEducativaById(){
+        System.out.println("experienciaEducativaDAO.findExperienciaEducativaById()");
+        ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa(1, "Mate Discretas", 7);
+        ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
+        assertTrue(experienciaEducativa.equals(experienciaEducativaDAO.findExperienciaEducativaById(1)));
+
+
+    }
+
 }
