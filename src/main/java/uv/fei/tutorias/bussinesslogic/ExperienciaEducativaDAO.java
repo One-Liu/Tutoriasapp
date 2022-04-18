@@ -6,7 +6,9 @@ import uv.fei.tutorias.domain.ExperienciaEducativa;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
@@ -14,7 +16,27 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
 
     @Override
     public List<ExperienciaEducativa> findExperienciasEducativasByName(String serchName) {
-        return null;
+        ArrayList<ExperienciaEducativa> experienciasEducativas = new ArrayList<>();
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()){
+            String query = "SELECT * From experienciaeducativa WHERE nombreEE SOUNDS LIKE ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + serchName + "%");
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()){
+                throw new SQLException("Experiencia educativa not found");
+            }else {
+                do {
+                    experienciasEducativas.add(getExperienciaEducativa(resultSet));
+                }while (resultSet.next());
+            }
+
+        } catch (SQLException e) {
+            log.warn(PersonaDAO.class.getName(), e);
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return experienciasEducativas;
     }
 
     @Override
@@ -45,5 +67,27 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     @Override
     public boolean deleteExperienciaEducativa(int searchId) {
         return false;
+    }
+
+    private ExperienciaEducativa getExperienciaEducativa(ResultSet resultSet){
+        ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa();
+        int idExperienciaEducativa = 0;
+        String nombreEE = "";
+        int profesorIdProfesor = 0;
+        try {
+            idExperienciaEducativa = resultSet.getInt("idExperienciaEducativa");
+            nombreEE = resultSet.getString("nombreEE");
+            profesorIdProfesor = resultSet.getInt("Profesor_idProfesor");
+
+            experienciaEducativa.setIdExperienciaEducativa(idExperienciaEducativa);
+            experienciaEducativa.setNombre(nombreEE);
+            experienciaEducativa.setIdProfesor(profesorIdProfesor);
+
+        } catch (SQLException e) {
+            log.warn(PersonaDAO.class.getName(), e);
+
+        }
+        return experienciaEducativa;
+
     }
 }
