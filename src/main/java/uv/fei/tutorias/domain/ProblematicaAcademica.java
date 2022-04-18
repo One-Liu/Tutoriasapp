@@ -7,6 +7,24 @@ public class ProblematicaAcademica {
     private String descripcion;
     private int idExperienciaEducativa;
 
+    public ProblematicaAcademica(int idProblematicaAcademica, String descripcion, int idExperienciaEducativa) {
+        this.idProblematicaAcademica = idProblematicaAcademica;
+        this.descripcion = descripcion;
+        this.idExperienciaEducativa = idExperienciaEducativa;
+    }
+
+    public ProblematicaAcademica(String descripcion, int idExperienciaEducativa) {
+        this.descripcion = descripcion;
+        this.idExperienciaEducativa = idExperienciaEducativa;
+    }
+
+    public ProblematicaAcademica() {
+        this.idProblematicaAcademica = 0;
+        this.descripcion = "";
+        this.idExperienciaEducativa = 0;
+
+    }
+
     // Getters of uv.fei.tutorias.domain.ProblematicaAcademica
     public int getIdProblematicaAcademica() {
         return idProblematicaAcademica;
