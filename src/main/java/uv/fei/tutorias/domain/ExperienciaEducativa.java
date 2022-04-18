@@ -7,6 +7,23 @@ public class ExperienciaEducativa {
     private String nombre;
     private int idProfesor;
 
+    public ExperienciaEducativa(int idExperienciaEducativa, String nombre, int idProfesor) {
+        this.idExperienciaEducativa = idExperienciaEducativa;
+        this.nombre = nombre;
+        this.idProfesor = idProfesor;
+    }
+
+    public ExperienciaEducativa() {
+        this.idExperienciaEducativa = 0;
+        this.nombre = "";
+        this.idProfesor = 0;
+    }
+
+    public ExperienciaEducativa(String nombre, int idProfesor) {
+        this.nombre = nombre;
+        this.idProfesor = idProfesor;
+    }
+
     // Getters of uv.fei.tutorias.domain.ExperienciaEducativa
     public int getIdExperienciaEducativa() {
         return idExperienciaEducativa;
