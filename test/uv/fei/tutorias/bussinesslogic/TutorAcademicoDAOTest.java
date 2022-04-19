@@ -53,13 +53,7 @@ public class TutorAcademicoDAOTest {
         TutorAcademico tutorAcademico2 = new TutorAcademico(2,personaTutorAcademico2);
         tutoresAcademicosEsperados.add(tutorAcademico2);
         List<TutorAcademico> tutoresAcademicosObtenidos = tutorAcademicoDao.findTutoresAcademicosByName(searchName);
-        boolean listasIguales = true;
-        for (int i=0; i<tutoresAcademicosObtenidos.size(); i++) {
-            if (tutoresAcademicosObtenidos.get(i).equals(tutoresAcademicosEsperados.get(i)) == false) {
-                listasIguales = false;
-            }
-        }
-        assertTrue(listasIguales);
+        assertTrue(tutoresAcademicosEsperados.equals(tutoresAcademicosObtenidos));
     }
     
     @Test
