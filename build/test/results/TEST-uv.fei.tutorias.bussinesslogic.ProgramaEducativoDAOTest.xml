@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-1LT4EKS" name="uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest" skipped="0" tests="1" time="1.173" timestamp="2022-04-01T17:54:58">
+<testsuite errors="0" failures="0" hostname="DESKTOP-1LT4EKS" name="uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest" skipped="0" tests="1" time="1.068" timestamp="2022-04-19T15:39:04">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="MX" />
     <property name="javafx.binarycss" value="false" />
+    <property name="javafx.signing.enabled" value="false" />
     <property name="javac.test.classpath" value="C:\Program Files\Java\jdk1.8.0_201\jre/lib/javaws.jar:C:\Program Files\Java\jdk1.8.0_201\jre/lib/deploy.jar:C:\Program Files\Java\jdk1.8.0_201\jre/lib/plugin.jar:C:\Users\rocks\Downloads\mysql-connector-java-8.0.23.jar:build/classes:C:\Program Files\NetBeans 8.2\platform\modules\ext\junit-4.12.jar:C:\Program Files\NetBeans 8.2\platform\modules\ext\hamcrest-core-1.3.jar" />
     <property name="libs.jsf20.maven-pom" value="" />
     <property name="libs.DataBindingME.src" value="C:\Program Files\NetBeans 8.2\mobility\sources\netbeans_databindingme-src.zip" />
     <property name="manifest.custom.codebase" value="*" />
+    <property name="javafx.signing.blob" value="false" />
     <property name="libs.spring-webmvc4.0.src" value="" />
     <property name="javac.includes" value="uv/fei/tutorias/bussinesslogic/ProgramaEducativoDAOTest.java" />
     <property name="ant.core.lib" value="C:\Program Files\NetBeans 8.2\extide\ant\lib\ant.jar" />
@@ -23,10 +25,12 @@
     <property name="libs.eclipselinkmodelgen.src" value="" />
     <property name="javadoc.notree" value="false" />
     <property name="netbeans.autoupdate.version" value="1.23" />
+    <property name="javafx.run.as" value="standalone" />
     <property name="libs.javaee-web-api-6.0.classpath" value="C:\Program Files\NetBeans 8.2\enterprise\modules\ext\javaee-web-api-6.0.jar" />
     <property name="libs.DataBindingME-PIM.maven-pom" value="" />
     <property name="javac.profile.cmd.line.arg" value="" />
     <property name="jdk.home" value="C:\Program Files\Java\jdk1.8.0_201" />
+    <property name="javafx.deploy.addstartmenushortcut" value="false" />
     <property name="libs.javac-api.src" value="" />
     <property name="javafx.enabled" value="true" />
     <property name="javadoc.noindex" value="false" />
@@ -65,7 +69,7 @@
     <property name="libs.j2me_common_ant.maven-pom" value="" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest methods=testFindProgramaEducativoById skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\rocks\Desktop\Tutoriasapp\build\test\results\TEST-uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest.xml crashfile=C:\Users\rocks\Desktop\Tutoriasapp\build\junitvmwatcher7597831764987558084.properties propsfile=C:\Users\rocks\Desktop\Tutoriasapp\build\junit779006296648680777.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest methods=testGetProgramaEducativo skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\rocks\Desktop\Tutoriasapp\build\test\results\TEST-uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest.xml crashfile=C:\Users\rocks\Desktop\Tutoriasapp\build\junitvmwatcher838767146430728421.properties propsfile=C:\Users\rocks\Desktop\Tutoriasapp\build\junit4177224928311102718.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -90,7 +94,7 @@
     <property name="libs.jsp-compilation-syscp.classpath" value="C:\Program Files\NetBeans 8.2\extide\ant\lib\ant.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\servlet3.1-jsp2.3-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\glassfish-jspparser-4.0.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jstl-impl.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-2_2\javax.faces.jar" />
     <property name="javafx.deploy.includeDT" value="true" />
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\endorsed" />
-    <property name="test.method" value="testFindProgramaEducativoById" />
+    <property name="test.method" value="testGetProgramaEducativo" />
     <property name="libs.groovy-all.src" value="" />
     <property name="netbeans.dynamic.classpath" value="C:\Program Files\NetBeans 8.2\platform\core\asm-all-5.0.1.jar;C:\Program Files\NetBeans 8.2\platform\core\core-base.jar;C:\Program Files\NetBeans 8.2\platform\core\core.jar;C:\Program Files\NetBeans 8.2\platform\core\org-netbeans-libs-asm.jar;C:\Program Files\NetBeans 8.2\platform\core\org-openide-filesystems-compat8.jar;C:\Program Files\NetBeans 8.2\platform\core\org-openide-filesystems.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_zh_CN.jar;C:\Program Files\NetBeans 8.2\nb\core\org-netbeans-upgrader.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_ja.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_pt_BR.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_ru.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_zh_CN.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_ja.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_pt_BR.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_ru.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_zh_CN.jar" />
     <property name="jnlp.enabled" value="false" />
@@ -110,7 +114,7 @@
     <property name="javac.debug" value="true" />
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
-    <property name="javac.includesfile.binary" value="C:\Users\rocks\Desktop\Tutoriasapp\null1942874563" />
+    <property name="javac.includesfile.binary" value="C:\Users\rocks\Desktop\Tutoriasapp\null133018429" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
     <property name="javac.test.processorpath" value="C:\Program Files\Java\jdk1.8.0_201\jre/lib/javaws.jar:C:\Program Files\Java\jdk1.8.0_201\jre/lib/deploy.jar:C:\Program Files\Java\jdk1.8.0_201\jre/lib/plugin.jar:C:\Users\rocks\Downloads\mysql-connector-java-8.0.23.jar:build/classes:C:\Program Files\NetBeans 8.2\platform\modules\ext\junit-4.12.jar:C:\Program Files\NetBeans 8.2\platform\modules\ext\hamcrest-core-1.3.jar" />
@@ -155,7 +159,7 @@
     <property name="testng.mode" value="testng" />
     <property name="libs.JAXB-ENDORSED.maven-pom" value="" />
     <property name="libs.eclipselink.maven-pom" value="" />
-    <property name="application.vendor" value="rocks" />
+    <property name="application.vendor" value="liu" />
     <property name="test.binaryincludes" value="&lt;nothing&gt;" />
     <property name="manifest.available" value="true" />
     <property name="libs.primefaces.javadoc" value="" />
@@ -240,6 +244,7 @@
     <property name="libs.jsf12.classpath" value="C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-1_2\commons-beanutils.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-1_2\commons-collections.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-1_2\commons-digester.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-1_2\commons-logging.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-1_2\jsf-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-1_2\jsf-impl.jar" />
     <property name="libs.jstl.maven-pom" value="" />
     <property name="libs.restapi.maven-pom" value="" />
+    <property name="javafx.signing.type" value="notsigned" />
     <property name="libs.beans-binding.src" value="" />
     <property name="java.vm.specification.vendor" value="Oracle Corporation" />
     <property name="libs.DataBindingME-PIM.javadoc" value="C:\Program Files\NetBeans 8.2\mobility\modules\docs\netbeans_databindingme_pim-api.zip" />
@@ -287,8 +292,8 @@
     <property name="debug-args-line" value="-Xdebug" />
     <property name="libs.javaee-api-6.0.maven-pom" value="" />
     <property name="libs.JWSAntTasks.src" value="" />
-    <property name="jar.index" value="false" />
     <property name="libs.CopyLibs.maven-pom" value="" />
+    <property name="jar.index" value="false" />
     <property name="libs.absolutelayout.javadoc" value="" />
     <property name="libs.spring-framework300.javadoc" value="" />
     <property name="java.specification.name" value="Java Platform API Specification" />
@@ -299,8 +304,8 @@
     <property name="run.jvmargs.ide" value="" />
     <property name="libs.MySQLDriver.javadoc" value="" />
     <property name="org.openide.version" value="deprecated" />
-    <property name="source.encoding" value="UTF-8" />
     <property name="platform.java" value="C:\Program Files\Java\jdk1.8.0_201\jre/bin/java" />
+    <property name="source.encoding" value="UTF-8" />
     <property name="ap.cmd.line.internal" value="" />
     <property name="libs.eclipselinkmodelgen.maven-pom" value="" />
     <property name="libs.jsp-compilation-syscp.javadoc" value="" />
@@ -311,6 +316,7 @@
     <property name="libs.struts.maven-pom" value="" />
     <property name="ant.file.jfx-impl" value="C:\Users\rocks\Desktop\Tutoriasapp\nbproject\jfx-impl.xml" />
     <property name="netbeans.home+have.tests" value="true" />
+    <property name="javafx.deploy.adddesktopshortcut" value="false" />
     <property name="annotation.processing.processor.options" value="" />
     <property name="libs.testng.maven-pom" value="" />
     <property name="libs.jaxb.src" value="" />
@@ -318,15 +324,15 @@
     <property name="jdk.launcher.addexports.4" value="java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED" />
     <property name="work.dir" value="C:\Users\rocks\Desktop\Tutoriasapp" />
     <property name="jdk.launcher.addexports.3" value="java.desktop/sun.awt.im=ALL-UNNAMED" />
-    <property name="compile.on.save.unsupported.javafx" value="true" />
     <property name="ant.file.type.Tutoriasapp-impl" value="file" />
-    <property name="jdk.launcher.addexports.2" value="java.desktop/java.awt.peer=ALL-UNNAMED" />
     <property name="libs.jaxb.classpath" value="C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\jaxb-impl.jar;C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\jaxb-xjc.jar;C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\jaxb1-impl.jar;C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\activation.jar;C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\api\jaxb-api.jar;C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\api\jsr173_1.0_api.jar" />
+    <property name="compile.on.save.unsupported.javafx" value="true" />
+    <property name="jdk.launcher.addexports.2" value="java.desktop/java.awt.peer=ALL-UNNAMED" />
     <property name="jdk.launcher.addexports.1" value="java.base/jdk.internal.jrtfs=ALL-UNNAMED" />
     <property name="jdk.launcher.addexports.0" value="java.desktop/sun.awt=ALL-UNNAMED" />
     <property name="do.depend" value="false" />
-    <property name="libs.j2me_common_ant.classpath" value="C:\Program Files\NetBeans 8.2\mobility\modules\org-netbeans-modules-j2me-common-ant.jar;C:\Program Files\NetBeans 8.2\java\modules\org-netbeans-modules-classfile.jar" />
     <property name="dist.javadoc.dir" value="dist/javadoc" />
+    <property name="libs.j2me_common_ant.classpath" value="C:\Program Files\NetBeans 8.2\mobility\modules\org-netbeans-modules-j2me-common-ant.jar;C:\Program Files\NetBeans 8.2\java\modules\org-netbeans-modules-classfile.jar" />
     <property name="libs.spring-webmvc3.0.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\spring-3.0\spring-webmvc-3.2.7.RELEASE.jar" />
     <property name="libs.swing-layout.classpath" value="C:\Program Files\NetBeans 8.2\platform\modules\ext\swing-layout-1.0.4.jar" />
     <property name="libs.javaee-web-api-7.0.maven-pom" value="" />
@@ -336,8 +342,8 @@
     <property name="javafx.fallback.class" value="com.javafx.main.NoJavaFXFallback" />
     <property name="line.separator" value="&#xd;&#xa;" />
     <property name="java.specification.version" value="1.8" />
-    <property name="libs.jaxws21.maven-pom" value="" />
     <property name="java.vm.info" value="mixed mode" />
+    <property name="libs.jaxws21.maven-pom" value="" />
     <property name="nb.junit.batch" value="false" />
     <property name="junit.forkmode" value="perTest" />
     <property name="ant.file.type.Tutoriasapp" value="file" />
@@ -345,10 +351,11 @@
     <property name="javac.target" value="1.8" />
     <property name="built-jar.properties" value="C:\Users\rocks\Desktop\Tutoriasapp\build\built-jar.properties" />
     <property name="build.test.classes.dir" value="build/test/classes" />
+    <property name="javafx.deploy.permissionselevated" value="false" />
     <property name="src.dir" value="src" />
-    <property name="sun.awt.keepWorkingSetOnMinimize" value="true" />
     <property name="libs.jpa2-persistence.src" value="" />
     <property name="annotation.processing.enabled" value="true" />
+    <property name="sun.awt.keepWorkingSetOnMinimize" value="true" />
     <property name="libs.jsf20.src" value="" />
     <property name="libs.jpa20-persistence.src" value="" />
     <property name="libs.jsf12.src" value="" />
@@ -371,6 +378,8 @@
     <property name="build.test.results.dir" value="build/test/results" />
     <property name="java.runtime.version" value="1.8.0_201-b09" />
     <property name="javafx.run.inbrowser" value="&lt;Default System Browser&gt;" />
+    <property name="native.bundling.enabled" value="false" />
+    <property name="javafx.deploy.disable.proxy" value="false" />
     <property name="default.javac.target" value="1.8" />
     <property name="libs.junit_4.classpath" value="C:\Program Files\NetBeans 8.2\platform\modules\ext\junit-4.12.jar" />
     <property name="user.timezone" value="" />
@@ -385,8 +394,8 @@
     <property name="endorsed.classpath" value="" />
     <property name="libs.absolutelayout.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\AbsoluteLayout.jar" />
     <property name="excludes" value="" />
-    <property name="libs.metro.classpath" value="C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\activation.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-extra-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-extra.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-rt.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-tools.jar" />
     <property name="libs.restlib.maven-pom" value="" />
+    <property name="libs.metro.classpath" value="C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\activation.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-extra-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-extra.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-rt.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\metro\webservices-tools.jar" />
     <property name="libs.jpa2-persistence.javadoc" value="C:\Program Files\NetBeans 8.2\java\modules\ext\docs\javax.persistence-2.1.0-doc.zip" />
     <property name="libs.DataBindingME.javadoc" value="C:\Program Files\NetBeans 8.2\mobility\modules\docs\netbeans_databindingme-api.zip" />
     <property name="apple.laf.useScreenMenuBar" value="true" />
@@ -402,13 +411,13 @@
     <property name="sun.desktop" value="windows" />
     <property name="libs.hibernate4-persistence.src" value="" />
     <property name="libs.hibernate4-support.maven-pom" value="" />
-    <property name="javafx.deploy.allowoffline" value="true" />
     <property name="libs.restlib.javadoc" value="" />
+    <property name="javafx.deploy.allowoffline" value="true" />
     <property name="libs.JAXB-ENDORSED.classpath" value="C:\Program Files\NetBeans 8.2\ide\modules\ext\jaxb\api\jaxb-api.jar" />
     <property name="nb.internal.action.name" value="run.single.method" />
     <property name="ant.file.Tutoriasapp-impl" value="C:\Users\rocks\Desktop\Tutoriasapp\nbproject\build-impl.xml" />
-    <property name="libs.javaee-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
     <property name="libs.eclipselink.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\eclipselink\eclipselink.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\eclipselink\javax.persistence_2.1.0.v201304241213.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\eclipselink\org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar" />
+    <property name="libs.javaee-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
     <property name="libs.beans-binding.javadoc" value="C:\Program Files\NetBeans 8.2\java\docs\beansbinding-1.2.1-doc.zip" />
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
@@ -419,29 +428,30 @@
     <property name="run.jvmargs" value="" />
     <property name="libs.hibernate4-persistence.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\antlr-2.7.7.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\c3p0-0.9.2.1.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-c3p0-4.3.1.Final.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\mchange-commons-java-0.2.3.4.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\dom4j-1.6.1.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\ehcache-core-2.4.3.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-ehcache-4.3.1.Final.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-core-4.3.1.Final.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\jboss-logging-3.1.3.GA.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-commons-annotations-4.0.4.Final.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-entitymanager-4.3.1.Final.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\javassist-3.18.1-GA.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\jboss-transaction-api_1.2_spec-1.0.0.Final.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\slf4j-api-1.6.1.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\slf4j-simple-1.6.1.jar;C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-jpa-2.1-api-1.0.0.Final.jar" />
     <property name="libs.JAXB-ENDORSED.src" value="" />
-    <property name="libs.DataBindingME-PIM.src" value="C:\Program Files\NetBeans 8.2\mobility\sources\netbeans_databindingme_pim-src.zip" />
     <property name="libs.testng.javadoc" value="C:\Program Files\NetBeans 8.2\platform\docs\testng-6.8.1-javadoc.zip" />
-    <property name="libs.PostgreSQLDriver.classpath" value="C:\Program Files\NetBeans 8.2\ide\modules\ext\postgresql-9.4.1209.jar" />
+    <property name="libs.DataBindingME-PIM.src" value="C:\Program Files\NetBeans 8.2\mobility\sources\netbeans_databindingme_pim-src.zip" />
     <property name="user.script" value="" />
+    <property name="libs.PostgreSQLDriver.classpath" value="C:\Program Files\NetBeans 8.2\ide\modules\ext\postgresql-9.4.1209.jar" />
     <property name="libs.jsf12.maven-pom" value="" />
     <property name="libs.hibernate4-persistencemodelgen.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\hibernate4\hibernate-jpamodelgen-4.3.1.Final.jar" />
     <property name="annotation.processing.source.output" value="build/generated-sources/ap-source-output" />
     <property name="main.class" value="com.javafx.main.Main" />
-    <property name="build.dir" value="build" />
     <property name="libs.CopyLibs.src" value="" />
+    <property name="build.dir" value="build" />
     <property name="libs.jsp-compilation.classpath" value="C:\Program Files\NetBeans 8.2\extide\ant\lib\ant.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\servlet3.1-jsp2.3-api.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\glassfish-jspparser-4.0.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jsf-2_2\javax.faces.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\jstl-api.jar;C:\Program Files\NetBeans 8.2\extide\ant\lib\ant-launcher.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.7 compiled on April 9 2016" />
     <property name="file.encoding" value="Cp1252" />
     <property name="build.classes.excludes" value="**/*.java,**/*.form" />
-    <property name="jdkBug6558476" value="false" />
     <property name="javadoc.nonavbar" value="false" />
+    <property name="jdkBug6558476" value="false" />
     <property name="libs.spring-webmvc4.0.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\spring-4\spring-webmvc-4.0.1.RELEASE.jar" />
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="javafx.deploy.installpermanently" value="false" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest" name="testFindProgramaEducativoById" time="1.119" />
-  <system-out><![CDATA[findProgramaEducativoById
+  <testcase classname="uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAOTest" name="testGetProgramaEducativo" time="1.01" />
+  <system-out><![CDATA[getProgramaEducativo
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

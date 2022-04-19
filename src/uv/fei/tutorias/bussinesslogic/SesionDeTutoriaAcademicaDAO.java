@@ -19,7 +19,9 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         List<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT fecha, idPeriodoEscolar FROM SesionDeTutoriaAcademica WHERE fecha LIKE ?";
+            String query = "SELECT SDTA.idSesionDeTutoriaAcademica, SDTA.fecha AS fechaSesionDeTutoriaAcademica, SDTA.idPeriodoEscolar " +
+                "FROM SesionDeTutoriaAcademica SDTA " +
+                "WHERE SDTA.fecha LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchDate + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -43,7 +45,9 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT fecha, idPeriodoEscolar FROM SesionDeTutoriaAcademica WHERE idSesionDeTutoriaAcademica = ?";
+            String query = "SELECT SDTA.idSesionDeTutoriaAcademica, SDTA.fecha AS fechaSesionDeTutoriaAcademica, SDTA.idPeriodoEscolar " +
+                "FROM SesionDeTutoriaAcademica SDTA " +
+                "WHERE SDTA.idSesionDeTutoriaAcademica = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idSesionDeTutoriaAcademica);
             ResultSet resultSet = statement.executeQuery();
@@ -58,64 +62,65 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             return sesionDeTutoriaAcademica;
         }
     }
+    
+    @Override
+    public SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultSet) {
+        int idSesionDeTutoriaAcademica = 0;
+        String fecha = "";
+        int idPeriodoEscolar = 0;
+        try {
+            idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
+            fecha = resultSet.getString("fechaSesionDeTutoriaAcademica");
+            idPeriodoEscolar = resultSet.getInt("idPeriodoEscolar");
+        } catch(SQLException ex) {
+            Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PeriodoEscolarDAO periodoEscolarDao = new PeriodoEscolarDAO();
+        PeriodoEscolar periodoEscolar = periodoEscolarDao.findPeriodoEscolarById(idPeriodoEscolar);
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,fecha,periodoEscolar);
+        return sesionDeTutoriaAcademica;
+    }
 
     @Override
     public boolean addSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
             String query = "INSERT INTO SesionDeTutoriaAcademica (fecha, idPeriodoEscolar) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, sesionDeTutoriaAcademica.getFecha());
             statement.setInt(2, sesionDeTutoriaAcademica.getPeriodoEscolar().getIdPeriodoEscolar());
             int affectedRows = statement.executeUpdate();
-            dataBaseConnection.cerrarConexion();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: SesionDeTutoriaAcademica not added");
-            } else {
-                System.out.println("SesionDeTutoriaAcademica added");
-                return true;
             }
+            result = true;
         } catch(SQLException ex) {
             Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return result;
         }
-        return false;
     }
 
     @Override
     public boolean deleteSesionDeTutoriaAcademicaById(int idSesionDeTutoriaAcademica) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
             String query = "DELETE FROM SesionDeTutoriaAcademica WHERE idSesionDeTutoriaAcademica = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idSesionDeTutoriaAcademica);
             int affectedRows = statement.executeUpdate();
-            dataBaseConnection.cerrarConexion();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: SesionDeTutoriaAcademica not deleted");
-            } else {
-                System.out.println("SesionDeTutoriaAcademica deleted");
-                return true;
             }
-        } catch(SQLException ex) {
-            Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
-    public SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultSet) {
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
-        String fecha = "";
-        PeriodoEscolar periodoEscolar = new PeriodoEscolar();
-        PeriodoEscolarDAO periodoEscolarDao = new PeriodoEscolarDAO();
-        try {
-            fecha = resultSet.getString("fecha");
-            sesionDeTutoriaAcademica.setFecha(fecha);
-            periodoEscolar = periodoEscolarDao.getPeriodoEscolar(resultSet);
-            sesionDeTutoriaAcademica.setPeriodoEscolar(periodoEscolar);
+            result = true;
         } catch(SQLException ex) {
             Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            return sesionDeTutoriaAcademica;
+            dataBaseConnection.cerrarConexion();
+            return result;
         }
     }
 }

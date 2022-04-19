@@ -8,6 +8,7 @@ public class Estudiante {
     private ProgramaEducativo programaEducativo;
     private TutorAcademico tutorAcademico;
 
+    // Constructors of uv.fei.tutorias.domain.Estudiante
     public Estudiante() {
         this.idEstudiante = 0;
         this.matricula = "";

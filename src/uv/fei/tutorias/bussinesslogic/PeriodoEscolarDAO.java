@@ -1,8 +1,5 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
-import uv.fei.tutorias.domain.PeriodoEscolar;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.domain.PeriodoEscolar;
 
 // author @liu
 public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
@@ -20,7 +19,8 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         List<PeriodoEscolar> periodosEscolares = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT fechaInicio, fechaTermino FROM PeriodoEscolar WHERE FechaInicio LIKE ?";
+            String query = "SELECT PE.idPeriodoEscolar,PE.fechaInicio AS fechaInicioPeriodoEscolar, " + 
+                "PE.fechaTermino AS fechaTerminoPeriodoEscolar FROM PeriodoEscolar PE WHERE fechaInicio LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + date + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -44,7 +44,8 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         PeriodoEscolar periodoEscolar = new PeriodoEscolar();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT fechaInicio, fechaTermino FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
+            String query = "SELECT PE.idPeriodoEscolar,PE.fechaInicio AS fechaInicioPeriodoEscolar, " + 
+                "PE.fechaTermino AS fechaTerminoPeriodoEscolar FROM PeriodoEscolar PE WHERE idPeriodoEscolar = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             ResultSet resultSet = statement.executeQuery();
@@ -59,63 +60,63 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             return periodoEscolar;
         }
     }
+    
+    @Override
+    public PeriodoEscolar getPeriodoEscolar(ResultSet resultSet) {
+        int idPeriodoEscolar = 0;
+        String fechaInicio = "";
+        String fechaTermino = "";
+        try {
+            idPeriodoEscolar = resultSet.getInt("idPeriodoEscolar");
+            fechaInicio = resultSet.getString("fechaInicioPeriodoEscolar");
+            fechaTermino = resultSet.getString("fechaTerminoPeriodoEscolar");
+        } catch (SQLException ex) {
+            Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PeriodoEscolar periodoEscolar = new PeriodoEscolar(idPeriodoEscolar,fechaInicio,fechaTermino);
+        return periodoEscolar;
+    }
 
     @Override
     public boolean addPeriodoEscolar(PeriodoEscolar periodoEscolar) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
             String query = "INSERT INTO PeriodoEscolar (fechaInicio,fechaTermino) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, periodoEscolar.getFechaInicio());
             statement.setString(2, periodoEscolar.getFechaTermino());
             int affectedRows = statement.executeUpdate();
-            dataBaseConnection.cerrarConexion();
-            if(affectedRows != 0) {
-                System.out.println("Periodo Escolar added");
-                return true;
-            } else {
+            if(affectedRows == 0) {
                 throw new SQLException("ERROR: Periodo Escolar not added");
             }
+            result = true;
         } catch (SQLException ex) {
             Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return result;
         }
-        return false;
     }
 
     @Override
     public boolean deletePeriodoEscolarById(int idPeriodoEscolar) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
             String query = "DELETE FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             int affectedRows = statement.executeUpdate();
-            dataBaseConnection.cerrarConexion();
-            if(affectedRows != 0) {
-                System.out.println("Periodo Escolar deleted");
-                return true;
-            } else {
+            if(affectedRows == 0) {
                 throw new SQLException("ERROR: Periodo Escolar not deleted");
             }
+            result = true;
         } catch(SQLException ex) {
             Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
-    public PeriodoEscolar getPeriodoEscolar(ResultSet resultSet) {
-        String fechaInicio = "";
-        String fechaTermino = "";
-        PeriodoEscolar periodoEscolar = new PeriodoEscolar();
-        try {
-            fechaInicio = resultSet.getString("fechaInicio");
-            periodoEscolar.setFechaInicio(fechaInicio);
-            fechaTermino = resultSet.getString("fechaTermino");
-            periodoEscolar.setFechaTermino(fechaTermino);
-        } catch (SQLException ex) {
-            Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            return periodoEscolar;
+            dataBaseConnection.cerrarConexion();
+            return result;
         }
     }
 }

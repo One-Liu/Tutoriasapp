@@ -6,6 +6,7 @@ public class Coordinador {
     private Persona persona;
     private ProgramaEducativo programaEducativo;
 
+    // Constructors of uv.fei.tutorias.domain.Coordinador
     public Coordinador() {
         this.idCoordinador = 0;
         this.persona = null;

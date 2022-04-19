@@ -6,6 +6,7 @@ public class FechaDeCierreEntregaReporte {
     private String fecha;
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica;
     
+    // Constructors of uv.fei.tutorias.domain.FechaDeCierreEntregaReporte
     public FechaDeCierreEntregaReporte() {
         this.idFechaDeCierreEntregaReporte = 0;
         this.fecha = "";

@@ -5,6 +5,7 @@ public class TutorAcademico {
     private int idTutorAcademico;
     private Persona persona;
 
+    // Constructors of uv.fei.tutorias.domain.TutorAcademico
     public TutorAcademico() {
         this.idTutorAcademico = 0;
         this.persona = null;

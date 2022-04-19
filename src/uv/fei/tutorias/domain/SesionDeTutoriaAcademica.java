@@ -6,6 +6,7 @@ public class SesionDeTutoriaAcademica {
     private String fecha;
     private PeriodoEscolar periodoEscolar;
 
+    //Constructors of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
     public SesionDeTutoriaAcademica() {
         this.idSesionDeTutoriaAcademica = 0;
         this.fecha = "";

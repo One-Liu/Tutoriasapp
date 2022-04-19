@@ -6,6 +6,7 @@ public class ListaDeAsistencias {
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
     private Estudiante estudiante;
 
+    // Constructors of uv.fei.tutorias.domain.ListaDeAsistencias
     public ListaDeAsistencias() {
         this.idListaDeAsistencias = 0;
         this.sesionDeTutoriaAcademica = null;

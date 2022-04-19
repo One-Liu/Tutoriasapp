@@ -7,6 +7,27 @@ public class ReporteDeTutoriaAcademica {
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
     private TutorAcademico tutorAcademico;
 
+    public ReporteDeTutoriaAcademica() {
+        this.idReporteDeTutoriaAcademica = 0;
+        this.descripcionGeneral = "";
+        this.sesionDeTutoriaAcademica = null;
+        this.tutorAcademico = null;
+    }
+
+    public ReporteDeTutoriaAcademica(int idReporteDeTutoriaAcademica, String descripcionGeneral, SesionDeTutoriaAcademica sesionDeTutoriaAcademica, TutorAcademico tutorAcademico) {
+        this.idReporteDeTutoriaAcademica = idReporteDeTutoriaAcademica;
+        this.descripcionGeneral = descripcionGeneral;
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
+        this.tutorAcademico = tutorAcademico;
+    }
+
+    public ReporteDeTutoriaAcademica(String descripcionGeneral, SesionDeTutoriaAcademica sesionDeTutoriaAcademica, TutorAcademico tutorAcademico) {
+        this.idReporteDeTutoriaAcademica = 0;
+        this.descripcionGeneral = descripcionGeneral;
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
+        this.tutorAcademico = tutorAcademico;
+    }
+    
     // Getters of uv.fei.tutorias.domain.ReporteDeTutoriaAcademica
     public int getIdReporteDeTutoriaAcademica() {
         return idReporteDeTutoriaAcademica;
