@@ -15,7 +15,7 @@ import uv.fei.tutorias.domain.ProgramaEducativo;
 // author @liu
 public class CoordinadorDAO implements ICoordinadorDAO {
     
-    static final Logger LOGGER = Logger.getLogger(CoordinadorDAO.class);
+    private final Logger LOGGER = Logger.getLogger(PersonaDAO.class);
     
     @Override
     public List<Coordinador> findCoordinadorByName(String searchName) {
@@ -40,7 +40,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
                 }while(resultSet.next());
             }
         } catch(SQLException ex) {
-            LOGGER.error(CoordinadorDAO.class.getName(), ex);
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return coordinadores;
@@ -67,7 +67,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             }
             coordinador = getCoordinador(resultSet);
         } catch(SQLException ex) {
-            LOGGER.error(CoordinadorDAO.class.getName(), ex);
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return coordinador;
@@ -94,7 +94,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             correoPersonalCoordinador = resultSet.getString("correoPersonalCoordinador");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {
-            LOGGER.error(CoordinadorDAO.class.getName(), ex);
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
         }
         Persona personaCoordinador = new Persona(idPersonaCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador,correoInstitucionalCoordinador,correoPersonalCoordinador);
         ProgramaEducativoDAO programaEducativoDao = new ProgramaEducativoDAO();
@@ -119,7 +119,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(CoordinadorDAO.class.getName(), ex);
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -140,7 +140,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(CoordinadorDAO.class.getName(), ex);
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
