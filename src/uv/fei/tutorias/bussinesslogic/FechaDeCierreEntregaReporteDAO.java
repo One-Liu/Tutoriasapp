@@ -6,14 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.FechaDeCierreEntregaReporte;
 import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
 
 // author @liu
 public class FechaDeCierreEntregaReporteDAO implements IFechaDeCierreEntregaReporteDAO {
+    
+    static final Logger LOGGER = Logger.getLogger(FechaDeCierreEntregaReporteDAO.class);
+    
     @Override
     public List<FechaDeCierreEntregaReporte> findFechasDeCierreEntregaReporteByFecha(String searchDate) {
         List<FechaDeCierreEntregaReporte> fechasDeCierreEntregaReporte = new ArrayList<>();
@@ -34,7 +36,7 @@ public class FechaDeCierreEntregaReporteDAO implements IFechaDeCierreEntregaRepo
                 } while (resultSet.next());
             }
         } catch(SQLException ex) {
-            Logger.getLogger(FechaDeCierreEntregaReporteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(FechaDeCierreEntregaReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return fechasDeCierreEntregaReporte;
@@ -58,7 +60,7 @@ public class FechaDeCierreEntregaReporteDAO implements IFechaDeCierreEntregaRepo
             }
             fechaDeCierreEntregaReporte = getFechaDeCierreEntregaReporte(resultSet);
         } catch(SQLException ex) {
-            Logger.getLogger(FechaDeCierreEntregaReporteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(FechaDeCierreEntregaReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return fechaDeCierreEntregaReporte;
@@ -75,7 +77,7 @@ public class FechaDeCierreEntregaReporteDAO implements IFechaDeCierreEntregaRepo
             fecha = resultSet.getString("fechaFechaDeCierreEntregaDeReporte");
             idReporteDeTutoriaAcademica = resultSet.getInt("idReporteDeTutoriaAcademica");
         } catch(SQLException ex) {
-            Logger.getLogger(FechaDeCierreEntregaReporteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(FechaDeCierreEntregaReporteDAO.class.getName(),ex);
         }
         //ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDao = new ReporteDeTutoriaAcademicaDAO();
         //ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = reporteDeTutoriaAcademicaDao.findReporteDeTutoriaAcademicaById(idReporteDeTutoriaAcademica);
@@ -99,7 +101,7 @@ public class FechaDeCierreEntregaReporteDAO implements IFechaDeCierreEntregaRepo
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(FechaDeCierreEntregaReporteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(FechaDeCierreEntregaReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -120,7 +122,7 @@ public class FechaDeCierreEntregaReporteDAO implements IFechaDeCierreEntregaRepo
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(FechaDeCierreEntregaReporteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(FechaDeCierreEntregaReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;

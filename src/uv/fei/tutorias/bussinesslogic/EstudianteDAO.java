@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Estudiante;
@@ -16,6 +15,9 @@ import uv.fei.tutorias.domain.TutorAcademico;
 
 // author @liu
 public class EstudianteDAO implements IEstudianteDAO {
+    
+    static final Logger LOGGER = Logger.getLogger(EstudianteDAO.class);
+    
     @Override
     public List<Estudiante> findEstudianteByName(String searchName) {
         List<Estudiante> estudiantes = new ArrayList<>();
@@ -39,7 +41,7 @@ public class EstudianteDAO implements IEstudianteDAO {
                 }while(resultSet.next());
             }
         } catch(SQLException ex) {
-            Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return estudiantes;
@@ -66,7 +68,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             }
             estudiante = getEstudiante(resultSet);
         } catch(SQLException ex) {
-            Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return estudiante;
@@ -97,7 +99,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             idTutorAcademico = resultSet.getInt("idTutorAcademico");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {
-            Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(EstudianteDAO.class.getName(),ex);
         }
         Persona personaEstudiante = new Persona(idPersonaEstudiante,nombreEstudiante,apellidoPaternoEstudiante,apellidoMaternoEstudiante,correoInstitucionalEstudiante,correoPersonalEstudiante);
         ProgramaEducativoDAO programaEducativoDao = new ProgramaEducativoDAO();
@@ -126,7 +128,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -147,7 +149,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;

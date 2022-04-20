@@ -6,14 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.TutorAcademico;
 
 // author @liu
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
+    
+    static final Logger LOGGER = Logger.getLogger(TutorAcademicoDAO.class);
+    
     @Override
     public List<TutorAcademico> findTutoresAcademicosByName(String searchName) {
         List<TutorAcademico> tutores = new ArrayList<>();
@@ -36,7 +38,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(TutorAcademicoDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return tutores;
@@ -62,7 +64,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             }
             tutorAcademico = getTutorAcademico(resultSet);
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(TutorAcademicoDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return tutorAcademico;
@@ -87,7 +89,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             correoInstitucional = resultSet.getString("correoInstitucionalTutorAcademico");
             correoPersonal = resultSet.getString("correoPersonalTutorAcademico");
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(TutorAcademicoDAO.class.getName(), ex);
         }
         Persona personaTutorAcademico = new Persona(idPersona,nombre,apellidoPaterno,apellidoMaterno,correoInstitucional,correoPersonal);
         TutorAcademico tutorAcademico = new TutorAcademico(idTutorAcademico,personaTutorAcademico);
@@ -109,7 +111,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             }
             result = true;
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(TutorAcademicoDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -131,7 +133,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             }
             result = true;
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(TutorAcademicoDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
             return result;

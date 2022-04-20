@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.ListaDeAsistencias;
@@ -13,6 +12,9 @@ import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 // author @liu
 public class ListaDeAsistenciasDAO implements IListaDeAsistenciasDAO {
+    
+    static final Logger LOGGER = Logger.getLogger(ListaDeAsistenciasDAO.class);
+    
     @Override
     public ListaDeAsistencias findListaDeAsistenciasById(int idListaDeAsistencias) {
         ListaDeAsistencias listaDeAsistencias = new ListaDeAsistencias();
@@ -28,7 +30,7 @@ public class ListaDeAsistenciasDAO implements IListaDeAsistenciasDAO {
             }
             listaDeAsistencias = getListaDeAsistencias(resultSet);
         } catch(SQLException ex) {
-            Logger.getLogger(ListaDeAsistenciasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ListaDeAsistenciasDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return listaDeAsistencias;
@@ -45,7 +47,7 @@ public class ListaDeAsistenciasDAO implements IListaDeAsistenciasDAO {
             idEstudiante = resultSet.getInt("idEstudiante");
             idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
         } catch(SQLException ex) {
-            Logger.getLogger(ListaDeAsistenciasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ListaDeAsistenciasDAO.class.getName(),ex);
         }
         EstudianteDAO estudianteDao = new EstudianteDAO();
         Estudiante estudiante = estudianteDao.findEstudianteById(idEstudiante);
@@ -70,7 +72,7 @@ public class ListaDeAsistenciasDAO implements IListaDeAsistenciasDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(ListaDeAsistenciasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ListaDeAsistenciasDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -91,7 +93,7 @@ public class ListaDeAsistenciasDAO implements IListaDeAsistenciasDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(ListaDeAsistenciasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ListaDeAsistenciasDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;

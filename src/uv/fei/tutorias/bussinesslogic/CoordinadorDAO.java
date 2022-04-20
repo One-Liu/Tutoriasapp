@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Coordinador;
 import uv.fei.tutorias.domain.Persona;
@@ -15,6 +14,9 @@ import uv.fei.tutorias.domain.ProgramaEducativo;
 
 // author @liu
 public class CoordinadorDAO implements ICoordinadorDAO {
+    
+    static final Logger LOGGER = Logger.getLogger(CoordinadorDAO.class);
+    
     @Override
     public List<Coordinador> findCoordinadorByName(String searchName) {
         List<Coordinador> coordinadores = new ArrayList<>();
@@ -38,7 +40,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
                 }while(resultSet.next());
             }
         } catch(SQLException ex) {
-            Logger.getLogger(CoordinadorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(CoordinadorDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return coordinadores;
@@ -65,7 +67,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             }
             coordinador = getCoordinador(resultSet);
         } catch(SQLException ex) {
-            Logger.getLogger(CoordinadorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(CoordinadorDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return coordinador;
@@ -92,7 +94,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             correoPersonalCoordinador = resultSet.getString("correoPersonalCoordinador");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {
-            Logger.getLogger(CoordinadorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(CoordinadorDAO.class.getName(), ex);
         }
         Persona personaCoordinador = new Persona(idPersonaCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador,correoInstitucionalCoordinador,correoPersonalCoordinador);
         ProgramaEducativoDAO programaEducativoDao = new ProgramaEducativoDAO();
@@ -117,7 +119,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(CoordinadorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(CoordinadorDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -138,7 +140,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(CoordinadorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(CoordinadorDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;

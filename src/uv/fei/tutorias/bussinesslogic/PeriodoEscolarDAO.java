@@ -6,14 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 
 // author @liu
 public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
 
+    static final Logger LOGGER = Logger.getLogger(PeriodoEscolarDAO.class);
+    
     @Override
     public List<PeriodoEscolar> findPeriodosEscolaresByFechaInicio(String date) {
         List<PeriodoEscolar> periodosEscolares = new ArrayList<>();
@@ -32,7 +33,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
                 }while(resultSet.next());
             }
         } catch(SQLException ex) {
-            Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return periodosEscolares;
@@ -54,7 +55,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             }
             periodoEscolar = getPeriodoEscolar(resultSet);
         } catch (SQLException ex) {
-            Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return periodoEscolar;
@@ -71,7 +72,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             fechaInicio = resultSet.getString("fechaInicioPeriodoEscolar");
             fechaTermino = resultSet.getString("fechaTerminoPeriodoEscolar");
         } catch (SQLException ex) {
-            Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
         }
         PeriodoEscolar periodoEscolar = new PeriodoEscolar(idPeriodoEscolar,fechaInicio,fechaTermino);
         return periodoEscolar;
@@ -92,7 +93,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             }
             result = true;
         } catch (SQLException ex) {
-            Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -113,7 +114,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(PeriodoEscolarDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;

@@ -6,13 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.ProgramaEducativo;
 
 // author @liu
 public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
+    
+    static final Logger LOGGER = Logger.getLogger(ProgramaEducativoDAO.class);
 
     @Override
     public List<ProgramaEducativo> findProgramasEducativosByName(String searchName) {
@@ -33,7 +34,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return programasEducativos;
@@ -56,7 +57,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             }
             programaEducativo = getProgramaEducativo(resultSet);
         } catch (SQLException ex) {
-            Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return programaEducativo;
@@ -71,7 +72,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
             nombre = resultSet.getString("nombreProgramaEducativo");
         } catch (SQLException ex) {
-            Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
         }
         ProgramaEducativo programaEducativo = new ProgramaEducativo(idProgramaEducativo,nombre);
         return programaEducativo;
@@ -91,7 +92,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             }
             result = true;
         } catch (SQLException ex) {
-            Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -111,7 +112,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
                 throw new SQLException("ERROR: Programa Educativo not deleted");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProgramaEducativoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;

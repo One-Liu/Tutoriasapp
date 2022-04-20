@@ -6,14 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 // author @liu
 public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO {
+    
+    static final Logger LOGGER = Logger.getLogger(SesionDeTutoriaAcademicaDAO.class);
+    
     @Override
     public List<SesionDeTutoriaAcademica> findSesionesDeTutoriaAcademicaByFecha(String searchDate) {
         List<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = new ArrayList<>();
@@ -33,7 +35,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
                 } while(resultSet.next());
             }
         } catch(SQLException ex) {
-            Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return sesionesDeTutoriaAcademica;
@@ -56,7 +58,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             }
             sesionDeTutoriaAcademica = getSesionDeTutoriaAcademica(resultSet);
         } catch(SQLException ex) {
-            Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return sesionDeTutoriaAcademica;
@@ -73,7 +75,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             fecha = resultSet.getString("fechaSesionDeTutoriaAcademica");
             idPeriodoEscolar = resultSet.getInt("idPeriodoEscolar");
         } catch(SQLException ex) {
-            Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         }
         PeriodoEscolarDAO periodoEscolarDao = new PeriodoEscolarDAO();
         PeriodoEscolar periodoEscolar = periodoEscolarDao.findPeriodoEscolarById(idPeriodoEscolar);
@@ -96,7 +98,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
@@ -117,7 +119,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             }
             result = true;
         } catch(SQLException ex) {
-            Logger.getLogger(SesionDeTutoriaAcademicaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
             return result;
