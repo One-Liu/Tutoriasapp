@@ -2,7 +2,7 @@
 
 ## Los dao que me tocan implementar son
 + Persona 👌
-+ Reporte de tutoría académica 
++ Reporte de tutoría académica 👌
 + Profesor 👌
 + Estudiante Problemática Académica 
 + Horario de sesión de tutoría
