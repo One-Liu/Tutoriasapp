@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\hello-view.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Scene scene = new Scene(fxmlLoader.load(url ), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(url ), 600, 400);
         stage.setTitle("LOGIN");
         stage.setScene(scene);
         stage.show();
