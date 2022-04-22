@@ -1,7 +1,7 @@
 package uv.fei.tutorias;
 
 import org.junit.Test;
-import uv.fei.tutorias.bussinesslogic.ProfesorDao;
+import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
 import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Profesor;
 
@@ -16,7 +16,7 @@ public class ProfesorDaoTest {
     @Test
     public void addProfesor() {
         System.out.println("profesorDao.addProfesor");
-        ProfesorDao profesorDao = new ProfesorDao();
+        ProfesorDAO profesorDao = new ProfesorDAO();
         Persona persona1 = new Persona("Maria","Jose","Fernandez","zdasd12@uv.mx","Majod@gmail.com");
         boolean result = profesorDao.addProfesor(persona1);
         assertTrue(result);
@@ -25,7 +25,7 @@ public class ProfesorDaoTest {
     @Test
     public void findProfesorById() {
         System.out.println("profesorDao.findProfesorById");
-        ProfesorDao profesorDao = new ProfesorDao();
+        ProfesorDAO profesorDao = new ProfesorDAO();
         Persona expected = new Persona("Jose","Lopez","Perez","zs2ds122@uv.mx","jus2d@gmail.com");
         Persona result = profesorDao.findProfesorById(7).getPersona();
         assertTrue(expected.equals(result));
@@ -34,7 +34,7 @@ public class ProfesorDaoTest {
     @Test
     public void findProfesoresByName() {
         System.out.println("profesorDao.findProfesorsByname");
-        ProfesorDao profesorDao = new ProfesorDao();
+        ProfesorDAO profesorDao = new ProfesorDAO();
         Persona expected1 = new Persona("Jose","Lopez","Perez","zs2ds122@uv.mx","jus2d@gmail.com");
         Persona expected2 = new Persona("Jose","Hernandez","Gutierrez","zs2saa@uv.mx","jusdsdsd@gmail.com");
         List<Persona> listExpected = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ProfesorDaoTest {
     @Test
     public void deleteProfesorById() {
         System.out.println("profesorDao.eliminarProfesor");
-        ProfesorDao profesorDao = new ProfesorDao();
+        ProfesorDAO profesorDao = new ProfesorDAO();
         profesorDao.deleteProfesorById(9);
     }
 }

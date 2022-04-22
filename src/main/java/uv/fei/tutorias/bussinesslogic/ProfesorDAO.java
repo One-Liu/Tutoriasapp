@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 
 
 
-public class ProfesorDao implements IProfesorDao{
+public class ProfesorDAO implements IProfesorDAO {
     private final Logger log = Logger.getLogger(PersonaDAO.class);
 
     @Override
@@ -31,6 +31,8 @@ public class ProfesorDao implements IProfesorDao{
             }
         } catch (SQLException ex) {
             log.warn(PersonaDAO.class.getName(), ex);
+        }finally {
+            dataBaseConnection.cerrarConexion();
         }
         return false;
     }
@@ -74,6 +76,8 @@ public class ProfesorDao implements IProfesorDao{
             }
         } catch (SQLException e) {
             log.warn(PersonaDAO.class.getName(), e);
+        }finally {
+            dataBaseConnection.cerrarConexion();
         }
 
 
@@ -93,11 +97,11 @@ public class ProfesorDao implements IProfesorDao{
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: No se ha eliminado ningun profesor");
-            } else {
-                System.out.println("Profesor eliminada satisfactoriamente");
             }
         } catch (SQLException ex) {
             log.warn(PersonaDAO.class.getName(), ex);
+        }finally {
+            dataBaseConnection.cerrarConexion();
         }
         return true;
     }

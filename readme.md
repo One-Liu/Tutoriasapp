@@ -8,4 +8,4 @@
 + Horario de sesión de tutoría
 + Experiencia educativa 👌
 + Problemática académica 👌
-+ Solución a la problemática académica
++ Solución a la problemática académica 👌
