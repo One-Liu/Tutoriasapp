@@ -8,7 +8,7 @@ module uv.fei.tutorias {
     requires log4j;
 
 
-    exports uv.fei.tutorias.bussinesslogic to test.uv.fei.tutorias ;
+    exports uv.fei.tutorias.bussinesslogic to test.uv.fei.tutorias;
     exports uv.fei.tutorias.dataaccess to  test.uv.fei.tutorias;
     exports uv.fei.tutorias.domain to  test.uv.fei.tutorias;
     opens uv.fei.tutorias.bussinesslogic;
