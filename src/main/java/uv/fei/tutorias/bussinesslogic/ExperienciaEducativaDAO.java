@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
-    private final Logger log = Logger.getLogger(ExperienciaEducativa.class);
+    private final Logger LOG = Logger.getLogger(ExperienciaEducativaDAO.class);
 
     @Override
     public List<ExperienciaEducativa> findExperienciasEducativasByName(String serchName) {
@@ -32,7 +32,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
             }
 
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -54,7 +54,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
                 return getExperienciaEducativa(resultSet);
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -65,6 +65,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     @Override
     public boolean addExperienciaEducativa(ExperienciaEducativa experienciaEducativa) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean bandera = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
             String query = "INSERT INTO experienciaeducativa(nombreEE, Profesor_idProfesor) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -74,12 +75,13 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
             if (executeUpdate == 0){
                 throw new SQLException("ERROR: Experiencia educativa no se ha agregado");
             }
+            bandera = true;
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
-        return true;
+        return bandera;
     }
 
     @Override
@@ -93,10 +95,10 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
             if (executeUpdate == 0){
                 throw new SQLException("Error: No se ha eliminado ninguna experiencia educativa");
             }else {
-                log.info("Experiencia educativa eliminada con id" + searchId);
+                LOG.info("Experiencia educativa eliminada con id" + searchId);
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -118,7 +120,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
             experienciaEducativa.setIdProfesor(profesorIdProfesor);
 
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
 
         }
         return experienciaEducativa;

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PersonaDAO implements IPersonaDAO {
 
-    private final Logger log = Logger.getLogger(PersonaDAO.class);
+    private final Logger LOG = Logger.getLogger(PersonaDAO.class);
 
 
     @Override
@@ -55,7 +55,7 @@ public class PersonaDAO implements IPersonaDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -96,7 +96,7 @@ public class PersonaDAO implements IPersonaDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -107,6 +107,7 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public boolean addPerson(Persona persona) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean bandera = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
             String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES(?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -119,12 +120,13 @@ public class PersonaDAO implements IPersonaDAO {
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: La persona no se ha agregado");
             }
+            bandera = true;
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
-        return true;
+        return bandera;
     }
 
     @Override
@@ -143,7 +145,7 @@ public class PersonaDAO implements IPersonaDAO {
                 System.out.println("Persona eliminada satisfactoriamente");
             }
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -171,7 +173,7 @@ public class PersonaDAO implements IPersonaDAO {
                 throw new SQLException("ERROR: La persona no se ha agregado");
             }
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -192,7 +194,7 @@ public class PersonaDAO implements IPersonaDAO {
             }
             idPersona = resultSet.getInt("idPersona");
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }

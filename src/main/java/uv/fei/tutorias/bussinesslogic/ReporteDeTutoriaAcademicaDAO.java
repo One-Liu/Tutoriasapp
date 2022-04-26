@@ -2,7 +2,6 @@ package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
-import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
 
 import java.sql.Connection;
@@ -11,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaDAO{
-    private final Logger log = Logger.getLogger(PersonaDAO.class);
+    private final Logger LOG = Logger.getLogger(ReporteDeTutoriaAcademicaDAO.class);
 
 
     @Override
@@ -31,7 +30,7 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
             }
             bandera = true;
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -55,7 +54,7 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
             }
             bandera =true;
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -92,7 +91,7 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
                 }while (resultSet.next());
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }
         return reporteDeTutoriaAcademica;
     }

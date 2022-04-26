@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 
 
 public class ProfesorDAO implements IProfesorDAO {
-    private final Logger log = Logger.getLogger(PersonaDAO.class);
+    private final Logger LOG = Logger.getLogger(ProfesorDAO.class);
 
     @Override
     public boolean addProfesor(Persona profesor) {
@@ -30,7 +30,7 @@ public class ProfesorDAO implements IProfesorDAO {
                 return true;
             }
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -50,7 +50,7 @@ public class ProfesorDAO implements IProfesorDAO {
             }
             return getProfesor(resultSet);
         } catch(SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -75,7 +75,7 @@ public class ProfesorDAO implements IProfesorDAO {
                 }while (resultSet.next());
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -99,7 +99,7 @@ public class ProfesorDAO implements IProfesorDAO {
                 throw new SQLException("ERROR: No se ha eliminado ningun profesor");
             }
         } catch (SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -129,7 +129,7 @@ public class ProfesorDAO implements IProfesorDAO {
             profesor.getPersona().setCorreoPersonal(correoPersonalPersona);
 
         } catch(SQLException ex) {
-            log.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(PersonaDAO.class.getName(), ex);
         }
         return profesor;
     }

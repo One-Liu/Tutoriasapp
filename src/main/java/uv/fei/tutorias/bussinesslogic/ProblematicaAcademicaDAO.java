@@ -2,7 +2,6 @@ package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
-import uv.fei.tutorias.domain.ExperienciaEducativa;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 
 import java.sql.Connection;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
-    private final Logger log = Logger.getLogger(ProblematicaAcademicaDAO.class);
+    private final Logger LOG = Logger.getLogger(ProblematicaAcademicaDAO.class);
 
     @Override
     public List<ProblematicaAcademica> findProblematicaAcademicaByDescription(String serchName) {
@@ -41,7 +40,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
             }
 
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -76,7 +75,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
                 }while (resultSet.next());
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }
         return problematicaAcademica;
     }
@@ -96,7 +95,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
             }
             result = true;
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -114,10 +113,10 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
             if (executeUpdate == 0){
                 throw new SQLException("Error la problematica academica no se ha eliminado");
             }else {
-                log.info("Problematica academica eliminada con el id " + searchId);
+                LOG.info("Problematica academica eliminada con el id " + searchId);
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }

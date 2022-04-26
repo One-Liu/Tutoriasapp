@@ -2,13 +2,12 @@ package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
-import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.SolucionAProblematicaAcademica;
 
 import java.sql.*;
 
 public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematicaAcademicaDAO{
-    private final Logger log = Logger.getLogger(PersonaDAO.class);
+    private final Logger LOG = Logger.getLogger(SolucionAProblematicaAcademicaDAO.class);
 
     @Override
     public boolean addSolucionProblematicaAcademica(SolucionAProblematicaAcademica solucionAProblematicaAcademica) {
@@ -25,7 +24,7 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
             }
             bandera =true;
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
             bandera =false;
         }finally {
             dataBaseConnection.cerrarConexion();
@@ -47,7 +46,7 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
                 throw new SQLException("Error no se ha eliminado ninguna solucion a la problematica academica");
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -79,7 +78,7 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
 
             }
         } catch (SQLException e) {
-            log.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
