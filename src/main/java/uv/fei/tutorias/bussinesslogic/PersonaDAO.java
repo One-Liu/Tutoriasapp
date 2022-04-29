@@ -70,7 +70,7 @@ public class PersonaDAO implements IPersonaDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchId + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+            if (!resultSet.next()) {
                 throw new SQLException("Persona not found");
             } else {
                 int idPersona = 0;
@@ -133,7 +133,6 @@ public class PersonaDAO implements IPersonaDAO {
     public boolean deletePersonById(int searchId) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-
             String query = "DELETE FROM persona WHERE (idPersona = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
@@ -165,12 +164,12 @@ public class PersonaDAO implements IPersonaDAO {
             statement.setString(5,persona.getCorreoPersonal());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
-            if(resultSet.next()) {
+            if (!resultSet.next()) {
+                throw new SQLException("ERROR: La persona no se ha agregado");
+            } else {
                 int idPersona = resultSet.getInt(1);
                 System.out.println("Persona agregada");
                 return idPersona;
-            } else {
-                throw new SQLException("ERROR: La persona no se ha agregado");
             }
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
@@ -189,7 +188,7 @@ public class PersonaDAO implements IPersonaDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, persona.getCorreoInstitucional());
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+            if (!resultSet.next()) {
                 throw new SQLException("idPersona not found");
             }
             idPersona = resultSet.getInt("idPersona");

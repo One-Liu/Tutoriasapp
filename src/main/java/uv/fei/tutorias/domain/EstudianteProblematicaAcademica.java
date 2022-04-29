@@ -2,21 +2,26 @@ package uv.fei.tutorias.domain;
 
 // author @liu
 
-public class Estudiante_ProblematicaAcademica {
+public class EstudianteProblematicaAcademica {
     private int idEstudiante_ProblematicaAcademica;
     private int idEstudiante;
     private int idProblematicaAcademica;
 
-    public Estudiante_ProblematicaAcademica(int idEstudiante_ProblematicaAcademica, int idEstudiante, int idProblematicaAcademica) {
+    public EstudianteProblematicaAcademica(int idEstudiante_ProblematicaAcademica, int idEstudiante, int idProblematicaAcademica) {
         this.idEstudiante_ProblematicaAcademica = idEstudiante_ProblematicaAcademica;
         this.idEstudiante = idEstudiante;
         this.idProblematicaAcademica = idProblematicaAcademica;
     }
 
-    public Estudiante_ProblematicaAcademica() {
+    public EstudianteProblematicaAcademica() {
     }
 
-    // Getters of uv.fei.tutorias.domain.Estudiante_ProblematicaAcademica
+    public EstudianteProblematicaAcademica(int idEstudiante, int idProblematicaAcademica) {
+        this.idEstudiante = idEstudiante;
+        this.idProblematicaAcademica = idProblematicaAcademica;
+    }
+
+    // Getters of uv.fei.tutorias.domain.EstudianteProblematicaAcademica
     public int getIdEstudiante_ProblematicaAcademica() {
         return idEstudiante_ProblematicaAcademica;
     }
@@ -29,7 +34,7 @@ public class Estudiante_ProblematicaAcademica {
         return idProblematicaAcademica;
     }
 
-    // Setters of uv.fei.tutorias.domain.Estudiante_ProblematicaAcademica
+    // Setters of uv.fei.tutorias.domain.EstudianteProblematicaAcademica
     public void setIdEstudiante_ProblematicaAcademica(int idEstudiante_ProblematicaAcademica) {
         this.idEstudiante_ProblematicaAcademica = idEstudiante_ProblematicaAcademica;
     }

@@ -85,7 +85,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()){
-            String query = "INSERT INTO problematicaacademica(descripcion, ExperienciaEducativa_idExperienciaEducativa) VALUES (?,?)";
+            String query = "INSERT INTO problematicaacademica(descripcion, ExperienciaEducativa_idExperienciaEducativa ) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, problematicaAcademica.getDescripcion());
             statement.setInt(2,problematicaAcademica.getIdExperienciaEducativa());
