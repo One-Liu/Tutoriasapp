@@ -1,16 +1,19 @@
 package uv.fei.tutorias.main;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import uv.fei.tutorias.bussinesslogic.PersonaDAO;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
+import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.Profesor;
+import uv.fei.tutorias.domain.TutorAcademico;
 
-import java.sql.SQLException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class HelloController {
+public class HelloController implements Initializable {
 
     @FXML
     private TextField nombre;
@@ -22,19 +25,47 @@ public class HelloController {
     private TextField correoInstitucional;
     @FXML
     private TextField correoPersonal;
+    @FXML
+    private ComboBox<String> tipo;
+
 
     @FXML
     protected void onOkButton() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        String value = (String) tipo.getValue();
+        if (value == null){
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Error seleccione un tipo");
+            alert.showAndWait();
+        } else {
             if (!camposVacios()){
-                PersonaDAO personaDAO = new PersonaDAO();
-                Persona persona = new Persona( nombre.getText(), apellidoMaterno.getText(),
-                        apellidoPaterno.getText(),  correoPersonal.getText(),
-                        correoInstitucional.getText());
-                personaDAO.addPerson(persona);
+                Persona persona = new Persona( nombre.getText(),
+                        apellidoPaterno.getText(), apellidoMaterno.getText(),
+                        correoInstitucional.getText() ,correoPersonal.getText());
+                switch (value) {
+                    case "Estudiante":
+                        System.out.println("Se selecciono al estudiante");;
+                        break;
+                    case "Coordinador":
+                        System.out.println("Se selecciona al Coordinador");
+                        break;
+                    case "Tutor academico":
+                        TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
+                        tutorAcademicoDAO.addTutorAcademico(persona);
+                        break;
+                    case "Profesor":
+                        ProfesorDAO profesorDAO = new ProfesorDAO();
+                        profesorDAO.addProfesor(persona);
+                        break;
+
+                }
             }
+        }
 
 
     }
+
     public boolean camposVacios(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         boolean bandera = true;
@@ -69,4 +100,11 @@ public class HelloController {
         return bandera;
     }
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tipo.getItems().setAll("Estudiante", "Coordinador", "Tutor academico", "Profesor");
+
+
+    }
 }
