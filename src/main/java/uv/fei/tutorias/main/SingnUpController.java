@@ -6,14 +6,11 @@ import javafx.scene.control.*;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.Persona;
-import uv.fei.tutorias.domain.Profesor;
-import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class HelloController implements Initializable {
+public class SingnUpController implements Initializable {
 
     @FXML
     private TextField nombre;
