@@ -4,7 +4,7 @@ package uv.fei.tutorias.domain;
 
 import java.util.Objects;
 
-public class Persona {
+public class  Persona {
     private int idPersona;
     private String nombre;
     private String apellidoPaterno;

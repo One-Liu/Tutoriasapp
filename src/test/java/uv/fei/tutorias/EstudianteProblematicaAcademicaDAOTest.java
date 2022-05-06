@@ -15,7 +15,7 @@ public class EstudianteProblematicaAcademicaDAOTest {
     private EstudianteProblematicaAcademica estudianteproblematicaAcademica;
     private EstudianteProblematicaAcademicaDAO estudianteProblematicaAcademicaDAO;
     @Before
-    public void incio(){
+    public void inicio(){
         estudianteproblematicaAcademica = new  EstudianteProblematicaAcademica(1,1);
         estudianteProblematicaAcademicaDAO = new EstudianteProblematicaAcademicaDAO();
 
