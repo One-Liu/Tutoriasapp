@@ -51,7 +51,6 @@ public class  Persona {
         return idPersona;
     }
 
-
     public String getNombre() {
         return nombre;
     }
