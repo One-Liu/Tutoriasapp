@@ -43,10 +43,8 @@ public class TutorAcademico {
     public boolean equals(Object obj) {
         if(obj instanceof TutorAcademico) {
             TutorAcademico tmpTutorAcademico = (TutorAcademico)obj;
-            if(this.idTutorAcademico == tmpTutorAcademico.getIdTutorAcademico()
-                    && this.persona.equals(tmpTutorAcademico.getPersona())) {
-                return true;
-            }
+            return this.idTutorAcademico == tmpTutorAcademico.getIdTutorAcademico()
+                    && this.persona.equals(tmpTutorAcademico.getPersona());
         }
         return false;
     }
