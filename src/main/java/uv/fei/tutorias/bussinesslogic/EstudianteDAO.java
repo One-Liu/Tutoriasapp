@@ -68,8 +68,6 @@ public class EstudianteDAO implements IEstudianteDAO {
         String nombreEstudiante = "";
         String apellidoPaternoEstudiante = "";
         String apellidoMaternoEstudiante = "";
-        String correoInstitucionalEstudiante = "";
-        String correoPersonalEstudiante = "";
         int idProgramaEducativo = 0;
         int idTutorAcademico = 0;
         try {
@@ -79,14 +77,12 @@ public class EstudianteDAO implements IEstudianteDAO {
             nombreEstudiante = resultSet.getString("nombre");
             apellidoPaternoEstudiante = resultSet.getString("apellidoPaterno");
             apellidoMaternoEstudiante = resultSet.getString("apellidoMaterno");
-            correoInstitucionalEstudiante = resultSet.getString("correoInstitucional");
-            correoPersonalEstudiante = resultSet.getString("correoPersonal");
             idTutorAcademico = resultSet.getInt("idTutorAcademico");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         }
-        Persona personaEstudiante = new Persona(idPersonaEstudiante,nombreEstudiante,apellidoPaternoEstudiante,apellidoMaternoEstudiante,correoInstitucionalEstudiante,correoPersonalEstudiante);
+        Persona personaEstudiante = new Persona(idPersonaEstudiante,nombreEstudiante,apellidoPaternoEstudiante,apellidoMaternoEstudiante);
         Estudiante estudiante = new Estudiante(idEstudiante,matricula,personaEstudiante,idTutorAcademico,idProgramaEducativo);
         return estudiante;
     }

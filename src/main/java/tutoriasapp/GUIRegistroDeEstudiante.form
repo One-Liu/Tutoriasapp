@@ -25,23 +25,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pnlRegistroDeEstudiante" max="32767" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="pnlRegistroDeEstudiante" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="pnlRegistroDeEstudiante">
+    <Container class="javax.swing.JPanel" name="jPanel1">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -49,31 +45,40 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblMatricula" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfMatricula" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="lblEstudiante" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbEstudiante" alignment="0" pref="300" max="32767" attributes="0"/>
-                                  <Component id="cbProgramaEducativo" alignment="0" pref="300" max="32767" attributes="0"/>
-                                  <Component id="cbTutorAcademico" alignment="0" pref="300" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="lblProgramaEducativo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblTutorAcademico" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="191" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="lblCamposVacios" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnRegistrar" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="lblCamposVacios" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbProgramaEducativo" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cbTutorAcademico" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblMatricula" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblProgramaEducativo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTutorAcademico" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="tfMatricula" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblApellidoPaterno" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="tfApellidoPaterno" alignment="0" pref="140" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="tfApellidoMaterno" min="-2" pref="140" max="-2" attributes="0"/>
+                                          <Component id="lblApellidoMaterno" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -83,47 +88,51 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblNombre" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="tfNombre" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblApellidoPaterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblApellidoMaterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tfApellidoPaterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfApellidoMaterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblMatricula" min="-2" pref="14" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfMatricula" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblEstudiante" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cbEstudiante" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Component id="lblProgramaEducativo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="cbProgramaEducativo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                  <Component id="lblTutorAcademico" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cbTutorAcademico" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
-                  <Component id="lblCamposVacios" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnRegistrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="lblTutorAcademico" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbTutorAcademico" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="37" max="32767" attributes="0"/>
+                          <Component id="lblCamposVacios" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnRegistrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JComboBox" name="cbEstudiante">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-          </AccessibilityProperties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Persona&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JComboBox" name="cbProgramaEducativo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -149,11 +158,6 @@
         <Component class="javax.swing.JLabel" name="lblMatricula">
           <Properties>
             <Property name="text" type="java.lang.String" value="Matricula"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblEstudiante">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Estudiante"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblProgramaEducativo">
@@ -187,6 +191,27 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblNombre">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre(s)"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfNombre">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblApellidoPaterno">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apellido paterno"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfApellidoPaterno">
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfApellidoMaterno">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblApellidoMaterno">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apellido materno"/>
           </Properties>
         </Component>
       </SubComponents>

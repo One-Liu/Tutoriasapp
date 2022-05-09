@@ -67,8 +67,6 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         String nombreCoordinador = "";
         String apellidoPaternoCoordinador = "";
         String apellidoMaternoCoordinador = "";
-        String correoInstitucionalCoordinador = "";
-        String correoPersonalCoordinador = "";
         int idProgramaEducativo = 0;
         try {
             idCoordinador = resultSet.getInt("idCoordinador");
@@ -76,13 +74,11 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             nombreCoordinador = resultSet.getString("nombre");
             apellidoPaternoCoordinador = resultSet.getString("apellidoPaterno");
             apellidoMaternoCoordinador = resultSet.getString("apellidoMaterno");
-            correoInstitucionalCoordinador = resultSet.getString("correoInstitucional");
-            correoPersonalCoordinador = resultSet.getString("correoPersonal");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {
             LOGGER.error(CoordinadorDAO.class.getName(),ex);
         }
-        Persona personaCoordinador = new Persona(idPersonaCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador,correoInstitucionalCoordinador,correoPersonalCoordinador);
+        Persona personaCoordinador = new Persona(idPersonaCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador);
         Coordinador coordinador = new Coordinador(idCoordinador,personaCoordinador,idProgramaEducativo);
         return coordinador;
     }

@@ -45,7 +45,7 @@ public class CoordinadorDAOTest {
         String searchName = "MARÍA";
         CoordinadorDAO coordinadorDao = new CoordinadorDAO();
         ArrayList<Coordinador> coordinadoresEsperados = new ArrayList<>();
-        Persona persona = new Persona(7,"MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ","aarenas@uv.mx","mariaArenas@gmail.com");
+        Persona persona = new Persona(7,"MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ");
         Coordinador coordinador1 = new Coordinador(1, persona, 1);
         coordinadoresEsperados.add(coordinador1);
         ArrayList<Coordinador> coordinadoresObtenidos = coordinadorDao.findCoordinadorByName(searchName);
@@ -57,7 +57,7 @@ public class CoordinadorDAOTest {
         System.out.println("findCoordinadorById");
         int idCoordinador = 1;
         CoordinadorDAO coordinadorDao = new CoordinadorDAO();
-        Persona persona = new Persona(7,"MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ","aarenas@uv.mx","mariaArenas@gmail.com");
+        Persona persona = new Persona(7,"MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ");
         Coordinador coordinadorEsperado = new Coordinador(idCoordinador, persona, 1);
         Coordinador coordinadorObtenido = coordinadorDao.findCoordinadorById(idCoordinador);
         assertTrue(coordinadorEsperado.equals(coordinadorObtenido));
@@ -67,7 +67,7 @@ public class CoordinadorDAOTest {
     public void testGetCoordinador() {
         System.out.println("getCoordinador");
         int idCoordinador = 1;
-        Persona persona = new Persona(7,"MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ","aarenas@uv.mx","mariaArenas@gmail.com");
+        Persona persona = new Persona(7,"MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ");
         Coordinador coordinadorEsperado = new Coordinador(idCoordinador, persona, 1);
         CoordinadorDAO coordinadorDao = new CoordinadorDAO();
         Coordinador coordinadorObtenido = new Coordinador();
@@ -92,7 +92,7 @@ public class CoordinadorDAOTest {
     @Test
     public void testAddCoordinador() {
         System.out.println("addCoordinador");
-        Persona persona = new Persona(0,"","","","","");
+        Persona persona = new Persona(0,"","","");
         Coordinador coordinador = new Coordinador(persona, 1);
         CoordinadorDAO coordinadorDao = new CoordinadorDAO();
         boolean result = coordinadorDao.addCoordinador(coordinador);
