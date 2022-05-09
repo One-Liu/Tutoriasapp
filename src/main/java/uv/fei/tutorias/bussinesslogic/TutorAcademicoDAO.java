@@ -57,19 +57,19 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     
     @Override
     public boolean addTutorAcademico(Persona tutorAcademico) {
-        PersonaDAO personaDao = new PersonaDAO();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
-            if (personaDao.addPerson(tutorAcademico)) {
-                String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, personaDao.findIdPersona(tutorAcademico));
-                statement.executeUpdate();
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        PersonaDAO personaDao = new PersonaDAO();
+//        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+//        try (Connection connection = dataBaseConnection.getConnection()) {
+//            if (personaDao.addPerson(tutorAcademico)) {
+//                String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
+//                PreparedStatement statement = connection.prepareStatement(query);
+//                statement.setInt(1, personaDao.findIdPersona(tutorAcademico));
+//                statement.executeUpdate();
+//                return true;
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         return false;
     }
     
@@ -106,13 +106,10 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             nombre = resultSet.getString("nombre");
             apellidoPaterno = resultSet.getString("apellidoPaterno");
             apellidoMaterno = resultSet.getString("apellidoMaterno");
-            telefono = resultSet.getString("telefono");
-            correoInstitucional = resultSet.getString("correoInstitucional");
             persona.setIdPersona(idTutorAcademico);
             persona.setNombre(nombre);
             persona.setApellidoPaterno(apellidoPaterno);
             persona.setApellidoMaterno(apellidoMaterno);
-            persona.setCorreoInstitucional(correoInstitucional);
         } catch (SQLException ex) {
             Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

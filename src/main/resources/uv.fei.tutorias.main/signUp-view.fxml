@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
@@ -16,13 +17,11 @@
       <Label layoutX="42.0" layoutY="125.0" text="Apellido Paterno" />
       <Label layoutX="42.0" layoutY="167.0" text="Apellido Materno" />
       <Label layoutX="34.0" layoutY="200.0" text="Correro institucional" />
-      <Label layoutX="42.0" layoutY="235.0" text="Correro personal" />
       <Label layoutX="416.0" layoutY="69.0" text="Tipo" />
       <TextField fx:id="nombre" layoutX="234.0" layoutY="86.0" />
       <TextField fx:id="apellidoPaterno" layoutX="234.0" layoutY="121.0" />
       <TextField fx:id="apellidoMaterno" layoutX="234.0" layoutY="163.0" />
       <TextField fx:id="correoInstitucional" layoutX="234.0" layoutY="196.0" />
-      <TextField fx:id="correoPersonal" layoutX="234.0" layoutY="231.0" />
       <ComboBox fx:id="tipo" layoutX="416.0" layoutY="99.0" prefWidth="150.0" promptText="Tipo de usuario">
          <items>
             <FXCollections fx:factory="observableArrayList">
@@ -34,6 +33,8 @@
          </items>
 
       </ComboBox>
+      <Label layoutX="42.0" layoutY="247.0" text="Contraseña" />
+      <PasswordField fx:id="pastxtcontrasena" layoutX="234.0" layoutY="252.0" />
 
 
    </children>

@@ -38,10 +38,9 @@ public class SingnUpController implements Initializable {
         } else {
             if (!camposVacios()){
                 Persona persona = new Persona( nombre.getText(),
-                        apellidoPaterno.getText(), apellidoMaterno.getText(),
-                        correoInstitucional.getText() ,correoPersonal.getText());
+                        apellidoPaterno.getText(), apellidoMaterno.getText());
                 switch (value) {
-                    case "Estudiante":
+                    case "Jefe de carrera":
                         System.out.println("Se selecciono al estudiante");;
                         break;
                     case "Coordinador":
@@ -50,10 +49,6 @@ public class SingnUpController implements Initializable {
                     case "Tutor academico":
                         TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
                         tutorAcademicoDAO.addTutorAcademico(persona);
-                        break;
-                    case "Profesor":
-                        ProfesorDAO profesorDAO = new ProfesorDAO();
-                        profesorDAO.addProfesor(persona);
                         break;
 
                 }

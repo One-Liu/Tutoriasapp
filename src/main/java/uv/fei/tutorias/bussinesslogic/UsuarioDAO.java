@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UsuarioDao implements IUsarioDAO{
+public class UsuarioDAO implements IUsarioDAO{
     private final Logger LOG = Logger.getLogger(PersonaDAO.class);
 
 

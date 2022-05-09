@@ -19,21 +19,21 @@ public class ProfesorDAO implements IProfesorDAO {
 
     @Override
     public boolean addProfesor(Persona profesor) {
-        PersonaDAO personaDao = new PersonaDAO();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
-            if (personaDao.addPerson(profesor)) {
-                String query = "INSERT INTO profesor (Persona_idPersona) VALUES ( ?)";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, personaDao.findIdPersona(profesor));
-                statement.executeUpdate();
-                return true;
-            }
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        }finally {
-            dataBaseConnection.cerrarConexion();
-        }
+//        PersonaDAO personaDao = new PersonaDAO();
+//        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+//        try (Connection connection = dataBaseConnection.getConnection()) {
+//            if (personaDao.addPersona(profesor)) {
+//                String query = "INSERT INTO profesor (Persona_idPersona) VALUES ( ?)";
+//                PreparedStatement statement = connection.prepareStatement(query);
+//                statement.setInt(1, personaDao.findIdPersona(profesor));
+//                statement.executeUpdate();
+//                return true;
+//            }
+//        } catch (SQLException ex) {
+//            LOG.warn(PersonaDAO.class.getName(), ex);
+//        }finally {
+//            dataBaseConnection.cerrarConexion();
+//        }
         return false;
     }
 
@@ -112,8 +112,7 @@ public class ProfesorDAO implements IProfesorDAO {
         String nombrePersona = "";
         String apellidoPaternoPersona = "";
         String apellidoMaternoPersona = "";
-        String correoInstitucionalPersona = "";
-        String correoPersonalPersona = "";
+
         try {
             nombrePersona = resultSet.getString("nombre");
             profesor.getPersona().setNombre(nombrePersona);
@@ -121,12 +120,8 @@ public class ProfesorDAO implements IProfesorDAO {
             profesor.getPersona().setApellidoMaterno(apellidoMaternoPersona);
             apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
             profesor.getPersona().setApellidoPaterno(apellidoPaternoPersona);
-            correoInstitucionalPersona = resultSet.getString("correoInstitucional");
-            profesor.getPersona().setCorreoInstitucional(correoInstitucionalPersona);
             apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
             profesor.getPersona().setApellidoPaterno(apellidoPaternoPersona);
-            correoPersonalPersona = resultSet.getString("correoPersonal");
-            profesor.getPersona().setCorreoPersonal(correoPersonalPersona);
 
         } catch(SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);

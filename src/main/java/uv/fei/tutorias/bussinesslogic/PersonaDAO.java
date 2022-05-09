@@ -19,7 +19,7 @@ public class PersonaDAO implements IPersonaDAO {
 
 
     @Override
-    public List<Persona> findPersonsByName(String searchName) {
+    public List<Persona> findPersonasByName(String searchName) {
         ArrayList<Persona> personas = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
@@ -28,29 +28,24 @@ public class PersonaDAO implements IPersonaDAO {
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                throw new SQLException("Persona not found");
+                throw new SQLException("No se ha encontrado a la persona con el nombre" + searchName);
             } else {
                 int idPersona = 0;
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                String correoInstitucional = "";
-                String correoPersonal = "";
                 do {
-                    idPersona = resultSet.getInt("idPersona");
+                    idPersona = resultSet.getInt("id");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    correoInstitucional = resultSet.getString("correoInstitucional");
-                    correoPersonal = resultSet.getString("correoPersonal");
 
                     Persona persona = new Persona();
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
-                    persona.setCorreoInstitucional(correoInstitucional);
-                    persona.setCorreoPersonal(correoPersonal);
+
                     personas.add(persona);
                 } while (resultSet.next());
             }
@@ -62,37 +57,32 @@ public class PersonaDAO implements IPersonaDAO {
         return personas;
     }
     @Override
-    public Persona findPersonById(int searchId){
+    public Persona findPersonaById(int searchId){
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         Persona persona = new Persona();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "Select * from persona where idPersona like ?";
+            String query = "Select * from persona where id like ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, "%" + searchId + "%");
+            statement.setInt(1, searchId);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                throw new SQLException("Persona not found");
+                throw new SQLException("No se ha encontrado la persona con el id " + searchId);
             } else {
                 int idPersona = 0;
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
-                String correoInstitucional = "";
-                String correoPersonal = "";
                 do {
-                    idPersona = resultSet.getInt("idPersona");
+                    idPersona = resultSet.getInt("id");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-                    correoInstitucional = resultSet.getString("correoInstitucional");
-                    correoPersonal = resultSet.getString("correoPersonal");
 
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
-                    persona.setCorreoInstitucional(correoInstitucional);
-                    persona.setCorreoPersonal(correoPersonal);
+
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
@@ -105,22 +95,21 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public boolean addPerson(Persona persona) {
+    public boolean addPersona(Persona persona) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES(?,?,?,?,?)";
+            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno) VALUES(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, persona.getNombre());
             statement.setString(2, persona.getApellidoPaterno());
             statement.setString(3, persona.getApellidoMaterno());
-            statement.setString(4,persona.getCorreoInstitucional());
-            statement.setString(5,persona.getCorreoPersonal());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: La persona no se ha agregado");
+            }else {
+                bandera = true;
             }
-            bandera = true;
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
@@ -130,7 +119,8 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public boolean deletePersonById(int searchId) {
+    public boolean deletePersonaById(int searchId) {
+        boolean bandera = false;
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
             String query = "DELETE FROM persona WHERE (idPersona = ?)";
@@ -139,65 +129,18 @@ public class PersonaDAO implements IPersonaDAO {
 
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
-                throw new SQLException("ERROR: No se ha eliminado ninguna tabla");
-            } else {
-                System.out.println("Persona eliminada satisfactoriamente");
+                throw new SQLException("ERROR: No se ha eliminado la persona con el id " + searchId );
+            }else {
+                bandera = true;
             }
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
-        return true;
+        return bandera;
     }
     
-    // author @liu
-    public int addPersonaReturnId(Persona persona) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO Persona (nombre, apellidoPaterno, apellidoMaterno, correoInstitucional, correoPersonal) VALUES (?,?,?,?,?)";
-            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, persona.getNombre());
-            statement.setString(2, persona.getApellidoPaterno());
-            statement.setString(3, persona.getApellidoMaterno());
-            statement.setString(4,persona.getCorreoInstitucional());
-            statement.setString(5,persona.getCorreoPersonal());
-            statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (!resultSet.next()) {
-                throw new SQLException("ERROR: La persona no se ha agregado");
-            } else {
-                int idPersona = resultSet.getInt(1);
-                System.out.println("Persona agregada");
-                return idPersona;
-            }
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        }finally {
-            dataBaseConnection.cerrarConexion();
-        }
-        return 0;
-    }
-    // author @liu
-    public int findIdPersona(Persona persona) {
-        int idPersona = 0;
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
-            // Un correo institucional es único para cada Persona
-            String query = "SELECT idPersona FROM Persona WHERE correoInstitucional = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, persona.getCorreoInstitucional());
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                throw new SQLException("idPersona not found");
-            }
-            idPersona = resultSet.getInt("idPersona");
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        } finally {
-            dataBaseConnection.cerrarConexion();
-        }
-        return idPersona;
-    }
+
 }
 
