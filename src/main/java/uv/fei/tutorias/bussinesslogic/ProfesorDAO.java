@@ -18,60 +18,58 @@ public class ProfesorDAO implements IProfesorDAO {
     private final Logger LOG = Logger.getLogger(ProfesorDAO.class);
 
     @Override
-    public boolean addProfesor(Persona profesor) {
-//        PersonaDAO personaDao = new PersonaDAO();
-//        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-//        try (Connection connection = dataBaseConnection.getConnection()) {
-//            if (personaDao.addPersona(profesor)) {
-//                String query = "INSERT INTO profesor (Persona_idPersona) VALUES ( ?)";
-//                PreparedStatement statement = connection.prepareStatement(query);
-//                statement.setInt(1, personaDao.findIdPersona(profesor));
-//                statement.executeUpdate();
-//                return true;
-//            }
-//        } catch (SQLException ex) {
-//            LOG.warn(PersonaDAO.class.getName(), ex);
-//        }finally {
-//            dataBaseConnection.cerrarConexion();
-//        }
-        return false;
-    }
-
-    @Override
-    public Profesor findProfesorById(int idProfesor) {
+    public boolean addProfesor(Profesor profesor) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "Select PROFE.idProfesor, P.*  from profesor PROFE left join persona P on P.idPersona = PROFE.Persona_idPersona where idProfesor = ?";
+        boolean bandera = false;
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            String query = "INSERT INTO profesor(id, idPersona) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idProfesor);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() == false) {
-                throw new SQLException("Profesor not found");
+            statement.setInt(1,profesor.getId());
+            statement.setInt(2, profesor.getIdPersona());
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate == 0) {
+                throw new SQLException("ERROR: El profesor no se ha agregado");
+            }else {
+                bandera = true;
             }
-            return getProfesor(resultSet);
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
-        return null;
+        return bandera;
     }
+
+    public boolean addProfesorandPersona(Profesor profesor){
+        boolean bandera = false;
+        PersonaDAO personaDAO = new PersonaDAO();
+        int idPersona;
+        idPersona = personaDAO.addPersonaReturnId(profesor);
+        if (idPersona != -1){
+            profesor.setIdPersona(idPersona);
+            addProfesor(profesor);
+            bandera = true;
+        }
+        return bandera;
+    }
+
+
 
 
     @Override
     public List<Profesor> findProfesoresByName(String searchName) {
-        List<Profesor> profesors = new ArrayList<>();
+        List<Profesor> profesores = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()){
-            String query = "SELECT p.*, profe.idProfesor From profesor profe Left Join persona p on p.idPersona = profe.Persona_idPersona Where nombre sounds like ?";
+            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, searchName);
+            statement.setString(1,"%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false){
-                throw new SQLException("Profesores not found");
+            if (!resultSet.next()){
+                throw new SQLException("No se ha encontrado al profesor con el nombre " + searchName);
             } else {
                 do {
-                    profesors.add(getProfesor(resultSet));
+                    profesores.add(getProfesor(resultSet));
                 }while (resultSet.next());
             }
         } catch (SQLException e) {
@@ -79,49 +77,72 @@ public class ProfesorDAO implements IProfesorDAO {
         }finally {
             dataBaseConnection.cerrarConexion();
         }
+        return profesores;
+    }
 
-
-        return profesors;
+    @Override
+    public Profesor findProfesorById(int searchId) {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        Profesor profesor = new Profesor();
+        try (Connection connection = dataBaseConnection.getConnection()){
+            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = (?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,searchId);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()){
+                throw new SQLException("No se ha encontrado al profesor con el nombre " + searchId);
+            } else {
+               profesor = getProfesor(resultSet);
+            }
+        } catch (SQLException e) {
+            LOG.warn(PersonaDAO.class.getName(), e);
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return profesor;
     }
 
 
     @Override
-    public boolean deleteProfesorById(int idProfesor) {
+    public boolean deleteProfesorById(int searchId) {
+        boolean bandera = false;
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-
-            String query = "DELETE FROM profesor WHERE (idProfesor = ?)";
+            String query = "DELETE FROM profesor WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idProfesor);
+            statement.setInt(1, searchId);
 
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
-                throw new SQLException("ERROR: No se ha eliminado ningun profesor");
+                throw new SQLException("ERROR: No se ha eliminado ningun profesor con el id " + searchId);
+            }else {
+                bandera = true;
             }
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
-        return true;
+        return bandera;
     }
 
 
     private Profesor getProfesor(ResultSet resultSet) {
         Profesor profesor = new Profesor();
+        int id = 0;
         String nombrePersona = "";
         String apellidoPaternoPersona = "";
         String apellidoMaternoPersona = "";
 
         try {
+            id = resultSet.getInt("id");
+            profesor.setId(id);
             nombrePersona = resultSet.getString("nombre");
-            profesor.getPersona().setNombre(nombrePersona);
+            profesor.setNombre(nombrePersona);
             apellidoMaternoPersona = resultSet.getString("apellidoMaterno");
-            profesor.getPersona().setApellidoMaterno(apellidoMaternoPersona);
+            profesor.setApellidoMaterno(apellidoMaternoPersona);
             apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
-            profesor.getPersona().setApellidoPaterno(apellidoPaternoPersona);
-            apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
-            profesor.getPersona().setApellidoPaterno(apellidoPaternoPersona);
+            profesor.setApellidoPaterno(apellidoPaternoPersona);
 
         } catch(SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);

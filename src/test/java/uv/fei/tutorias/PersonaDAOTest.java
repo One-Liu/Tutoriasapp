@@ -19,7 +19,7 @@ public class PersonaDAOTest {
 
     @Before
     public void inicio(){
-        persona = new Persona("Juan","Perez","Garcia");
+        persona = new Persona("Mariana","Silava","Hernandez");
         personaDAO = new PersonaDAO();
     }
 
@@ -44,6 +44,11 @@ public class PersonaDAOTest {
     @Test
     public void deletePersonaById() {
         assertTrue(personaDAO.deletePersonaById(36));
+
+    }
+    @Test
+    public void addpersonaReturnId(){
+        assertEquals(37,personaDAO.addPersonaReturnId(persona));
 
     }
 

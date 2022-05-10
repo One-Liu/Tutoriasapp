@@ -140,7 +140,32 @@ public class PersonaDAO implements IPersonaDAO {
         }
         return bandera;
     }
-    
+
+    public int addPersonaReturnId(Persona persona) {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        int id = -1;
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno) VALUES(?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, persona.getNombre());
+            statement.setString(2, persona.getApellidoPaterno());
+            statement.setString(3, persona.getApellidoMaterno());
+            int executeUpdate = statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (executeUpdate == 0) {
+                throw new SQLException("ERROR: La persona no se ha agregado");
+            }else {
+                resultSet.next();
+                id=resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            LOG.warn(PersonaDAO.class.getName(), ex);
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return id;
+    }
+
 
 }
 
