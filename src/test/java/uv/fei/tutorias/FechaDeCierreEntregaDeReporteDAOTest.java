@@ -44,7 +44,7 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
         String searchDate = "2022";
         FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaReporteDao = new FechaDeCierreEntregaDeReporteDAO();
         ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteEsperadas = new ArrayList<>();
-        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte1 = new FechaDeCierreEntregaDeReporte(1,"2022-04-01",1);
+        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte1 = new FechaDeCierreEntregaDeReporte(1,"2022-04-01");
         fechasDeCierreEntregaReporteEsperadas.add(fechaDeCierreEntregaReporte1);
         ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteObtenidas = fechaDeCierreEntregaReporteDao.findFechasDeCierreEntregaDeReporteByFecha(searchDate);
         assertTrue(fechasDeCierreEntregaReporteEsperadas.equals(fechasDeCierreEntregaReporteObtenidas));
@@ -55,7 +55,7 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
         System.out.println("findFechaDeCierreEntregaReporteById");
         int idFechaDeCierreEntregaReporte = 1;
         FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaReporteDao = new FechaDeCierreEntregaDeReporteDAO();
-        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteEsperada = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,"2022-04-01",1);
+        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteEsperada = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,"2022-04-01");
         FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteObtenida = fechaDeCierreEntregaReporteDao.findFechaDeCierreEntregaDeReporteById(idFechaDeCierreEntregaReporte);
         assertTrue(fechaDeCierreEntregaReporteEsperada.equals(fechaDeCierreEntregaReporteObtenida));
     }
@@ -64,7 +64,7 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
     public void testGetFechaDeCierreEntregaDeReporte() {
         System.out.println("getFechaDeCierreEntregaReporte");
         int idFechaDeCierreEntregaReporte = 1;
-        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteEsperada = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,"2022-04-01",1);
+        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteEsperada = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,"2022-04-01");
         FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaReporteDao = new FechaDeCierreEntregaDeReporteDAO();
         FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteObtenida = new FechaDeCierreEntregaDeReporte();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
@@ -88,7 +88,7 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
     @Test
     public void testAddFechaDeCierreEntregaDeReporte() {
         System.out.println("addFechaDeCierreEntregaReporte");
-        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte("",0);
+        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte("");
         FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaReporteDao = new FechaDeCierreEntregaDeReporteDAO();
         boolean result = fechaDeCierreEntregaReporteDao.addFechaDeCierreEntregaDeReporte(fechaDeCierreEntregaReporte);
         assertTrue(result);

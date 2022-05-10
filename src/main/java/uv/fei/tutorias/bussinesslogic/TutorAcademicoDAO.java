@@ -20,12 +20,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         ArrayList<TutorAcademico> tutores = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona WHERE CONCAT(nombre,\" \", apellidoPaterno,\" \",apellidoMaterno) LIKE ?";
+            String query = "SELECT TA.id, TA.idPersona, P.nombre, P.apellidoPaterno, P.apellidoMaterno, TA.idUsuario FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
-                throw new SQLException("Tutor Academico not found");
+                throw new SQLException("No se han encontrado tutores académicos con el nombre " + searchName);
             } else {
                 do {
                     tutores.add(getTutorAcademico(resultSet));
@@ -44,12 +44,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         TutorAcademico tutorAcademico = new TutorAcademico();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona WHERE idTutorAcademico = ?";
+            String query = "SELECT TA.id, TA.idPersona, P.nombre, P.apellidoPaterno, P.apellidoMaterno, TA.idUsuario FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona WHERE TA.id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idTutorAcademico);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next() == false) {
-                throw new SQLException("Tutor Academico not found");
+                throw new SQLException("No se ha encontrado el tutor académico con el id " + idTutorAcademico);
             }
             tutorAcademico = getTutorAcademico(resultSet);
         } catch (SQLException ex) {
@@ -67,17 +67,19 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         String nombreTutorAcademico = "";
         String apellidoPaternoTutorAcademico = "";
         String apellidoMaternoTutorAcademico = "";
+        int idUsuario = 0;
         try {
             idTutorAcademico = resultSet.getInt("idTutorAcademico");
             idPersonaTutorAcademico = resultSet.getInt("idPersona");
             nombreTutorAcademico = resultSet.getString("nombre");
             apellidoPaternoTutorAcademico = resultSet.getString("apellidoPaterno");
             apellidoMaternoTutorAcademico = resultSet.getString("apellidoMaterno");
+            idUsuario = resultSet.getInt("idUsuario");
         } catch (SQLException ex) {
             LOGGER.error(TutorAcademicoDAO.class.getName(), ex);
         }
         Persona personaTutorAcademico = new Persona(idPersonaTutorAcademico,nombreTutorAcademico,apellidoPaternoTutorAcademico,apellidoMaternoTutorAcademico);
-        TutorAcademico tutorAcademico = new TutorAcademico(idTutorAcademico,personaTutorAcademico);
+        TutorAcademico tutorAcademico = new TutorAcademico(idTutorAcademico,personaTutorAcademico,idUsuario);
         return tutorAcademico;
     }
 
@@ -87,12 +89,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
+            String query = "INSERT INTO tutor_academico (idPersona,idUsuario) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, personaDao.addPersonaReturnId(tutorAcademico));
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: Tutor Academico not added");
+                throw new SQLException("ERROR: El tutor académico no se ha agregado");
             }
             result = true;
         } catch (SQLException ex) {
@@ -109,12 +111,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM TutorAcademico WHERE idTutorAcademico = ?";
+            String query = "DELETE FROM sesion_de_tutoria_academica WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idTutorAcademico);
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: Tutor Academico not deleted");
+                throw new SQLException("ERROR: No se ha eliminado el tutor académico con el id " + idTutorAcademico);
             }
             result = true;
         } catch (SQLException ex) {

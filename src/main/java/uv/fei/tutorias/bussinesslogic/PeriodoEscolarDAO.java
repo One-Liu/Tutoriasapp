@@ -19,12 +19,12 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         ArrayList<PeriodoEscolar> periodosEscolares = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM PeriodoEscolar WHERE fechaInicio LIKE ?";
+            String query = "SELECT * FROM periodo_escolar WHERE fechaInicio LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + date + "%");
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
-                throw new SQLException("Periodo Escolar not found");
+                throw new SQLException("No se han encontrado periodos escolares con la fecha de inicio " + date);
             } else {
                 do {
                     periodosEscolares.add(getPeriodoEscolar(resultSet));
@@ -43,12 +43,12 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         PeriodoEscolar periodoEscolar = new PeriodoEscolar();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
+            String query = "SELECT * FROM periodo_escolar WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next() == false) {
-                throw new SQLException("Periodo Escolar not found");
+                throw new SQLException("No se ha encontrado el periodo escolar con el id " + idPeriodoEscolar);
             }
             periodoEscolar = getPeriodoEscolar(resultSet);
         } catch (SQLException ex) {
@@ -65,7 +65,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         String fechaInicioPeriodoEscolar = "";
         String fechaTerminoPeriodoEscolar = "";
         try {
-            idPeriodoEscolar = resultSet.getInt("idPeriodoEscolar");
+            idPeriodoEscolar = resultSet.getInt("id");
             fechaInicioPeriodoEscolar = resultSet.getString("fechaInicio");
             fechaTerminoPeriodoEscolar = resultSet.getString("fechaTermino");
         } catch (SQLException ex) {
@@ -80,13 +80,13 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO PeriodoEscolar (fechaInicio,fechaTermino) VALUES (?,?)";
+            String query = "INSERT INTO periodo_escolar (fechaInicio,fechaTermino) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, periodoEscolar.getFechaInicio());
             statement.setString(2, periodoEscolar.getFechaTermino());
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: Periodo Escolar not added");
+                throw new SQLException("ERROR: El periodo escolar no se ha agregado");
             }
             result = true;
         } catch (SQLException ex) {
@@ -102,12 +102,12 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM PeriodoEscolar WHERE idPeriodoEscolar = ?";
+            String query = "DELETE FROM periodo_escolar WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: Periodo Escolar not deleted");
+                throw new SQLException("ERROR: No se ha eliminado el periodo escolar con el id " + idPeriodoEscolar);
             }
             result = true;
         } catch(SQLException ex) {

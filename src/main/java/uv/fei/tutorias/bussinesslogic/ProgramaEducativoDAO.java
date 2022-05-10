@@ -19,12 +19,12 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         ArrayList<ProgramaEducativo> programasEducativos = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM ProgramaEducativo WHERE nombre LIKE ?";
+            String query = "SELECT * FROM programa_educativo WHERE nombreProgramaEducativo LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,"%" + searchName + "%");
+            statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next() == false) {
-                throw new SQLException("Programa Educativo not found");
+                throw new SQLException("No se han encontrado programas educativos con el nombre " + searchName);
             } else {
                 do {
                     programasEducativos.add(getProgramaEducativo(resultSet));
@@ -43,12 +43,12 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         ProgramaEducativo programaEducativo = new ProgramaEducativo();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM ProgramaEducativo WHERE idProgramaEducativo = ?";
+            String query = "SELECT * FROM programa_educativo WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProgramaEducativo);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next() == false) {
-                throw new SQLException("Programa Educativo not found");
+                throw new SQLException("No se ha encontrado el programa educativo con el id " + idProgramaEducativo);
             }
             programaEducativo = getProgramaEducativo(resultSet);
         } catch (SQLException ex) {
@@ -64,8 +64,8 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         int idProgramaEducativo = 0;
         String nombreProgramaEducativo = "";
         try {
-            idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
-            nombreProgramaEducativo = resultSet.getString("nombre");
+            idProgramaEducativo = resultSet.getInt("id");
+            nombreProgramaEducativo = resultSet.getString("nombreProgramaEducativo");
         } catch (SQLException ex) {
             LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
         }
@@ -78,12 +78,12 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO ProgramaEducativo (nombre) VALUES (?)";
+            String query = "INSERT INTO programa_educativo (nombreProgramaEducativo) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, programaEducativo.getNombre());
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: Programa Educativo not added");
+                throw new SQLException("ERROR: El programa educativo no se ha agregado");
             }
             result = true;
         } catch (SQLException ex) {
@@ -99,12 +99,12 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM ProgramaEducativo WHERE idProgramaEducativo = ?";
+            String query = "DELETE FROM programa_educativo WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProgramaEducativo);
             int affectedRows = statement.executeUpdate();
             if(affectedRows != 0) {
-                throw new SQLException("ERROR: Programa Educativo not deleted");
+                throw new SQLException("ERROR: No se ha eliminado el programa educativo con el id " + idProgramaEducativo);
             }
         } catch (SQLException ex) {
             LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
