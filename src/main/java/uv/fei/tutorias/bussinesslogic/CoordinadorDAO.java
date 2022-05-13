@@ -13,7 +13,7 @@ import uv.fei.tutorias.domain.Persona;
 // author @liu
 public class CoordinadorDAO implements ICoordinadorDAO {
 
-    private final Logger LOGGER = Logger.getLogger(PersonaDAO.class);
+    private final Logger LOGGER = Logger.getLogger(CoordinadorDAO.class);
 
     @Override
     public ArrayList<Coordinador> findCoordinadorByName(String searchName) {
