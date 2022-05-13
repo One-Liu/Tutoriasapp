@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class DataBaseConnection {
     private Connection connection;
-    private final String DB = "jdbc:mysql://127.0.0.1/sistemadetutorias";
+    private final String DB = "jdbc:mysql://127.0.0.1/sistemadetutoriasdb";
     private final String USUARIO = "luzio";
     private final String CONTRASENA = "arteCienciaLuz";
 

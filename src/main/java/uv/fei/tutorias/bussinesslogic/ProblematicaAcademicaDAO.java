@@ -58,7 +58,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchId + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false){
+            if (!resultSet.next()){
                 throw new SQLException("Problematica academica not found");
             }else {
                 int idProblematicaAcademica = 0;
@@ -85,15 +85,16 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()){
-            String query = "INSERT INTO problematicaacademica(descripcion, ExperienciaEducativa_idExperienciaEducativa ) VALUES (?,?)";
+            String query = "INSERT INTO problematicaa_cademica(descripcion, ExperienciaEducativa_idExperienciaEducativa ) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, problematicaAcademica.getDescripcion());
             statement.setInt(2,problematicaAcademica.getIdExperienciaEducativa());
             int excecuteUpadate = statement.executeUpdate();
             if (excecuteUpadate == 0){
                 throw new SQLException("Error problematica academica no se ha agregado");
+            }else{
+                result = true;
             }
-            result = true;
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
         }finally {

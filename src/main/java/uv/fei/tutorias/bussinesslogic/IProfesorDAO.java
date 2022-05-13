@@ -8,6 +8,6 @@ import java.util.List;
 public interface IProfesorDAO {
     public List<Profesor> findProfesoresByName(String searchName);
     public Profesor findProfesorById(int idProfesor);
-    public boolean addProfesor(Persona profesor);
+    public boolean addProfesor(Profesor profesor);
     public boolean deleteProfesorById(int idProfesor);
 }

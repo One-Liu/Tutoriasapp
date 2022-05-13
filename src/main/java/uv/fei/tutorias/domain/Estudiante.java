@@ -8,16 +8,29 @@ public class
 
 
 
-Estudiante {
-    private int idEstudiante;
+Estudiante extends Persona {
+    private int id;
     private String matricula;
     private int idPersona;
     private int idTutorAcademico;
     private int idProgramaEducativo;
 
+    public Estudiante(String nombre, String apellidoPaterno, String apellidoMaterno, String matricula) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.matricula = matricula;
+    }
+
+    public Estudiante(String matricula) {
+        this.matricula = matricula;
+    }
+
+
+    public Estudiante() {
+    }
+
     // Getters of uv.fei.tutorias.domain.Estudiante
-    public int getIdEstudiante() {
-        return idEstudiante;
+    public int getId() {
+        return id;
     }
 
     public String getMatricula() {
@@ -37,8 +50,8 @@ Estudiante {
     }
 
     // Setters of uv.fei.tutorias.domain.Estudiante
-    public void setIdEstudiante(int idEstudiante) {
-        this.idEstudiante = idEstudiante;
+    public void setId(int idEstudiante) {
+        this.id = idEstudiante;
     }
 
     public void setMatricula(String matricula) {
