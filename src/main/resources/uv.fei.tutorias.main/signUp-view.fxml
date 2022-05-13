@@ -25,10 +25,9 @@
       <ComboBox fx:id="tipo" layoutX="416.0" layoutY="99.0" prefWidth="150.0" promptText="Tipo de usuario">
          <items>
             <FXCollections fx:factory="observableArrayList">
-               <String fx:value="Estudiante" />
+               <String fx:value="Jefe de carrera" />
                <String fx:value="Coordinador" />
                <String fx:value="Tutor academico" />
-               <String fx:value="Profesor" />
             </FXCollections>
          </items>
 

@@ -10,6 +10,9 @@ public class Usuario {
         this.correoInstitucional = correoInstitucional;
     }
 
+    public Usuario() {
+    }
+
     public int getId() {
         return id;
     }

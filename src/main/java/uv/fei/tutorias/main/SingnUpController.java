@@ -3,15 +3,18 @@ package uv.fei.tutorias.main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
-import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
+import uv.fei.tutorias.bussinesslogic.*;
+import uv.fei.tutorias.domain.JefeDeCarrera;
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.Usuario;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SingnUpController implements Initializable {
 
+    @FXML
+    private PasswordField pastxtcontrasena;
     @FXML
     private TextField nombre;
     @FXML
@@ -20,8 +23,8 @@ public class SingnUpController implements Initializable {
     private TextField apellidoPaterno;
     @FXML
     private TextField correoInstitucional;
-    @FXML
-    private TextField correoPersonal;
+
+
     @FXML
     private ComboBox<String> tipo;
 
@@ -39,13 +42,21 @@ public class SingnUpController implements Initializable {
             if (!camposVacios()){
                 Persona persona = new Persona( nombre.getText(),
                         apellidoPaterno.getText(), apellidoMaterno.getText());
+                Usuario usuario = new Usuario(pastxtcontrasena.getText(),correoInstitucional.getText());
                 switch (value) {
                     case "Jefe de carrera":
-                        System.out.println("Se selecciono al estudiante");;
-                        break;
+                        JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
+                        PersonaDAO personaDAO = new PersonaDAO();
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        JefeDeCarrera jefeDeCarrera = new JefeDeCarrera(persona);
+                        jefeDeCarrera.setIdPersona(personaDAO.addPersonaReturnId(persona));
+                        jefeDeCarrera.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
+                        jefeDeCarreraDAO.addJefeDeCarrera(jefeDeCarrera);
+
+
+
                     case "Coordinador":
-                        System.out.println("Se selecciona al Coordinador");
-                        break;
+
                     case "Tutor academico":
                         TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
                         tutorAcademicoDAO.addTutorAcademico(persona);
@@ -81,11 +92,6 @@ public class SingnUpController implements Initializable {
             alert.setTitle("Error");
             alert.setContentText("Error correo institucional vacio");
             alert.showAndWait();
-        }else if (correoPersonal.getText().trim().isEmpty()){
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Error correo personal");
-            alert.showAndWait();
         }else {
             bandera = false;
         }
@@ -95,7 +101,7 @@ public class SingnUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tipo.getItems().setAll("Estudiante", "Coordinador", "Tutor academico", "Profesor");
+        tipo.getItems().setAll("Jefe de carrera", "Coordinador", "Tutor academico");
 
 
     }
