@@ -1,4 +1,4 @@
-package uv.fei.tutorias;
+package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +13,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.Persona;
@@ -45,7 +43,7 @@ public class EstudianteDAOTest {
     public void testFindEstudianteByName() {
         System.out.println("findEstudianteByName");
         String searchName = "MAX";
-        Persona personaEstudiante1 = new Persona(1,"JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ","zS20015728@estudiantes.uv.mx","lesterhero2002@gmail.com");
+        Persona personaEstudiante1 = new Persona(1,"JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ");
         Estudiante estudianteEsperado1 = new Estudiante(1,"S20015728", personaEstudiante1, 1, 1);
         ArrayList<Estudiante> estudiantesEsperados = new ArrayList<>();
         estudiantesEsperados.add(estudianteEsperado1);
@@ -58,7 +56,7 @@ public class EstudianteDAOTest {
     public void testFindEstudianteById() {
         System.out.println("findEstudianteById");
         int idEstudiante = 1;
-        Persona personaEstudiante = new Persona(1,"JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ","zS20015728@estudiantes.uv.mx","lesterhero2002@gmail.com");
+        Persona personaEstudiante = new Persona(1,"JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ");
         Estudiante estudianteEsperado = new Estudiante(idEstudiante,"S20015728", personaEstudiante, 1, 1);
         EstudianteDAO estudianteDao = new EstudianteDAO();
         Estudiante estudianteObtenido = estudianteDao.findEstudianteById(idEstudiante);
@@ -69,7 +67,7 @@ public class EstudianteDAOTest {
     public void testGetEstudiante() {
         System.out.println("getCoordinador");
         int idEstudiante = 1;
-        Persona personaEstudiante = new Persona(1,"JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ","zS20015728@estudiantes.uv.mx","lesterhero2002@gmail.com");
+        Persona personaEstudiante = new Persona(1,"JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ");
         Estudiante estudianteEsperado = new Estudiante(idEstudiante,"S20015728", personaEstudiante, 1, 1);
         EstudianteDAO estudianteDao = new EstudianteDAO();
         Estudiante estudianteObtenido = new Estudiante();
@@ -94,7 +92,7 @@ public class EstudianteDAOTest {
     @Test
     public void testAddEstudiante() {
         System.out.println("addEstudiante");
-        Persona personaEstudiante = new Persona("","","","","");
+        Persona personaEstudiante = new Persona("","","");
         Estudiante estudiante = new Estudiante("", personaEstudiante, 0, 0);
         EstudianteDAO estudianteDao = new EstudianteDAO();
         boolean result = estudianteDao.addEstudiante(estudiante);

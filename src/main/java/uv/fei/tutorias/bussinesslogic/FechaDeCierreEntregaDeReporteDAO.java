@@ -19,12 +19,12 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporte = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM FechaDeCierreEntregaDeReporte WHERE fecha LIKE ?";
+            String query = "SELECT * FROM fecha_cierre_entrega_reporte WHERE fecha LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchDate + "%");
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
-                throw new SQLException("FechaDeCierreEntregaReporte not found");
+                throw new SQLException("No se han encontrado fechas de cierre de entrega de reporte con la fecha " + searchDate);
             } else {
                 do {
                     fechasDeCierreEntregaReporte.add(getFechaDeCierreEntregaDeReporte(resultSet));
@@ -43,12 +43,12 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM FechaDeCierreEntregaDeReporte WHERE idFechaDeCierreEntregaDeReporte = ?";
+            String query = "SELECT * FROM fecha_cierre_entrega_reporte WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idFechaDeCierreEntregaReporte);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
-                throw new SQLException("FechaDeCierreEntregaReporte not found");
+                throw new SQLException("No se ha encontrado la fecha de cierre de entrega de reporte con el id " + idFechaDeCierreEntregaReporte);
             }
             fechaDeCierreEntregaReporte = getFechaDeCierreEntregaDeReporte(resultSet);
         } catch(SQLException ex) {
@@ -63,15 +63,13 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
     public FechaDeCierreEntregaDeReporte getFechaDeCierreEntregaDeReporte(ResultSet resultSet) {
         int idFechaDeCierreEntregaReporte = 0;
         String fechaDeCierre = "";
-        int idReporteDeTutoriaAcademica = 0;
         try {
-            idFechaDeCierreEntregaReporte = resultSet.getInt("idFechaDeCierreEntregaDeReporte");
+            idFechaDeCierreEntregaReporte = resultSet.getInt("id");
             fechaDeCierre = resultSet.getString("fecha");
-            idReporteDeTutoriaAcademica = resultSet.getInt("idReporteDeTutoriaAcademica");
         } catch(SQLException ex) {
             LOGGER.error(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
         }
-        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,fechaDeCierre,idReporteDeTutoriaAcademica);
+        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,fechaDeCierre);
         return fechaDeCierreEntregaReporte;
     }
 
@@ -80,13 +78,13 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO FechaDeCierreEntregaDeReporte (fecha, idReporteDeTutoriaAcademica) VALUES (?,?)";
+            String query = "INSERT INTO fecha_cierre_entrega_reporte (fecha) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, fechaDeCierreEntregaDeReporte.getFecha());
             statement.setInt(2, fechaDeCierreEntregaDeReporte.getIdReporteDeTutoriaAcademica());
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: FechaDeCierreEntregaReporte not added");
+                throw new SQLException("ERROR: La fecha de cierre de entrega de reporte no se ha agregado");
             }
             result = true;
         } catch(SQLException ex) {
@@ -102,12 +100,12 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM FechaDeCierreEntregaDeReporte WHERE idFechaDeCierreEntregaDeReporte = ?";
+            String query = "DELETE FROM fecha_cierre_entrega_reporte WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idFechaDeCierreEntregaDeReporte);
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: FechaDeCierreEntregaReporte not deleted");
+                throw new SQLException("ERROR: No se ha eliminado la fecha de cierre de entrega de reporte con el id " + idFechaDeCierreEntregaReporte);
             }
             result = true;
         } catch(SQLException ex) {
