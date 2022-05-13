@@ -53,8 +53,6 @@ public class SingnUpController implements Initializable {
                         jefeDeCarrera.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
                         jefeDeCarreraDAO.addJefeDeCarrera(jefeDeCarrera);
 
-
-
                     case "Coordinador":
 
                     case "Tutor academico":
