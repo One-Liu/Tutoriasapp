@@ -13,19 +13,19 @@ import uv.fei.tutorias.domain.Persona;
 // author @liu
 public class CoordinadorDAO implements ICoordinadorDAO {
 
-    private final Logger LOGGER = Logger.getLogger(PersonaDAO.class);
+    private final Logger LOGGER = Logger.getLogger(CoordinadorDAO.class);
 
     @Override
     public ArrayList<Coordinador> findCoordinadorByName(String searchName) {
         ArrayList<Coordinador> coordinadores = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM Coordinador C LEFT JOIN Persona P ON P.idPersona = C.idPersona WHERE CONCAT(P.nombre,\" \", P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
+            String query = "SELECT C.id, C.idProgramaEducativo, C.idPersona, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
-                throw new SQLException("Coordinador not found");
+                throw new SQLException("No se han encontrado coordinadores con el nombre " + searchName);
             } else {
                 do {
                     coordinadores.add(getCoordinador(resultSet));
@@ -44,12 +44,12 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         Coordinador coordinador = new Coordinador();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM Coordinador C LEFT JOIN Persona P ON P.idPersona = C.idPersona WHERE idCoordinador = ?";
+            String query = "SELECT C.id, C.idProgramaEducativo, C.idPersona, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE C.id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idCoordinador);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next() == false) {
-                throw new SQLException("Coordinador not found");
+                throw new SQLException("No se ha encontrado el coordinador con el id " + idCoordinador);
             }
             coordinador = getCoordinador(resultSet);
         } catch(SQLException ex) {
@@ -67,23 +67,21 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         String nombreCoordinador = "";
         String apellidoPaternoCoordinador = "";
         String apellidoMaternoCoordinador = "";
-        String correoInstitucionalCoordinador = "";
-        String correoPersonalCoordinador = "";
         int idProgramaEducativo = 0;
+        int idUsuario = 0;
         try {
-            idCoordinador = resultSet.getInt("idCoordinador");
+            idCoordinador = resultSet.getInt("id");
             idPersonaCoordinador = resultSet.getInt("idPersona");
             nombreCoordinador = resultSet.getString("nombre");
             apellidoPaternoCoordinador = resultSet.getString("apellidoPaterno");
             apellidoMaternoCoordinador = resultSet.getString("apellidoMaterno");
-            correoInstitucionalCoordinador = resultSet.getString("correoInstitucional");
-            correoPersonalCoordinador = resultSet.getString("correoPersonal");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
+            idUsuario = resultSet.getInt("idUsuario");
         } catch(SQLException ex) {
             LOGGER.error(CoordinadorDAO.class.getName(),ex);
         }
-        Persona personaCoordinador = new Persona(idPersonaCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador,correoInstitucionalCoordinador,correoPersonalCoordinador);
-        Coordinador coordinador = new Coordinador(idCoordinador,personaCoordinador,idProgramaEducativo);
+        Persona personaCoordinador = new Persona(idPersonaCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador);
+        Coordinador coordinador = new Coordinador(idCoordinador,personaCoordinador,idProgramaEducativo,idUsuario);
         return coordinador;
     }
 
@@ -93,13 +91,14 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO Coordinador (idProgramaEducativo, idPersona) VALUES (?,?)";
+            String query = "INSERT INTO coordinador (idProgramaEducativo,idPersona,idUsuario) VALUES (?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, coordinador.getIdProgramaEducativo());
             statement.setInt(2, personaDao.addPersonaReturnId(coordinador.getPersona()));
+            statement.setInt(3, coordinador.getIdUsuario());
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: Coordinador not added");
+                throw new SQLException("ERROR: El coordinador no se ha agregado");
             }
             result = true;
         } catch(SQLException ex) {
@@ -115,12 +114,12 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM Coordinador WHERE idCoordinador = ?";
+            String query = "DELETE FROM coordinador WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idCoordinador);
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: Coordinador not deleted");
+                throw new SQLException("ERROR: No se ha eliminado el coordinador con el id " + idCoordinador);
             }
             result = true;
         } catch(SQLException ex) {
