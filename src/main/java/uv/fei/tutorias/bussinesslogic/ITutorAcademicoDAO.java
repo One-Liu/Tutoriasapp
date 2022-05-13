@@ -1,6 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.util.List;
 
@@ -9,6 +10,6 @@ import java.util.List;
 public interface ITutorAcademicoDAO {
     public List<Persona> findTutoresAcademicosByName(String searchName);
     public Persona findTutorAcademicoById(int idTutorAcademico);
-    public boolean addTutorAcademico(Persona tutorAcademico);
+    public boolean addTutorAcademico(TutorAcademico tutorAcademico);
     public boolean deleteTutorAcademicoById(int idTutorAcademico);
 }

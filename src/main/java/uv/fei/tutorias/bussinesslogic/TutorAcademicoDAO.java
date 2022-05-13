@@ -2,6 +2,7 @@ package uv.fei.tutorias.bussinesslogic;
 
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,12 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 // author @liu
 
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
+    private final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PersonaDAO.class);
+
     @Override
     public List<Persona> findTutoresAcademicosByName(String searchName) {
         List<Persona> tutores = new ArrayList<>();
@@ -32,7 +34,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.warn(TutorAcademicoDAO.class.getName(), ex);
         }
         return tutores;
     }
@@ -50,29 +52,34 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             }
             return getTutorAcademico(resultSet);
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.warn(TutorAcademicoDAO.class.getName(), ex);
         }
         return null;
     }
     
     @Override
-    public boolean addTutorAcademico(Persona tutorAcademico) {
-//        PersonaDAO personaDao = new PersonaDAO();
-//        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-//        try (Connection connection = dataBaseConnection.getConnection()) {
-//            if (personaDao.addPerson(tutorAcademico)) {
-//                String query = "INSERT INTO TutorAcademico (idPersona) VALUES (?)";
-//                PreparedStatement statement = connection.prepareStatement(query);
-//                statement.setInt(1, personaDao.findIdPersona(tutorAcademico));
-//                statement.executeUpdate();
-//                return true;
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        return false;
+    public boolean addTutorAcademico(TutorAcademico tutorAcademico) {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        boolean bandera = false;
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            String query = "INSERT INTO tutor_academico(idPersona,idUsuario) VALUES(?,?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,tutorAcademico.getIdPersona());
+            statement.setInt(2, tutorAcademico.getUsuario().getId());
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate == 0) {
+                throw new SQLException("ERROR: El profesor no se ha agregado");
+            }else {
+                bandera = true;
+            }
+        } catch (SQLException ex) {
+            LOG.warn(TutorAcademicoDAO.class.getName(), ex);
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return bandera;
     }
-    
+
     @Override
     public boolean deleteTutorAcademicoById(int idTutorAcademico) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
@@ -87,7 +94,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             statement.setInt(1, idTutorAcademico);
             statement.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.warn(TutorAcademicoDAO.class.getName(), ex);
         }
         return true;
     }
@@ -111,7 +118,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             persona.setApellidoPaterno(apellidoPaterno);
             persona.setApellidoMaterno(apellidoMaterno);
         } catch (SQLException ex) {
-            Logger.getLogger(TutorAcademicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.warn(TutorAcademicoDAO.class.getName(), ex);
         }
         return persona;
     }

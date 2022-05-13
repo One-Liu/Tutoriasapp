@@ -11,6 +11,9 @@ public class Usuario {
     }
 
     public Usuario() {
+        this.id = 0;
+        this.contrasena = "";
+        this.correoInstitucional = "";
     }
 
     public int getId() {

@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import uv.fei.tutorias.bussinesslogic.*;
 import uv.fei.tutorias.domain.JefeDeCarrera;
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.TutorAcademico;
 import uv.fei.tutorias.domain.Usuario;
 
 import java.net.URL;
@@ -43,21 +44,25 @@ public class SingnUpController implements Initializable {
                 Persona persona = new Persona( nombre.getText(),
                         apellidoPaterno.getText(), apellidoMaterno.getText());
                 Usuario usuario = new Usuario(pastxtcontrasena.getText(),correoInstitucional.getText());
+                PersonaDAO personaDAO = new PersonaDAO();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
                 switch (value) {
                     case "Jefe de carrera":
                         JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
-                        PersonaDAO personaDAO = new PersonaDAO();
-                        UsuarioDAO usuarioDAO = new UsuarioDAO();
                         JefeDeCarrera jefeDeCarrera = new JefeDeCarrera(persona);
                         jefeDeCarrera.setIdPersona(personaDAO.addPersonaReturnId(persona));
                         jefeDeCarrera.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
                         jefeDeCarreraDAO.addJefeDeCarrera(jefeDeCarrera);
-
+                        break;
                     case "Coordinador":
+                        break;
 
                     case "Tutor academico":
                         TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
-                        tutorAcademicoDAO.addTutorAcademico(persona);
+                        TutorAcademico tutorAcademico = new TutorAcademico(persona);
+                        tutorAcademico.setIdPersona(personaDAO.addPersonaReturnId(persona));
+                        tutorAcademico.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
+                        tutorAcademicoDAO.addTutorAcademico(tutorAcademico);
                         break;
 
                 }

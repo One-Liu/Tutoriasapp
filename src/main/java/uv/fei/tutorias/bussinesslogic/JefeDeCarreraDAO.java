@@ -33,22 +33,6 @@ public class JefeDeCarreraDAO implements IJefeDeCarreraDAO{
         return bandera;
     }
 
-    @Override
-    public boolean addPersonaJefeDeCarreraUsuario(JefeDeCarrera jefeDeCarrera) {
-        boolean bandera = false;
-        PersonaDAO personaDAO = new PersonaDAO();
-        int resultado;
-        resultado = personaDAO.addPersonaReturnId(jefeDeCarrera);
-        if (resultado != -1){
-            JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
-            jefeDeCarrera.setIdPersona(resultado);
-            jefeDeCarreraDAO.addJefeDeCarrera(jefeDeCarrera);
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            usuarioDAO.addUsuario(jefeDeCarrera.getUsuario());
-            bandera = true;
-        }
-        return bandera;
-    }
 
 
     @Override
