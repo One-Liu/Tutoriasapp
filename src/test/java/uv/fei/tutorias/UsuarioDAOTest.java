@@ -26,4 +26,9 @@ public class UsuarioDAOTest {
     public void AddUsuarioReturnID(){
         assertEquals(2,usuarioDao.addUsuarioReturnId(usuario2));
     }
+    @Test
+    public void estaUsuarioenTutorAcademico(){
+        assertTrue(usuarioDao.estaIdUsuarioEnTutorAcademico(21));
+    }
+
 }

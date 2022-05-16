@@ -1,71 +1,66 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-public class TutorAcademico {
-    private int idTutorAcademico;
-    private Persona persona;
-    private int idUsuario;
 
-    // Constructors of uv.fei.tutorias.domain.TutorAcademico
+public class TutorAcademico extends Persona{
+    private int id;
+    private Usuario usuario;
+
+
+    public TutorAcademico(String nombre, String apellidoPaterno, String apellidoMaterno, Usuario usuario) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.usuario = usuario;
+    }
+
     public TutorAcademico() {
-        this.idTutorAcademico = 0;
-        this.persona = new Persona();
-        this.idUsuario = 0;
+        this.usuario = new Usuario();
     }
 
-    public TutorAcademico(Persona persona, int idUsuario) {
-        idTutorAcademico = 0;
-        this.persona = persona;
-        this.idUsuario = idUsuario;
+    public TutorAcademico(Persona persona) {
+        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
+        usuario = new Usuario();
     }
 
-    public TutorAcademico(int idTutorAcademico, Persona persona, int idUsuario) {
-        this.idTutorAcademico = idTutorAcademico;
-        this.persona = persona;
-        this.idUsuario = idUsuario;
+    public int getId() {
+        return id;
     }
 
-    // Getters of uv.fei.tutorias.domain.TutorAcademico
-    public int getIdTutorAcademico() {
-        return idTutorAcademico;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Persona getPersona() {
-        return persona;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    // Setters of uv.fei.tutorias.domain.TutorAcademico
-    public void setIdTutorAcademico(int idTutorAcademico) {
-        this.idTutorAcademico = idTutorAcademico;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public void setidUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof TutorAcademico) {
-            TutorAcademico tmpTutorAcademico = (TutorAcademico)obj;
-            if(this.idTutorAcademico == tmpTutorAcademico.getIdTutorAcademico()
-                    && this.persona.equals(tmpTutorAcademico.getPersona())
-                    && this.idUsuario == tmpTutorAcademico.getIdUsuario()) {
-                return true;
-            }
-        }
-        return false;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     public String toString() {
-        return persona.getNombreCompleto();
+        return "TutorAcademico{" +
+                "id=" + id +
+                ", usuario=" + usuario +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TutorAcademico)) return false;
+        if (!super.equals(o)) return false;
+
+        TutorAcademico that = (TutorAcademico) o;
+
+        if (getId() != that.getId()) return false;
+        return getUsuario() != null ? getUsuario().equals(that.getUsuario()) : that.getUsuario() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (getUsuario() != null ? getUsuario().hashCode() : 0);
+        return result;
     }
 }
