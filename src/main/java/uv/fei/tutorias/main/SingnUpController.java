@@ -104,7 +104,7 @@ public class SingnUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tipo.getItems().setAll("Jefe de carrera", "Coordinador", "Tutor academico");
+        tipo.getItems().setAll("Jefe de carrera",  "Tutor academico");
 
 
     }

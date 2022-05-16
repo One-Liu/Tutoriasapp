@@ -13,7 +13,7 @@ public class UsuarioDAOTest {
     private UsuarioDAO usuarioDao;
     @Before
     public void inicio(){
-        usuario = new Usuario(" ","zs123456@estudiantes.uv.mx");
+        usuario = new Usuario("BurritoEstrella","zs123456@estudiantes.uv.mx");
         usuario2 = new Usuario("HTML2Semant","zs1212@estudiantes.uv.mx");
         usuarioDao = new UsuarioDAO();
     }
