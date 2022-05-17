@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.resources.uv.fei.tutorias.main;
+package uv.fei.tutorias.main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
