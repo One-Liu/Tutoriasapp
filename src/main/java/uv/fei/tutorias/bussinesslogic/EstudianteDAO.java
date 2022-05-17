@@ -35,8 +35,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return estudiantes;
         }
+        return estudiantes;
     }
 
     @Override
@@ -56,8 +56,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return estudiante;
         }
+        return estudiante;
     }
 
     @Override
@@ -87,6 +87,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     @Override
     public boolean addEstudiante(Estudiante estudiante) {
         PersonaDAO personaDao = new PersonaDAO();
+        Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
@@ -95,7 +96,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             statement.setString(1, estudiante.getMatricula());
             statement.setInt(2, estudiante.getIdTutorAcademico());
             statement.setInt(3, estudiante.getIdProgramaEducativo());
-            statement.setInt(4, personaDao.addPersonaReturnId(estudiante.getPersona()));
+            statement.setInt(4, personaDao.addPersonaReturnId(personaEstudiante));
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: El estudiante no se ha agregado");
@@ -105,8 +106,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
@@ -126,7 +127,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }
