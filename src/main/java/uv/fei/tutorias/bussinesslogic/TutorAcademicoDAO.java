@@ -83,12 +83,13 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     @Override
     public boolean addTutorAcademico(Persona tutorAcademico) {
         PersonaDAO personaDao = new PersonaDAO();
+        Persona personaTutorAcademico = new Persona(tutorAcademico.getNombre(),tutorAcademico.getApellidoPaterno(),tutorAcademico.getApellidoMaterno());
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
             String query = "INSERT INTO tutor_academico (idPersona,idUsuario) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, personaDao.addPersonaReturnId(tutorAcademico));
+            statement.setInt(1, personaDao.addPersonaReturnId(personaTutorAcademico));
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: El tutor académico no se ha agregado");

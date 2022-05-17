@@ -150,13 +150,14 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     @Override
     public boolean addCoordinador(Coordinador coordinador) {
         PersonaDAO personaDao = new PersonaDAO();
+        Persona personaCoordinador = new Persona(coordinador.getNombre(),coordinador.getApellidoPaterno(),coordinador.getApellidoMaterno());
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
             String query = "INSERT INTO coordinador (idProgramaEducativo,idPersona,idUsuario) VALUES (?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, coordinador.getIdProgramaEducativo());
-            statement.setInt(2, personaDao.addPersonaReturnId(coordinador.getPersona()));
+            statement.setInt(2, personaDao.addPersonaReturnId(personaCoordinador));
             statement.setInt(3, coordinador.getIdUsuario());
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
