@@ -1,31 +1,35 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
-public class
-
-
-
-
-
-Estudiante extends Persona {
+public class Estudiante extends Persona {
     private int id;
     private String matricula;
-    private int idPersona;
-    private int idTutorAcademico;
     private int idProgramaEducativo;
+    private int idTutorAcademico;
 
-    public Estudiante(String nombre, String apellidoPaterno, String apellidoMaterno, String matricula) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.matricula = matricula;
-    }
-
-    public Estudiante(String matricula) {
-        this.matricula = matricula;
-    }
-
-
+    // Constructors of uv.fei.tutorias.domain.Estudiante
     public Estudiante() {
+        super("","","");
+        this.id = 0;
+        this.matricula = "";
+        this.idProgramaEducativo = 0;
+        this.idTutorAcademico = 0;
+    }
+
+    public Estudiante(String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, int idTutorAcademico, int idProgramaEducativo) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = 0;
+        this.matricula = matricula;
+        this.idProgramaEducativo = idProgramaEducativo;
+        this.idTutorAcademico = idTutorAcademico;
+    }
+
+    public Estudiante(int id, String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, int idTutorAcademico, int idProgramaEducativo) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = id;
+        this.matricula = matricula;
+        this.idProgramaEducativo = idProgramaEducativo;
+        this.idTutorAcademico = idTutorAcademico;
     }
 
     // Getters of uv.fei.tutorias.domain.Estudiante
@@ -37,36 +41,48 @@ Estudiante extends Persona {
         return matricula;
     }
 
-    public int getIdPersona() {
-        return idPersona;
+    public int getIdProgramaEducativo() {
+        return idProgramaEducativo;
     }
 
     public int getIdTutorAcademico() {
         return idTutorAcademico;
     }
 
-    public int getIdProgramaEducativo() {
-        return idProgramaEducativo;
-    }
-
     // Setters of uv.fei.tutorias.domain.Estudiante
-    public void setId(int idEstudiante) {
-        this.id = idEstudiante;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+    public void setIdProgramaEducativo(int idProgramaEducativo) {
+        this.idProgramaEducativo = idProgramaEducativo;
     }
 
     public void setIdTutorAcademico(int idTutorAcademico) {
         this.idTutorAcademico = idTutorAcademico;
     }
 
-    public void setIdProgramaEducativo(int idProgramaEducativo) {
-        this.idProgramaEducativo = idProgramaEducativo;
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Estudiante) {
+            Estudiante tmpEstudiante = (Estudiante)obj;
+            if(this.idEstudiante == tmpEstudiante.getIdEstudiante()
+                    && this.matricula.equals(tmpEstudiante.getMatricula())
+                    && getId() == tmpEstudiante.getId()
+                    && this.idProgramaEducativo == tmpEstudiante.getIdProgramaEducativo()
+                    && this.idTutorAcademico == tmpEstudiante.getIdTutorAcademico()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return getNombre() + " " + getApellidoPaterno() + " " + getApellidoMaterno() + " (" + this.matricula + ")";
     }
 }

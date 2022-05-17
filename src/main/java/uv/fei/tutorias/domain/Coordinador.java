@@ -1,41 +1,36 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-public class Coordinador {
-    private int idCoordinador;
-    private Persona persona;
+public class Coordinador extends Persona {
+    private int id;
     private int idProgramaEducativo;
     private int idUsuario;
 
     // Constructors of uv.fei.tutorias.domain.Coordinador
     public Coordinador() {
-        this.idCoordinador = 0;
-        this.persona = new Persona();
+        super("","","");
+        this.id = 0;
         this.idProgramaEducativo = 0;
         this.idUsuario = 0;
     }
 
-    public Coordinador(Persona persona, int idProgramaEducativo, int idUsuario) {
-        this.idCoordinador = 0;
-        this.persona = persona;
+    public Coordinador(String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, int idUsuario) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = 0;
         this.idProgramaEducativo = idProgramaEducativo;
         this.idUsuario = idUsuario;
     }
 
-    public Coordinador(int idCoordinador, Persona persona, int idProgramaEducativo, int idUsuario) {
-        this.idCoordinador = idCoordinador;
-        this.persona = persona;
+    public Coordinador(int id, String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, int idUsuario) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = id;
         this.idProgramaEducativo = idProgramaEducativo;
         this.idUsuario = idUsuario;
     }
 
     // Getters of uv.fei.tutorias.domain.Coordinador
-    public int getIdCoordinador() {
-        return idCoordinador;
-    }
-
-    public Persona getPersona() {
-        return persona;
+    public int getId() {
+        return id;
     }
 
     public int getIdProgramaEducativo() {
@@ -47,12 +42,8 @@ public class Coordinador {
     }
 
     // Setters of uv.fei.tutorias.domain.Coordinador
-    public void setIdCoordinador(int idCoordinador) {
-        this.idCoordinador = idCoordinador;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setIdProgramaEducativo(int idProgramaEducativo) {
@@ -67,8 +58,8 @@ public class Coordinador {
     public boolean equals(Object obj) {
         if(obj instanceof Coordinador) {
             Coordinador tmpCoordinador = (Coordinador)obj;
-            if(this.idCoordinador == tmpCoordinador.getIdCoordinador()
-                    && this.persona.equals(tmpCoordinador.getPersona())
+            if(this.id == tmpCoordinador.getId()
+                    && getIdPersona() == tmpCoordinador.getIdPersona()
                     && this.idProgramaEducativo == tmpCoordinador.getIdProgramaEducativo()
                     && this.idUsuario == tmpCoordinador.getIdUsuario()) {
                 return true;
@@ -79,11 +70,6 @@ public class Coordinador {
 
     @Override
     public String toString() {
-        return "Coordinador{" +
-                "idCoordinador=" + idCoordinador +
-                ", persona=" + persona +
-                ", idProgramaEducativo=" + idProgramaEducativo +
-                ", idUsuario=" + idUsuario +
-                '}';
+        return getNombre() + " " + getApellidoPaterno() + " " + getApellidoMaterno();
     }
 }
