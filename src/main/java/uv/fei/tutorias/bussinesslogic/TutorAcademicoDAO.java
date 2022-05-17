@@ -15,7 +15,7 @@ import java.util.List;
 // author @liu
 
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
-    private final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PersonaDAO.class);
+    private final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TutorAcademicoDAO.class);
 
     @Override
     public List<Persona> findTutoresAcademicosByName(String searchName) {

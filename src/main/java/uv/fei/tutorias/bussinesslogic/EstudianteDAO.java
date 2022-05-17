@@ -35,8 +35,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return estudiantes;
         }
+        return estudiantes;
     }
 
     @Override
@@ -56,8 +56,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return estudiante;
         }
+        return estudiante;
     }
 
     @Override

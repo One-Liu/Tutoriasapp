@@ -79,6 +79,11 @@ public class Coordinador {
 
     @Override
     public String toString() {
-        return persona.getNombreCompleto();
+        return "Coordinador{" +
+                "idCoordinador=" + idCoordinador +
+                ", persona=" + persona +
+                ", idProgramaEducativo=" + idProgramaEducativo +
+                ", idUsuario=" + idUsuario +
+                '}';
     }
 }

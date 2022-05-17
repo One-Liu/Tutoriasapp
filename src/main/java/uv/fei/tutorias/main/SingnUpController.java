@@ -24,8 +24,6 @@ public class SingnUpController implements Initializable {
     private TextField apellidoPaterno;
     @FXML
     private TextField correoInstitucional;
-
-
     @FXML
     private ComboBox<String> tipo;
 

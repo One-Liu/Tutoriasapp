@@ -15,6 +15,13 @@ public class  Persona {
     public Persona() {
     }
 
+    public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno) {
+        this.idPersona = idPersona;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
     public int getIdPersona() {
         return idPersona;
     }

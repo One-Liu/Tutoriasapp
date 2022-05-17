@@ -1,19 +1,13 @@
-package uv.fei.tutorias.bussinesslogic;
+package uv.fei.tutorias;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.ListaDeAsistencia;
 
 // author @liu
@@ -72,31 +66,7 @@ public class ListaDeAsistenciaDAOTest {
         assertTrue(listasDeAsistenciaEsperadas.equals(listasDeAsistenciaObtenidas));
     }
 
-    @Test
-    public void testGetListaDeAsistencia() {
-        System.out.println("getListaDeAsistencia");
-        int idListaDeAsistencia = 1;
-        ListaDeAsistencia listaDeAsistenciaEsperada = new ListaDeAsistencia(idListaDeAsistencia, "12:00", 1, 1);
-        ListaDeAsistenciaDAO listaDeAsistenciaDao = new ListaDeAsistenciaDAO();
-        ListaDeAsistencia listaDeAsistenciaObtenida = new ListaDeAsistencia();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM ListaDeAsistencia WHERE idListaDeAsistencia = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idListaDeAsistencia);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() == false) {
-                throw new SQLException("Lista de asistencia not found");
-            }
-            listaDeAsistenciaObtenida = listaDeAsistenciaDao.getListaDeAsistencia(resultSet);
-        } catch(SQLException ex) {
-            Logger.getLogger(ListaDeAsistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            dataBaseConnection.cerrarConexion();
-        }
-        assertTrue(listaDeAsistenciaEsperada.equals(listaDeAsistenciaObtenida));
-    }
-    
+
     @Test
     public void testAddListaDeAsistencia() {
         System.out.println("addListaDeAsistencia");

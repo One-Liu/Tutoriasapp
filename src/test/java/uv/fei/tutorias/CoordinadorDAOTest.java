@@ -45,7 +45,7 @@ public class CoordinadorDAOTest {
         String searchName = "MARÍA";
         CoordinadorDAO coordinadorDao = new CoordinadorDAO();
         ArrayList<Coordinador> coordinadoresEsperados = new ArrayList<>();
-        Persona persona = new Persona(7,"MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ");
+        Persona persona = new Persona("MARÍA DE LOS ÁNGELES","ARENAS","VALDEZ");
         Coordinador coordinador1 = new Coordinador(1, persona, 1);
         coordinadoresEsperados.add(coordinador1);
         ArrayList<Coordinador> coordinadoresObtenidos = coordinadorDao.findCoordinadorByName(searchName);
