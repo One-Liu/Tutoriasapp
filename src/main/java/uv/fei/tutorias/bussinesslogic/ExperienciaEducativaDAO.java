@@ -19,12 +19,12 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
         ArrayList<ExperienciaEducativa> experienciasEducativas = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()){
-            String query = "SELECT * From experienciaeducativa WHERE nombreEE SOUNDS LIKE ?";
+            String query = "SELECT * From experienciaeducativa WHERE nombreEE like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + serchName + "%");
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){
-                throw new SQLException("Experiencia educativa not found");
+                throw new SQLException("No se ha enconstrado ninguna experiencia educativa con el nombre " + serchName);
             }else {
                 do {
                     experienciasEducativas.add(getExperienciaEducativa(resultSet));
@@ -51,14 +51,14 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
             if (resultSet.next() == false){
                 throw new SQLException("Experiencia educativa not found");
             }else {
-                return getExperienciaEducativa(resultSet);
+                experienciaEducativa = getExperienciaEducativa(resultSet);
             }
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
-        return null;
+        return experienciaEducativa;
 
     }
 
@@ -67,7 +67,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO experienciaeducativa(nombreEE, Profesor_idProfesor) VALUES(?,?)";
+            String query = "INSERT INTO experienciaeducativa(nombreEE, idProfesor) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, experienciaEducativa.getNombre());
             statement.setInt(2, experienciaEducativa.getIdProfesor());
@@ -88,7 +88,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     public boolean deleteExperienciaEducativa(int searchId) {
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()){
-            String query = "DELETE FROM experienciaeducativa where (idExperienciaEducativa = ?)";
+            String query = "DELETE FROM experiencia_e where (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,searchId);
             int executeUpdate = statement.executeUpdate();

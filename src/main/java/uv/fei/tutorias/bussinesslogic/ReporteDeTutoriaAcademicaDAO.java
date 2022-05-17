@@ -18,17 +18,19 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
         boolean bandera = false;
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO reportedetutoriaacademica(descripcionGeneral, SesionDeTutoriaAcademica_idSesionDeTutoriaAcademica, TutorAcademico_idTutorAcademico) VALUES(?,?,?)";
+            String query = "INSERT INTO reporte_de_tutoria_academica(descripcionGeneral, idSesionDeTutoriaAcademica, idTutorAcademico, idFechaCierreEntregaReporte) VALUES(?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, reporteDeTutoriaAcademica.getDescripcionGeneral());
             statement.setInt(2, reporteDeTutoriaAcademica.getIdSesionDeTutoriaAcademica());
             statement.setInt(3, reporteDeTutoriaAcademica.getIdTutorAcademico());
+            statement.setInt(4, reporteDeTutoriaAcademica.getIdFechaCierreEntregaReporte());
 
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: El reporte de tutoria academica no se ha agregado");
+            }else {
+                bandera = true;
             }
-            bandera = true;
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
@@ -44,15 +46,16 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
 
-            String query = "DELETE FROM reportedetutoriaacademica WHERE (idReporteDeTutoriaAcademica = ?)";
+            String query = "DELETE FROM reporte_de_tutoria_academica WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
 
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
-                throw new SQLException("ERROR: No se ha eliminado ninguna tabla");
+                throw new SQLException("ERROR: No se ha eliminado ninguna reporte de tutorias academicas con el id " + searchId);
+            }else {
+                bandera =true;
             }
-            bandera =true;
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {
@@ -67,27 +70,30 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
         ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
 
         try (Connection connection = dataBaseConnection.getConnection()){
-            String query = "SELECT * from reportedetutoriaacademica where idReporteDeTutoriaAcademica like ?";
+            String query = "SELECT * from reporte_de_tutoria_academica where id like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchId + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false){
-                throw new SQLException("Reporte de tutoria academica not found");
+            if (!resultSet.next()){
+                throw new SQLException("No se ha encontrado el reporte de tutoria con el id " + searchId);
             }else {
                 int idReporteDeTutoriaAcademica = 0;
                 String descripcion = "";
                 int idsesionDeTutoriaAcademica = 0;
                 int idTutorAcademico = 0;
+                int idFechaCierreEntregaReporte = 0;
                 do {
-                    idReporteDeTutoriaAcademica = resultSet.getInt("idReporteDeTutoriaAcademica");
+                    idReporteDeTutoriaAcademica = resultSet.getInt("id");
                     descripcion = resultSet.getString("descripcionGeneral");
-                    idsesionDeTutoriaAcademica = resultSet.getInt("SesionDeTutoriaAcademica_idSesionDeTutoriaAcademica");
-                    idTutorAcademico = resultSet.getInt("TutorAcademico_idTutorAcademico");
+                    idsesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
+                    idTutorAcademico = resultSet.getInt("idTutorAcademico");
+                    idFechaCierreEntregaReporte = resultSet.getInt("idFechaCierreEntregaReporte");
 
-                    reporteDeTutoriaAcademica.setIdReporteDeTutoriaAcademica(idReporteDeTutoriaAcademica);
-                    reporteDeTutoriaAcademica.setIdReporteDeTutoriaAcademica(idsesionDeTutoriaAcademica);
+                    reporteDeTutoriaAcademica.setId(idReporteDeTutoriaAcademica);
                     reporteDeTutoriaAcademica.setDescripcionGeneral(descripcion);
+                    reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(idsesionDeTutoriaAcademica);
                     reporteDeTutoriaAcademica.setIdTutorAcademico(idTutorAcademico);
+                    reporteDeTutoriaAcademica.setIdFechaCierreEntregaReporte(idFechaCierreEntregaReporte);
                 }while (resultSet.next());
             }
         } catch (SQLException e) {

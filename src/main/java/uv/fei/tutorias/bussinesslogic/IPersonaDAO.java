@@ -5,8 +5,8 @@ import uv.fei.tutorias.domain.Persona;
 import java.util.List;
 
 public interface IPersonaDAO {
-    public List<Persona> findPersonsByName(String serchName);
-    public Persona findPersonById(int searchId);
-    public boolean addPerson(Persona persona);
-    public boolean deletePersonById(int searchId);
+    public List<Persona> findPersonasByName(String serchName);
+    public Persona findPersonaById(int searchId);
+    public boolean addPersona(Persona persona);
+    public boolean deletePersonaById(int searchId);
 }

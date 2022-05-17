@@ -1,4 +1,4 @@
-module test.uv.fei.tutorias {
+module test.java.uv.fei.tutorias {
     requires junit;
     requires uv.fei.tutorias;
     requires org.hamcrest;

@@ -4,35 +4,35 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Before;
 import org.junit.Test;
-import uv.fei.tutorias.bussinesslogic.EstudianteProblematicaAcademicaDAO;
-import uv.fei.tutorias.domain.EstudianteProblematicaAcademica;
+import uv.fei.tutorias.bussinesslogic.EstudiantesProblematicasAcademicasDAO;
+import uv.fei.tutorias.domain.EstudiantesProblematicasAcademicas;
 
 
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
 public class EstudianteProblematicaAcademicaDAOTest {
-    private EstudianteProblematicaAcademica estudianteproblematicaAcademica;
-    private EstudianteProblematicaAcademicaDAO estudianteProblematicaAcademicaDAO;
+    private EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas;
+    private EstudiantesProblematicasAcademicasDAO estudiantesProblematicasAcademicasDAO;
     @Before
-    public void incio(){
-        estudianteproblematicaAcademica = new  EstudianteProblematicaAcademica(1,1);
-        estudianteProblematicaAcademicaDAO = new EstudianteProblematicaAcademicaDAO();
+    public void inicio(){
+        estudiantesProblematicasAcademicas = new EstudiantesProblematicasAcademicas(2,2);
+        estudiantesProblematicasAcademicasDAO = new EstudiantesProblematicasAcademicasDAO();
 
     }
 
     @Test
     public void addEstudianteProblematicaAcademicaDAO(){
-        assertTrue(estudianteProblematicaAcademicaDAO.addEstudianteProblematicaAcademica(estudianteproblematicaAcademica));
+        assertTrue(estudiantesProblematicasAcademicasDAO.addEstudiantesProblematicasAcademicas(estudiantesProblematicasAcademicas));
     }
     @Test
     public void deleteEstudianteProblematicaAcademicaDAO(){
-        assertTrue(estudianteProblematicaAcademicaDAO.deleteEstudinateProblematicaAcademicaById(2));
+        assertTrue(estudiantesProblematicasAcademicasDAO.deleteEstudinatesProblematicasAcademicasById(9));
     }
     //este test busca comprobar que una lista no este vacia con la implementacion de codigo de Hamcrest
     @Test
     public void findestudiantesProblematicaAcademica(){
-        MatcherAssert.assertThat(estudianteProblematicaAcademicaDAO.findEstudiantesProblematicaAcademicaById(1), not(IsEmptyCollection.empty()));
+        MatcherAssert.assertThat(estudiantesProblematicasAcademicasDAO.findEstudiantesProblematicasAcademicasById(13), not(IsEmptyCollection.empty()));
     }
 
 }
