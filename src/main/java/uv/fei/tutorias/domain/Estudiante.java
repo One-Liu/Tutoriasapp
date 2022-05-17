@@ -90,8 +90,8 @@ public class Estudiante extends Persona {
                     && this.matricula.equals(tmpEstudiante.getMatricula())
                     && this.idPersona == tmpEstudiante.getIdPersona()
                     && this.nombre.equals(tmpEstudiante.getNombre())
-                    && this.apellidoPaterno.equals(tmpEstudiante.getApellidoPaterno)
-                    && this.apellidoMaterno.equals(tmpEstudiante.getApellidoMaterno)
+                    && this.apellidoPaterno.equals(tmpEstudiante.getApellidoPaterno())
+                    && this.apellidoMaterno.equals(tmpEstudiante.getApellidoMaterno())
                     && this.idProgramaEducativo == tmpEstudiante.getIdProgramaEducativo()
                     && this.idTutorAcademico == tmpEstudiante.getIdTutorAcademico()) {
                 return true;

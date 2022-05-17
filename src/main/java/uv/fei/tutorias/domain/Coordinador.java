@@ -51,7 +51,7 @@ public class Coordinador extends Persona {
         return idProgramaEducativo;
     }
 
-    public int getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
@@ -75,8 +75,8 @@ public class Coordinador extends Persona {
             if(this.id == tmpCoordinador.getId()
                     && this.idPersona == tmpCoordinador.getIdPersona()
                     && this.nombre.equals(tmpCoordinador.getNombre())
-                    && this.apellidoPaterno.equals(tmpCoordinador.getApellidoPaterno)
-                    && this.apellidoMaterno.equals(tmpCoordinador.getApellidoMaterno)
+                    && this.apellidoPaterno.equals(tmpCoordinador.getApellidoPaterno())
+                    && this.apellidoMaterno.equals(tmpCoordinador.getApellidoMaterno())
                     && this.idProgramaEducativo == tmpCoordinador.getIdProgramaEducativo()
                     && this.usuario.equals(tmpCoordinador.getUsuario())) {
                 return true;

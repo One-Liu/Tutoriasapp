@@ -2,28 +2,28 @@ package uv.fei.tutorias.domain;
 
 // author @liu
 public class FechaDeCierreEntregaDeReporte {
-    private int idFechaDeCierreEntregaDeReporte;
+    private int id;
     private String fecha;
 
     // Constructors of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
     public FechaDeCierreEntregaDeReporte() {
-        this.idFechaDeCierreEntregaDeReporte = 0;
+        this.id = 0;
         this.fecha = "";
     }
 
     public FechaDeCierreEntregaDeReporte(String fecha) {
-        this.idFechaDeCierreEntregaDeReporte = 0;
+        this.id = 0;
         this.fecha = fecha;
     }
 
-    public FechaDeCierreEntregaDeReporte(int idFechaDeCierreEntregaDeReporte, String fecha) {
-        this.idFechaDeCierreEntregaDeReporte = idFechaDeCierreEntregaDeReporte;
+    public FechaDeCierreEntregaDeReporte(int id, String fecha) {
+        this.id = id;
         this.fecha = fecha;
     }
 
     // Getters of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
-    public int getIdFechaDeCierreEntregaDeReporte() {
-        return idFechaDeCierreEntregaDeReporte;
+    public int getId() {
+        return id;
     }
 
     public String getFecha() {
@@ -31,8 +31,8 @@ public class FechaDeCierreEntregaDeReporte {
     }
 
     // Setters of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
-    public void setIdFechaDeCierreEntregaDeReporte(int idFechaDeCierreEntregaDeReporte) {
-        this.idFechaDeCierreEntregaDeReporte = idFechaDeCierreEntregaDeReporte;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setFecha(String fecha) {
@@ -43,7 +43,7 @@ public class FechaDeCierreEntregaDeReporte {
     public boolean equals(Object obj) {
         if(obj instanceof FechaDeCierreEntregaDeReporte) {
             FechaDeCierreEntregaDeReporte tmpFechaDeCierreEntregaDeReporte = (FechaDeCierreEntregaDeReporte)obj;
-            if(this.idFechaDeCierreEntregaDeReporte == tmpFechaDeCierreEntregaDeReporte.getIdFechaDeCierreEntregaDeReporte()
+            if(this.id == tmpFechaDeCierreEntregaDeReporte.getId()
                     && this.fecha.equals(tmpFechaDeCierreEntregaDeReporte.getFecha())) {
                 return true;
             }

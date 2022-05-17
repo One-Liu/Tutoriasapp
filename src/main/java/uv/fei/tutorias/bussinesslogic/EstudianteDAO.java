@@ -35,8 +35,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return estudiantes;
         }
+        return estudiantes;
     }
 
     @Override
@@ -56,8 +56,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return estudiante;
         }
+        return estudiante;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     @Override
     public boolean addEstudiante(Estudiante estudiante) {
         PersonaDAO personaDao = new PersonaDAO();
-        Persona personaEstudiante = new Persona(estudiante.getNombre(),estudiante.getApellidoPaterno(),estudiante.getApellidoMaterno());
+        Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
@@ -106,8 +106,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }
