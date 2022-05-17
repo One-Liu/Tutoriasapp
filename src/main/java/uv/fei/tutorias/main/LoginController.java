@@ -28,7 +28,7 @@ public class LoginController {
 
     public void onRegistrarseBtn(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
-        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\signUp-view.fxml").toUri().toURL();
+        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\GUISignUp.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader();
         Scene scene = new Scene(fxmlLoader.load(url ), 600, 400);
         stage.setTitle("Sign-up");

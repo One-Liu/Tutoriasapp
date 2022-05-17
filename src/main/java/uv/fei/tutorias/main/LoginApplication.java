@@ -18,7 +18,7 @@ public class LoginApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\Login-view.fxml").toUri().toURL();
+        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\GUILogin.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader();
         Scene scene = new Scene(FXMLLoader.load(url ), 600, 400);
         primaryStage.setTitle("LOGIN");
