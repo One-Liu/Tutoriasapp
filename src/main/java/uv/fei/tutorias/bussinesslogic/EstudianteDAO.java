@@ -95,7 +95,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             statement.setString(1, estudiante.getMatricula());
             statement.setInt(2, estudiante.getIdTutorAcademico());
             statement.setInt(3, estudiante.getIdProgramaEducativo());
-            statement.setInt(4, personaDao.addPersonaReturnId(estudiante.getPersona()));
+            statement.setInt(4, personaDao.addPersonaReturnId(estudiante.getIdPersona()));
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: El estudiante no se ha agregado");
@@ -105,8 +105,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
@@ -126,7 +126,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             LOGGER.error(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }
