@@ -4,28 +4,42 @@ package uv.fei.tutorias.domain;
 public class Coordinador extends Persona {
     private int id;
     private int idProgramaEducativo;
-    private int idUsuario;
+    private Usuario usuario;
 
     // Constructors of uv.fei.tutorias.domain.Coordinador
     public Coordinador() {
         super("","","");
         this.id = 0;
         this.idProgramaEducativo = 0;
-        this.idUsuario = 0;
+        this.usuario = new Usuario();
     }
 
-    public Coordinador(String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, int idUsuario) {
+    public Coordinador(String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo) {
         super(nombre, apellidoPaterno, apellidoMaterno);
         this.id = 0;
         this.idProgramaEducativo = idProgramaEducativo;
-        this.idUsuario = idUsuario;
+        this.usuario = new Usuario();
     }
 
-    public Coordinador(int id, String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, int idUsuario) {
+    public Coordinador(int id, String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo) {
         super(nombre, apellidoPaterno, apellidoMaterno);
         this.id = id;
         this.idProgramaEducativo = idProgramaEducativo;
-        this.idUsuario = idUsuario;
+        this.usuario = new Usuario();
+    }
+
+    public Coordinador(String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, Usuario usuario) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = 0;
+        this.idProgramaEducativo = idProgramaEducativo;
+        this.usuario = usuario;
+    }
+
+    public Coordinador(int id, String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, Usuario usuario) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = id;
+        this.idProgramaEducativo = idProgramaEducativo;
+        this.usuario = usuario;
     }
 
     // Getters of uv.fei.tutorias.domain.Coordinador
@@ -37,8 +51,8 @@ public class Coordinador extends Persona {
         return idProgramaEducativo;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public int getUsuario() {
+        return usuario;
     }
 
     // Setters of uv.fei.tutorias.domain.Coordinador
@@ -50,8 +64,8 @@ public class Coordinador extends Persona {
         this.idProgramaEducativo = idProgramaEducativo;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -59,9 +73,12 @@ public class Coordinador extends Persona {
         if(obj instanceof Coordinador) {
             Coordinador tmpCoordinador = (Coordinador)obj;
             if(this.id == tmpCoordinador.getId()
-                    && getIdPersona() == tmpCoordinador.getIdPersona()
+                    && this.idPersona == tmpCoordinador.getIdPersona()
+                    && this.nombre.equals(tmpCoordinador.getNombre())
+                    && this.apellidoPaterno.equals(tmpCoordinador.getApellidoPaterno)
+                    && this.apellidoMaterno.equals(tmpCoordinador.getApellidoMaterno)
                     && this.idProgramaEducativo == tmpCoordinador.getIdProgramaEducativo()
-                    && this.idUsuario == tmpCoordinador.getIdUsuario()) {
+                    && this.usuario.equals(tmpCoordinador.getUsuario())) {
                 return true;
             }
         }
