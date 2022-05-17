@@ -93,7 +93,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
                 throw new SQLException("No se han encontrado coordinadores con el nombre " + searchName);
             } else {
                 do {
-                    coordinadores.add(getCoordinador(resultSet));
+                    coordinadores.add(getCoordinadorWithUsuario(resultSet));
                 }while(resultSet.next());
             }
         } catch(SQLException ex) {
@@ -116,7 +116,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             if(resultSet.next() == false) {
                 throw new SQLException("No se ha encontrado el coordinador con el id " + idCoordinador);
             }
-            coordinador = getCoordinador(resultSet);
+            coordinador = getCoordinadorWithUsuario(resultSet);
         } catch(SQLException ex) {
             LOGGER.error(CoordinadorDAO.class.getName(),ex);
         } finally {
