@@ -16,6 +16,22 @@ public class Estudiante extends Persona {
         this.idTutorAcademico = 0;
     }
 
+    public Estudiante(String matricula, String nombre, String apellidoPaterno, String apellidoMaterno) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = 0;
+        this.matricula = matricula;
+        this.idProgramaEducativo = 0;
+        this.idTutorAcademico = 0;
+    }
+
+    public Estudiante(int id, String matricula, String nombre, String apellidoPaterno, String apellidoMaterno) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = id;
+        this.matricula = matricula;
+        this.idProgramaEducativo = 0;
+        this.idTutorAcademico = 0;
+    }
+
     public Estudiante(String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, int idTutorAcademico, int idProgramaEducativo) {
         super(nombre, apellidoPaterno, apellidoMaterno);
         this.id = 0;
@@ -70,9 +86,12 @@ public class Estudiante extends Persona {
     public boolean equals(Object obj) {
         if(obj instanceof Estudiante) {
             Estudiante tmpEstudiante = (Estudiante)obj;
-            if(this.idEstudiante == tmpEstudiante.getIdEstudiante()
+            if(this.id == tmpEstudiante.getId()
                     && this.matricula.equals(tmpEstudiante.getMatricula())
-                    && getId() == tmpEstudiante.getId()
+                    && this.idPersona == tmpEstudiante.getIdPersona()
+                    && this.nombre.equals(tmpEstudiante.getNombre())
+                    && this.apellidoPaterno.equals(tmpEstudiante.getApellidoPaterno)
+                    && this.apellidoMaterno.equals(tmpEstudiante.getApellidoMaterno)
                     && this.idProgramaEducativo == tmpEstudiante.getIdProgramaEducativo()
                     && this.idTutorAcademico == tmpEstudiante.getIdTutorAcademico()) {
                 return true;

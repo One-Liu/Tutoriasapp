@@ -20,7 +20,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         ArrayList<Coordinador> coordinadores = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
+            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -44,7 +44,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         Coordinador coordinador = new Coordinador();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE C.id = ?";
+            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE C.id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idCoordinador);
             ResultSet resultSet = statement.executeQuery();
@@ -62,6 +62,71 @@ public class CoordinadorDAO implements ICoordinadorDAO {
 
     @Override
     public Coordinador getCoordinador(ResultSet resultSet) {
+        int idCoordinador = 0;
+        String nombreCoordinador = "";
+        String apellidoPaternoCoordinador = "";
+        String apellidoMaternoCoordinador = "";
+        int idProgramaEducativo = 0;
+        try {
+            idCoordinador = resultSet.getInt("id");
+            nombreCoordinador = resultSet.getString("nombre");
+            apellidoPaternoCoordinador = resultSet.getString("apellidoPaterno");
+            apellidoMaternoCoordinador = resultSet.getString("apellidoMaterno");
+            idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
+        } catch(SQLException ex) {
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
+        }
+        Coordinador coordinador = new Coordinador(idCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador,idProgramaEducativo);
+        return coordinador;
+    }
+
+    @Override
+    public ArrayList<Coordinador> findCoordinadorWithUsuarioByName(String searchName) {
+        ArrayList<Coordinador> coordinadores = new ArrayList<>();
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try(Connection connection = dataBaseConnection.getConnection()) {
+            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + searchName + "%");
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next() == false) {
+                throw new SQLException("No se han encontrado coordinadores con el nombre " + searchName);
+            } else {
+                do {
+                    coordinadores.add(getCoordinador(resultSet));
+                }while(resultSet.next());
+            }
+        } catch(SQLException ex) {
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return coordinadores;
+        }
+    }
+
+    @Override
+    public Coordinador findCoordinadorWithUsuarioById(int idCoordinador) {
+        Coordinador coordinador = new Coordinador();
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try(Connection connection = dataBaseConnection.getConnection()) {
+            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE C.id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idCoordinador);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next() == false) {
+                throw new SQLException("No se ha encontrado el coordinador con el id " + idCoordinador);
+            }
+            coordinador = getCoordinador(resultSet);
+        } catch(SQLException ex) {
+            LOGGER.error(CoordinadorDAO.class.getName(),ex);
+        } finally {
+            dataBaseConnection.cerrarConexion();
+            return coordinador;
+        }
+    }
+
+    @Override
+    public Coordinador getCoordinadorWithUsuario(ResultSet resultSet) {
         int idCoordinador = 0;
         String nombreCoordinador = "";
         String apellidoPaternoCoordinador = "";
