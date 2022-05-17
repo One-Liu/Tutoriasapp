@@ -81,7 +81,6 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             String query = "INSERT INTO fecha_cierre_entrega_reporte (fecha) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, fechaDeCierreEntregaDeReporte.getFecha());
-            statement.setInt(2, fechaDeCierreEntregaDeReporte.getIdReporteDeTutoriaAcademica());
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: La fecha de cierre de entrega de reporte no se ha agregado");
@@ -105,7 +104,7 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             statement.setInt(1, idFechaDeCierreEntregaDeReporte);
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
-                throw new SQLException("ERROR: No se ha eliminado la fecha de cierre de entrega de reporte con el id " + idFechaDeCierreEntregaReporte);
+                throw new SQLException("ERROR: No se ha eliminado la fecha de cierre de entrega de reporte con el id " + idFechaDeCierreEntregaDeReporte);
             }
             result = true;
         } catch(SQLException ex) {
