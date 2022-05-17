@@ -20,7 +20,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         ArrayList<Coordinador> coordinadores = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT C.id, C.idProgramaEducativo, C.idPersona, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
+            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -44,7 +44,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         Coordinador coordinador = new Coordinador();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT C.id, C.idProgramaEducativo, C.idPersona, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE C.id = ?";
+            String query = "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, C.idUsuario FROM coordinador C LEFT JOIN persona P ON P.id = C.idPersona WHERE C.id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idCoordinador);
             ResultSet resultSet = statement.executeQuery();
@@ -63,7 +63,6 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     @Override
     public Coordinador getCoordinador(ResultSet resultSet) {
         int idCoordinador = 0;
-        int idPersonaCoordinador = 0;
         String nombreCoordinador = "";
         String apellidoPaternoCoordinador = "";
         String apellidoMaternoCoordinador = "";
@@ -71,7 +70,6 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         int idUsuario = 0;
         try {
             idCoordinador = resultSet.getInt("id");
-            idPersonaCoordinador = resultSet.getInt("idPersona");
             nombreCoordinador = resultSet.getString("nombre");
             apellidoPaternoCoordinador = resultSet.getString("apellidoPaterno");
             apellidoMaternoCoordinador = resultSet.getString("apellidoMaterno");
@@ -80,8 +78,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         } catch(SQLException ex) {
             LOGGER.error(CoordinadorDAO.class.getName(),ex);
         }
-        Persona personaCoordinador = new Persona(idPersonaCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador);
-        Coordinador coordinador = new Coordinador(idCoordinador,personaCoordinador,idProgramaEducativo,idUsuario);
+        Coordinador coordinador = new Coordinador(idCoordinador,nombreCoordinador,apellidoPaternoCoordinador,apellidoMaternoCoordinador,idProgramaEducativo,idUsuario);
         return coordinador;
     }
 
