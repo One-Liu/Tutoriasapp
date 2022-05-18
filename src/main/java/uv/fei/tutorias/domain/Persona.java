@@ -1,10 +1,10 @@
 package uv.fei.tutorias.domain;
 
 public class  Persona {
-    private int idPersona;
-    private String nombre;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
+    protected int idPersona;
+    protected String nombre;
+    protected String apellidoPaterno;
+    protected String apellidoMaterno;
 
     public Persona(String nombre, String apellidoPaterno, String apellidoMaterno) {
         this.nombre = nombre;
