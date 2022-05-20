@@ -8,9 +8,9 @@ module uv.fei.tutorias {
     requires log4j;
 
 
-    exports uv.fei.tutorias.bussinesslogic to test.uv.fei.tutorias, test.java.uv.fei.tutorias;
-    exports uv.fei.tutorias.dataaccess to  test.uv.fei.tutorias;
-    exports uv.fei.tutorias.domain to  test.uv.fei.tutorias, test.java.uv.fei.tutorias;
+    exports uv.fei.tutorias.bussinesslogic to test.java.uv.fei.tutorias;
+    exports uv.fei.tutorias.dataaccess to   test.java.uv.fei.tutorias;
+    exports uv.fei.tutorias.domain to   test.java.uv.fei.tutorias;
     opens uv.fei.tutorias.bussinesslogic;
     opens uv.fei.tutorias.main to javafx.fxml;
     exports uv.fei.tutorias.main;

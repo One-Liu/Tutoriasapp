@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="463.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.GUIRegistrarSolucionProblematicaAcademica">
+   <children>
+      <Label layoutX="145.0" layoutY="45.0" text="Problemática Académica:" />
+      <Label fx:id="problematicaAcadémica" layoutX="300.0" layoutY="45.0" text="problematicaAcadémica" />
+      <Label layoutX="162.0" layoutY="88.0" text="Experiencia Educativa:" />
+      <Label fx:id="experienciaEducativa" layoutX="300.0" layoutY="88.0" text="experienciaEducativa" />
+      <Label layoutX="231.0" layoutY="128.0" text="Profesor:" />
+      <Label fx:id="profesor" layoutX="300.0" layoutY="128.0" text="profesor" />
+      <TextArea fx:id="insertarSolucionTextArea" layoutX="25.0" layoutY="205.0" prefHeight="200.0" prefWidth="550.0" />
+      <Label layoutX="25.0" layoutY="188.0" text="Solución:" />
+      <Button layoutX="422.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#guardarBtn" text="Guardar" />
+      <Button layoutX="505.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#cancelarBtn" text="Cancelar" />
+   </children>
+</AnchorPane>

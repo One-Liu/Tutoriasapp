@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import uv.fei.tutorias.bussinesslogic.*;
-import uv.fei.tutorias.domain.JefeDeCarrera;
-import uv.fei.tutorias.domain.Persona;
-import uv.fei.tutorias.domain.TutorAcademico;
-import uv.fei.tutorias.domain.Usuario;
+import uv.fei.tutorias.domain.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,8 +21,6 @@ public class SingnUpController implements Initializable {
     private TextField apellidoPaterno;
     @FXML
     private TextField correoInstitucional;
-
-
     @FXML
     private ComboBox<String> tipo;
 
@@ -55,6 +50,11 @@ public class SingnUpController implements Initializable {
                         jefeDeCarreraDAO.addJefeDeCarrera(jefeDeCarrera);
                         break;
                     case "Coordinador":
+                        CoordinadorDAO coordinadorDAO = new CoordinadorDAO();
+                        Coordinador coordinador = new Coordinador(persona);
+                        coordinador.setIdPersona(personaDAO.addPersonaReturnId(persona));
+                        coordinador.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
+                        coordinadorDAO.addCoordinador(coordinador);
                         break;
 
                     case "Tutor academico":
@@ -104,8 +104,6 @@ public class SingnUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tipo.getItems().setAll("Jefe de carrera",  "Tutor academico");
-
-
+        tipo.getItems().setAll("Jefe de carrera",  "Coordinador", "Tutor academico");
     }
 }

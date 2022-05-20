@@ -10,8 +10,7 @@ import static org.junit.Assert.*;
 public class ExperienciaEducativaDAOTest {
     @Test
     public void addExperienciasEducativas(){
-        System.out.println("experienciaEducativaDao.addExperienciaEducativa()");
-        ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa("Paradigmas De Programacion",8);
+        ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa("Phyton","1234",0);
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
         boolean result = experienciaEducativaDAO.addExperienciaEducativa(experienciaEducativa);
         assertTrue(result);

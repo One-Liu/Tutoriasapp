@@ -1,5 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Profesor;
@@ -8,8 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.apache.log4j.Logger;
 
 
@@ -57,8 +58,8 @@ public class ProfesorDAO implements IProfesorDAO {
 
 
     @Override
-    public List<Profesor> findProfesoresByName(String searchName) {
-        List<Profesor> profesores = new ArrayList<>();
+    public ObservableList<Profesor> findProfesoresByName(String searchName) {
+        ObservableList<Profesor> profesores = FXCollections.observableArrayList();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()){
             String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";

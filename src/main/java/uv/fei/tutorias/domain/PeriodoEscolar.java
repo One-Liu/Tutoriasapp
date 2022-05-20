@@ -1,15 +1,34 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class PeriodoEscolar {
-    private int idPeriodoEscolar;
+    private int id;
     private String fechaInicio;
     private String fechaTermino;
 
+    public PeriodoEscolar() {
+        this.id = 0;
+        this.fechaInicio = "";
+        this.fechaTermino = "";
+    }
+    
+    public PeriodoEscolar(String fechaInicio, String fechaTermino) {
+        this.id = 0;
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
+    }
+    
+    public PeriodoEscolar(int id, String fechaInicio, String fechaTermino) {
+        this.id = id;
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
+    }
+
+
+
     // Getters of uv.fei.tutorias.domain.PeriodoEscolar
-    public int getIdPeriodoEscolar() {
-        return idPeriodoEscolar;
+    public int getId() {
+        return id;
     }
 
     public String getFechaInicio() {
@@ -21,8 +40,8 @@ public class PeriodoEscolar {
     }
 
     // Setters of uv.fei.tutorias.domain.PeriodoEscolar
-    public void setIdPeriodoEscolar(int idPeriodoEscolar) {
-        this.idPeriodoEscolar = idPeriodoEscolar;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setFechaInicio(String fechaInicio) {
@@ -31,5 +50,23 @@ public class PeriodoEscolar {
 
     public void setFechaTermino(String fechaTermino) {
         this.fechaTermino = fechaTermino;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof PeriodoEscolar) {
+            PeriodoEscolar tmpPeriodoEscolar = (PeriodoEscolar)obj;
+            if(this.id == tmpPeriodoEscolar.getId()
+                    && this.fechaInicio.equals(tmpPeriodoEscolar.getFechaInicio())
+                    && this.fechaTermino.equals(tmpPeriodoEscolar.getFechaTermino())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return getFechaInicio() + " - " + getFechaTermino();
     }
 }

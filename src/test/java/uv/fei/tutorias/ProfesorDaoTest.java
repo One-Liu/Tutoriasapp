@@ -19,7 +19,7 @@ public class ProfesorDaoTest {
     private ProfesorDAO profesorDAO;
     @Before
     public void init(){
-        profesor = new Profesor("Angel","Juan","Hernandez");
+        profesor = new Profesor("Rosa","Maria","Rivera");
         profesorDAO = new ProfesorDAO();
     }
     @Test
@@ -32,7 +32,7 @@ public class ProfesorDaoTest {
     }
     @Test
     public void findProfesoresByName(){
-        MatcherAssert.assertThat(profesorDAO.findProfesoresByName("Angel"), not(IsEmptyCollection.empty()));
+        MatcherAssert.assertThat(profesorDAO.findProfesoresByName("Rosa"), not(IsEmptyCollection.empty()));
     }
     @Test
     public void findProfesorById(){

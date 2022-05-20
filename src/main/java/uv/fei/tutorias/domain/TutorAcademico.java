@@ -1,24 +1,43 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-
 public class TutorAcademico extends Persona{
     private int id;
     private Usuario usuario;
 
-
-    public TutorAcademico(String nombre, String apellidoPaterno, String apellidoMaterno, Usuario usuario) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.usuario = usuario;
-    }
-
     public TutorAcademico() {
+        this.id = 0;
         this.usuario = new Usuario();
     }
 
     public TutorAcademico(Persona persona) {
         super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
+        this.id = 0;
         usuario = new Usuario();
+    }
+
+    public TutorAcademico(int id, Persona persona) {
+        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
+        this.id = id;
+        usuario = new Usuario();
+    }
+    
+    public TutorAcademico(Persona persona, Usuario usuario) {
+        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
+        this.id = 0;
+        usuario = usuario;
+    }
+
+    public TutorAcademico(String nombre, String apellidoPaterno, String apellidoMaterno) {
+        super(nombre,apellidoPaterno,apellidoMaterno);
+        this.id = 0;
+        this.usuario = new Usuario();
+    }
+
+    public TutorAcademico(String nombre, String apellidoPaterno, String apellidoMaterno, Usuario usuario) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = 0;
+        this.usuario = usuario;
     }
 
     public int getId() {
@@ -46,15 +65,19 @@ public class TutorAcademico extends Persona{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TutorAcademico)) return false;
-        if (!super.equals(o)) return false;
-
-        TutorAcademico that = (TutorAcademico) o;
-
-        if (getId() != that.getId()) return false;
-        return getUsuario() != null ? getUsuario().equals(that.getUsuario()) : that.getUsuario() == null;
+    public boolean equals(Object obj) {
+        if(obj instanceof TutorAcademico) {
+            TutorAcademico tmpTutorAcademico = (TutorAcademico)obj;
+            if(this.id == tmpTutorAcademico.getId()
+                    && this.idPersona == tmpTutorAcademico.getIdPersona()
+                    && this.nombre.equals(tmpTutorAcademico.getNombre())
+                    && this.apellidoPaterno.equals(tmpTutorAcademico.getApellidoPaterno())
+                    && this.apellidoMaterno.equals(tmpTutorAcademico.getApellidoMaterno())
+                    && this.usuario.equals(tmpTutorAcademico.getUsuario())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
