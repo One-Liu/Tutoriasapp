@@ -8,7 +8,6 @@ import uv.fei.tutorias.domain.PeriodoEscolar;
 public interface IPeriodoEscolarDAO {
     public ArrayList<PeriodoEscolar> findPeriodosEscolaresByFechaInicio(String date);
     public PeriodoEscolar findPeriodoEscolarById(int idPeriodoEscolar);
-    public PeriodoEscolar getPeriodoEscolar(ResultSet resultSet);
     public boolean addPeriodoEscolar(PeriodoEscolar periodoEscolar);
     public boolean deletePeriodoEscolarById(int idPeriodoEscolar);
 }

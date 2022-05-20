@@ -8,7 +8,6 @@ import uv.fei.tutorias.domain.ProgramaEducativo;
 public interface IProgramaEducativoDAO {
     public ArrayList<ProgramaEducativo> findProgramasEducativosByName(String searchName);
     public ProgramaEducativo findProgramaEducativoById(int idProgramaEducativo);
-    public ProgramaEducativo getProgramaEducativo(ResultSet resultSet);
     public boolean addProgramaEducativo(ProgramaEducativo programaEducativo);
     public boolean deleteProgramaEducativoById(int idProgramaEducativo);
 }

@@ -7,6 +7,15 @@ public class PeriodoEscolar {
     private String fechaTermino;
 
     public PeriodoEscolar() {
+        this.id = 0;
+        this.fechaInicio = "";
+        this.fechaTermino = "";
+    }
+    
+    public PeriodoEscolar(String fechaInicio, String fechaTermino) {
+        this.id = 0;
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
     }
     
     public PeriodoEscolar(int id, String fechaInicio, String fechaTermino) {

@@ -17,9 +17,9 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
     @Override
     public ArrayList<SesionDeTutoriaAcademica> findSesionesDeTutoriaAcademicaByFecha(String searchDate) {
         ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = new ArrayList<>();
+        String query = "SELECT * FROM sesion_de_tutoria_academica WHERE fecha LIKE ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM sesion_de_tutoria_academica WHERE fecha LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchDate + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -34,16 +34,16 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return sesionesDeTutoriaAcademica;
         }
+        return sesionesDeTutoriaAcademica;
     }
 
     @Override
     public SesionDeTutoriaAcademica findSesionDeTutoriaAcademicaById(int idSesionDeTutoriaAcademica) {
         SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
+        String query = "SELECT * FROM sesion_de_tutoria_academica WHERE id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM sesion_de_tutoria_academica WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idSesionDeTutoriaAcademica);
             ResultSet resultSet = statement.executeQuery();
@@ -55,32 +55,31 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return sesionDeTutoriaAcademica;
         }
+        return sesionDeTutoriaAcademica;
     }
 
-    @Override
-    public SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultSet) {
+    private SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultSet) {
         int idSesionDeTutoriaAcademica = 0;
-        String fechaSesionDeTutoriaAcademica = "";
+        String fecha = "";
         int idPeriodoEscolar = 0;
         try {
             idSesionDeTutoriaAcademica = resultSet.getInt("id");
-            fechaSesionDeTutoriaAcademica = resultSet.getString("fecha");
+            fecha = resultSet.getString("fecha");
             idPeriodoEscolar = resultSet.getInt("idPeriodoEscolar");
         } catch(SQLException ex) {
             LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         }
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,fechaSesionDeTutoriaAcademica,idPeriodoEscolar);
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,fecha,idPeriodoEscolar);
         return sesionDeTutoriaAcademica;
     }
 
     @Override
     public boolean addSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?,?)";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, sesionDeTutoriaAcademica.getFecha());
             statement.setInt(2, sesionDeTutoriaAcademica.getIdPeriodoEscolar());
@@ -93,16 +92,16 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
     public boolean deleteSesionDeTutoriaAcademicaById(int idSesionDeTutoriaAcademica) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "DELETE FROM sesion_de_tutoria_academica WHERE id = ?";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM sesion_de_tutoria_academica WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idSesionDeTutoriaAcademica);
             int affectedRows = statement.executeUpdate();
@@ -114,7 +113,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             LOGGER.error(SesionDeTutoriaAcademicaDAO.class.getName(), ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }

@@ -17,9 +17,9 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
     @Override
     public ArrayList<FechaDeCierreEntregaDeReporte> findFechasDeCierreEntregaDeReporteByFecha(String searchDate) {
         ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporte = new ArrayList<>();
+        String query = "SELECT * FROM fecha_cierre_entrega_reporte WHERE fecha LIKE ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM fecha_cierre_entrega_reporte WHERE fecha LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchDate + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -31,19 +31,19 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
                 } while (resultSet.next());
             }
         } catch(SQLException ex) {
-            LOGGER.error(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
+            LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return fechasDeCierreEntregaReporte;
         }
+        return fechasDeCierreEntregaReporte;
     }
 
     @Override
     public FechaDeCierreEntregaDeReporte findFechaDeCierreEntregaDeReporteById(int idFechaDeCierreEntregaReporte) {
         FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte();
+        String query = "SELECT * FROM fecha_cierre_entrega_reporte WHERE id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM fecha_cierre_entrega_reporte WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idFechaDeCierreEntregaReporte);
             ResultSet resultSet = statement.executeQuery();
@@ -52,22 +52,21 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             }
             fechaDeCierreEntregaReporte = getFechaDeCierreEntregaDeReporte(resultSet);
         } catch(SQLException ex) {
-            LOGGER.error(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
+            LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return fechaDeCierreEntregaReporte;
         }
+        return fechaDeCierreEntregaReporte;
     }
 
-    @Override
-    public FechaDeCierreEntregaDeReporte getFechaDeCierreEntregaDeReporte(ResultSet resultSet) {
+    private FechaDeCierreEntregaDeReporte getFechaDeCierreEntregaDeReporte(ResultSet resultSet) {
         int idFechaDeCierreEntregaReporte = 0;
         String fechaDeCierre = "";
         try {
             idFechaDeCierreEntregaReporte = resultSet.getInt("id");
             fechaDeCierre = resultSet.getString("fecha");
         } catch(SQLException ex) {
-            LOGGER.error(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
+            LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
         }
         FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,fechaDeCierre);
         return fechaDeCierreEntregaReporte;
@@ -75,10 +74,10 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
 
     @Override
     public boolean addFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "INSERT INTO fecha_cierre_entrega_reporte (fecha) VALUES (?)";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO fecha_cierre_entrega_reporte (fecha) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, fechaDeCierreEntregaDeReporte.getFecha());
             int affectedRows = statement.executeUpdate();
@@ -87,19 +86,19 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
+            LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
     public boolean deleteFechaDeCierreEntregaDeReporteById(int idFechaDeCierreEntregaDeReporte) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "DELETE FROM fecha_cierre_entrega_reporte WHERE id = ?";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM fecha_cierre_entrega_reporte WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idFechaDeCierreEntregaDeReporte);
             int affectedRows = statement.executeUpdate();
@@ -108,10 +107,10 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
+            LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }

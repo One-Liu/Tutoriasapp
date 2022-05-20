@@ -9,7 +9,6 @@ public interface IListaDeAsistenciaDAO {
     public ListaDeAsistencia findListaDeAsistenciaById(int idListaDeAsistencia);
     public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdEstudiante(int idEstudiante);
     public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica);
-    public ListaDeAsistencia getListaDeAsistencia(ResultSet resultSet);
     public boolean addListaDeAsistencia(ListaDeAsistencia listaDeAsistencia);
     public boolean deleteListaDeAsistenciaById(int idListaDeAsistencia);
 }
