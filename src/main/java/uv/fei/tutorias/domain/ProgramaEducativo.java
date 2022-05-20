@@ -11,13 +11,13 @@ public class ProgramaEducativo {
         this.nombre = "";
     }
 
-    public ProgramaEducativo(int idProgramaEducativo, String nombre) {
-        this.idProgramaEducativo = idProgramaEducativo;
-        this.nombre = nombre;
-    }
-
     public ProgramaEducativo(String nombre) {
         this.idProgramaEducativo = 0;
+        this.nombre = nombre;
+    }
+    
+    public ProgramaEducativo(int idProgramaEducativo, String nombre) {
+        this.idProgramaEducativo = idProgramaEducativo;
         this.nombre = nombre;
     }
 

@@ -8,7 +8,6 @@ import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
 public interface IFechaDeCierreEntregaDeReporteDAO {
     public ArrayList<FechaDeCierreEntregaDeReporte> findFechasDeCierreEntregaDeReporteByFecha(String searchDate);
     public FechaDeCierreEntregaDeReporte findFechaDeCierreEntregaDeReporteById(int idFechaDeCierreEntregaDeReporte);
-    public FechaDeCierreEntregaDeReporte getFechaDeCierreEntregaDeReporte(ResultSet resultSet);
     public boolean addFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte);
     public boolean deleteFechaDeCierreEntregaDeReporteById(int idFechaDeCierreEntregaDeReporte);
 }

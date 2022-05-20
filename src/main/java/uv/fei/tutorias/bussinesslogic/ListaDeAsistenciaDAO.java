@@ -17,9 +17,9 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     @Override
     public ListaDeAsistencia findListaDeAsistenciaById(int idListaDeAsistencia) {
         ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia();
+        String query = "SELECT * FROM lista_de_asistencia WHERE id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM lista_de_asistencia WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idListaDeAsistencia);
             ResultSet resultSet = statement.executeQuery();
@@ -28,19 +28,19 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             }
             listaDeAsistencia = getListaDeAsistencia(resultSet);
         } catch(SQLException ex) {
-            LOGGER.error(ListaDeAsistenciaDAO.class.getName(),ex);
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return listaDeAsistencia;
         }
+        return listaDeAsistencia;
     }
 
     @Override
     public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdEstudiante(int idEstudiante) {
         ArrayList<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
+        String query = "SELECT * FROM lista_de_asistencia WHERE idEstudiante = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM lista_de_asistencia WHERE idEstudiante = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idEstudiante);
             ResultSet resultSet = statement.executeQuery();
@@ -52,19 +52,19 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
                 } while (resultSet.next());
             }
         } catch(SQLException ex) {
-            LOGGER.error(ListaDeAsistenciaDAO.class.getName(),ex);
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return listasDeAsistencia;
         }
+        return listasDeAsistencia;
     }
 
     @Override
     public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
         ArrayList<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
+        String query = "SELECT * FROM lista_de_asistencia WHERE idSesionDeTutoriaAcademica = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM lista_de_asistencia WHERE idSesionDeTutoriaAcademica = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idSesionDeTutoriaAcademica);
             ResultSet resultSet = statement.executeQuery();
@@ -76,15 +76,14 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
                 } while (resultSet.next());
             }
         } catch(SQLException ex) {
-            LOGGER.error(ListaDeAsistenciaDAO.class.getName(),ex);
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return listasDeAsistencia;
         }
+        return listasDeAsistencia;
     }
 
-    @Override
-    public ListaDeAsistencia getListaDeAsistencia(ResultSet resultSet) {
+    private ListaDeAsistencia getListaDeAsistencia(ResultSet resultSet) {
         int idListaDeAsistencia = 0;
         String hora = "";
         int idEstudiante = 0;
@@ -95,7 +94,7 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             idEstudiante = resultSet.getInt("idEstudiante");
             idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
         } catch(SQLException ex) {
-            LOGGER.error(ListaDeAsistenciaDAO.class.getName(),ex);
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         }
         ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia(idListaDeAsistencia,hora,idSesionDeTutoriaAcademica,idEstudiante);
         return listaDeAsistencia;
@@ -103,10 +102,10 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
 
     @Override
     public boolean addListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "INSERT INTO lista_de_asistencia (hora,idEstudiante,idSesionDeTutoriaAcademica) VALUES (?,?,?)";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO lista_de_asistencia (hora,idEstudiante,idSesionDeTutoriaAcademica) VALUES (?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,listaDeAsistencia.getHora());
             statement.setInt(2, listaDeAsistencia.getIdEstudiante());
@@ -117,19 +116,19 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(ListaDeAsistenciaDAO.class.getName(),ex);
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
     public boolean deleteListaDeAsistenciaById(int idListaDeAsistencia) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "DELETE FROM lista_de_asistencia WHERE id = ?";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM lista_de_asistencia WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idListaDeAsistencia);
             int affectedRows = statement.executeUpdate();
@@ -138,10 +137,10 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(ListaDeAsistenciaDAO.class.getName(),ex);
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }

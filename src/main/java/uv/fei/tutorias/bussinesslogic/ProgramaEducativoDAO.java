@@ -17,9 +17,9 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
     @Override
     public ArrayList<ProgramaEducativo> findProgramasEducativosByName(String searchName) {
         ArrayList<ProgramaEducativo> programasEducativos = new ArrayList<>();
+        String query = "SELECT * FROM programa_educativo WHERE nombreProgramaEducativo LIKE ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM programa_educativo WHERE nombreProgramaEducativo LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -31,19 +31,19 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
                 } while (resultSet.next());
             }
         } catch (SQLException ex) {
-            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
+            LOGGER.warn(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return programasEducativos;
         }
+        return programasEducativos;
     }
 
     @Override
     public ProgramaEducativo findProgramaEducativoById(int idProgramaEducativo) {
         ProgramaEducativo programaEducativo = new ProgramaEducativo();
+        String query = "SELECT * FROM programa_educativo WHERE id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM programa_educativo WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProgramaEducativo);
             ResultSet resultSet = statement.executeQuery();
@@ -52,33 +52,32 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             }
             programaEducativo = getProgramaEducativo(resultSet);
         } catch (SQLException ex) {
-            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
+            LOGGER.warn(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return programaEducativo;
         }
+        return programaEducativo;
     }
 
-    @Override
-    public ProgramaEducativo getProgramaEducativo(ResultSet resultSet) {
+    private ProgramaEducativo getProgramaEducativo(ResultSet resultSet) {
         int idProgramaEducativo = 0;
-        String nombreProgramaEducativo = "";
+        String nombre = "";
         try {
             idProgramaEducativo = resultSet.getInt("id");
-            nombreProgramaEducativo = resultSet.getString("nombreProgramaEducativo");
+            nombre = resultSet.getString("nombreProgramaEducativo");
         } catch (SQLException ex) {
-            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
+            LOGGER.warn(ProgramaEducativoDAO.class.getName(),ex);
         }
-        ProgramaEducativo programaEducativo = new ProgramaEducativo(idProgramaEducativo,nombreProgramaEducativo);
+        ProgramaEducativo programaEducativo = new ProgramaEducativo(idProgramaEducativo,nombre);
         return programaEducativo;
     }
 
     @Override
     public boolean addProgramaEducativo(ProgramaEducativo programaEducativo) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "INSERT INTO programa_educativo (nombreProgramaEducativo) VALUES (?)";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO programa_educativo (nombreProgramaEducativo) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, programaEducativo.getNombre());
             int affectedRows = statement.executeUpdate();
@@ -87,19 +86,19 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             }
             result = true;
         } catch (SQLException ex) {
-            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
+            LOGGER.warn(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
     public boolean deleteProgramaEducativoById(int idProgramaEducativo) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "DELETE FROM programa_educativo WHERE id = ?";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM programa_educativo WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProgramaEducativo);
             int affectedRows = statement.executeUpdate();
@@ -107,10 +106,10 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
                 throw new SQLException("ERROR: No se ha eliminado el programa educativo con el id " + idProgramaEducativo);
             }
         } catch (SQLException ex) {
-            LOGGER.error(ProgramaEducativoDAO.class.getName(),ex);
+            LOGGER.warn(ProgramaEducativoDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }

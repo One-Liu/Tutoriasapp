@@ -16,32 +16,16 @@ public class Estudiante extends Persona {
         this.idTutorAcademico = 0;
     }
 
-    public Estudiante(String matricula, String nombre, String apellidoPaterno, String apellidoMaterno) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.id = 0;
-        this.matricula = matricula;
-        this.idProgramaEducativo = 0;
-        this.idTutorAcademico = 0;
-    }
-
-    public Estudiante(int id, String matricula, String nombre, String apellidoPaterno, String apellidoMaterno) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.id = id;
-        this.matricula = matricula;
-        this.idProgramaEducativo = 0;
-        this.idTutorAcademico = 0;
-    }
-
-    public Estudiante(String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, int idTutorAcademico, int idProgramaEducativo) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
+    public Estudiante(String matricula, Persona estudiante, int idTutorAcademico, int idProgramaEducativo) {
+        super(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
         this.id = 0;
         this.matricula = matricula;
         this.idProgramaEducativo = idProgramaEducativo;
         this.idTutorAcademico = idTutorAcademico;
     }
 
-    public Estudiante(int id, String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, int idTutorAcademico, int idProgramaEducativo) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
+    public Estudiante(int id, String matricula, Persona estudiante, int idTutorAcademico, int idProgramaEducativo) {
+        super(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
         this.id = id;
         this.matricula = matricula;
         this.idProgramaEducativo = idProgramaEducativo;

@@ -17,9 +17,9 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
     @Override
     public ArrayList<PeriodoEscolar> findPeriodosEscolaresByFechaInicio(String date) {
         ArrayList<PeriodoEscolar> periodosEscolares = new ArrayList<>();
+        String query = "SELECT * FROM periodo_escolar WHERE fechaInicio LIKE ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM periodo_escolar WHERE fechaInicio LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + date + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -31,19 +31,19 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
                 }while(resultSet.next());
             }
         } catch(SQLException ex) {
-            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
+            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return periodosEscolares;
         }
+        return periodosEscolares;
     }
 
     @Override
     public PeriodoEscolar findPeriodoEscolarById(int idPeriodoEscolar) {
         PeriodoEscolar periodoEscolar = new PeriodoEscolar();
+        String query = "SELECT * FROM periodo_escolar WHERE id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT * FROM periodo_escolar WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             ResultSet resultSet = statement.executeQuery();
@@ -52,35 +52,34 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             }
             periodoEscolar = getPeriodoEscolar(resultSet);
         } catch (SQLException ex) {
-            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
+            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return periodoEscolar;
         }
+        return periodoEscolar;
     }
 
-    @Override
-    public PeriodoEscolar getPeriodoEscolar(ResultSet resultSet) {
+    private PeriodoEscolar getPeriodoEscolar(ResultSet resultSet) {
         int idPeriodoEscolar = 0;
-        String fechaInicioPeriodoEscolar = "";
-        String fechaTerminoPeriodoEscolar = "";
+        String fechaInicio = "";
+        String fechaTermino = "";
         try {
             idPeriodoEscolar = resultSet.getInt("id");
-            fechaInicioPeriodoEscolar = resultSet.getString("fechaInicio");
-            fechaTerminoPeriodoEscolar = resultSet.getString("fechaTermino");
+            fechaInicio = resultSet.getString("fechaInicio");
+            fechaTermino = resultSet.getString("fechaTermino");
         } catch (SQLException ex) {
-            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
+            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         }
-        PeriodoEscolar periodoEscolar = new PeriodoEscolar(idPeriodoEscolar,fechaInicioPeriodoEscolar,fechaTerminoPeriodoEscolar);
+        PeriodoEscolar periodoEscolar = new PeriodoEscolar(idPeriodoEscolar,fechaInicio,fechaTermino);
         return periodoEscolar;
     }
 
     @Override
     public boolean addPeriodoEscolar(PeriodoEscolar periodoEscolar) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "INSERT INTO periodo_escolar (fechaInicio,fechaTermino) VALUES (?,?)";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO periodo_escolar (fechaInicio,fechaTermino) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, periodoEscolar.getFechaInicio());
             statement.setString(2, periodoEscolar.getFechaTermino());
@@ -90,19 +89,19 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             }
             result = true;
         } catch (SQLException ex) {
-            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
+            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 
     @Override
     public boolean deletePeriodoEscolarById(int idPeriodoEscolar) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "DELETE FROM periodo_escolar WHERE id = ?";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM periodo_escolar WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idPeriodoEscolar);
             int affectedRows = statement.executeUpdate();
@@ -111,10 +110,10 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(PeriodoEscolarDAO.class.getName(),ex);
+            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }
