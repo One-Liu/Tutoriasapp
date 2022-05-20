@@ -16,7 +16,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
     @Override
     public List<ProblematicaAcademica> findProblematicaAcademicaByDescription(String serchName) {
-        ArrayList<ProblematicaAcademica> experienciasEducativas = new ArrayList<>();
+        ArrayList<ProblematicaAcademica> problematicasAcademicas = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()){
             String query = "SELECT  * from problematicaacademica where descripcion like ?";
@@ -35,7 +35,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
                     experienciaEducativaIdExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
 
                     ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,descripcion,experienciaEducativaIdExperienciaEducativa);
-                    experienciasEducativas.add(problematicaAcademica);
+                    problematicasAcademicas.add(problematicaAcademica);
                 }while (resultSet.next());
             }
 
@@ -45,7 +45,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
             dataBaseConnection.cerrarConexion();
         }
 
-        return experienciasEducativas;
+        return problematicasAcademicas;
     }
 
     @Override

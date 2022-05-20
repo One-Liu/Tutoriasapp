@@ -24,10 +24,7 @@ public class PeriodoEscolar {
         this.fechaTermino = fechaTermino;
     }
 
-    public PeriodoEscolar(String fechaInicio, String fechaTermino) {
-        this.fechaInicio = fechaInicio;
-        this.fechaTermino = fechaTermino;
-    }
+
 
     // Getters of uv.fei.tutorias.domain.PeriodoEscolar
     public int getId() {

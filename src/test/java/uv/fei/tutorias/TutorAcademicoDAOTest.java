@@ -49,6 +49,6 @@ public class TutorAcademicoDAOTest {
     @Test
     public void testDeleteTutorAcademicoById() {
         int idTutorAcademico = 0;
-        assertFalse(TutorAcademicoDAO.deleteTutorAcademicoById(idTutorAcademico));
+        assertFalse(tutorAcademicoDAO.deleteTutorAcademicoById(idTutorAcademico));
     }
 }

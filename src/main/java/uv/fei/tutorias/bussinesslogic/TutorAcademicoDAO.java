@@ -81,15 +81,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     @Override
     public boolean addTutorAcademico(TutorAcademico tutorAcademico) {
         boolean result = false;
-        PersonaDAO personaDAO = new PersonaDAO();
-        Persona personaTutorAcademico = new Persona(tutorAcademico.getNombre(), tutorAcademico.getApellidoPaterno(), tutorAcademico.getApellidoMaterno());
         String query = "INSERT INTO tutor_academico(idPersona,idUsuario) VALUES(?,?)";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, tutorAcademico.getIdProgramaEducativo());
-            statement.setInt(2, personaDAO.addPersonaReturnId(personaTutorAcademico));
-            statement.setInt(3, tutorAcademico.getUsuario().getId());
+            statement.setInt(1, tutorAcademico.getIdPersona());
+            statement.setInt(2, tutorAcademico.getUsuario().getId());
             int affectedRows = statement.executeUpdate();
             if(affectedRows == 0) {
                 throw new SQLException("ERROR: El coordinador no se ha agregado");
@@ -120,7 +117,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
-            return result;
         }
+        return result;
     }
 }
