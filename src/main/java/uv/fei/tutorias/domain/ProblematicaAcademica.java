@@ -70,4 +70,9 @@ public class ProblematicaAcademica {
         result = 31 * result + getIdExperienciaEducativa();
         return result;
     }
+
+    @Override
+    public String toString(){
+        return descripcion;
+    }
 }

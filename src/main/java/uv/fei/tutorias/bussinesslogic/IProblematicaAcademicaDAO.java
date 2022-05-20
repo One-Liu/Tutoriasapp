@@ -9,4 +9,6 @@ public interface IProblematicaAcademicaDAO {
     public ProblematicaAcademica findProblematicaAcademicaById(int searchId);
     public boolean addProblematicaAcademica(ProblematicaAcademica problematicaAcademica);
     public boolean deleteProblematicaAcademicaById(int searchId);
+
+    public List<ProblematicaAcademica> findAllProblematicasAcademicas();
 }

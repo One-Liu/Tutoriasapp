@@ -100,7 +100,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
             if (executeUpdate == 0){
                 throw new SQLException("ERROR: Experiencia educativa no se ha agregado");
             }
-            bandera = true;
+            bandera = (executeUpdate > 0);
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         } finally {

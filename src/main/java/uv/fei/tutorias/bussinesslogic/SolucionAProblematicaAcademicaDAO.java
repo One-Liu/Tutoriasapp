@@ -10,19 +10,15 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
     private final Logger LOG = Logger.getLogger(SolucionAProblematicaAcademicaDAO.class);
 
     @Override
-    public boolean addSolucionProblematicaAcademica(SolucionAProblematicaAcademica solucionAProblematicaAcademica) {
+    public boolean addSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto) {
         boolean bandera = false;
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO  solucionaproblematicaacademica (idsolucionaproblematicaacademica,descripcion) VALUES (?,?)";
+            String query = "INSERT INTO  solucionaproblematicaacademica (descripcion) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1,solucionAProblematicaAcademica.getIdSolucionAProblematicaAcademica());
-            statement.setString(2,solucionAProblematicaAcademica.getDescripcion());
+            statement.setString(1,solucionProblematicaAcademicaTexto);
             int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0){
-                throw new SQLException("Error la problematica academica no se ha agregado");
-            }
-            bandera =true;
+            bandera = (executeUpdate>0);
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
             bandera =false;

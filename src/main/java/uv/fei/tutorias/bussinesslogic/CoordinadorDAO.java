@@ -18,10 +18,10 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     @Override
     public ArrayList<Coordinador> findCoordinadorByName(String searchName) {
         ArrayList<Coordinador> coordinadores = new ArrayList<>();
-        String query = 
-        "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-        "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona " +
-        "WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
+        String query =
+                "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                        "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona " +
+                        "WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -45,10 +45,10 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     @Override
     public Coordinador findCoordinadorById(int idCoordinador) {
         Coordinador coordinador = new Coordinador();
-        String query = 
-        "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-        "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona " +
-        "WHERE C.id = ?";
+        String query =
+                "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                        "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona " +
+                        "WHERE C.id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
