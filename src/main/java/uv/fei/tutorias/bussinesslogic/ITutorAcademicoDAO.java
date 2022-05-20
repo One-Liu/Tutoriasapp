@@ -1,15 +1,13 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.TutorAcademico;
+import java.util.List;
 
 // author @liu
 public interface ITutorAcademicoDAO {
-    public ArrayList<TutorAcademico> findTutoresAcademicosByName(String searchName);
+    public List<TutorAcademico> findTutoresAcademicosByName(String searchName);
     public TutorAcademico findTutorAcademicoById(int idTutorAcademico);
-    public TutorAcademico getTutorAcademico(ResultSet resultSet);
-    public boolean addTutorAcademico(Persona tutorAcademico);
+    public boolean addTutorAcademico(TutorAcademico tutorAcademico);
     public boolean deleteTutorAcademicoById(int idTutorAcademico);
 }

@@ -14,29 +14,29 @@ public class Coordinador extends Persona {
         this.usuario = new Usuario();
     }
 
-    public Coordinador(String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
+    public Coordinador(Persona coordinador, int idProgramaEducativo) {
+        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
         this.id = 0;
         this.idProgramaEducativo = idProgramaEducativo;
         this.usuario = new Usuario();
     }
 
-    public Coordinador(int id, String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
+    public Coordinador(int id, Persona coordinador, int idProgramaEducativo) {
+        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
         this.id = id;
         this.idProgramaEducativo = idProgramaEducativo;
         this.usuario = new Usuario();
     }
 
-    public Coordinador(String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, Usuario usuario) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
+    public Coordinador(Persona coordinador, int idProgramaEducativo, Usuario usuario) {
+        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
         this.id = 0;
         this.idProgramaEducativo = idProgramaEducativo;
         this.usuario = usuario;
     }
 
-    public Coordinador(int id, String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo, Usuario usuario) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
+    public Coordinador(int id, Persona coordinador, int idProgramaEducativo, Usuario usuario) {
+        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
         this.id = id;
         this.idProgramaEducativo = idProgramaEducativo;
         this.usuario = usuario;

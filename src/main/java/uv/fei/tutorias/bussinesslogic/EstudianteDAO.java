@@ -18,9 +18,12 @@ public class EstudianteDAO implements IEstudianteDAO {
     @Override
     public ArrayList<Estudiante> findEstudianteByName(String searchName) {
         ArrayList<Estudiante> estudiantes = new ArrayList<>();
+        String query = 
+        "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+        "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
+        "WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona WHERE CONCAT(P.nombre,\" \",P.apellidoPaterno,\" \",P.apellidoMaterno) LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -32,7 +35,7 @@ public class EstudianteDAO implements IEstudianteDAO {
                 }while(resultSet.next());
             }
         } catch(SQLException ex) {
-            LOGGER.error(EstudianteDAO.class.getName(),ex);
+            LOGGER.warn(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -42,9 +45,12 @@ public class EstudianteDAO implements IEstudianteDAO {
     @Override
     public Estudiante findEstudianteById(int idEstudiante) {
         Estudiante estudiante = new Estudiante();
+        String query = 
+        "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+        "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
+        "WHERE E.id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona WHERE E.id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idEstudiante);
             ResultSet resultSet = statement.executeQuery();
@@ -53,45 +59,45 @@ public class EstudianteDAO implements IEstudianteDAO {
             }
             estudiante = getEstudiante(resultSet);
         } catch(SQLException ex) {
-            LOGGER.error(EstudianteDAO.class.getName(),ex);
+            LOGGER.warn(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
         return estudiante;
     }
 
-    @Override
-        public Estudiante getEstudiante(ResultSet resultSet) {
+    private Estudiante getEstudiante(ResultSet resultSet) {
         int idEstudiante = 0;
         String matricula = "";
-        String nombreEstudiante = "";
-        String apellidoPaternoEstudiante = "";
-        String apellidoMaternoEstudiante = "";
+        String nombre = "";
+        String apellidoPaterno = "";
+        String apellidoMaterno = "";
         int idProgramaEducativo = 0;
         int idTutorAcademico = 0;
         try {
             idEstudiante = resultSet.getInt("id");
             matricula = resultSet.getString("matricula");
-            nombreEstudiante = resultSet.getString("nombre");
-            apellidoPaternoEstudiante = resultSet.getString("apellidoPaterno");
-            apellidoMaternoEstudiante = resultSet.getString("apellidoMaterno");
+            nombre = resultSet.getString("nombre");
+            apellidoPaterno = resultSet.getString("apellidoPaterno");
+            apellidoMaterno = resultSet.getString("apellidoMaterno");
             idTutorAcademico = resultSet.getInt("idTutorAcademico");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {
-            LOGGER.error(EstudianteDAO.class.getName(),ex);
+            LOGGER.warn(EstudianteDAO.class.getName(),ex);
         }
-        Estudiante estudiante = new Estudiante(idEstudiante,matricula,nombreEstudiante,apellidoPaternoEstudiante,apellidoMaternoEstudiante,idTutorAcademico,idProgramaEducativo);
+        Persona personaEstudiante = new Persona(nombre,apellidoPaterno,apellidoMaterno);
+        Estudiante estudiante = new Estudiante(idEstudiante,matricula,personaEstudiante,idTutorAcademico,idProgramaEducativo);
         return estudiante;
     }
 
     @Override
     public boolean addEstudiante(Estudiante estudiante) {
+        boolean result = false;
         PersonaDAO personaDao = new PersonaDAO();
         Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
+        String query = "INSERT INTO estudiante (matricula, idTutorAcademico, idProgramaEducativo, idPersona) VALUES (?,?,?,?)";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        boolean result = false;
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "INSERT INTO estudiante (matricula, idTutorAcademico, idProgramaEducativo, idPersona) VALUES (?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, estudiante.getMatricula());
             statement.setInt(2, estudiante.getIdTutorAcademico());
@@ -103,7 +109,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(EstudianteDAO.class.getName(),ex);
+            LOGGER.warn(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -112,10 +118,10 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public boolean deleteEstudianteById(int idEstudiante) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         boolean result = false;
+        String query = "DELETE FROM estudiante WHERE id = ?";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
-            String query = "DELETE FROM estudiante WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idEstudiante);
             int affectedRows = statement.executeUpdate();
@@ -124,7 +130,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             }
             result = true;
         } catch(SQLException ex) {
-            LOGGER.error(EstudianteDAO.class.getName(),ex);
+            LOGGER.warn(EstudianteDAO.class.getName(),ex);
         } finally {
             dataBaseConnection.cerrarConexion();
         }

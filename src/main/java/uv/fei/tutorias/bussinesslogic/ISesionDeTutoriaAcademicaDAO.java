@@ -8,7 +8,6 @@ import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 public interface ISesionDeTutoriaAcademicaDAO {
     public ArrayList<SesionDeTutoriaAcademica> findSesionesDeTutoriaAcademicaByFecha(String searchDate);
     public SesionDeTutoriaAcademica findSesionDeTutoriaAcademicaById(int idSesionDeTutoriaAcademica);
-    public SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultSet);
     public boolean addSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica);
     public boolean deleteSesionDeTutoriaAcademicaById(int idSesionDeTutoriaAcademica);
 }

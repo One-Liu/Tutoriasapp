@@ -8,7 +8,6 @@ import uv.fei.tutorias.domain.Estudiante;
 public interface IEstudianteDAO {
     public ArrayList<Estudiante> findEstudianteByName(String searchName);
     public Estudiante findEstudianteById(int idEstudiante);
-    public Estudiante getEstudiante(ResultSet resultSet);
     public boolean addEstudiante(Estudiante estudiante);
     public boolean deleteEstudianteById(int idEstudiante);
 }
