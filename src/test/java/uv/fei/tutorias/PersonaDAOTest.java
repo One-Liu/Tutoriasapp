@@ -19,7 +19,7 @@ public class PersonaDAOTest {
 
     @Before
     public void inicio(){
-        persona = new Persona("Mariana","Silava","Hernandez");
+        persona = new Persona("Beatriz","Garibay","Gutierrez");
         personaDAO = new PersonaDAO();
     }
 
