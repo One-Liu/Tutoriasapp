@@ -6,7 +6,7 @@ import uv.fei.tutorias.domain.SolucionAProblematicaAcademica;
 import java.util.List;
 
 public interface ISolucionAProblematicaAcademicaDAO {
-    public boolean addSolucionProblematicaAcademica(SolucionAProblematicaAcademica solucionAProblematicaAcademica);
+    public boolean addSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto);
     public  boolean deleteSolucionAProblematicaAcademicaById(int idProblematicaAcademica);
     public SolucionAProblematicaAcademica findSolucionAProblematicaAcademicaById (int searchId);
 

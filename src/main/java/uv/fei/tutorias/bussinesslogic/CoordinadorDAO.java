@@ -1,4 +1,4 @@
-package uv.fei.tutorias.bussinesslogic;
+/*package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.Coordinador;
-import uv.fei.tutorias.domain.Persona;
 
 // author @liu
 public class CoordinadorDAO implements ICoordinadorDAO {
@@ -191,4 +190,4 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             return result;
         }
     }
-}
+}*/

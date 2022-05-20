@@ -6,14 +6,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import uv.fei.tutorias.bussinesslogic.SolucionAProblematicaAcademicaDAO;
-import uv.fei.tutorias.domain.SolucionAProblematicaAcademica;
 
 public class SolucionAProblematicaacademicaDAOTest {
     @Test
     public void addSolucionAProblematicaAcademica(){
-        SolucionAProblematicaAcademica solucionAProblematicaAcademica = new SolucionAProblematicaAcademica(1,"Despediremos al profesor");
         SolucionAProblematicaAcademicaDAO solucionAProblematicaAcademicaDAO = new SolucionAProblematicaAcademicaDAO();
-        assertTrue(solucionAProblematicaAcademicaDAO.addSolucionProblematicaAcademica(solucionAProblematicaAcademica));
+        assertTrue(solucionAProblematicaAcademicaDAO.addSolucionProblematicaAcademica("botellita de jerez"));
     }
     @Test
     public void deleteSolucionAProblematicaAcademica(){
