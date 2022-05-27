@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
@@ -40,7 +41,7 @@ public class LoginControlador {
         myStage.close();
     }
 
-    public void onIngresarBtn(ActionEvent actionEvent) {
+    public void onIngresarBtn(ActionEvent actionEvent) throws IOException {
         if (!camposVacios()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             Usuario usuario = new Usuario(txtContrasena.getText(),txtcorreoInstitucional.getText());
@@ -55,7 +56,8 @@ public class LoginControlador {
             }else if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getId())){
                 TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
                 TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
-                
+                Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUIMenuPrincipalDeTutorAcademico.fxml", "Menu principal",actionEvent);
+
             }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getId())){
                 alert.setHeaderText(null);
                 alert.setTitle("Menu principal de jefe de carrera");
@@ -88,4 +90,5 @@ public class LoginControlador {
         }
         return bandera;
     }
+
 }
