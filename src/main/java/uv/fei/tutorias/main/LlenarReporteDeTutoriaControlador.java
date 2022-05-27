@@ -6,17 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
-import uv.fei.tutorias.bussinesslogic.ListaDeAsistenciaDAO;
-import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
-import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
+import javafx.scene.layout.AnchorPane;
+import uv.fei.tutorias.bussinesslogic.*;
 import uv.fei.tutorias.domain.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GUILlenarReporteDeTutoria implements Initializable {
-
+public class LlenarReporteDeTutoriaControlador implements Initializable {
+    @FXML
+    private AnchorPane panel;
     @FXML
     private TableView<ListaDeAsistencia> listaDeAsistenciaTableView;
     @FXML
@@ -33,6 +32,16 @@ public class GUILlenarReporteDeTutoria implements Initializable {
     private Label lblPeriodo;
 
     public void actEnviar(ActionEvent actionEvent) {
+        TutorAcademico tutorAcademico = new TutorAcademico();
+        tutorAcademico = (TutorAcademico) Utilidad.recuperarValoresDeLaVentana(panel,tutorAcademico);
+        System.out.println(tutorAcademico);
+        ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
+        ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
+        reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());
+        reporteDeTutoriaAcademica.setIdTutorAcademico(tutorAcademico.getId());
+        reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(6);
+        reporteDeTutoriaAcademicaDAO.addReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
+
 
     }
 
@@ -44,6 +53,7 @@ public class GUILlenarReporteDeTutoria implements Initializable {
         SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
 
         //Recargamos los lebels de la sesion de tutoria
+        //TODO el tutor academico deberia de selecciona la sesion de tutoria academica antes
         sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.findSesionDeTutoriaAcademicaById(6);
         periodoEscolar = periodoEscolarDAO.findPeriodoEscolarById(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
         lblFecha.setText(sesionDeTutoriaAcademica.getFecha());

@@ -14,6 +14,7 @@ public class GUIMenuPrincipalDeTutorAcademico {
     public void actLLenarReporteDeTutoriasAcademicas(ActionEvent actionEvent) throws IOException {
         TutorAcademico tutorAcademico = new TutorAcademico();
         tutorAcademico = (TutorAcademico) Utilidad.recuperarValoresDeLaVentana(panel,tutorAcademico);
+        System.out.println(tutorAcademico);
         Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml","LLenar reporte de tutoria",actionEvent);
     }
 
