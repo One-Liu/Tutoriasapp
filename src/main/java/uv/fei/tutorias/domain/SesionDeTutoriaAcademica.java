@@ -8,17 +8,23 @@ public class SesionDeTutoriaAcademica {
     private int idPeriodoEscolar;
 
     public SesionDeTutoriaAcademica() {
+        this.id = 0;
+        this.fecha = "";
+        this.hora = "";
+        this.idPeriodoEscolar = 0;
     }
-    
-    public SesionDeTutoriaAcademica(String fecha, int idPeriodoEscolar) {
+
+    public SesionDeTutoriaAcademica(String fecha, String hora, int idPeriodoEscolar) {
         this.id = 0;
         this.fecha = fecha;
+        this.hora = hora;
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
     
-    public SesionDeTutoriaAcademica(int id, String fecha, int idPeriodoEscolar) {
+    public SesionDeTutoriaAcademica(int id, String fecha, String hora, int idPeriodoEscolar) {
         this.id = id;
         this.fecha = fecha;
+        this.hora = hora;
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
 
@@ -62,6 +68,7 @@ public class SesionDeTutoriaAcademica {
             SesionDeTutoriaAcademica tmpSesionDeTutoriaAcademica = (SesionDeTutoriaAcademica)obj;
             if(this.id == tmpSesionDeTutoriaAcademica.getId()
                     && this.fecha.equals(tmpSesionDeTutoriaAcademica.getFecha())
+                    && this.hora.equals(tmpSesionDeTutoriaAcademica.getHora())
                     && this.idPeriodoEscolar == tmpSesionDeTutoriaAcademica.getIdPeriodoEscolar()) {
                 return true;
             }

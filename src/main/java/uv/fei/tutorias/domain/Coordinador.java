@@ -42,6 +42,13 @@ public class Coordinador extends Persona {
         this.usuario = usuario;
     }
 
+    public Coordinador(Persona persona) {
+        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
+        this.id = 0;
+        this.idProgramaEducativo = 0;
+        this.usuario = new Usuario();
+    }
+
     // Getters of uv.fei.tutorias.domain.Coordinador
     public int getId() {
         return id;

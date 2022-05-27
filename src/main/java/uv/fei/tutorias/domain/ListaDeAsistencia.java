@@ -2,36 +2,36 @@ package uv.fei.tutorias.domain;
 
 // author @liu
 public class ListaDeAsistencia {
-    private int idListaDeAsistencia;
+    private int id;
     private String hora;
     private int idSesionDeTutoriaAcademica;
     private int idEstudiante;
 
     // Constructors of uv.fei.tutorias.domain.ListaDeAsistencia
     public ListaDeAsistencia() {
-        this.idListaDeAsistencia = 0;
+        this.id = 0;
         this.hora = "";
         this.idSesionDeTutoriaAcademica = 0;
         this.idEstudiante = 0;
     }
 
     public ListaDeAsistencia(String hora, int idSesionDeTutoriaAcademica, int idEstudiante) {
-        this.idListaDeAsistencia = 0;
+        this.id = 0;
         this.hora = hora;
         this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
         this.idEstudiante = idEstudiante;
     }
 
     public ListaDeAsistencia(int idListaDeAsistencia, String hora, int idSesionDeTutoriaAcademica, int idEstudiante) {
-        this.idListaDeAsistencia = idListaDeAsistencia;
+        this.id = idListaDeAsistencia;
         this.hora = hora;
         this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
         this.idEstudiante = idEstudiante;
     }
 
     // Getters of uv.fei.tutorias.domain.ListaDeAsistencia
-    public int getIdListaDeAsistencia() {
-        return idListaDeAsistencia;
+    public int getId() {
+        return id;
     }
 
     public String getHora() {
@@ -47,8 +47,8 @@ public class ListaDeAsistencia {
     }
 
     // Setters of uv.fei.tutorias.domain.ListaDeAsistencia
-    public void setIdListaDeAsistencia(int idListaDeAsistencia) {
-        this.idListaDeAsistencia = idListaDeAsistencia;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setHora(String hora) {
@@ -67,7 +67,7 @@ public class ListaDeAsistencia {
     public boolean equals(Object obj) {
         if(obj instanceof ListaDeAsistencia) {
             ListaDeAsistencia tmpListaDeAsistencia = (ListaDeAsistencia)obj;
-            if(this.idListaDeAsistencia == tmpListaDeAsistencia.getIdListaDeAsistencia()
+            if(this.id == tmpListaDeAsistencia.getId()
                     && this.hora.equals(tmpListaDeAsistencia.getHora())
                     && this.idSesionDeTutoriaAcademica == tmpListaDeAsistencia.getIdSesionDeTutoriaAcademica()
                     && this.idEstudiante == tmpListaDeAsistencia.getIdEstudiante()) {

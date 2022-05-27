@@ -1,49 +1,54 @@
 package uv.fei.tutorias;
 
+import domain.FechaDeCierreEntregaDeReporte;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
-import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
 
 // author @liu
 public class FechaDeCierreEntregaDeReporteDAOTest {
+    
     private FechaDeCierreEntregaDeReporte fechaDeCierreNueva;
     private FechaDeCierreEntregaDeReporte fechaDeCierre1;
     private FechaDeCierreEntregaDeReporteDAO fechaDeCierreDAO;
     
     @Before
-    public void init() {
+    public void inicializar() {
         fechaDeCierreNueva = new FechaDeCierreEntregaDeReporte("");
         fechaDeCierre1 = new FechaDeCierreEntregaDeReporte("28-04-2022");
         fechaDeCierreDAO = new FechaDeCierreEntregaDeReporteDAO();
     }
     
     @Test
-    public void testFindFechaDeCierreEntregaDeReporteByFecha() {
-        String searchDate = "2022";
+    public void testObtenerFechasDeCierreEntregaDeReporte() throws SQLException {
         ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteEsperadas = new ArrayList<>();
         fechasDeCierreEntregaReporteEsperadas.add(fechaDeCierre1);
-        ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteObtenidas = fechaDeCierreDAO.findFechasDeCierreEntregaDeReporteByFecha(searchDate);
+        ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteObtenidas = fechaDeCierreDAO.obtenerFechasDeCierreEntregaDeReporte();
         assertTrue(fechasDeCierreEntregaReporteEsperadas.equals(fechasDeCierreEntregaReporteObtenidas));
     }
     
     @Test
-    public void testFindFechaDeCierreEntregaDeReporteById() {
+    public void testObtenerFechaDeCierreEntregaDeReportePorId() throws SQLException {
         int idFechaDeCierreEntregaReporte = 1;
-        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteObtenida = fechaDeCierreDAO.findFechaDeCierreEntregaDeReporteById(idFechaDeCierreEntregaReporte);
+        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporteObtenida = fechaDeCierreDAO.obtenerFechaDeCierreEntregaDeReportePorId(idFechaDeCierreEntregaReporte);
         assertTrue(fechaDeCierre1.equals(fechaDeCierreEntregaReporteObtenida));
     }
 
     @Test
-    public void testAddFechaDeCierreEntregaDeReporte() {
-        assertTrue(fechaDeCierreDAO.addFechaDeCierreEntregaDeReporte(fechaDeCierreNueva));
+    public void testAgregarFechaDeCierreEntregaDeReporte() throws SQLException {
+        assertTrue(fechaDeCierreDAO.agregarFechaDeCierreEntregaDeReporte(fechaDeCierreNueva));
     }
 
     @Test
-    public void testDeleteFechaDeCierreEntregaDeReporteById() {
+    public void testEliminarFechaDeCierreEntregaDeReportePorId() throws SQLException {
         int idFechaDeCierreEntregaReporte = 0;
-        assertFalse(fechaDeCierreDAO.deleteFechaDeCierreEntregaDeReporteById(idFechaDeCierreEntregaReporte));
+        assertFalse(fechaDeCierreDAO.eliminarFechaDeCierreEntregaDeReportePorId(idFechaDeCierreEntregaReporte));
+    }
+    
+    @Test
+    public void testModificarFechaDeCierreEntregaDeReporte() throws SQLException {
+        assertTrue(fechaDeCierreDAO.modificarFechaDeCierreEntregaDeReporte(fechaDeCierre1));
     }
 }

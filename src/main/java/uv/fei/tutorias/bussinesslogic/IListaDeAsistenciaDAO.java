@@ -1,14 +1,15 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import uv.fei.tutorias.domain.ListaDeAsistencia;
+import domain.ListaDeAsistencia;
 
 // author @liu
 public interface IListaDeAsistenciaDAO {
-    public ListaDeAsistencia findListaDeAsistenciaById(int idListaDeAsistencia);
-    public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdEstudiante(int idEstudiante);
-    public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica);
-    public boolean addListaDeAsistencia(ListaDeAsistencia listaDeAsistencia);
-    public boolean deleteListaDeAsistenciaById(int idListaDeAsistencia);
+    public ListaDeAsistencia obtenerListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException;
+    public ArrayList<ListaDeAsistencia> obtenerListasDeAsistenciaPorIdEstudiante(int idEstudiante) throws SQLException;
+    public ArrayList<ListaDeAsistencia> obtenerListasDeAsistencia() throws SQLException;
+    public boolean agregarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException;
+    public boolean eliminarListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException;
+    public boolean modificarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException;
 }

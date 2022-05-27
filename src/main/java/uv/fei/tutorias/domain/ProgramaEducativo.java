@@ -2,28 +2,28 @@ package uv.fei.tutorias.domain;
 
 // author @liu
 public class ProgramaEducativo {
-    private int idProgramaEducativo;
+    private int id;
     private String nombre;
 
     // Constructors of uv.fei.tutorias.domain.ProgramaEducativo
     public ProgramaEducativo() {
-        this.idProgramaEducativo = 0;
+        this.id = 0;
         this.nombre = "";
     }
 
     public ProgramaEducativo(String nombre) {
-        this.idProgramaEducativo = 0;
+        this.id = 0;
         this.nombre = nombre;
     }
     
     public ProgramaEducativo(int idProgramaEducativo, String nombre) {
-        this.idProgramaEducativo = idProgramaEducativo;
+        this.id = idProgramaEducativo;
         this.nombre = nombre;
     }
 
     // Getters of uv.fei.tutorias.domain.ProgramaEducativo
-    public int getIdProgramaEducativo() {
-        return idProgramaEducativo;
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -31,8 +31,8 @@ public class ProgramaEducativo {
     }
 
     // Setters of uv.fei.tutorias.domain.ProgramaEducativo
-    public void setIdProgramaEducativo(int idProgramaEducativo) {
-        this.idProgramaEducativo = idProgramaEducativo;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
@@ -43,7 +43,7 @@ public class ProgramaEducativo {
     public boolean equals(Object obj) {
         if(obj instanceof ProgramaEducativo) {
             ProgramaEducativo tmpProgramaEducativo = (ProgramaEducativo)obj;
-            if(this.idProgramaEducativo == tmpProgramaEducativo.getIdProgramaEducativo() 
+            if(this.id == tmpProgramaEducativo.getId() 
                     && this.nombre.equals(tmpProgramaEducativo.getNombre())) {
                 return true;
             }

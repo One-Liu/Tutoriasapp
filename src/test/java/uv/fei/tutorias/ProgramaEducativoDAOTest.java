@@ -1,21 +1,22 @@
 package uv.fei.tutorias;
 
+import domain.ProgramaEducativo;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAO;
-import uv.fei.tutorias.domain.ProgramaEducativo;
 
 // author @liu
 public class ProgramaEducativoDAOTest {
+    
     ProgramaEducativo programaEducativoNuevo;
     ProgramaEducativo programaEducativo1;
     ProgramaEducativo programaEducativo2;
     ProgramaEducativoDAO programaEducativoDAO;
     
     @Before
-    public void init() {
+    public void inicializar() {
         programaEducativoNuevo = new ProgramaEducativo("");
         programaEducativo1 = new ProgramaEducativo("INGENIERÍA DE SOFTWARE");
         programaEducativo2 = new ProgramaEducativo("TECNOLOGÍAS COMPUTACIONALES");
@@ -23,30 +24,34 @@ public class ProgramaEducativoDAOTest {
     }
 
     @Test
-    public void testFindProgramasEducativosByName() {
-        String searchName = "I";
+    public void testObtenerProgramasEducativos() throws SQLException {
         ArrayList<ProgramaEducativo> programasEducativosEsperados = new ArrayList<>();
         programasEducativosEsperados.add(programaEducativo1);
         programasEducativosEsperados.add(programaEducativo2);
-        ArrayList<ProgramaEducativo> programasEducativosObtenidos = programaEducativoDAO.findProgramasEducativosByName(searchName);
+        ArrayList<ProgramaEducativo> programasEducativosObtenidos = programaEducativoDAO.obtenerProgramasEducativos();
         assertTrue(programasEducativosEsperados.equals(programasEducativosObtenidos));
     }
     
     @Test
-    public void testFindProgramaEducativoById() {
+    public void testObtenerProgramaEducativoPorId() throws SQLException {
         int idProgramaEducativo = 1;
-        ProgramaEducativo programaEducativoObtenido = programaEducativoDAO.findProgramaEducativoById(idProgramaEducativo);
+        ProgramaEducativo programaEducativoObtenido = programaEducativoDAO.obtenerProgramaEducativoPorId(idProgramaEducativo);
         assertTrue(programaEducativo1.equals(programaEducativoObtenido));
     }
     
     @Test
-    public void testAddProgramaEducativo() {
-        assertTrue(programaEducativoDAO.addProgramaEducativo(programaEducativoNuevo));
+    public void testAgregarProgramaEducativo() throws SQLException {
+        assertTrue(programaEducativoDAO.agregarProgramaEducativo(programaEducativoNuevo));
     }
 
     @Test
-    public void testDeleteProgramaEducativoById() {
+    public void testEliminarProgramaEducativoPorId() throws SQLException {
         int idProgramaEducativo = 0;
-        assertFalse(programaEducativoDAO.deleteProgramaEducativoById(idProgramaEducativo));
+        assertFalse(programaEducativoDAO.eliminarProgramaEducativoPorId(idProgramaEducativo));
     } 
+    
+    @Test
+    public void testModificarProgramaEducativo() throws SQLException {
+        assertTrue(programaEducativoDAO.modificarProgramaEducativo(programaEducativo1));
+    }
 }

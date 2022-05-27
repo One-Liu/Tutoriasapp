@@ -1,15 +1,16 @@
 package uv.fei.tutorias;
 
+import domain.Estudiante;
+import domain.Persona;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
-import uv.fei.tutorias.domain.Estudiante;
-import uv.fei.tutorias.domain.Persona;
 
 // author @liu
 public class EstudianteDAOTest {
+    
     private Persona personaNueva;
     private Estudiante estudianteNuevo;
     private Persona persona1;
@@ -17,7 +18,7 @@ public class EstudianteDAOTest {
     private EstudianteDAO estudianteDAO;
     
     @Before
-    public void init() {
+    public void inicializar() {
         personaNueva = new Persona("","","");
         estudianteNuevo = new Estudiante("",personaNueva,0,0);
         persona1 = new Persona("","","");
@@ -26,29 +27,33 @@ public class EstudianteDAOTest {
     }
 
     @Test
-    public void testFindEstudianteByName() {
-        String searchName = "HERNÁNDEZ";
+    public void testObtenerEstudiantes() throws SQLException {
         ArrayList<Estudiante> estudiantesEsperados = new ArrayList<>();
         estudiantesEsperados.add(estudiante1);
-        ArrayList<Estudiante> estudiantesObtenidos = estudianteDAO.findEstudianteByName(searchName);
+        ArrayList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantes();
         assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
     }
     
     @Test
-    public void testFindEstudianteById() {
+    public void testObtenerEstudiantePorId() throws SQLException {
         int idEstudiante = 1;
-        Estudiante estudianteObtenido = estudianteDAO.findEstudianteById(idEstudiante);
+        Estudiante estudianteObtenido = estudianteDAO.obtenerEstudiantePorId(idEstudiante);
         assertTrue(estudiante1.equals(estudianteObtenido));
     }
     
     @Test
-    public void testAddEstudiante() {
-        assertTrue(estudianteDAO.addEstudiante(estudianteNuevo));
+    public void testAgregarEstudiante() throws SQLException {
+        assertTrue(estudianteDAO.agregarEstudiante(estudianteNuevo));
     }
     
     @Test
-    public void testDeleteEstudianteById() {
+    public void testEliminarEstudiantePorId() throws SQLException {
         int idEstudiante = 7;
-        assertFalse(estudianteDAO.deleteEstudianteById(idEstudiante));
+        assertFalse(estudianteDAO.eliminarEstudiantePorId(idEstudiante));
+    }
+    
+    @Test
+    public void testModificarEstudiante() throws SQLException {
+        assertTrue(estudianteDAO.modificarEstudiante(estudiante1));
     }
 }

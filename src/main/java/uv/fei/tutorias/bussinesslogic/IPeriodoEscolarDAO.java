@@ -1,13 +1,14 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.util.ArrayList;
-import java.sql.ResultSet;
-import uv.fei.tutorias.domain.PeriodoEscolar;
+import java.sql.SQLException;
+import domain.PeriodoEscolar;
 
 // author @liu
 public interface IPeriodoEscolarDAO {
-    public ArrayList<PeriodoEscolar> findPeriodosEscolaresByFechaInicio(String date);
-    public PeriodoEscolar findPeriodoEscolarById(int idPeriodoEscolar);
-    public boolean addPeriodoEscolar(PeriodoEscolar periodoEscolar);
-    public boolean deletePeriodoEscolarById(int idPeriodoEscolar);
+    public ArrayList<PeriodoEscolar> obtenerPeriodosEscolares() throws SQLException;
+    public PeriodoEscolar obtenerPeriodoEscolarPorId(int idPeriodoEscolar) throws SQLException;
+    public boolean agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException;
+    public boolean eliminarPeriodoEscolarPorId(int idPeriodoEscolar) throws SQLException;
+    public boolean modificarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException;
 }
