@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author alfre
  */
-public class GUIModificarSolucionProblematicaAcademicaController implements Initializable {
+public class ModificarSolucionProblematicaAcademicaControlador implements Initializable {
 
     /**
      * Initializes the controller class.

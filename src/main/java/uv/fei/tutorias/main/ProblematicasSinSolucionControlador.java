@@ -22,7 +22,7 @@ import uv.fei.tutorias.domain.ProblematicaAcademica;
  *
  * @author alfre
  */
-public class GUIProblematicasSinSolucionController implements Initializable {
+public class ProblematicasSinSolucionControlador implements Initializable {
 
     public ComboBox ProblematicaAcademicaComboBox;
 
@@ -38,7 +38,7 @@ public class GUIProblematicasSinSolucionController implements Initializable {
     public void RegistrarSolucionBtn(MouseEvent mouseEvent) {
         String seleccion = ProblematicaAcademicaComboBox.getSelectionModel().getSelectedItem().toString();
 
-        new GUIRegistrarSolucionProblematicaAcademica(seleccion);
+        new RegistrarSolucionProblematicaAcademicaControlador(seleccion);
     }
 
     public void CancelarBtn(MouseEvent mouseEvent) {

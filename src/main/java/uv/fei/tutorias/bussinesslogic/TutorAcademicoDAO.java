@@ -39,6 +39,33 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     }
 
     @Override
+    public ArrayList<TutorAcademico> recuperarTodosTutoresAcademicos(){
+        ArrayList<TutorAcademico> listaTutores = new ArrayList<>();
+        String query = "SELECT tutor_academico.id AS idTutorAcademico, nombre, apellidoPaterno, apellidoMaterno" +
+                " FROM tutor_academico INNER JOIN persona ON tutor_academico.idPersona = persona.id";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                do {
+                    TutorAcademico tutor = new TutorAcademico();
+                    tutor.setId(resultSet.getInt("idTutorAcademico"));
+                    tutor.setNombre(resultSet.getString("nombre"));
+                    tutor.setApellidoPaterno(resultSet.getString("apellidoPaterno"));
+                    tutor.setApellidoMaterno(resultSet.getString("apellidoMaterno"));
+                    listaTutores.add(tutor);
+                } while (resultSet.next());
+            }
+        } catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+        }finally{
+            dataBaseConnection.cerrarConexion();
+        }
+        return listaTutores;
+    }
+
+    @Override
     public TutorAcademico findTutorAcademicoById(int idTutorAcademico) {
         TutorAcademico tutorAcademico = new TutorAcademico();
         String query = 
