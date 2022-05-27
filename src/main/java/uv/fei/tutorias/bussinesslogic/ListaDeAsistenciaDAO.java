@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.DataBaseConnection;
 import uv.fei.tutorias.domain.ListaDeAsistencia;
@@ -60,8 +63,8 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     }
 
     @Override
-    public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
-        ArrayList<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
+    public ObservableList<ListaDeAsistencia> findListasDeAsistenciaByIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
+        ObservableList<ListaDeAsistencia> listasDeAsistencia = FXCollections.observableArrayList();
         String query = "SELECT * FROM lista_de_asistencia WHERE idSesionDeTutoriaAcademica = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try(Connection connection = dataBaseConnection.getConnection()) {
@@ -86,17 +89,20 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     private ListaDeAsistencia getListaDeAsistencia(ResultSet resultSet) {
         int idListaDeAsistencia = 0;
         String hora = "";
+        int asistio = 0;
         int idEstudiante = 0;
         int idSesionDeTutoriaAcademica = 0;
         try {
             idListaDeAsistencia = resultSet.getInt("id");
             hora = resultSet.getString("hora");
+            asistio = resultSet.getInt("asistio");
             idEstudiante = resultSet.getInt("idEstudiante");
             idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
         } catch(SQLException ex) {
             LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         }
         ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia(idListaDeAsistencia,hora,idSesionDeTutoriaAcademica,idEstudiante);
+        listaDeAsistencia.setAsistio(asistio);
         return listaDeAsistencia;
     }
 

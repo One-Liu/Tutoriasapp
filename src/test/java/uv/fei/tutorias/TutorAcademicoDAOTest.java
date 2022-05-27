@@ -6,9 +6,10 @@ import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.TutorAcademico;
 import uv.fei.tutorias.domain.Persona;
 import java.util.ArrayList;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
 import uv.fei.tutorias.domain.Usuario;
+
+import static org.junit.Assert.*;
 
 // author @liu
 
@@ -23,6 +24,9 @@ public class TutorAcademicoDAOTest {
         tutorAcademicoNuevo = new TutorAcademico("","","");
         persona1 = new Persona("MAX WILLIAM","MILLÁN","MARTÍNEZ");
         tutorAcademicoDAO = new TutorAcademicoDAO();
+        tutorAcademico1 = new TutorAcademico("Mariana","Rodriguez","Valencia");
+        tutorAcademico1.setIdPersona(68);
+        tutorAcademico1.setId(23);
     }
 
     @Test
@@ -50,5 +54,10 @@ public class TutorAcademicoDAOTest {
     public void testDeleteTutorAcademicoById() {
         int idTutorAcademico = 0;
         assertFalse(tutorAcademicoDAO.deleteTutorAcademicoById(idTutorAcademico));
+    }
+    @Test
+    public void testBuscarTutorAcademicoPorElIdDeUsuario(){
+        TutorAcademico tutorAcademicoObtenido = tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(12);
+        assertEquals(tutorAcademico1, tutorAcademicoObtenido);
     }
 }

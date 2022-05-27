@@ -4,6 +4,7 @@ package uv.fei.tutorias.domain;
 public class Estudiante extends Persona {
     private int id;
     private String matricula;
+    private int enRiesgo;
     private int idProgramaEducativo;
     private int idTutorAcademico;
 
@@ -64,6 +65,14 @@ public class Estudiante extends Persona {
 
     public void setIdTutorAcademico(int idTutorAcademico) {
         this.idTutorAcademico = idTutorAcademico;
+    }
+
+    public int getEnRiesgo() {
+        return enRiesgo;
+    }
+
+    public void setEnRiesgo(int enRiesgo) {
+        this.enRiesgo = enRiesgo;
     }
 
     @Override

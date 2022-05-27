@@ -46,7 +46,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     public Estudiante findEstudianteById(int idEstudiante) {
         Estudiante estudiante = new Estudiante();
         String query = 
-        "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+        "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
         "WHERE E.id = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
@@ -72,6 +72,7 @@ public class EstudianteDAO implements IEstudianteDAO {
         String nombre = "";
         String apellidoPaterno = "";
         String apellidoMaterno = "";
+        int enRiesgo = 0;
         int idProgramaEducativo = 0;
         int idTutorAcademico = 0;
         try {
@@ -80,6 +81,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             nombre = resultSet.getString("nombre");
             apellidoPaterno = resultSet.getString("apellidoPaterno");
             apellidoMaterno = resultSet.getString("apellidoMaterno");
+            enRiesgo = resultSet.getInt("enRiesgo");
             idTutorAcademico = resultSet.getInt("idTutorAcademico");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {
@@ -87,6 +89,7 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
         Persona personaEstudiante = new Persona(nombre,apellidoPaterno,apellidoMaterno);
         Estudiante estudiante = new Estudiante(idEstudiante,matricula,personaEstudiante,idTutorAcademico,idProgramaEducativo);
+        estudiante.setEnRiesgo(enRiesgo);
         return estudiante;
     }
 

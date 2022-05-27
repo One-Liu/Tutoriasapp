@@ -4,8 +4,30 @@ package uv.fei.tutorias.domain;
 public class ListaDeAsistencia {
     private int idListaDeAsistencia;
     private String hora;
+    private int asistio;
     private int idSesionDeTutoriaAcademica;
     private int idEstudiante;
+    private Estudiante estudiante;
+
+    public ListaDeAsistencia(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public int getAsistio() {
+        return asistio;
+    }
+
+    public void setAsistio(int asistio) {
+        this.asistio = asistio;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
 
     // Constructors of uv.fei.tutorias.domain.ListaDeAsistencia
     public ListaDeAsistencia() {

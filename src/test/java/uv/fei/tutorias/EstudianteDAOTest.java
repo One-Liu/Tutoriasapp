@@ -18,8 +18,8 @@ public class EstudianteDAOTest {
     
     @Before
     public void init() {
-        personaNueva = new Persona("","","");
-        estudianteNuevo = new Estudiante("",personaNueva,0,0);
+        personaNueva = new Persona("Mario","Peña","Gonzales");
+        estudianteNuevo = new Estudiante("s20020400",personaNueva,0,0);
         persona1 = new Persona("","","");
         estudiante1 = new Estudiante("",persona1,1,1);
         estudianteDAO = new EstudianteDAO();

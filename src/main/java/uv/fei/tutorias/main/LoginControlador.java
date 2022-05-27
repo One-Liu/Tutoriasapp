@@ -3,20 +3,21 @@ package uv.fei.tutorias.main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.bussinesslogic.UsuarioDAO;
+import uv.fei.tutorias.domain.TutorAcademico;
 import uv.fei.tutorias.domain.Usuario;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 
-public class LoginController {
+public class LoginControlador {
     @FXML
     private TextField txtcorreoInstitucional;
     @FXML
@@ -52,10 +53,9 @@ public class LoginController {
                 alert.setContentText("no se ha encontrado al usuario");
                 alert.showAndWait();
             }else if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getId())){
-                alert.setHeaderText(null);
-                alert.setTitle("Menu principal de tutor academico");
-                alert.setContentText("Este seria el menu principal de tutor academico");
-                alert.showAndWait();
+                TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
+                TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
+                
             }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getId())){
                 alert.setHeaderText(null);
                 alert.setTitle("Menu principal de jefe de carrera");

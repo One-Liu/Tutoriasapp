@@ -46,17 +46,11 @@ public class PersonaDAOTest {
         assertTrue(personaDAO.deletePersonaById(36));
 
     }
+
     @Test
     public void addpersonaReturnId(){
         assertEquals(37,personaDAO.addPersonaReturnId(persona));
 
     }
-
-
-
-
-
-
-
 
 }

@@ -43,7 +43,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         TutorAcademico tutorAcademico = new TutorAcademico();
         String query = 
         "SELECT TA.idTutorAcademico, P.* " +
-        "FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona " +
+        "FROM TutorAcademico TA LEFT JOIN Persona P ON P.id = TA.idPersona " +
         "WHERE idTutorAcademico = ?";
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
@@ -60,13 +60,35 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         return tutorAcademico;
     }
 
+    public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario){
+        TutorAcademico tutorAcademico = new TutorAcademico();
+        String query =
+                "SELECT TA.id, P.* " +
+                        "FROM tutor_academico TA LEFT JOIN persona P ON P.id = TA.idPersona " +
+                        "WHERE idUsuario = ?";
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        try (Connection connection = dataBaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idUsuario);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() == false) {
+                throw new SQLException("No se ha encontrado el tutor academico con el idusuario " + idUsuario);
+            }
+            tutorAcademico = getTutorAcademico(resultSet);
+        } catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+        }
+        return tutorAcademico;
+
+    }
+
     private TutorAcademico getTutorAcademico(ResultSet resultSet) {
         int idTutorAcademico = 0;
         String nombre = "";
         String apellidoPaterno = "";
         String apellidoMaterno = "";
         try {
-            idTutorAcademico = resultSet.getInt("idTutorAcademico");
+            idTutorAcademico = resultSet.getInt("id");
             nombre = resultSet.getString("nombre");
             apellidoPaterno = resultSet.getString("apellidoPaterno");
             apellidoMaterno = resultSet.getString("apellidoMaterno");
