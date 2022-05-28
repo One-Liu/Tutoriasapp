@@ -17,14 +17,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class GUIRegistrarSolucionProblematicaAcademica implements Initializable{
+public class RegistrarSolucionProblematicaAcademicaControlador implements Initializable{
 
     public Label problematicaAcadémica;
     public Label experienciaEducativa;
     public Label profesor;
     public TextArea insertarSolucionTextArea;
 
-    public GUIRegistrarSolucionProblematicaAcademica(String seleccion){
+    public RegistrarSolucionProblematicaAcademicaControlador(String seleccion){
         asignarTextosLabel(seleccion);
 
     }

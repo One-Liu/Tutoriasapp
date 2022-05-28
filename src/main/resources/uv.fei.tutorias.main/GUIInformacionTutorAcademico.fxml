@@ -6,25 +6,22 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="464.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.GUIInformacionTutorAcademico">
+<AnchorPane prefHeight="464.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.InformacionTutorAcademicoControlador">
    <children>
-      <Label fx:id="NombreTutor" layoutX="264.0" layoutY="51.0" text="NombreTutor" />
-      <Label fx:id="UsuarioTutor" layoutX="266.0" layoutY="75.0" text="UsuarioTutor" />
-      <Label layoutX="135.0" layoutY="98.0" text="Correo Electrónico Institucional:" />
-      <Label fx:id="CorreoInstitucionalTutor" layoutX="321.0" layoutY="98.0" text="CorreoInstitucioalTutor" />
-      <Label layoutX="154.0" layoutY="125.0" text="Correo Electrónico Personal:" />
-      <Label layoutX="321.0" layoutY="125.0" text="CorreoPersonalTutor" />
+      <Label fx:id="nombreTutor" layoutX="325.0" layoutY="51.0" text="NombreTutor" />
+      <Label layoutX="194.0" layoutY="115.0" text="Correo Electrónico Institucional:" />
+      <Label fx:id="correoInstitucionalTutor" layoutX="377.0" layoutY="115.0" text="CorreoInstitucioalTutor" />
       <Label layoutX="42.0" layoutY="183.0" text="Lista de estudiantes asignados" />
-      <TableView fx:id="TablaEstudiantes" layoutX="35.0" layoutY="208.0" prefHeight="200.0" prefWidth="524.0">
+      <TableView fx:id="tablaEstudiantes" layoutX="35.0" layoutY="208.0" prefHeight="200.0" prefWidth="667.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="#" />
-          <TableColumn prefWidth="150.0" text="Matrícula" />
-            <TableColumn prefWidth="298.0" text="Nombre del estudiante" />
+          <TableColumn fx:id="estudianteMatricula" prefWidth="120.0" text="Matrícula" />
+            <TableColumn fx:id="estudianteNombre" prefWidth="205.0" text="Nombre" />
+            <TableColumn fx:id="estudianteApellidoPaterno" prefWidth="169.0" text="Apellido Paterno" />
+            <TableColumn fx:id="estudianteApellidoMaterno" prefWidth="172.0" text="Apellido Materno" />
         </columns>
       </TableView>
-      <Button layoutX="356.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#CerrarBtn" text="Cerrar" />
-      <Button layoutX="424.0" layoutY="425.0" mnemonicParsing="false" text="Descargar" />
-      <Button layoutX="513.0" layoutY="425.0" mnemonicParsing="false" text="Imprimir" />
+      <Button layoutX="459.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#cerrarBoton" text="Cerrar" />
+      <Button layoutX="539.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#descargarBoton" text="Descargar" />
+      <Button layoutX="640.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#imprimirBoton" text="Imprimir" />
    </children>
 </AnchorPane>

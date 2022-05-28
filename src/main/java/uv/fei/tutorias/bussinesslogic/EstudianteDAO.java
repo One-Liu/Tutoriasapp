@@ -170,4 +170,30 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
         return validacion;
     }
+    @Override
+    public ArrayList<Estudiante> recuperarTodosEstudiantesPorIDTutor(int idTutor){
+        ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
+        String query = "SELECT matricula, nombre, apellidoPaterno, apellidoMaterno, estudiante.idPersona " +
+                "FROM estudiante INNER JOIN persona ON estudiante.idPersona = persona.id";
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                do {
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setMatricula(resultSet.getString("matricula"));
+                    estudiante.setNombre(resultSet.getString("nombre"));
+                    estudiante.setApellidoPaterno(resultSet.getString("apellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultSet.getString("apellidoMaterno"));
+                    listaEstudiantes.add(estudiante);
+                } while (resultSet.next());
+            }
+        } catch (SQLException ex) {
+            LOGGER.warn(EstudianteDAO.class.getName(), ex);
+        }finally{
+            dataBaseConnection.cerrarConexion();
+        }
+        return listaEstudiantes;
+    }
 }
