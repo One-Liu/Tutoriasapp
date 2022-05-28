@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
-import dataaccess.ConexionBD;
-import domain.SesionDeTutoriaAcademica;
+import uv.fei.tutorias.dataaccess.ConexionBD;
+import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 // author @liu
 public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO {

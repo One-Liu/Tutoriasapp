@@ -3,7 +3,7 @@ package uv.fei.tutorias.bussinesslogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
 
 import java.sql.Connection;

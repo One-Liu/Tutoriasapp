@@ -2,7 +2,7 @@ package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.Estudiante;
+import uv.fei.tutorias.domain.Estudiante;
 
 // author @liu
 public interface IEstudianteDAO {
