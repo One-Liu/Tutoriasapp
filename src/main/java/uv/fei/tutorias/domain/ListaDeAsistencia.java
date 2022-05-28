@@ -4,7 +4,7 @@ package uv.fei.tutorias.domain;
 public class ListaDeAsistencia {
     private int idListaDeAsistencia;
     private String hora;
-    private int asistio;
+    private boolean asistio;
     private int idSesionDeTutoriaAcademica;
     private int idEstudiante;
     private Estudiante estudiante;
@@ -13,11 +13,11 @@ public class ListaDeAsistencia {
         this.estudiante = estudiante;
     }
 
-    public int getAsistio() {
+    public boolean getAsistio() {
         return asistio;
     }
 
-    public void setAsistio(int asistio) {
+    public void setAsistio(boolean asistio) {
         this.asistio = asistio;
     }
 

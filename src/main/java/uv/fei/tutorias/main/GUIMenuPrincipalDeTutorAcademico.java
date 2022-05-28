@@ -18,4 +18,5 @@ public class GUIMenuPrincipalDeTutorAcademico {
         Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml","LLenar reporte de tutoria",actionEvent);
     }
 
+
 }

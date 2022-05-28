@@ -89,13 +89,13 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     private ListaDeAsistencia getListaDeAsistencia(ResultSet resultSet) {
         int idListaDeAsistencia = 0;
         String hora = "";
-        int asistio = 0;
+        boolean asistio = false;
         int idEstudiante = 0;
         int idSesionDeTutoriaAcademica = 0;
         try {
             idListaDeAsistencia = resultSet.getInt("id");
             hora = resultSet.getString("hora");
-            asistio = resultSet.getInt("asistio");
+            asistio = resultSet.getBoolean("asistio");
             idEstudiante = resultSet.getInt("idEstudiante");
             idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
         } catch(SQLException ex) {

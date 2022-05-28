@@ -72,7 +72,7 @@ public class EstudianteDAO implements IEstudianteDAO {
         String nombre = "";
         String apellidoPaterno = "";
         String apellidoMaterno = "";
-        int enRiesgo = 0;
+        boolean enRiesgo = false;
         int idProgramaEducativo = 0;
         int idTutorAcademico = 0;
         try {
@@ -81,7 +81,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             nombre = resultSet.getString("nombre");
             apellidoPaterno = resultSet.getString("apellidoPaterno");
             apellidoMaterno = resultSet.getString("apellidoMaterno");
-            enRiesgo = resultSet.getInt("enRiesgo");
+            enRiesgo = resultSet.getBoolean("enRiesgo");
             idTutorAcademico = resultSet.getInt("idTutorAcademico");
             idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         } catch(SQLException ex) {

@@ -27,7 +27,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() == false) {
+            if(!resultSet.next()) {
                 throw new SQLException("No se han encontrado coordinadores con el nombre " + searchName);
             } else {
                 do {

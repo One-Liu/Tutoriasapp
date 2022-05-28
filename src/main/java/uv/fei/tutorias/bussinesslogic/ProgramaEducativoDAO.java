@@ -23,7 +23,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+            if (!resultSet.next()) {
                 throw new SQLException("No se han encontrado programas educativos con el nombre " + searchName);
             } else {
                 do {
@@ -47,7 +47,7 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProgramaEducativo);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+            if (!resultSet.next()) {
                 throw new SQLException("No se ha encontrado el programa educativo con el id " + idProgramaEducativo);
             }
             programaEducativo = getProgramaEducativo(resultSet);

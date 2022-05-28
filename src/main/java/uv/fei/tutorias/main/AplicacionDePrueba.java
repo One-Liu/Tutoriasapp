@@ -24,7 +24,5 @@ public class AplicacionDePrueba extends Application {
         primaryStage.setTitle("Experiencias educativas");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
     }
 }
