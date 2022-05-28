@@ -1,6 +1,7 @@
 package uv.fei.tutorias;
 
-import domain.ListaDeAsistencia;
+import uv.fei.tutorias.bussinesslogic.ListaDeAsistenciaDAO;
+import uv.fei.tutorias.domain.ListaDeAsistencia;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;
@@ -9,7 +10,7 @@ import static org.junit.Assert.*;
 
 // author @liu
 public class ListaDeAsistenciaDAOTest {
-    
+
     private ListaDeAsistencia listaDeAsistenciaNueva;
     private ListaDeAsistencia listaDeAsistencia1;
     private ListaDeAsistenciaDAO listaDeAsistenciaDAO;
@@ -56,7 +57,7 @@ public class ListaDeAsistenciaDAOTest {
         int idListaDeAsistencia = 0;
         assertTrue(listaDeAsistenciaDAO.eliminarListaDeAsistenciaPorId(idListaDeAsistencia));
     }
-    
+
     @Test
     public void testModificarListaDeAsistencia() throws SQLException {
         assertTrue(listaDeAsistenciaDAO.modificarListaDeAsistencia(listaDeAsistencia1));

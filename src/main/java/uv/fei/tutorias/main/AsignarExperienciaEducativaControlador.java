@@ -1,9 +1,6 @@
 package uv.fei.tutorias.main;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,27 +9,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
-import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
-import uv.fei.tutorias.domain.Profesor;
 
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AsignarExperienciaEducativaController implements Initializable {
-    public CheckBox chBok;
-    public TableColumn<ExperienciaEducativa,String> colIdEe;
+public class AsignarExperienciaEducativaControlador implements Initializable {
+    @FXML private CheckBox chBok;
+    @FXML private TableColumn<ExperienciaEducativa,String> colIdEe;
     @FXML
     private TableColumn<ExperienciaEducativa, String> colNrc;
     @FXML
@@ -90,6 +79,7 @@ public class AsignarExperienciaEducativaController implements Initializable {
         this.colNrc.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getNrc()));
         this.colNombreEE.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getNombre()));
         this.colProfesor.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getIdProfesor()));
+
         this.tblEE.setItems(experienciasEducativas);
     }
 
@@ -107,7 +97,7 @@ public class AsignarExperienciaEducativaController implements Initializable {
 
 
 
-        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\GUITablaPersonasProfesor.fxml").toUri().toURL();
+        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\GUIMostrarProfesores.fxml").toUri().toURL();
         FXMLLoader fxmlLoader = new FXMLLoader();
         Scene scene = new Scene(fxmlLoader.load(url ), 600, 400);
 

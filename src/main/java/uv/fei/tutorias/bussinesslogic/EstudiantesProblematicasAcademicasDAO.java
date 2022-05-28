@@ -20,10 +20,10 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
         ArrayList<EstudiantesProblematicasAcademicas> estudiantesproblematicaAcademica = new ArrayList<>();
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         try (Connection connection = dataBaseConnection.getConnection()) {
-            String query = "select nombre, apellidoPaterno, apellidoMaterno, pa.descripcion from estudiantes_problematicasacademicas ep\n" +
-                    "\tinner join estudiante e on e.id = ep.idEstudiante\n" +
-                    "    inner join persona p on e.idPersona = p.id\n" +
-                    "    inner join problematica_academica pa on pa.id = ep.idProblematicaAcademica\n" +
+            String query = "select nombre, apellidoPaterno, apellidoMaterno, pa.descripcion from estudiantes_problematicasacademicas ep" +
+                    "inner join estudiante e on e.id = ep.idEstudiante" +
+                    "    inner join persona p on e.idPersona = p.id" +
+                    "    inner join problematica_academica pa on pa.id = ep.idProblematicaAcademica" +
                     "    where ep.idProblematicaAcademica = (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchIdproblematicaAcademica);

@@ -5,10 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.ListaDeAsistencia;
-
+//TODO agregar asistio
 // author @liu
 public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
 
@@ -28,14 +29,17 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             } else {
                 listaDeAsistencia = getListaDeAsistencia(resultado);
             }
-        } finally {
+        } catch (SQLException ex) {
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
+        }finally {
             baseDeDatos.cerrarConexion();
         }
         return listaDeAsistencia;
     }
 
     @Override
-    public ArrayList<ListaDeAsistencia> obtenerListasDeAsistenciaPorIdEstudiante(int idEstudiante) throws SQLException {
+    public ListaDeAsistencia obtenerListasDeAsistenciaPorIdEstudiante(int idEstudiante) throws SQLException {
         ArrayList<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
         String consulta = "SELECT * FROM lista_de_asistencia WHERE idEstudiante = ?";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -50,7 +54,9 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
                     listasDeAsistencia.add(getListaDeAsistencia(resultado));
                 } while (resultado.next());
             }
-        } finally {
+        } catch (SQLException ex) {
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos"); finally {
             baseDeDatos.cerrarConexion();
         }
         return listasDeAsistencia;
@@ -71,26 +77,29 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
                     listasDeAsistencia.add(getListaDeAsistencia(resultado));
                 } while (resultado.next());
             }
-        } finally {
+        } catch (SQLException ex) {
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
+        }finally {
             baseDeDatos.cerrarConexion();
         }
         return listasDeAsistencia;
     }
 
-    private ListaDeAsistencia getListaDeAsistencia(ResultSet resultado) throws SQLException {
-        int idListaDeAsistencia;
-        String hora;
-        int idEstudiante;
-        int idSesionDeTutoriaAcademica;
+        private ListaDeAsistencia getListaDeAsistencia(ResultSet resultado) throws SQLException {
+            int idListaDeAsistencia;
+            String hora;
+            int idEstudiante;
+            int idSesionDeTutoriaAcademica;
 
-        idListaDeAsistencia = resultado.getInt("id");
-        hora = resultado.getString("hora");
-        idEstudiante = resultado.getInt("idEstudiante");
-        idSesionDeTutoriaAcademica = resultado.getInt("idSesionDeTutoriaAcademica");
-         
-        ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia(idListaDeAsistencia,hora,idSesionDeTutoriaAcademica,idEstudiante);
-        return listaDeAsistencia;
-    }
+            idListaDeAsistencia = resultado.getInt("id");
+            hora = resultado.getString("hora");
+            idEstudiante = resultado.getInt("idEstudiante");
+            idSesionDeTutoriaAcademica = resultado.getInt("idSesionDeTutoriaAcademica");
+
+            ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia(idListaDeAsistencia,hora,idSesionDeTutoriaAcademica,idEstudiante);
+            return listaDeAsistencia;
+        }
 
     @Override
     public boolean agregarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
@@ -108,6 +117,9 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             } else {
                 validacion = true;
             }
+        }catch (SQLException ex) {
+            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -133,12 +145,12 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
         }
         return validacion;
     }
-    
+
     @Override
     public boolean modificarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
         boolean validacion = false;
-        String consulta = 
-                "UPDATE lista_de_asistencia " + 
+        String consulta =
+                "UPDATE lista_de_asistencia " +
                 "SET hora = ?, " +
                 "SET idEstudiante = ?, " +
                 "SET idSesionDeTutoriaAcademica = ? " +

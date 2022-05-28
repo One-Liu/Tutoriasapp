@@ -76,10 +76,7 @@ public class SingnUpController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         boolean bandera = true;
         if (nombre.getText().trim().isEmpty()){
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Error nombre vacio");
-            alert.showAndWait();
+            Utilidad.mostrarAlertaSinConfirmacion("Error","El campo nombre esta vacio", Alert.AlertType.ERROR);
         }else if (apellidoPaterno.getText().trim().isEmpty()){
             alert.setHeaderText(null);
             alert.setTitle("Error");

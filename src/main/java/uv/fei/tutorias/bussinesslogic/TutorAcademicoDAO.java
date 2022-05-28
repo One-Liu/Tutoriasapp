@@ -44,8 +44,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         TutorAcademico tutorAcademico = new TutorAcademico();
         String consulta =
         "SELECT TA.idTutorAcademico, P.* " +
-        "FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona " +
-        "WHERE idTutorAcademico = ?";
+        "FROM tutor_academico TA LEFT JOIN persona P ON P.id = TA.idPersona " +
+        "WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
@@ -151,5 +151,26 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
+    }
+    public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario){
+        TutorAcademico tutorAcademico = new TutorAcademico();
+        String query =
+                "SELECT TA.id, P.* " +
+                        "FROM tutor_academico TA LEFT JOIN persona P ON P.id = TA.idPersona " +
+                        "WHERE idUsuario = ?";
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idUsuario);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() == false) {
+                throw new SQLException("No se ha encontrado el tutor academico con el idusuario " + idUsuario);
+            }
+            tutorAcademico = getTutorAcademico(resultSet);
+        } catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+        }
+        return tutorAcademico;
+
     }
 }

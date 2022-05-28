@@ -61,6 +61,7 @@ public class TutorAcademico extends Persona{
         return "TutorAcademico{" +
                 "id=" + id +
                 ", usuario=" + usuario +
+                "Persona="+getNombre()+
                 '}';
     }
 
@@ -68,22 +69,16 @@ public class TutorAcademico extends Persona{
     public boolean equals(Object obj) {
         if(obj instanceof TutorAcademico) {
             TutorAcademico tmpTutorAcademico = (TutorAcademico)obj;
-            if(this.id == tmpTutorAcademico.getId()
-                    && this.idPersona == tmpTutorAcademico.getIdPersona()
+            if(
+                    this.id == tmpTutorAcademico.getId()
                     && this.nombre.equals(tmpTutorAcademico.getNombre())
                     && this.apellidoPaterno.equals(tmpTutorAcademico.getApellidoPaterno())
                     && this.apellidoMaterno.equals(tmpTutorAcademico.getApellidoMaterno())
-                    && this.usuario.equals(tmpTutorAcademico.getUsuario())) {
+            ) {
                 return true;
             }
         }
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getUsuario() != null ? getUsuario().hashCode() : 0);
-        return result;
-    }
 }

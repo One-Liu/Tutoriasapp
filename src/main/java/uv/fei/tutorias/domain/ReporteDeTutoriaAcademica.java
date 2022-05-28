@@ -17,6 +17,10 @@ public class ReporteDeTutoriaAcademica {
     }
 
     public ReporteDeTutoriaAcademica() {
+        this.descripcionGeneral = "";
+        this.idSesionDeTutoriaAcademica = 0;
+        this.idTutorAcademico = 0;
+        this.idFechaCierreEntregaReporte = 0;
     }
 
     public int getId() {
