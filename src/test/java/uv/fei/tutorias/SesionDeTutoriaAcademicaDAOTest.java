@@ -1,49 +1,54 @@
 package uv.fei.tutorias;
 
+import domain.SesionDeTutoriaAcademica;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
-import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 // author @liu
 public class SesionDeTutoriaAcademicaDAOTest {
+    
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademicaNueva;
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica1;
     private SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO;
     
     @Before
-    public void setUp() {
-        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica("",0);
-        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica("2022-03-09",1);
+    public void inicializar() {
+        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica("","",0);
+        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica("2022-03-09","02:00",1);
         sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     }
 
     @Test
-    public void testFindSesionesDeTutoriaAcademicaByFecha() {
-        String searchDate = "2022";
+    public void testObtenerSesionesDeTutoriaAcademica() throws SQLException {
         ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademicaEsperadas = new ArrayList<>();
         sesionesDeTutoriaAcademicaEsperadas.add(sesionDeTutoriaAcademica1);
-        ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademicaObtenidas = sesionDeTutoriaAcademicaDAO.findSesionesDeTutoriaAcademicaByFecha(searchDate);
+        ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademicaObtenidas = sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
         assertTrue(sesionesDeTutoriaAcademicaEsperadas.equals(sesionesDeTutoriaAcademicaObtenidas));
     }
 
     @Test
-    public void testFindSesionDeTutoriaAcademicaById() {
+    public void testObtenerSesionDeTutoriaAcademicaPorId() throws SQLException {
         int idSesionDeTutoriaAcademica = 1;
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademicaObtenida = sesionDeTutoriaAcademicaDAO.findSesionDeTutoriaAcademicaById(idSesionDeTutoriaAcademica);
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademicaObtenida = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(idSesionDeTutoriaAcademica);
         assertTrue(sesionDeTutoriaAcademica1.equals(sesionDeTutoriaAcademicaObtenida));
     }
     
     @Test
-    public void testAddSesionDeTutoriaAcademica() {
-        assertTrue(sesionDeTutoriaAcademicaDAO.addSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaNueva));
+    public void testAgregarSesionDeTutoriaAcademica() throws SQLException {
+        assertTrue(sesionDeTutoriaAcademicaDAO.agregarSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaNueva));
     }
 
     @Test
-    public void testDeleteSesionDeTutoriaAcademicaById() {
+    public void testEliminarSesionDeTutoriaAcademicaPorId() throws SQLException {
         int idSesionDeTutoriaAcademica = 0;
-        assertFalse(sesionDeTutoriaAcademicaDAO.deleteSesionDeTutoriaAcademicaById(idSesionDeTutoriaAcademica));
+        assertFalse(sesionDeTutoriaAcademicaDAO.eliminarSesionDeTutoriaAcademicaPorId(idSesionDeTutoriaAcademica));
+    }
+    
+    @Test
+    public void testModificarSesionDeTutoriaAcademica() throws SQLException {
+        assertTrue(sesionDeTutoriaAcademicaDAO.modificarSesionDeTutoriaAcademica(sesionDeTutoriaAcademica1));
     }
 }

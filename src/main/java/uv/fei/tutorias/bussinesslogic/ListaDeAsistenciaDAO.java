@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
-import uv.fei.tutorias.domain.ListaDeAsistencia;
+import dataaccess.ConexionBD;
+import domain.ListaDeAsistencia;
 
 // author @liu
 public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
@@ -15,132 +15,149 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     private final Logger LOGGER = Logger.getLogger(ListaDeAsistenciaDAO.class);
 
     @Override
-    public ListaDeAsistencia findListaDeAsistenciaById(int idListaDeAsistencia) {
+    public ListaDeAsistencia obtenerListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException {
         ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia();
-        String query = "SELECT * FROM lista_de_asistencia WHERE id = ?";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idListaDeAsistencia);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() == false) {
+        String consulta = "SELECT * FROM lista_de_asistencia WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idListaDeAsistencia);
+            ResultSet resultado = sentencia.executeQuery();
+            if(!resultado.next()) {
                 throw new SQLException("No se ha encontrado la lista de asistencia con el id " + listaDeAsistencia);
+            } else {
+                listaDeAsistencia = getListaDeAsistencia(resultado);
             }
-            listaDeAsistencia = getListaDeAsistencia(resultSet);
-        } catch(SQLException ex) {
-            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
         return listaDeAsistencia;
     }
 
     @Override
-    public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdEstudiante(int idEstudiante) {
+    public ArrayList<ListaDeAsistencia> obtenerListasDeAsistenciaPorIdEstudiante(int idEstudiante) throws SQLException {
         ArrayList<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
-        String query = "SELECT * FROM lista_de_asistencia WHERE idEstudiante = ?";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idEstudiante);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() == false) {
+        String consulta = "SELECT * FROM lista_de_asistencia WHERE idEstudiante = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idEstudiante);
+            ResultSet resultado = sentencia.executeQuery();
+            if(!resultado.next()) {
                 throw new SQLException("No se han encontrado listas de asistencia con el idEstudiante " + idEstudiante);
             } else {
                 do {
-                    listasDeAsistencia.add(getListaDeAsistencia(resultSet));
-                } while (resultSet.next());
+                    listasDeAsistencia.add(getListaDeAsistencia(resultado));
+                } while (resultado.next());
             }
-        } catch(SQLException ex) {
-            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
         return listasDeAsistencia;
     }
 
     @Override
-    public ArrayList<ListaDeAsistencia> findListasDeAsistenciaByIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
+    public ArrayList<ListaDeAsistencia> obtenerListasDeAsistencia() throws SQLException {
         ArrayList<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
-        String query = "SELECT * FROM lista_de_asistencia WHERE idSesionDeTutoriaAcademica = ?";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idSesionDeTutoriaAcademica);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() == false) {
-                throw new SQLException("No se han encontrado listas de asistencia con el idSesionDeTutoriaAcademica " + idSesionDeTutoriaAcademica);
+        String consulta = "SELECT * FROM lista_de_asistencia";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            ResultSet resultado = sentencia.executeQuery();
+            if(!resultado.next()) {
+                throw new SQLException("No se han encontrado listas de asistencia");
             } else {
                 do {
-                    listasDeAsistencia.add(getListaDeAsistencia(resultSet));
-                } while (resultSet.next());
+                    listasDeAsistencia.add(getListaDeAsistencia(resultado));
+                } while (resultado.next());
             }
-        } catch(SQLException ex) {
-            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
         return listasDeAsistencia;
     }
 
-    private ListaDeAsistencia getListaDeAsistencia(ResultSet resultSet) {
-        int idListaDeAsistencia = 0;
-        String hora = "";
-        int idEstudiante = 0;
-        int idSesionDeTutoriaAcademica = 0;
-        try {
-            idListaDeAsistencia = resultSet.getInt("id");
-            hora = resultSet.getString("hora");
-            idEstudiante = resultSet.getInt("idEstudiante");
-            idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
-        } catch(SQLException ex) {
-            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
-        }
+    private ListaDeAsistencia getListaDeAsistencia(ResultSet resultado) throws SQLException {
+        int idListaDeAsistencia;
+        String hora;
+        int idEstudiante;
+        int idSesionDeTutoriaAcademica;
+
+        idListaDeAsistencia = resultado.getInt("id");
+        hora = resultado.getString("hora");
+        idEstudiante = resultado.getInt("idEstudiante");
+        idSesionDeTutoriaAcademica = resultado.getInt("idSesionDeTutoriaAcademica");
+         
         ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia(idListaDeAsistencia,hora,idSesionDeTutoriaAcademica,idEstudiante);
         return listaDeAsistencia;
     }
 
     @Override
-    public boolean addListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) {
-        boolean result = false;
-        String query = "INSERT INTO lista_de_asistencia (hora,idEstudiante,idSesionDeTutoriaAcademica) VALUES (?,?,?)";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,listaDeAsistencia.getHora());
-            statement.setInt(2, listaDeAsistencia.getIdEstudiante());
-            statement.setInt(3, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
-            int affectedRows = statement.executeUpdate();
-            if(affectedRows == 0) {
+    public boolean agregarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
+        boolean validacion = false;
+        String consulta = "INSERT INTO lista_de_asistencia (hora,idEstudiante,idSesionDeTutoriaAcademica) VALUES (?,?,?)";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1,listaDeAsistencia.getHora());
+            sentencia.setInt(2, listaDeAsistencia.getIdEstudiante());
+            sentencia.setInt(3, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: La lista de asistencia no se ha agregado");
+            } else {
+                validacion = true;
             }
-            result = true;
-        } catch(SQLException ex) {
-            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
-        return result;
+        return validacion;
     }
 
     @Override
-    public boolean deleteListaDeAsistenciaById(int idListaDeAsistencia) {
-        boolean result = false;
-        String query = "DELETE FROM lista_de_asistencia WHERE id = ?";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idListaDeAsistencia);
-            int affectedRows = statement.executeUpdate();
-            if(affectedRows == 0) {
+    public boolean eliminarListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException {
+        boolean validacion = false;
+        String consulta = "DELETE FROM lista_de_asistencia WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idListaDeAsistencia);
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: No se ha eliminado la lista de asistencia con el id " + idListaDeAsistencia);
+            } else {
+                validacion = true;
             }
-            result = true;
-        } catch(SQLException ex) {
-            LOGGER.warn(ListaDeAsistenciaDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
-        return result;
+        return validacion;
+    }
+    
+    @Override
+    public boolean modificarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
+        boolean validacion = false;
+        String consulta = 
+                "UPDATE lista_de_asistencia " + 
+                "SET hora = ?, " +
+                "SET idEstudiante = ?, " +
+                "SET idSesionDeTutoriaAcademica = ? " +
+                "WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, listaDeAsistencia.getHora());
+            sentencia.setInt(2, listaDeAsistencia.getIdEstudiante());
+            sentencia.setInt(3, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
+            sentencia.setInt(4, listaDeAsistencia.getId());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas == 0) {
+                throw new SQLException("ERROR: No se ha modificado la lista de asistencia con el id " + listaDeAsistencia.getId());
+            }
+            validacion = true;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return validacion;
     }
 }

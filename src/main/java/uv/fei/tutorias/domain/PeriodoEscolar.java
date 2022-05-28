@@ -23,7 +23,7 @@ public class PeriodoEscolar {
         this.fechaInicio = fechaInicio;
         this.fechaTermino = fechaTermino;
     }
-    
+
     // Getters of uv.fei.tutorias.domain.PeriodoEscolar
     public int getId() {
         return id;
