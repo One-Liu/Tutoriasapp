@@ -2,7 +2,6 @@ package uv.fei.tutorias.domain;
 
 import uv.fei.tutorias.bussinesslogic.IHorarioDeSesionDeTutoriaDAO;
 import uv.fei.tutorias.bussinesslogic.PersonaDAO;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

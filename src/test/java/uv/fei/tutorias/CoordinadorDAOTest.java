@@ -1,8 +1,9 @@
 package uv.fei.tutorias;
 
-import domain.Coordinador;
-import domain.Persona;
-import domain.Usuario;
+import uv.fei.tutorias.bussinesslogic.CoordinadorDAO;
+import uv.fei.tutorias.domain.Coordinador;
+import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;

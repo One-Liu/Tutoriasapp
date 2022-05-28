@@ -21,7 +21,7 @@ public class ConexionBD {
 
     private void conectar() throws SQLException {
         try {
-            FileInputStream archivoConfiguracion = new FileInputStream(new File("C:\\Users\\rocks\\Desktop\\ProyectoTutorias\\Tutoriasapp\\src\\dataaccess\\dbconfig.txt"));
+            FileInputStream archivoConfiguracion = new FileInputStream(new File("src\\main\\java\\uv\\fei\\tutorias\\dataaccess\\dbconfig.txt"));
             Properties atributos = new Properties();
             atributos.load(archivoConfiguracion);
             archivoConfiguracion.close();

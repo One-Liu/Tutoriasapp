@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.ListaDeAsistencia;
@@ -39,7 +40,7 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     }
 
     @Override
-    public ListaDeAsistencia obtenerListasDeAsistenciaPorIdEstudiante(int idEstudiante) throws SQLException {
+    public ArrayList<ListaDeAsistencia> obtenerListasDeAsistenciaPorIdEstudiante(int idEstudiante) throws SQLException {
         ArrayList<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
         String consulta = "SELECT * FROM lista_de_asistencia WHERE idEstudiante = ?";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -56,7 +57,8 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             }
         } catch (SQLException ex) {
             LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), ex);
-            throw new SQLException("No hay conexion a la base de datos"); finally {
+            throw new SQLException("No hay conexion a la base de datos");
+        }finally {
             baseDeDatos.cerrarConexion();
         }
         return listasDeAsistencia;
@@ -86,7 +88,12 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
         return listasDeAsistencia;
     }
 
-        private ListaDeAsistencia getListaDeAsistencia(ResultSet resultado) throws SQLException {
+    @Override
+    public ObservableList<ListaDeAsistencia> buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(int idSesionDeTutoriaAcademica) throws SQLException {
+        return null;
+    }
+
+    private ListaDeAsistencia getListaDeAsistencia(ResultSet resultado) throws SQLException {
             int idListaDeAsistencia;
             String hora;
             int idEstudiante;

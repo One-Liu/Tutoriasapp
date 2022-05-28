@@ -15,6 +15,7 @@ import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -29,11 +30,11 @@ public class InformacionTutorAcademicoControlador implements Initializable {
     public ObservableList<Estudiante> listaObservableEstudiantes;
 
 
-    public void inicializarValores(TutorAcademico tutorSeleccionado){
+    public void inicializarValores(TutorAcademico tutorSeleccionado) throws SQLException {
         nombreTutor.setText(tutorSeleccionado.getNombre() + " " + tutorSeleccionado.getApellidoPaterno() + " " + tutorSeleccionado.getApellidoMaterno());
         int idTutor = tutorSeleccionado.getId();
         TutorAcademicoDAO tutorDAO = new TutorAcademicoDAO();
-        TutorAcademico datosTutor = tutorDAO.findTutorAcademicoById(idTutor);
+        TutorAcademico datosTutor = tutorDAO.obtenerTutorAcademicoPorId(idTutor);
         correoInstitucionalTutor.setText(datosTutor.getUsuario().getCorreoInstitucional());
         mostrarEstudianteTabla(idTutor);
     }

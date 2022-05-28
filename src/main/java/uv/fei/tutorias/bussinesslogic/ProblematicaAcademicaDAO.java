@@ -1,7 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 
 import java.sql.Connection;
@@ -17,8 +17,8 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     @Override
     public List<ProblematicaAcademica> findProblematicaAcademicaByDescription(String serchName) {
         ArrayList<ProblematicaAcademica> problematicasAcademicas = new ArrayList<>();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT  * from problematicaacademica where descripcion like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + serchName + "%");
@@ -51,8 +51,8 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     @Override
     public List<ProblematicaAcademica> findAllProblematicasAcademicas() {
         ArrayList<ProblematicaAcademica> experienciasEducativas = new ArrayList<>();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT  * from problematicaacademica";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
@@ -84,10 +84,10 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
     @Override
     public ProblematicaAcademica findProblematicaAcademicaById(int searchId) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
 
-        try (Connection connection = dataBaseConnection.getConnection()){
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT * from problematicaacademica where idProblematicaAcademica like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchId + "%");
@@ -116,9 +116,9 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
     @Override
     public boolean addProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean result = false;
-        try (Connection connection = dataBaseConnection.getConnection()){
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "INSERT INTO problematicaa_cademica(descripcion, ExperienciaEducativa_idExperienciaEducativa ) VALUES (?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, problematicaAcademica.getDescripcion());
@@ -139,8 +139,8 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
     @Override
     public boolean deleteProblematicaAcademicaById(int searchId) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "DELETE FROM problematicaacademica WHERE (idProblematicaAcademica = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);

@@ -7,6 +7,7 @@ import uv.fei.tutorias.bussinesslogic.*;
 import uv.fei.tutorias.domain.*;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SingnUpController implements Initializable {
@@ -26,7 +27,7 @@ public class SingnUpController implements Initializable {
 
 
     @FXML
-    protected void onOkButton() {
+    protected void onOkButton() throws SQLException {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         String value = (String) tipo.getValue();
         if (value == null){
@@ -54,7 +55,7 @@ public class SingnUpController implements Initializable {
                         Coordinador coordinador = new Coordinador(persona);
                         coordinador.setIdPersona(personaDAO.addPersonaReturnId(persona));
                         coordinador.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
-                        coordinadorDAO.addCoordinador(coordinador);
+                        coordinadorDAO.agregarCoordinador(coordinador);
                         break;
 
                     case "Tutor academico":
@@ -62,7 +63,7 @@ public class SingnUpController implements Initializable {
                         TutorAcademico tutorAcademico = new TutorAcademico(persona);
                         tutorAcademico.setIdPersona(personaDAO.addPersonaReturnId(persona));
                         tutorAcademico.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
-                        tutorAcademicoDAO.addTutorAcademico(tutorAcademico);
+                        tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
                         break;
 
                 }

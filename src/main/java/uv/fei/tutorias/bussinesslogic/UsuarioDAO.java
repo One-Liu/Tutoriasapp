@@ -1,7 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.Usuario;
 
 import java.sql.*;
@@ -12,9 +12,9 @@ public class UsuarioDAO implements IUsarioDAO{
 
     @Override
     public boolean addUsuario(Usuario usuario) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO usuario(contrasena, correoInstitucional) VALUES(MD5(?),?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, usuario.getContrasena());
@@ -33,9 +33,9 @@ public class UsuarioDAO implements IUsarioDAO{
         return bandera;
     }
     public int addUsuarioReturnId(Usuario usuario){
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         int id = -1;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO usuario(contrasena, correoInstitucional) VALUES(MD5(?),?)";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, usuario.getContrasena());
@@ -57,8 +57,8 @@ public class UsuarioDAO implements IUsarioDAO{
         return id;
     }
     public Usuario findUsuarioReturnId(Usuario usuario){
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select id,Contrasena, correoInstitucional from usuario where Contrasena = md5 (?) and correoInstitucional = (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, usuario.getContrasena());
@@ -80,9 +80,9 @@ public class UsuarioDAO implements IUsarioDAO{
 
     }
     public boolean estaIdUsuarioEnTutorAcademico(int searchId){
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean resultado = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select idUsuario from tutor_academico where idUsuario=(?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
@@ -99,9 +99,9 @@ public class UsuarioDAO implements IUsarioDAO{
     }
 
     public boolean estaIdUsarionEnJefeDeCarrera(int searchId){
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean resultado = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select idUsuario from jefe_de_carrera where idUsuario=(?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
@@ -117,9 +117,9 @@ public class UsuarioDAO implements IUsarioDAO{
         return resultado;
     }
     public boolean estaIdUsuarionEnCoordinador(int searchId){
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean resultado = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select idUsuario from coordinador where idUsuario=(?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);

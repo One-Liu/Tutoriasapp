@@ -11,4 +11,5 @@ public interface IEstudianteDAO {
     public boolean agregarEstudiante(Estudiante estudiante) throws SQLException;
     public boolean eliminarEstudiantePorId(int idEstudiante) throws SQLException;
     public boolean modificarEstudiante(Estudiante estudiante) throws SQLException;
+    public ArrayList<Estudiante> recuperarTodosEstudiantesPorIDTutor(int idTutor)throws SQLException;
 }

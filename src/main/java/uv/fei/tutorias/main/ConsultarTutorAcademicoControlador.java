@@ -18,6 +18,7 @@ import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -81,6 +82,8 @@ public class ConsultarTutorAcademicoControlador implements Initializable {
             escenario.showAndWait();
         }catch(IOException ex){
             mostrarAlerta("Error de Invocar Ventana","No se pudo abrir la ventada de Información del Tutor Académico", Alert.AlertType.ERROR);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo){

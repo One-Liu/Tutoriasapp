@@ -19,8 +19,8 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     @Override
     public ObservableList<ExperienciaEducativa> findExperienciasEducativasByName(String serchName) {
         ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT * From experiencia_educativa WHERE nombreEE like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + serchName + "%");
@@ -43,9 +43,9 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
 
     @Override
     public ExperienciaEducativa findExperienciaEducativaById(int searchId) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT * FROM experienciaeducativa WHERE idExperienciaEducativa like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchId + "%");
@@ -65,8 +65,8 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     }
     public ObservableList<ExperienciaEducativa> findExperienciasEducativasWithoutProfesor(){
         ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT * From experiencia_educativa WHERE idProfesor = 0";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
@@ -88,9 +88,9 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     }
     @Override
     public boolean addExperienciaEducativa(ExperienciaEducativa experienciaEducativa) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO experiencia_educativa(nombreEE, nrc, idProfesor) VALUES(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, experienciaEducativa.getNombre());
@@ -111,8 +111,8 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
 
     @Override
     public boolean deleteExperienciaEducativa(int searchId) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "DELETE FROM experiencia_e where (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,searchId);
@@ -131,9 +131,9 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     }
 
     public boolean UpdateExperienciaEducativa(ExperienciaEducativa experienciaEducativa) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion();) {
             String query = "UPDATE experiencia_educativa SET idProfesor = ? WHERE (id = ?) and (`idProfesor` = '0')";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, experienciaEducativa.getIdProfesor());

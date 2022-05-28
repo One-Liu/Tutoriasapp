@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import domain.PeriodoEscolar;
+
+import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
+import uv.fei.tutorias.domain.PeriodoEscolar;
 
 // author @liu
 public class PeriodoEscolarDAOTest {

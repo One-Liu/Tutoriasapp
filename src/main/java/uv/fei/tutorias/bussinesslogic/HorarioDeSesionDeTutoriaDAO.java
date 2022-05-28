@@ -2,7 +2,7 @@ package uv.fei.tutorias.bussinesslogic;
 
 
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.HorarioDeSesionDeTutoria;
 
 import java.sql.Connection;
@@ -15,8 +15,8 @@ public class HorarioDeSesionDeTutoriaDAO implements IHorarioDeSesionDeTutoriaDAO
     @Override
     public boolean deleteHorarioDeSesionDeTutoria(int searchId) {
         boolean bandera = false;
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "DELETE FROM horario_de_sesion_de_tutoria WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
@@ -37,9 +37,9 @@ public class HorarioDeSesionDeTutoriaDAO implements IHorarioDeSesionDeTutoriaDAO
 
     @Override
     public boolean addHorarioDeSesionDeTutoria(HorarioDeSesionDeTutoria horarioDeSesionDeTutoria) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO horario_de_sesion_de_tutoria (hora,idEstudiante,idSesionDeTutoriaAcademica) VALUES(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,horarioDeSesionDeTutoria.getHora());

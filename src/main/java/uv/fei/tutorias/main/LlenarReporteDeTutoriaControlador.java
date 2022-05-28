@@ -12,6 +12,7 @@ import uv.fei.tutorias.bussinesslogic.*;
 import uv.fei.tutorias.domain.*;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -69,21 +70,25 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
 
         //Recargamos los lebels de la sesion de tutoria
         //TODO el tutor academico deberia de selecciona la sesion de tutoria academica antes
-        sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.findSesionDeTutoriaAcademicaById(6);
-        periodoEscolar = periodoEscolarDAO.findPeriodoEscolarById(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-        lblFecha.setText(sesionDeTutoriaAcademica.getFecha());
-        lblPeriodo.setText(periodoEscolar.getFechaInicio() + " " + periodoEscolar.getFechaTermino());
+        try {
+            sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(6);
+        } catch (SQLException e) {
+            Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
+//        periodoEscolar = periodoEscolarDAO.ob(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
+//        lblFecha.setText(sesionDeTutoriaAcademica.getFecha());
+//        lblPeriodo.setText(periodoEscolar.getFechaInicio() + " " + periodoEscolar.getFechaTermino());
 
         //llenamos la columna de estudiantes con la lista de asistencia de la misma sesion de tutoria academica
         ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
-        ObservableList<ListaDeAsistencia> listasDeAsistencias = listaDeAsistenciaDAO.findListasDeAsistenciaByIdSesionDeTutoriaAcademica(6);
+//        ObservableList<ListaDeAsistencia> listasDeAsistencias = listaDeAsistenciaDAO.findListasDeAsistenciaByIdSesionDeTutoriaAcademica(6);
         EstudianteDAO estudianteDAO = new EstudianteDAO();
         //a la lista asistencia la llenamos con el estudiante de estudianteDAO
-        for (ListaDeAsistencia l :
-                listasDeAsistencias) {
-            l.setEstudiante(estudianteDAO.findEstudianteById(l.getIdEstudiante()));
-        }
-        observaList(listasDeAsistencias);
+//        for (ListaDeAsistencia l :
+//                listasDeAsistencias) {
+//            l.setEstudiante(estudianteDAO.findEstudianteById(l.getIdEstudiante()));
+//        }
+//        observaList(listasDeAsistencias);
     }
 
     private void observaList(ObservableList<ListaDeAsistencia> listaDeAsistencias) {

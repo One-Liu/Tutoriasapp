@@ -2,7 +2,7 @@ package uv.fei.tutorias.bussinesslogic;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Profesor;
 
@@ -20,9 +20,9 @@ public class ProfesorDAO implements IProfesorDAO {
 
     @Override
     public boolean addProfesor(Profesor profesor) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO profesor(id, idPersona) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,profesor.getId());
@@ -60,8 +60,8 @@ public class ProfesorDAO implements IProfesorDAO {
     @Override
     public ObservableList<Profesor> findProfesoresByName(String searchName) {
         ObservableList<Profesor> profesores = FXCollections.observableArrayList();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchName + "%");
@@ -83,9 +83,9 @@ public class ProfesorDAO implements IProfesorDAO {
 
     @Override
     public Profesor findProfesorById(int searchId) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         Profesor profesor = new Profesor();
-        try (Connection connection = dataBaseConnection.getConnection()){
+        try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,searchId);
@@ -107,8 +107,8 @@ public class ProfesorDAO implements IProfesorDAO {
     @Override
     public boolean deleteProfesorById(int searchId) {
         boolean bandera = false;
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "DELETE FROM profesor WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);

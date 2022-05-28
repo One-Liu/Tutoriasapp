@@ -1,7 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.EstudiantesProblematicasAcademicas;
 
 import java.sql.Connection;
@@ -18,8 +18,8 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
     @Override
     public List<EstudiantesProblematicasAcademicas> findEstudiantesProblematicasAcademicasById(int searchIdproblematicaAcademica) {
         ArrayList<EstudiantesProblematicasAcademicas> estudiantesproblematicaAcademica = new ArrayList<>();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select nombre, apellidoPaterno, apellidoMaterno, pa.descripcion from estudiantes_problematicasacademicas ep" +
                     "inner join estudiante e on e.id = ep.idEstudiante" +
                     "    inner join persona p on e.idPersona = p.id" +
@@ -61,9 +61,9 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
 
     @Override
     public boolean addEstudiantesProblematicasAcademicas(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO estudiantes_problematicasacademicas(idEstudiante,idProblematicaAcademica) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, estudiantesProblematicasAcademicas.getIdEstudiante());
@@ -84,9 +84,9 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
 
     @Override
     public boolean deleteEstudinatesProblematicasAcademicasById(int searchId) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "DELETE FROM estudiantes_problematicasacademicas WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);

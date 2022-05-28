@@ -1,7 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
+import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.Persona;
 
 import java.sql.Connection;
@@ -21,8 +21,8 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public List<Persona> findPersonasByName(String searchName) {
         ArrayList<Persona> personas = new ArrayList<>();
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "Select * from persona where nombre like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchName + "%");
@@ -58,9 +58,9 @@ public class PersonaDAO implements IPersonaDAO {
     }
     @Override
     public Persona findPersonaById(int searchId){
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         Persona persona = new Persona();
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "Select * from persona where id like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
@@ -96,9 +96,9 @@ public class PersonaDAO implements IPersonaDAO {
 
     @Override
     public boolean addPersona(Persona persona) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno) VALUES(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, persona.getNombre());
@@ -121,8 +121,8 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public boolean deletePersonaById(int searchId) {
         boolean bandera = false;
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "DELETE FROM persona WHERE (idPersona = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
@@ -142,9 +142,9 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     public int addPersonaReturnId(Persona persona) {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ConexionBD dataBaseConnection = new ConexionBD();
         int id = -1;
-        try (Connection connection = dataBaseConnection.getConnection()) {
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno) VALUES(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, persona.getNombre());
