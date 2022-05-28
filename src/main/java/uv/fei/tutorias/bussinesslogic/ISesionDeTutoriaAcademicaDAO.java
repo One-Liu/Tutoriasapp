@@ -1,13 +1,14 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.util.ArrayList;
-import java.sql.ResultSet;
-import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
+import java.sql.SQLException;
+import domain.SesionDeTutoriaAcademica;
 
 // author @liu
 public interface ISesionDeTutoriaAcademicaDAO {
-    public ArrayList<SesionDeTutoriaAcademica> findSesionesDeTutoriaAcademicaByFecha(String searchDate);
-    public SesionDeTutoriaAcademica findSesionDeTutoriaAcademicaById(int idSesionDeTutoriaAcademica);
-    public boolean addSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica);
-    public boolean deleteSesionDeTutoriaAcademicaById(int idSesionDeTutoriaAcademica);
+    public ArrayList<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademica() throws SQLException;
+    public SesionDeTutoriaAcademica obtenerSesionDeTutoriaAcademicaPorId(int idSesionDeTutoriaAcademica) throws SQLException;
+    public boolean agregarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException;
+    public boolean eliminarSesionDeTutoriaAcademicaPorId(int idSesionDeTutoriaAcademica) throws SQLException;
+    public boolean modificarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException;
 }

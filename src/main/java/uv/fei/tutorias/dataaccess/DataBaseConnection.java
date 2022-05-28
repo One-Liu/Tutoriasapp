@@ -1,34 +1,49 @@
 package uv.fei.tutorias.dataaccess;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DataBaseConnection {
-    private Connection connection;
-    private final String DB = "jdbc:mysql://localhost:3306/tutoriasappdb";
-    private final String USUARIO = "luzio";
-    private final String CONTRASENA = "arteCienciaLuz";
+public class ConexionBD {
+    private Connection conexion;
 
-    public Connection getConnection() throws SQLException {
-        connect();
-        return connection;
+    public Connection abrirConexion() throws SQLException {
+        conectar();
+        return conexion;
     }
 
-    private void connect() throws SQLException {
-        connection = DriverManager.getConnection(DB, USUARIO, CONTRASENA);
+    private void conectar() throws SQLException {
+        try {
+            FileInputStream archivoConfiguracion = new FileInputStream(new File("C:\\Users\\rocks\\Desktop\\ProyectoTutorias\\Tutoriasapp\\src\\dataaccess\\dbconfig.txt"));
+            Properties atributos = new Properties();
+            atributos.load(archivoConfiguracion);
+            archivoConfiguracion.close();
+            String direccionBD = atributos.getProperty("DireccionBD");
+            String usuario = atributos.getProperty("Usuario");
+            String contrasenia = atributos.getProperty("Contrasenia");
+            conexion = DriverManager.getConnection(direccionBD, usuario, contrasenia);
+        } catch (FileNotFoundException e1) {
+            System.out.println(e1.getMessage());
+        } catch (IOException e2){
+            System.out.println(e2.getMessage());
+        }
     }
-
+//TODO aplicar log4j
     public void cerrarConexion() {
-        if (connection != null) {
+        if (conexion != null) {
             try {
-                if (!connection.isClosed()) {
-                    connection.close();
+                if (!conexion.isClosed()) {
+                    conexion.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(DataBaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

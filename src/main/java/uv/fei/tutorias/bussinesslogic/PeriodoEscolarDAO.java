@@ -6,114 +6,131 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
-import uv.fei.tutorias.dataaccess.DataBaseConnection;
-import uv.fei.tutorias.domain.PeriodoEscolar;
+import dataaccess.ConexionBD;
+import domain.PeriodoEscolar;
 
 // author @liu
 public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
 
     private final Logger LOGGER = Logger.getLogger(PeriodoEscolarDAO.class);
-
+    
     @Override
-    public ArrayList<PeriodoEscolar> findPeriodosEscolaresByFechaInicio(String date) {
+    public ArrayList<PeriodoEscolar> obtenerPeriodosEscolares() throws SQLException {
         ArrayList<PeriodoEscolar> periodosEscolares = new ArrayList<>();
-        String query = "SELECT * FROM periodo_escolar WHERE fechaInicio LIKE ?";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,"%" + date + "%");
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() == false) {
-                throw new SQLException("No se han encontrado periodos escolares con la fecha de inicio " + date);
+        String consulta = "SELECT * FROM periodo_escolar";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            ResultSet resultado = sentencia.executeQuery();
+            if(!resultado.next()) {
+                throw new SQLException("No se han encontrado periodos escolares");
             } else {
                 do {
-                    periodosEscolares.add(getPeriodoEscolar(resultSet));
-                }while(resultSet.next());
+                    periodosEscolares.add(getPeriodoEscolar(resultado));
+                } while(resultado.next());
             }
-        } catch(SQLException ex) {
-            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
         return periodosEscolares;
     }
 
     @Override
-    public PeriodoEscolar findPeriodoEscolarById(int idPeriodoEscolar) {
+    public PeriodoEscolar obtenerPeriodoEscolarPorId(int idPeriodoEscolar) throws SQLException {
         PeriodoEscolar periodoEscolar = new PeriodoEscolar();
-        String query = "SELECT * FROM periodo_escolar WHERE id = ?";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try (Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idPeriodoEscolar);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+        String consulta = "SELECT * FROM periodo_escolar WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try (Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idPeriodoEscolar);
+            ResultSet resultado = sentencia.executeQuery();
+            if(!resultado.next()) {
                 throw new SQLException("No se ha encontrado el periodo escolar con el id " + idPeriodoEscolar);
+            } else {
+                periodoEscolar = getPeriodoEscolar(resultado);
             }
-            periodoEscolar = getPeriodoEscolar(resultSet);
-        } catch (SQLException ex) {
-            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
         return periodoEscolar;
     }
 
-    private PeriodoEscolar getPeriodoEscolar(ResultSet resultSet) {
-        int idPeriodoEscolar = 0;
-        String fechaInicio = "";
-        String fechaTermino = "";
-        try {
-            idPeriodoEscolar = resultSet.getInt("id");
-            fechaInicio = resultSet.getString("fechaInicio");
-            fechaTermino = resultSet.getString("fechaTermino");
-        } catch (SQLException ex) {
-            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
-        }
+    private PeriodoEscolar getPeriodoEscolar(ResultSet resultado) throws SQLException {
+        int idPeriodoEscolar;
+        String fechaInicio;
+        String fechaTermino;
+
+        idPeriodoEscolar = resultado.getInt("id");
+        fechaInicio = resultado.getString("fechaInicio");
+        fechaTermino = resultado.getString("fechaTermino");
+        
         PeriodoEscolar periodoEscolar = new PeriodoEscolar(idPeriodoEscolar,fechaInicio,fechaTermino);
         return periodoEscolar;
     }
 
     @Override
-    public boolean addPeriodoEscolar(PeriodoEscolar periodoEscolar) {
-        boolean result = false;
-        String query = "INSERT INTO periodo_escolar (fechaInicio,fechaTermino) VALUES (?,?)";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, periodoEscolar.getFechaInicio());
-            statement.setString(2, periodoEscolar.getFechaTermino());
-            int affectedRows = statement.executeUpdate();
-            if(affectedRows == 0) {
+    public boolean agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
+        boolean validacion = false;
+        String consulta = "INSERT INTO periodo_escolar (fechaInicio,fechaTermino) VALUES (?,?)";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, periodoEscolar.getFechaInicio());
+            sentencia.setString(2, periodoEscolar.getFechaTermino());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: El periodo escolar no se ha agregado");
+            } else {
+                validacion = true;
             }
-            result = true;
-        } catch (SQLException ex) {
-            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
-        return result;
+        return validacion;
     }
 
     @Override
-    public boolean deletePeriodoEscolarById(int idPeriodoEscolar) {
-        boolean result = false;
-        String query = "DELETE FROM periodo_escolar WHERE id = ?";
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        try(Connection connection = dataBaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idPeriodoEscolar);
-            int affectedRows = statement.executeUpdate();
-            if(affectedRows == 0) {
+    public boolean eliminarPeriodoEscolarPorId(int idPeriodoEscolar) throws SQLException {
+        boolean validacion = false;
+        String consulta = "DELETE FROM periodo_escolar WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idPeriodoEscolar);
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: No se ha eliminado el periodo escolar con el id " + idPeriodoEscolar);
+            } else {
+                validacion = true;
             }
-            result = true;
-        } catch(SQLException ex) {
-            LOGGER.warn(PeriodoEscolarDAO.class.getName(),ex);
         } finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
-        return result;
+        return validacion;
+    }
+    
+    @Override
+    public boolean modificarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
+        boolean validacion = false;
+        String consulta = 
+                "UPDATE periodo_escolar " + 
+                "SET fechaInicio = ?, " +
+                "SET fechaTermino = ? " +
+                "WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, periodoEscolar.getFechaInicio());
+            sentencia.setString(2, periodoEscolar.getFechaTermino());
+            sentencia.setInt(3, periodoEscolar.getId());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas == 0) {
+                throw new SQLException("ERROR: No se ha modificado el periodo escolar con el id " + periodoEscolar.getId());
+            }
+            validacion = true;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return validacion;
     }
 }

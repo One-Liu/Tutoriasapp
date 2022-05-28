@@ -1,13 +1,14 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import java.sql.ResultSet;
-import uv.fei.tutorias.domain.TutorAcademico;
+import java.sql.SQLException;
+import domain.TutorAcademico;
 import java.util.List;
 
 // author @liu
 public interface ITutorAcademicoDAO {
-    public List<TutorAcademico> findTutoresAcademicosByName(String searchName);
-    public TutorAcademico findTutorAcademicoById(int idTutorAcademico);
-    public boolean addTutorAcademico(TutorAcademico tutorAcademico);
-    public boolean deleteTutorAcademicoById(int idTutorAcademico);
+    public List<TutorAcademico> obtenerTutoresAcademicos() throws SQLException;
+    public TutorAcademico obtenerTutorAcademicoPorId(int idTutorAcademico) throws SQLException;
+    public boolean agregarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException;
+    public boolean eliminarTutorAcademicoPorId(int idTutorAcademico) throws SQLException;
+    public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException;
 }

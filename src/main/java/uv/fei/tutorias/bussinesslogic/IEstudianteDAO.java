@@ -1,13 +1,14 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import uv.fei.tutorias.domain.Estudiante;
+import domain.Estudiante;
 
 // author @liu
 public interface IEstudianteDAO {
-    public ArrayList<Estudiante> findEstudianteByName(String searchName);
-    public Estudiante findEstudianteById(int idEstudiante);
-    public boolean addEstudiante(Estudiante estudiante);
-    public boolean deleteEstudianteById(int idEstudiante);
+    public ArrayList<Estudiante> obtenerEstudiantes() throws SQLException;
+    public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException;
+    public boolean agregarEstudiante(Estudiante estudiante) throws SQLException;
+    public boolean eliminarEstudiantePorId(int idEstudiante) throws SQLException;
+    public boolean modificarEstudiante(Estudiante estudiante) throws SQLException;
 }

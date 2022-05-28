@@ -1,13 +1,14 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import uv.fei.tutorias.domain.Coordinador;
+import domain.Coordinador;
 
 // author @liu
 public interface ICoordinadorDAO {
-    public ArrayList<Coordinador> findCoordinadorByName(String searchName);
-    public Coordinador findCoordinadorById(int idCoordinador);
-    public boolean addCoordinador(Coordinador coordinador);
-    public boolean deleteCoordinadorById(int idCoordinador);
+    public ArrayList<Coordinador> obtenerCoordinadores() throws SQLException;
+    public Coordinador obtenerCoordinadorPorId(int idCoordinador) throws SQLException;
+    public boolean agregarCoordinador(Coordinador coordinador) throws SQLException;
+    public boolean eliminarCoordinadorPorId(int idCoordinador) throws SQLException;
+    public boolean modificarCoordinador(Coordinador coordinador) throws SQLException;
 }
