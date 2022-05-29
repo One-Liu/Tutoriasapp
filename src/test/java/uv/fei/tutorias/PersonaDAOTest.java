@@ -16,7 +16,7 @@ public class PersonaDAOTest {
 
     @Before
     public void inicio(){
-        persona = new Persona("Mariano","Jasso","Gutierrez");
+        persona = new Persona("Marifer","Gonzales","Gutierrez");
         personaDAO = new PersonaDAO();
     }
 
@@ -35,7 +35,7 @@ public class PersonaDAOTest {
 
     @Test
     public void addPersona() {
-        assertEquals(personaDAO.agregarPersona(persona),-1);
+        assertNotSame(personaDAO.agregarPersona(persona),-1);
     }
 
     @Test

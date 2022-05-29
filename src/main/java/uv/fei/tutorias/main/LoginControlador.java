@@ -17,6 +17,7 @@ import uv.fei.tutorias.domain.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 public class LoginControlador {
     @FXML
@@ -55,8 +56,12 @@ public class LoginControlador {
                 alert.showAndWait();
             }else if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getId())){
                 TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
-                TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
-                Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUIMenuPrincipalDeTutorAcademico.fxml", "Menu principal",actionEvent);
+                try {
+                    TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
+                    Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUIMenuPrincipalDeTutorAcademico.fxml", "Menu principal",actionEvent);
+                }catch (SQLException e){
+                    Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
+                }
 
             }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getId())){
                 alert.setHeaderText(null);

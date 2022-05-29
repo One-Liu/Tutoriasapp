@@ -76,8 +76,7 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
             Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
 //        periodoEscolar = periodoEscolarDAO.ob(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-//        lblFecha.setText(sesionDeTutoriaAcademica.getFecha());
-//        lblPeriodo.setText(periodoEscolar.getFechaInicio() + " " + periodoEscolar.getFechaTermino());
+//        git c
 
         //llenamos la columna de estudiantes con la lista de asistencia de la misma sesion de tutoria academica
         ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();

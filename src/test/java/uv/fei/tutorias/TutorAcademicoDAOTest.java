@@ -58,7 +58,7 @@ public class TutorAcademicoDAOTest {
         assertTrue(tutorAcademicoDAO.modificarTutorAcademico(tutorAcademico1));
     }
     @Test
-    public void testBuscarTutorAcademicoPorElIdDeUsuario(){
+    public void testBuscarTutorAcademicoPorElIdDeUsuario()throws SQLException{
         TutorAcademico tutorAcademicoObtenido = tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(12);
         assertEquals(tutorAcademico1, tutorAcademicoObtenido);
     }

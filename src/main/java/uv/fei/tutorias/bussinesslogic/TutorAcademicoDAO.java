@@ -71,7 +71,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         String apellidoPaterno;
         String apellidoMaterno;
 
-        idTutorAcademico = resultado.getInt("idTutorAcademico");
+        idTutorAcademico = resultado.getInt("id");
         nombre = resultado.getString("nombre");
         apellidoPaterno = resultado.getString("apellidoPaterno");
         apellidoMaterno = resultado.getString("apellidoMaterno");
@@ -152,7 +152,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         }
         return validacion;
     }
-    public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario){
+    public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario)throws SQLException{
         TutorAcademico tutorAcademico = new TutorAcademico();
         String query =
                 "SELECT TA.id, P.* " +
@@ -163,12 +163,14 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idUsuario);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false) {
+            if (!resultSet.next()) {
                 throw new SQLException("No se ha encontrado el tutor academico con el idusuario " + idUsuario);
+            }else {
+                tutorAcademico = getTutorAcademico(resultSet);
             }
-            tutorAcademico = getTutorAcademico(resultSet);
         } catch (SQLException ex) {
             LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+            throw new SQLException("Error en la conexion con la base de datos " + idUsuario);
         }
         return tutorAcademico;
 
