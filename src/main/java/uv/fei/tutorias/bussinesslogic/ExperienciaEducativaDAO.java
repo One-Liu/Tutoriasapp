@@ -10,14 +10,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     private final Logger LOG = Logger.getLogger(ExperienciaEducativaDAO.class);
 
     @Override
-    public ObservableList<ExperienciaEducativa> findExperienciasEducativasByName(String serchName) {
+    public ObservableList<ExperienciaEducativa> buscarExperienciasEducativasPorNombre(String serchName) {
         ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
@@ -42,7 +40,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     }
 
     @Override
-    public ExperienciaEducativa findExperienciaEducativaById(int searchId) {
+    public ExperienciaEducativa obtenerExperienciaEducativaPorId(int searchId) {
         ConexionBD dataBaseConnection = new ConexionBD();
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa();
         try (Connection connection = dataBaseConnection.abrirConexion()){
@@ -63,7 +61,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
         return experienciaEducativa;
 
     }
-    public ObservableList<ExperienciaEducativa> findExperienciasEducativasWithoutProfesor(){
+    public ObservableList<ExperienciaEducativa> buscarExperienciaEducativasSinTutor(){
         ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
@@ -87,7 +85,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
 
     }
     @Override
-    public boolean addExperienciaEducativa(ExperienciaEducativa experienciaEducativa) {
+    public boolean agregarExperienciaEducativa(ExperienciaEducativa experienciaEducativa) {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -110,7 +108,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     }
 
     @Override
-    public boolean deleteExperienciaEducativa(int searchId) {
+    public boolean eliminarExperienciaEducativa(int searchId) {
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "DELETE FROM experiencia_e where (id = ?)";
@@ -130,7 +128,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
         return true;
     }
 
-    public boolean UpdateExperienciaEducativa(ExperienciaEducativa experienciaEducativa) {
+    public boolean modificarExperienciaEducativa(ExperienciaEducativa experienciaEducativa) {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.abrirConexion();) {

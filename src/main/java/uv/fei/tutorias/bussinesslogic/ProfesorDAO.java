@@ -3,7 +3,6 @@ package uv.fei.tutorias.bussinesslogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import uv.fei.tutorias.dataaccess.ConexionBD;
-import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Profesor;
 
 import java.sql.Connection;
@@ -45,7 +44,7 @@ public class ProfesorDAO implements IProfesorDAO {
         boolean bandera = false;
         PersonaDAO personaDAO = new PersonaDAO();
         int idPersona;
-        idPersona = personaDAO.addPersonaReturnId(profesor);
+        idPersona = personaDAO.agregarPersona(profesor);
         if (idPersona != -1){
             profesor.setIdPersona(idPersona);
             addProfesor(profesor);

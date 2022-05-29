@@ -16,7 +16,7 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
 
     //este metodo se hizo con la finalidad de saber todos los estudiantes que tienen asignado una misma problematica academica
     @Override
-    public List<EstudiantesProblematicasAcademicas> findEstudiantesProblematicasAcademicasById(int searchIdproblematicaAcademica) {
+    public List<EstudiantesProblematicasAcademicas> obtenerEstudianteProblematicaAcademicaPorId(int searchIdproblematicaAcademica) {
         ArrayList<EstudiantesProblematicasAcademicas> estudiantesproblematicaAcademica = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -60,7 +60,7 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
     }
 
     @Override
-    public boolean addEstudiantesProblematicasAcademicas(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) {
+    public boolean agregarEstudianteProblemtaicaAcademica(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -83,7 +83,7 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
     }
 
     @Override
-    public boolean deleteEstudinatesProblematicasAcademicasById(int searchId) {
+    public boolean eliminarEstudianteProblematicaAcademicaPorId(int searchId) {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {

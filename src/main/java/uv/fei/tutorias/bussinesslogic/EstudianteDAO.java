@@ -103,7 +103,7 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setString(1, estudiante.getMatricula());
             sentencia.setInt(2, estudiante.getIdTutorAcademico());
             sentencia.setInt(3, estudiante.getIdProgramaEducativo());
-            sentencia.setInt(4, personaDao.addPersonaReturnId(personaEstudiante));
+            sentencia.setInt(4, personaDao.agregarPersona(personaEstudiante));
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: El estudiante no se ha agregado");

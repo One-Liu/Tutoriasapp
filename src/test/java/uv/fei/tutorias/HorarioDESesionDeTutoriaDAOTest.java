@@ -27,10 +27,10 @@ public class HorarioDESesionDeTutoriaDAOTest {
     }
     @Test
     public void addHorarioDeSesionDeTutoria(){
-        assertTrue(horarioDeSesionDeTutoriaDAO.addHorarioDeSesionDeTutoria(horarioDeSesionDeTutoria));
+        assertTrue(horarioDeSesionDeTutoriaDAO.agregarHorarioDeSesionDeTutoria(horarioDeSesionDeTutoria));
     }
     @Test
     public void deleteHorarioDeSesionDeTutoria(){
-        assertTrue(horarioDeSesionDeTutoriaDAO.deleteHorarioDeSesionDeTutoria(8));
+        assertTrue(horarioDeSesionDeTutoriaDAO.eliminarHorarioDeSesionDeTutoria(8));
     }
 }

@@ -58,7 +58,7 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
         ProfesorDAO profesordao = new ProfesorDAO();
         ArrayList<ProblematicaAcademica> listaProblematica = (ArrayList<ProblematicaAcademica>) problematica.findProblematicaAcademicaByDescription(descripcion);
         int idExperienciaEducativa =listaProblematica.get(0).getIdExperienciaEducativa();
-        ExperienciaEducativa datosExperiencia = experiencia.findExperienciaEducativaById(idExperienciaEducativa);
+        ExperienciaEducativa datosExperiencia = experiencia.obtenerExperienciaEducativaPorId(idExperienciaEducativa);
         Profesor nombreProfesor = profesordao.findProfesorById(datosExperiencia.getIdProfesor());
 
         experienciaEducativa.setText(datosExperiencia.getNombre());

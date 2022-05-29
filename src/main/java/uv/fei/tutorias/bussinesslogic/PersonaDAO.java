@@ -19,7 +19,7 @@ public class PersonaDAO implements IPersonaDAO {
 
 
     @Override
-    public List<Persona> findPersonasByName(String searchName) {
+    public List<Persona> obtenerPersonaPorNombre(String searchName) {
         ArrayList<Persona> personas = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -57,7 +57,7 @@ public class PersonaDAO implements IPersonaDAO {
         return personas;
     }
     @Override
-    public Persona findPersonaById(int searchId){
+    public Persona obtenerPersonaPorId(int searchId){
         ConexionBD dataBaseConnection = new ConexionBD();
         Persona persona = new Persona();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -94,32 +94,10 @@ public class PersonaDAO implements IPersonaDAO {
 
     }
 
-    @Override
-    public boolean addPersona(Persona persona) {
-        ConexionBD dataBaseConnection = new ConexionBD();
-        boolean bandera = false;
-        try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno) VALUES(?,?,?)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, persona.getNombre());
-            statement.setString(2, persona.getApellidoPaterno());
-            statement.setString(3, persona.getApellidoMaterno());
-            int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0) {
-                throw new SQLException("ERROR: La persona no se ha agregado");
-            }else {
-                bandera = true;
-            }
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        }finally {
-            dataBaseConnection.cerrarConexion();
-        }
-        return bandera;
-    }
+
 
     @Override
-    public boolean deletePersonaById(int searchId) {
+    public boolean eliminarPersonaPorId(int searchId) {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -140,8 +118,8 @@ public class PersonaDAO implements IPersonaDAO {
         }
         return bandera;
     }
-
-    public int addPersonaReturnId(Persona persona) {
+    @Override
+    public int agregarPersona(Persona persona) {
         ConexionBD dataBaseConnection = new ConexionBD();
         int id = -1;
         try (Connection connection = dataBaseConnection.abrirConexion()) {

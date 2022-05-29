@@ -13,7 +13,7 @@ public class HorarioDeSesionDeTutoriaDAO implements IHorarioDeSesionDeTutoriaDAO
     private final Logger LOG = Logger.getLogger(PersonaDAO.class);
 
     @Override
-    public boolean deleteHorarioDeSesionDeTutoria(int searchId) {
+    public boolean eliminarHorarioDeSesionDeTutoria(int searchId) {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -36,7 +36,7 @@ public class HorarioDeSesionDeTutoriaDAO implements IHorarioDeSesionDeTutoriaDAO
     }
 
     @Override
-    public boolean addHorarioDeSesionDeTutoria(HorarioDeSesionDeTutoria horarioDeSesionDeTutoria) {
+    public boolean agregarHorarioDeSesionDeTutoria(HorarioDeSesionDeTutoria horarioDeSesionDeTutoria) {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {

@@ -11,10 +11,10 @@ import java.sql.SQLException;
 public class JefeDeCarreraDAO implements IJefeDeCarreraDAO{
     private final Logger LOG = Logger.getLogger(JefeDeCarreraDAO.class);
     @Override
-    public boolean addJefeDeCarrera(JefeDeCarrera jefeDeCarrera) {
+    public boolean agregarJefeDeCarrera(JefeDeCarrera jefeDeCarrera) {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
-        try (Connection connection = dataBaseConnection.abrirConexion()) {
+        try (Connection connection = dataBaseConnection.abrirConexion() ) {
             String query = "INSERT INTO jefe_de_carrera(idPersona,idUsuario) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,jefeDeCarrera.getIdPersona());
@@ -36,12 +36,12 @@ public class JefeDeCarreraDAO implements IJefeDeCarreraDAO{
 
 
     @Override
-    public boolean deleteJefeDeCarreraById(int searchId) {
+    public boolean eliminarJefeDeCarreraPorId(int searchId) {
         return false;
     }
 
     @Override
-    public JefeDeCarrera findJefeDeCarreraById(int searchId) {
+    public JefeDeCarrera obtenerJefeDeCarreraPorId(int searchId) {
         return null;
     }
 }

@@ -52,7 +52,7 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.findExperienciasEducativasByName("");
+        ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.buscarExperienciasEducativasPorNombre("");
 
         observaList(experienciasEducativas);
         btnAsignarEEaProfesor.setDisable(true);
@@ -65,10 +65,10 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
     public void actEeSinProfesorAsignado(ActionEvent actionEvent) {
 
         if (chBok.isSelected()){
-            ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.findExperienciasEducativasWithoutProfesor();
+            ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.buscarExperienciaEducativasSinTutor();
             observaList(experienciasEducativas);
         }else {
-            ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.findExperienciasEducativasByName("");
+            ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.buscarExperienciasEducativasPorNombre("");
             observaList(experienciasEducativas);
         }
     }

@@ -12,18 +12,18 @@ public class ExperienciaEducativaDAOTest {
     public void addExperienciasEducativas(){
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa("Phyton","1234",0);
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
-        boolean result = experienciaEducativaDAO.addExperienciaEducativa(experienciaEducativa);
+        boolean result = experienciaEducativaDAO.agregarExperienciaEducativa(experienciaEducativa);
         assertTrue(result);
     }
     @Test
     public void findExperienciasEducativasByName(){
-        System.out.println("experienciasEducativasDAO.findExperienciasEducativasByName");
+        System.out.println("experienciasEducativasDAO.buscarExperienciasEducativasPorNombre");
         String searchName = "Mate Discretas";
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
         List<ExperienciaEducativa> expectedResult = new ArrayList<>();
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa(1, "Mate Discretas",7);
         expectedResult.add(experienciaEducativa);
-        List<ExperienciaEducativa> result = experienciaEducativaDAO.findExperienciasEducativasByName(searchName);
+        List<ExperienciaEducativa> result = experienciaEducativaDAO.buscarExperienciasEducativasPorNombre(searchName);
         boolean listasIguales = false;
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i).equals(expectedResult.get(i))){
@@ -43,18 +43,18 @@ public class ExperienciaEducativaDAOTest {
     }
     @Test
     public void deleteExperienciaEducativa(){
-        System.out.println("experienciaEducativaDAO.deleteExperienciaEducativa()");
+        System.out.println("experienciaEducativaDAO.eliminarExperienciaEducativa()");
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
-        boolean result = experienciaEducativaDAO.deleteExperienciaEducativa(2);
+        boolean result = experienciaEducativaDAO.eliminarExperienciaEducativa(2);
         assertFalse(result);
     }
 
     @Test
     public void findExperienciaEducativaById(){
-        System.out.println("experienciaEducativaDAO.findExperienciaEducativaById()");
+        System.out.println("experienciaEducativaDAO.obtenerExperienciaEducativaPorId()");
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa(1, "Mate Discretas", 7);
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
-        assertTrue(experienciaEducativa.equals(experienciaEducativaDAO.findExperienciaEducativaById(1)));
+        assertTrue(experienciaEducativa.equals(experienciaEducativaDAO.obtenerExperienciaEducativaPorId(1)));
 
 
     }

@@ -7,9 +7,6 @@ import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.PersonaDAO;
 import uv.fei.tutorias.domain.Persona;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
@@ -24,32 +21,32 @@ public class PersonaDAOTest {
     }
 
     @Test
-    public void findPersonasByName() {
-        MatcherAssert.assertThat(personaDAO.findPersonasByName("Luz"), not(IsEmptyCollection.empty()));
+    public void buscarPersonasPorNombre() {
+        MatcherAssert.assertThat(personaDAO.obtenerPersonaPorNombre("Luz"), not(IsEmptyCollection.empty()));
 
     }
 
     @Test
     public void findPersonaById() {
         persona.setIdPersona(36);
-        assertEquals(personaDAO.findPersonaById(36),persona);
+        assertEquals(personaDAO.obtenerPersonaPorId(36),persona);
 
     }
 
     @Test
     public void addPersona() {
-        assertTrue(personaDAO.addPersona(persona));
+        assertEquals(personaDAO.agregarPersona(persona),-1);
     }
 
     @Test
     public void deletePersonaById() {
-        assertTrue(personaDAO.deletePersonaById(36));
+        assertTrue(personaDAO.eliminarPersonaPorId(36));
 
     }
 
     @Test
     public void addpersonaReturnId(){
-        assertEquals(37,personaDAO.addPersonaReturnId(persona));
+        assertEquals(37,personaDAO.agregarPersona(persona));
 
     }
 

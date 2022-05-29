@@ -1,6 +1,5 @@
 package uv.fei.tutorias;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.JefeDeCarreraDAO;
@@ -20,7 +19,7 @@ public class JefeDeCarreraDAOTest {
     }
     @Test
     public void addJefeDeCarrera(){
-        assertTrue(jefeDeCarreraDAO.addJefeDeCarrera(jefeDeCarrera));
+        assertTrue(jefeDeCarreraDAO.agregarJefeDeCarrera(jefeDeCarrera));
     }
 
 }

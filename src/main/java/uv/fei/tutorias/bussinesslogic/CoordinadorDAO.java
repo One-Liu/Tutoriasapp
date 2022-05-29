@@ -95,7 +95,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, coordinador.getIdProgramaEducativo());
-            sentencia.setInt(2, personaDAO.addPersonaReturnId(personaCoordinador));
+            sentencia.setInt(2, personaDAO.agregarPersona(personaCoordinador));
             sentencia.setInt(3, coordinador.getUsuario().getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
