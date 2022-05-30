@@ -30,7 +30,7 @@ public class PersonaDAO implements IPersonaDAO {
             if (!resultSet.next()) {
                 throw new SQLException("No se ha encontrado a la persona con el nombre" + searchName);
             } else {
-                int idPersona = 0;
+                int idPersona;
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
@@ -104,7 +104,6 @@ public class PersonaDAO implements IPersonaDAO {
             String query = "DELETE FROM persona WHERE (idPersona = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
-
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: No se ha eliminado la persona con el id " + searchId );

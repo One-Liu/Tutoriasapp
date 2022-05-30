@@ -58,22 +58,19 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
     private SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultado) throws SQLException {
         int idSesionDeTutoriaAcademica;
         String fecha;
-        String hora;
         int idPeriodoEscolar;
         
         idSesionDeTutoriaAcademica = resultado.getInt("id");
         fecha = resultado.getString("fecha");
-        hora = resultado.getString("hora");
         idPeriodoEscolar = resultado.getInt("idPeriodoEscolar");
-        
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,fecha,hora,idPeriodoEscolar);
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,fecha,idPeriodoEscolar);
         return sesionDeTutoriaAcademica;
     }
 
     @Override
     public boolean agregarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
         boolean validacion = false;
-        String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?,?)";
+        String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);

@@ -14,6 +14,7 @@ import uv.fei.tutorias.domain.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -59,12 +60,16 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
         for (Estudiante e: estudiantes) {
             System.out.println(e);
         }
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Date dia = new Date();
         SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
         PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
+        ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
+        EstudianteDAO estudianteDAO = new EstudianteDAO();
         PeriodoEscolar periodoEscolar;
         SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
 
@@ -72,22 +77,22 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
         //TODO el tutor academico deberia de selecciona la sesion de tutoria academica antes
         try {
             sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(6);
+            periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
+            ObservableList<ListaDeAsistencia> listasDeAsistencias = listaDeAsistenciaDAO.obtenerListasDeAsistenciaPorIdTutorAcademico(6);
+            observaList(listasDeAsistencias);
+            lblPeriodo.setText(periodoEscolar.getFechaInicio() +" "+periodoEscolar.getFechaTermino());
+            lblFecha.setText(dia.toString());
+            for (ListaDeAsistencia l :
+                    listasDeAsistencias) {
+                l.setEstudiante(estudianteDAO.obtenerEstudiantePorId(l.getIdEstudiante()));
+            }
         } catch (SQLException e) {
             Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
+            e.printStackTrace();
         }
-//        periodoEscolar = periodoEscolarDAO.ob(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-//        git c
 
-        //llenamos la columna de estudiantes con la lista de asistencia de la misma sesion de tutoria academica
-        ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
-//        ObservableList<ListaDeAsistencia> listasDeAsistencias = listaDeAsistenciaDAO.findListasDeAsistenciaByIdSesionDeTutoriaAcademica(6);
-        EstudianteDAO estudianteDAO = new EstudianteDAO();
-        //a la lista asistencia la llenamos con el estudiante de estudianteDAO
-//        for (ListaDeAsistencia l :
-//                listasDeAsistencias) {
-//            l.setEstudiante(estudianteDAO.findEstudianteById(l.getIdEstudiante()));
-//        }
-//        observaList(listasDeAsistencias);
+
+
     }
 
     private void observaList(ObservableList<ListaDeAsistencia> listaDeAsistencias) {
