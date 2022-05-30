@@ -23,19 +23,19 @@ public class ProfesorDaoTest {
         profesorDAO = new ProfesorDAO();
     }
     @Test
-    public void addPersonaandProfesor(){
+    public void agregarPersonaYProfesor(){
         assertTrue(profesorDAO.addProfesorandPersona(profesor));
     }
     @Test
-    public void deleteProfesor(){
+    public void eliminarProfesor(){
         assertTrue(profesorDAO.deleteProfesorById(27));
     }
     @Test
-    public void findProfesoresByName(){
+    public void buscarProfesoresPorNombre(){
         MatcherAssert.assertThat(profesorDAO.findProfesoresByName("Rosa"), not(IsEmptyCollection.empty()));
     }
     @Test
-    public void findProfesorById(){
+    public void BuscarProfesoresPorId(){
         assertNotNull(profesorDAO.findProfesorById(28));
         System.out.println(profesorDAO.findProfesorById(28));
     }

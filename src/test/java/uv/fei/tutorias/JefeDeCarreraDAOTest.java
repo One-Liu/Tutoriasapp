@@ -11,14 +11,14 @@ public class JefeDeCarreraDAOTest {
     private JefeDeCarreraDAO jefeDeCarreraDAO;
     private JefeDeCarrera jefeDeCarrera;
     @Before
-    public void init(){
+    public void incializador(){
         jefeDeCarreraDAO = new JefeDeCarreraDAO();
         jefeDeCarrera = new JefeDeCarrera();
         jefeDeCarrera.setIdPersona(40);
         jefeDeCarrera.getUsuario().setId(1);
     }
     @Test
-    public void addJefeDeCarrera(){
+    public void agregarJefeDeCarrera(){
         assertTrue(jefeDeCarreraDAO.agregarJefeDeCarrera(jefeDeCarrera));
     }
 

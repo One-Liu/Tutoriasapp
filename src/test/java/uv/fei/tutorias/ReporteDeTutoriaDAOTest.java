@@ -13,23 +13,23 @@ public class ReporteDeTutoriaDAOTest {
     private ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO;
 
     @Before
-    public void init(){
+    public void incializador(){
         reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
         reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica("El alumno va bien en custiones academicas",0,0,0);
 
     }
     @Test
-    public void addReporteDeTutoria(){
+    public void agregarReporteDeTutoria(){
         assertTrue(reporteDeTutoriaAcademicaDAO.addReporteDeTutoriaAcademica(reporteDeTutoriaAcademica));
     }
 
     @Test
-    public void findReporteDetutoriaById(){
+    public void buscarReporteDetutoriaPorId(){
         assertNotNull(reporteDeTutoriaAcademicaDAO.findReporteDeTutoriaById(3));
     }
 
     @Test
-    public void DeleteReporteDeTutoriaAcademicaById(){
+    public void EliminarReporteDeTutoriaAcademicaPorId(){
         assertTrue(reporteDeTutoriaAcademicaDAO.deleteReporteDeTutoriasAcademicasById(3));
     }
 }

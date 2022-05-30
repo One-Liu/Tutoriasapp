@@ -22,16 +22,16 @@ public class EstudianteProblematicaAcademicaDAOTest {
     }
 
     @Test
-    public void addEstudianteProblematicaAcademicaDAO(){
+    public void agregarEstudianteProblematicaAcademicaDAO(){
         assertTrue(estudiantesProblematicasAcademicasDAO.agregarEstudianteProblemtaicaAcademica(estudiantesProblematicasAcademicas));
     }
     @Test
-    public void deleteEstudianteProblematicaAcademicaDAO(){
+    public void eliminarEstudianteProblematicaAcademicaDAO(){
         assertTrue(estudiantesProblematicasAcademicasDAO.eliminarEstudianteProblematicaAcademicaPorId(9));
     }
     //este test busca comprobar que una lista no este vacia con la implementacion de codigo de Hamcrest
     @Test
-    public void findestudiantesProblematicaAcademica(){
+    public void buscarEstudiantesProblematicaAcademica(){
         MatcherAssert.assertThat(estudiantesProblematicasAcademicasDAO.obtenerEstudianteProblematicaAcademicaPorId(13), not(IsEmptyCollection.empty()));
     }
 

@@ -9,14 +9,14 @@ import java.util.List;
 import static org.junit.Assert.*;
 public class ExperienciaEducativaDAOTest {
     @Test
-    public void addExperienciasEducativas(){
+    public void agregarExperienciasEducativas(){
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa("Phyton","1234",0);
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
         boolean result = experienciaEducativaDAO.agregarExperienciaEducativa(experienciaEducativa);
         assertTrue(result);
     }
     @Test
-    public void findExperienciasEducativasByName(){
+    public void buscarExperienciasEducativasByName(){
         System.out.println("experienciasEducativasDAO.buscarExperienciasEducativasPorNombre");
         String searchName = "Mate Discretas";
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();

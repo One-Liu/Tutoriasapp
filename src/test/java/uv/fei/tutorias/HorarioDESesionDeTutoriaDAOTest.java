@@ -15,7 +15,7 @@ public class HorarioDESesionDeTutoriaDAOTest {
     private Estudiante estudiante;
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
     @Before
-    public void init(){
+    public void inicializador(){
         horarioDeSesionDeTutoriaDAO = new HorarioDeSesionDeTutoriaDAO();
         estudiante = new Estudiante();
         sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
@@ -26,11 +26,11 @@ public class HorarioDESesionDeTutoriaDAOTest {
 
     }
     @Test
-    public void addHorarioDeSesionDeTutoria(){
+    public void agregarHorarioDeSesionDeTutoria(){
         assertTrue(horarioDeSesionDeTutoriaDAO.agregarHorarioDeSesionDeTutoria(horarioDeSesionDeTutoria));
     }
     @Test
-    public void deleteHorarioDeSesionDeTutoria(){
+    public void eliminarHorarioDeSesionDeTutoria(){
         assertTrue(horarioDeSesionDeTutoriaDAO.eliminarHorarioDeSesionDeTutoria(8));
     }
 }

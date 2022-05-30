@@ -22,7 +22,7 @@ public class ProblematicaAcademicaDAOTest {
     }
 
     @Test
-    public void findProblematicaAcademicaByDescription(){
+    public void buscarProblematicaAcademicaPorDescripcion(){
         System.out.println("problematicaAcademicaDAO.findProblematicaAcademicaByDescription()");
         String searchname = "No entraba a clases";
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
