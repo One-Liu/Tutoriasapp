@@ -19,4 +19,6 @@ public class GUIMenuPrincipalDeTutorAcademico {
     }
 
 
+    public void actConsultarProblematicaAcademica(ActionEvent actionEvent) {
+    }
 }
