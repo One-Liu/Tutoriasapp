@@ -40,7 +40,7 @@ public class PersonaDAOTest {
 
     @Test
     public void deletePersonaById() {
-        assertTrue(personaDAO.eliminarPersonaPorId(36));
+        assertTrue(personaDAO.eliminarPersonaPorId(72));
 
     }
 

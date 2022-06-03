@@ -101,7 +101,7 @@ public class PersonaDAO implements IPersonaDAO {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "DELETE FROM persona WHERE (idPersona = ?)";
+            String query = "DELETE FROM persona WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
             int executeUpdate = statement.executeUpdate();
