@@ -44,7 +44,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
         ConexionBD dataBaseConnection = new ConexionBD();
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "SELECT * FROM experienciaeducativa WHERE idExperienciaEducativa like ?";
+            String query = "SELECT * FROM experiencia_educativa WHERE id like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchId + "%");
             ResultSet resultSet = statement.executeQuery();
