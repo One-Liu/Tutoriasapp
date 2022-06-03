@@ -67,9 +67,5 @@ public class Utilidad {
                 + "al cargar la información. Por favor, inténtelo más tarde",Alert.AlertType.ERROR);
     }
 
-    public static void cerrarVentana(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
+
 }
