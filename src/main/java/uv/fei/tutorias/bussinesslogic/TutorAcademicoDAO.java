@@ -8,14 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 // author @liu
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     private final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(PersonaDAO.class);
 
     @Override
-    public ArrayList<TutorAcademico> obtenerTutoresAcademicos() throws SQLException {
-        ArrayList<TutorAcademico> tutores = new ArrayList<>();
+    public ObservableList<TutorAcademico> obtenerTutoresAcademicos() throws SQLException {
+        ObservableList<TutorAcademico> tutores = FXCollections.observableArrayList();
         String consulta =
         "SELECT TA.idTutorAcademico, P.* " +
         "FROM TutorAcademico TA INNER JOIN Persona P ON P.idPersona = TA.idPersona";
@@ -24,16 +26,15 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if (!resultado.next()) {
-                throw new SQLException("No se han encontrado tutores academicos");
+                SQLException exception = new SQLException();
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), exception);
+                throw exception;
             } else {
                 do {
                     tutores.add(getTutorAcademico(resultado));
                 } while (resultado.next());
             }
-        } catch (SQLException ex) {
-            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
-            throw new SQLException("No hay conexion a la base de datos");
-        }finally {
+        } finally {
             baseDeDatos.cerrarConexion();
         }
         return tutores;
@@ -41,24 +42,23 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
 
     @Override
     public TutorAcademico obtenerTutorAcademicoPorId(int idTutorAcademico) throws SQLException {
-        TutorAcademico tutorAcademico = new TutorAcademico();
-        String consulta =
+        TutorAcademico tutorAcademico;
+        String consulta = 
         "SELECT TA.idTutorAcademico, P.* " +
-        "FROM tutor_academico TA LEFT JOIN persona P ON P.id = TA.idPersona " +
-        "WHERE id = ?";
+        "FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona " +
+        "WHERE idTutorAcademico = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
             if (resultado.next() == false) {
-                throw new SQLException("No se ha encontrado el tutor academico con el id " + idTutorAcademico);
+                SQLException exception = new SQLException();
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), exception);
+                throw exception;
             } else {
                 tutorAcademico = getTutorAcademico(resultado);
             }
-        }catch (SQLException ex) {
-            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
-            throw new SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -80,7 +80,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         TutorAcademico tutorAcademico = new TutorAcademico(idTutorAcademico,personaCoordinador);
         return tutorAcademico;
     }
-
+//TODO arreglar id de usuario persona tutorAcademico
     @Override
     public boolean agregarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
         boolean validacion = false;
@@ -88,17 +88,14 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, tutorAcademico.getIdPersona());
-            sentencia.setInt(2, tutorAcademico.getUsuario().getId());
+//            sentencia.setInt(1, tutorAcademico.ge());
+//            sentencia.setInt(2, tutorAcademico.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: El coordinador no se ha agregado");
             } else {
                 validacion = true;
             }
-        }catch (SQLException ex) {
-            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
-            throw new SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -115,24 +112,22 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(1, idTutorAcademico);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha eliminado el tutor académico con el id " + idTutorAcademico);
-            } else {
+                SQLException exception = new SQLException();
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), exception);
+                throw exception;            } else {
                 validacion = true;
             }
-        }catch (SQLException ex) {
-            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
-            throw new SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
     }
-
+    
     @Override
     public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
         boolean validacion = false;
-        String consulta =
-                "UPDATE tutor_academico " +
+        String consulta = 
+                "UPDATE tutor_academico " + 
                 "SET idPersona = ?, " +
                 "SET idUsuario = ? " +
                 "WHERE id = ?";
@@ -144,8 +139,9 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(3, tutorAcademico.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha modificado el tutor academico con el id " + tutorAcademico.getId());
-            }
+                SQLException exception = new SQLException();
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), exception);
+                throw exception;            }
             validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();

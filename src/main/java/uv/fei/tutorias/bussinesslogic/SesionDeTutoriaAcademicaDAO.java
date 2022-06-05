@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
@@ -15,8 +16,8 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
     private final Logger LOGGER = Logger.getLogger(SesionDeTutoriaAcademicaDAO.class);
 
     @Override
-    public ArrayList<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademica() throws SQLException {
-        ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = new ArrayList<>();
+    public ObservableList<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademica() throws SQLException {
+        ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
         String consulta = "SELECT * FROM sesion_de_tutoria_academica";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {

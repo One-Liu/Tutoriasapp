@@ -96,7 +96,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, coordinador.getIdProgramaEducativo());
             sentencia.setInt(2, personaDAO.agregarPersona(personaCoordinador));
-            sentencia.setInt(3, coordinador.getUsuario().getId());
+            sentencia.setInt(3, coordinador.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: El coordinador no se ha agregado");
@@ -148,7 +148,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, coordinador.getIdProgramaEducativo());
             sentencia.setInt(2, coordinador.getIdPersona());
-            sentencia.setInt(3, coordinador.getUsuario().getId());
+            sentencia.setInt(3, coordinador.getIdUsuario());
             sentencia.setInt(4, coordinador.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
