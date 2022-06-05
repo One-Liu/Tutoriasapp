@@ -37,10 +37,10 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
     private Label lblPeriodo;
 
     public void actEnviar(ActionEvent actionEvent) {
-//        agregar reporte general
-//        asignarEstudiantesEnRiesgo();
         TutorAcademico tutorAcademico = new TutorAcademico();
-        tutorAcademico = (TutorAcademico) Utilidad.recuperarValoresDeLaVentana(panel,tutorAcademico);
+        ComunicacionEntreVentanas comunicacionEntreVentanas = new ComunicacionEntreVentanas();
+        comunicacionEntreVentanas.setObjetoAPasar(tutorAcademico);
+        comunicacionEntreVentanas.recuperarValoresDeLaVentana();
         ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
         ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
         reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());

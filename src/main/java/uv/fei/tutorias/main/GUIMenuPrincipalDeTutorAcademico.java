@@ -12,10 +12,17 @@ public class GUIMenuPrincipalDeTutorAcademico {
     private AnchorPane panel;
 
     public void actLLenarReporteDeTutoriasAcademicas(ActionEvent actionEvent) throws IOException {
-        TutorAcademico tutorAcademico = new TutorAcademico();
-        tutorAcademico = (TutorAcademico) Utilidad.recuperarValoresDeLaVentana(panel,tutorAcademico);
+        ComunicacionEntreVentanas comunicacionEntreVentanas = new ComunicacionEntreVentanas();
+        TutorAcademico tutorAcademico;
+        comunicacionEntreVentanas.setActionEvent(actionEvent);
+        tutorAcademico = (TutorAcademico) comunicacionEntreVentanas.recuperarValoresDeLaVentana();
         System.out.println(tutorAcademico);
-        Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml","LLenar reporte de tutoria",actionEvent);
+        System.out.println(comunicacionEntreVentanas.getObjetoRecuperado());
+        comunicacionEntreVentanas.setNombreDeLaVentana("Llenar reporte de tutoria");
+//        comunicacionEntreVentanas.setObjeto(tutorAcademico);
+        comunicacionEntreVentanas.setNombreFxml("GUILlenarReporteDeTutoria.fxml");
+        comunicacionEntreVentanas.setActionEvent(actionEvent);
+        comunicacionEntreVentanas.pasarValoresEntreVentanas();
     }
 
 

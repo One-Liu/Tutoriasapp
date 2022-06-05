@@ -18,7 +18,6 @@ public class EstudianteProblematicaAcademicaDAOTest {
     public void inicio(){
         estudiantesProblematicasAcademicas = new EstudiantesProblematicasAcademicas(2,2);
         estudiantesProblematicasAcademicasDAO = new EstudiantesProblematicasAcademicasDAO();
-
     }
 
     @Test

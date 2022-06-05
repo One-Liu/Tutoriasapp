@@ -6,6 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.PersonaDAO;
 import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.main.Utilidad;
+
+import java.sql.SQLException;
 
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
@@ -16,7 +19,7 @@ public class PersonaDAOTest {
 
     @Before
     public void inicio(){
-        persona = new Persona("Marifer","Gonzales","Gutierrez");
+    persona = new Persona("MARIANA","ESPER","LOPEZ");
         personaDAO = new PersonaDAO();
     }
 
@@ -34,8 +37,8 @@ public class PersonaDAOTest {
     }
 
     @Test
-    public void addPersona() {
-        assertNotSame(personaDAO.agregarPersona(persona),-1);
+    public void agregarPersona() throws SQLException {
+            assertNotSame(personaDAO.agregarPersona(persona),-1);
     }
 
     @Test
@@ -44,10 +47,5 @@ public class PersonaDAOTest {
 
     }
 
-    @Test
-    public void addpersonaReturnId(){
-        assertEquals(37,personaDAO.agregarPersona(persona));
-
-    }
 
 }

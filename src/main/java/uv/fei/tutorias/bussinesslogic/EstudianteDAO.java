@@ -43,7 +43,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException {
-        Estudiante estudiante = new Estudiante();
+        Estudiante estudiante;
         String consulta =
         "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
@@ -98,24 +98,21 @@ public class EstudianteDAO implements IEstudianteDAO {
         Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
         String consulta = "INSERT INTO estudiante (matricula, idTutorAcademico, idProgramaEducativo, idPersona) VALUES (?,?,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, estudiante.getMatricula());
-            sentencia.setInt(2, estudiante.getIdTutorAcademico());
-            sentencia.setInt(3, estudiante.getIdProgramaEducativo());
-            sentencia.setInt(4, personaDao.agregarPersona(personaEstudiante));
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: El estudiante no se ha agregado");
-            } else {
-                validacion = true;
-            }
-        }catch (SQLException ex) {
-            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+        Connection conexion = baseDeDatos.abrirConexion();
+        PreparedStatement sentencia = conexion.prepareStatement(consulta);
+        sentencia.setString(1, estudiante.getMatricula());
+        sentencia.setInt(2, estudiante.getIdTutorAcademico());
+        sentencia.setInt(3, estudiante.getIdProgramaEducativo());
+        sentencia.setInt(4, personaDao.agregarPersona(personaEstudiante));
+        int columnasAfectadas = sentencia.executeUpdate();
+        if(columnasAfectadas == 0) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName());
             throw new SQLException("No hay conexion a la base de datos");
-        } finally {
-            baseDeDatos.cerrarConexion();
+        } else {
+            validacion = true;
         }
+        baseDeDatos.cerrarConexion();
+
         return validacion;
     }
 

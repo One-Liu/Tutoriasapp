@@ -40,7 +40,7 @@ public class ProfesorDAO implements IProfesorDAO {
         return bandera;
     }
 
-    public boolean addProfesorandPersona(Profesor profesor){
+    public boolean addProfesorandPersona(Profesor profesor) throws SQLException {
         boolean bandera = false;
         PersonaDAO personaDAO = new PersonaDAO();
         int idPersona;

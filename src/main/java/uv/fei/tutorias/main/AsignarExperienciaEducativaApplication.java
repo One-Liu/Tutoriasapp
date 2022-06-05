@@ -17,10 +17,11 @@ public class AsignarExperienciaEducativaApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\GUIAsignarExperienciaEducativa.fxml").toUri().toURL();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Scene scene = new Scene(fxmlLoader.load(url ), 600, 600);
-        primaryStage.setTitle("Experiencias educativas");
+        FXMLLoader fxmlLoader;
+        fxmlLoader = new FXMLLoader(AplicacionDePrueba.class.getResource("GUILogin.fxml"));
+        System.out.println(AplicacionDePrueba.class.getResource("GUILogin.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 870, 530);
+        primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
         primaryStage.show();
 

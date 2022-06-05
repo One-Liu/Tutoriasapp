@@ -50,15 +50,17 @@ public class LoginControlador {
             usuario = usuarioDAO.findUsuarioReturnId(usuario);
             int idUsuario = usuario.getId();
             if (idUsuario == 0){
-                alert.setHeaderText(null);
-                alert.setTitle("Error");
-                alert.setContentText("no se ha encontrado al usuario");
-                alert.showAndWait();
+                Utilidad.mostrarAlertaSinConfirmacion("Usuario no encontrado","El usuario no se ha encontrado", Alert.AlertType.WARNING);
             }else if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getId())){
                 TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
                 try {
                     TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
-                    Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUIMenuPrincipalDeTutorAcademico.fxml", "Menu principal",actionEvent);
+                    ComunicacionEntreVentanas comunicacionEntreVentanas = new ComunicacionEntreVentanas();
+                    comunicacionEntreVentanas.setObjetoAPasar(tutorAcademico);
+                    comunicacionEntreVentanas.setNombreFxml("GUIMenuPrincipalDeTutorAcademico.fxml");
+                    comunicacionEntreVentanas.setNombreDeLaVentana("Menu principal");
+                    comunicacionEntreVentanas.setActionEvent(actionEvent);
+                    comunicacionEntreVentanas.pasarValoresEntreVentanas();
                 }catch (SQLException e){
                     Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
                 }
