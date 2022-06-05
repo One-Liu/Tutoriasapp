@@ -69,7 +69,7 @@ public class UsuarioDAO implements IUsarioDAO{
             } else {
                 int id;
                 id = resultSet.getInt("id");
-                usuario.setId(id);
+                usuario.setIdUsuario(id);
             }
         } catch (SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);

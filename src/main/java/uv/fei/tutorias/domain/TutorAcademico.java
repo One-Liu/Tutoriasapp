@@ -34,11 +34,11 @@ public class TutorAcademico extends Usuario {
     }
 
     
-    public int getId() {
+    public int getIdTutorAcademico() {
         return idTutorAcademico;
     }
 
-    public void setId(int id) {
+    public void setIdTutorAcademico(int id) {
         this.idTutorAcademico = id;
     }
 
@@ -55,7 +55,7 @@ public class TutorAcademico extends Usuario {
         if(obj instanceof TutorAcademico) {
             TutorAcademico tmpTutorAcademico = (TutorAcademico)obj;
             if(
-                    this.idTutorAcademico == tmpTutorAcademico.getId()
+                    this.idTutorAcademico == tmpTutorAcademico.getIdTutorAcademico()
                     && this.nombre.equals(tmpTutorAcademico.getNombre())
                     && this.apellidoPaterno.equals(tmpTutorAcademico.getApellidoPaterno())
                     && this.apellidoMaterno.equals(tmpTutorAcademico.getApellidoMaterno())

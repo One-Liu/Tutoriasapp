@@ -48,13 +48,13 @@ public class LoginControlador {
             Usuario usuario = new Usuario(txtContrasena.getText(),txtcorreoInstitucional.getText());
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuario = usuarioDAO.findUsuarioReturnId(usuario);
-            int idUsuario = usuario.getId();
+            int idUsuario = usuario.getIdUsuario();
             if (idUsuario == 0){
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
                 alert.setContentText("no se ha encontrado al usuario");
                 alert.showAndWait();
-            }else if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getId())){
+            }else if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getIdUsuario())){
                 TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
                 try {
                     TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
@@ -63,12 +63,12 @@ public class LoginControlador {
                     Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
                 }
 
-            }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getId())){
+            }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getIdUsuario())){
                 alert.setHeaderText(null);
                 alert.setTitle("Menu principal de jefe de carrera");
                 alert.setContentText("Este seria el menu principal de jefe de carreraa");
                 alert.showAndWait();
-            }else if (usuarioDAO.estaIdUsuarionEnCoordinador(usuario.getId())){
+            }else if (usuarioDAO.estaIdUsuarionEnCoordinador(usuario.getIdUsuario())){
                 alert.setHeaderText(null);
                 alert.setTitle("Menu principal de Coordinador");
                 alert.setContentText("Este seria el menu principal de coordinador");

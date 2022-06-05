@@ -1,6 +1,6 @@
 package uv.fei.tutorias.domain;
 
-public class Usuario {
+public class Usuario extends Persona{
     int id;
     String contrasena;
     String correoInstitucional;
@@ -16,11 +16,11 @@ public class Usuario {
         this.correoInstitucional = "";
     }
 
-    public int getId() {
+    public int getIdUsuario() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setIdUsuario(int id) {
         this.id = id;
     }
 
@@ -47,19 +47,11 @@ public class Usuario {
 
         Usuario usuario = (Usuario) o;
 
-        if (getId() != usuario.getId()) return false;
         if (getContrasena() != null ? !getContrasena().equals(usuario.getContrasena()) : usuario.getContrasena() != null)
             return false;
         return getCorreoInstitucional() != null ? getCorreoInstitucional().equals(usuario.getCorreoInstitucional()) : usuario.getCorreoInstitucional() == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getContrasena() != null ? getContrasena().hashCode() : 0);
-        result = 31 * result + (getCorreoInstitucional() != null ? getCorreoInstitucional().hashCode() : 0);
-        return result;
-    }
 
     @Override
     public String toString() {
@@ -68,5 +60,22 @@ public class Usuario {
                 ", contrasena='" + contrasena + '\'' +
                 ", correoInstitucional='" + correoInstitucional + '\'' +
                 '}';
+    }
+
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasena, String correoInstitucional) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.contrasena = contrasena;
+        this.correoInstitucional = correoInstitucional;
+    }
+
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, int id, String contrasena, String correoInstitucional) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.id = id;
+        this.contrasena = contrasena;
+        this.correoInstitucional = correoInstitucional;
+    }
+
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
     }
 }

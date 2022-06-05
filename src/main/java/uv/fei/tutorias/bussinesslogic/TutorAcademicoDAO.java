@@ -125,7 +125,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     
     @Override
     public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
-        boolean validacion = false;
+        boolean validacion;
         String consulta = 
                 "UPDATE tutor_academico " + 
                 "SET idPersona = ?, " +
@@ -135,8 +135,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, tutorAcademico.getIdPersona());
-            sentencia.setInt(2, tutorAcademico.getUsuario().getId());
-            sentencia.setInt(3, tutorAcademico.getId());
+            sentencia.setInt(2, tutorAcademico.getIdUsuario());
+            sentencia.setInt(3, tutorAcademico.getIdTutorAcademico());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 SQLException exception = new SQLException();
@@ -184,7 +184,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             if (resultSet.next()) {
                 do {
                     TutorAcademico tutor = new TutorAcademico();
-                    tutor.setId(resultSet.getInt("idTutorAcademico"));
+                    tutor.setIdTutorAcademico(resultSet.getInt("idTutorAcademico"));
                     tutor.setNombre(resultSet.getString("nombre"));
                     tutor.setApellidoPaterno(resultSet.getString("apellidoPaterno"));
                     tutor.setApellidoMaterno(resultSet.getString("apellidoMaterno"));

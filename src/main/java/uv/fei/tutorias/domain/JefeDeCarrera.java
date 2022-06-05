@@ -1,38 +1,34 @@
 package uv.fei.tutorias.domain;
 
-public class JefeDeCarrera extends Persona{
+public class JefeDeCarrera extends Usuario{
     private int id;
-    private Usuario usuario;
 
-    public JefeDeCarrera(String nombre, String apellidoPaterno, String apellidoMaterno, Usuario usuario) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.usuario = usuario;
-    }
+
 
     public JefeDeCarrera() {
-        this.usuario = new Usuario();
 
     }
     public JefeDeCarrera(Persona persona){
         super(persona.getNombre(),persona.getApellidoPaterno(),persona.getApellidoPaterno());
-        this.usuario = new Usuario();
-
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public JefeDeCarrera(String contrasena, String correoInstitucional, int id) {
+        super(contrasena, correoInstitucional);
         this.id = id;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public JefeDeCarrera(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasena, String correoInstitucional) {
+        super(nombre, apellidoPaterno, apellidoMaterno, contrasena, correoInstitucional);
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public int getIdJefeDeCarrera() {
+        return id;
     }
+
+    public void setIdJefeDeCarrera(int id) {
+        this.id = id;
+    }
+
+
 
 }

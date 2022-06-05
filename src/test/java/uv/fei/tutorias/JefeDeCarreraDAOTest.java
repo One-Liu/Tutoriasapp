@@ -15,7 +15,7 @@ public class JefeDeCarreraDAOTest {
         jefeDeCarreraDAO = new JefeDeCarreraDAO();
         jefeDeCarrera = new JefeDeCarrera();
         jefeDeCarrera.setIdPersona(40);
-        jefeDeCarrera.getUsuario().setId(1);
+        jefeDeCarrera.setIdUsuario(1);
     }
     @Test
     public void agregarJefeDeCarrera(){

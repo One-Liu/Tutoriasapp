@@ -47,14 +47,14 @@ public class SingnUpController implements Initializable {
                         JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
                         JefeDeCarrera jefeDeCarrera = new JefeDeCarrera(persona);
                         jefeDeCarrera.setIdPersona(personaDAO.agregarPersona(persona));
-                        jefeDeCarrera.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
+                        jefeDeCarrera.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
                         jefeDeCarreraDAO.agregarJefeDeCarrera(jefeDeCarrera);
                         break;
                     case "Coordinador":
                         CoordinadorDAO coordinadorDAO = new CoordinadorDAO();
                         Coordinador coordinador = new Coordinador(persona);
                         coordinador.setIdPersona(personaDAO.agregarPersona(persona));
-                        coordinador.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
+                        coordinador.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
                         coordinadorDAO.agregarCoordinador(coordinador);
                         break;
 
@@ -62,7 +62,7 @@ public class SingnUpController implements Initializable {
                         TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
                         TutorAcademico tutorAcademico = new TutorAcademico(persona);
                         tutorAcademico.setIdPersona(personaDAO.agregarPersona(persona));
-                        tutorAcademico.getUsuario().setId(usuarioDAO.addUsuarioReturnId(usuario));
+                        tutorAcademico.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
                         tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
                         break;
 

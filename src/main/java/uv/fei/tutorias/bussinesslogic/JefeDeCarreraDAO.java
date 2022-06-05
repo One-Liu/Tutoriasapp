@@ -18,7 +18,7 @@ public class JefeDeCarreraDAO implements IJefeDeCarreraDAO{
             String query = "INSERT INTO jefe_de_carrera(idPersona,idUsuario) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,jefeDeCarrera.getIdPersona());
-            statement.setInt(2, jefeDeCarrera.getUsuario().getId());
+            statement.setInt(2, jefeDeCarrera.getIdUsuario());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
                 throw new SQLException("ERROR: El profesor no se ha agregado");
