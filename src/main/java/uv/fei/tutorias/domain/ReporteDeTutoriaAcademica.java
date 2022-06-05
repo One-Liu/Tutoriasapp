@@ -1,64 +1,90 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
+
 public class ReporteDeTutoriaAcademica {
-    private int idReporteDeTutoriaAcademica;
+    private int id;
     private String descripcionGeneral;
-    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
-    private TutorAcademico tutorAcademico;
+    private int idSesionDeTutoriaAcademica;
+    private int idTutorAcademico;
+    private int idFechaCierreEntregaReporte;
+
+    public ReporteDeTutoriaAcademica(String descripcionGeneral, int idSesionDeTutoriaAcademica, int idTutorAcademico, int idFechaCierreEntregaReporte) {
+        this.descripcionGeneral = descripcionGeneral;
+        this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
+        this.idTutorAcademico = idTutorAcademico;
+        this.idFechaCierreEntregaReporte = idFechaCierreEntregaReporte;
+    }
 
     public ReporteDeTutoriaAcademica() {
-        this.idReporteDeTutoriaAcademica = 0;
         this.descripcionGeneral = "";
-        this.sesionDeTutoriaAcademica = null;
-        this.tutorAcademico = null;
+        this.idSesionDeTutoriaAcademica = 0;
+        this.idTutorAcademico = 0;
+        this.idFechaCierreEntregaReporte = 0;
     }
 
-    public ReporteDeTutoriaAcademica(int idReporteDeTutoriaAcademica, String descripcionGeneral, SesionDeTutoriaAcademica sesionDeTutoriaAcademica, TutorAcademico tutorAcademico) {
-        this.idReporteDeTutoriaAcademica = idReporteDeTutoriaAcademica;
-        this.descripcionGeneral = descripcionGeneral;
-        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
-        this.tutorAcademico = tutorAcademico;
+    public int getId() {
+        return id;
     }
 
-    public ReporteDeTutoriaAcademica(String descripcionGeneral, SesionDeTutoriaAcademica sesionDeTutoriaAcademica, TutorAcademico tutorAcademico) {
-        this.idReporteDeTutoriaAcademica = 0;
-        this.descripcionGeneral = descripcionGeneral;
-        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
-        this.tutorAcademico = tutorAcademico;
-    }
-
-    // Getters of uv.fei.tutorias.domain.ReporteDeTutoriaAcademica
-    public int getIdReporteDeTutoriaAcademica() {
-        return idReporteDeTutoriaAcademica;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescripcionGeneral() {
         return descripcionGeneral;
     }
 
-    public SesionDeTutoriaAcademica getSesionDeTutoriaAcademica() {
-        return sesionDeTutoriaAcademica;
-    }
-
-    public TutorAcademico getTutorAcademico() {
-        return tutorAcademico;
-    }
-
-    // Setters of uv.fei.tutorias.domain.ReporteDeTutoriaAcademica
-    public void setIdReporteDeTutoriaAcademica(int idReporteDeTutoriaAcademica) {
-        this.idReporteDeTutoriaAcademica = idReporteDeTutoriaAcademica;
-    }
-
     public void setDescripcionGeneral(String descripcionGeneral) {
         this.descripcionGeneral = descripcionGeneral;
     }
 
-    public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
-        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
+    public int getIdSesionDeTutoriaAcademica() {
+        return idSesionDeTutoriaAcademica;
     }
 
-    public void setTutorAcademico(TutorAcademico tutorAcademico) {
-        this.tutorAcademico = tutorAcademico;
+    public void setIdSesionDeTutoriaAcademica(int idSesionDeTutoriaAcademica) {
+        this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
+    }
+
+    public int getIdTutorAcademico() {
+        return idTutorAcademico;
+    }
+
+    public void setIdTutorAcademico(int idTutorAcademico) {
+        this.idTutorAcademico = idTutorAcademico;
+    }
+
+    public int getIdFechaCierreEntregaReporte() {
+        return idFechaCierreEntregaReporte;
+    }
+
+    public void setIdFechaCierreEntregaReporte(int idFechaCierreEntregaReporte) {
+        this.idFechaCierreEntregaReporte = idFechaCierreEntregaReporte;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ReporteDeTutoriaAcademica)) return false;
+
+        ReporteDeTutoriaAcademica that = (ReporteDeTutoriaAcademica) o;
+
+        if (getId() != that.getId()) return false;
+        if (getIdSesionDeTutoriaAcademica() != that.getIdSesionDeTutoriaAcademica()) return false;
+        if (getIdTutorAcademico() != that.getIdTutorAcademico()) return false;
+        if (getIdFechaCierreEntregaReporte() != that.getIdFechaCierreEntregaReporte()) return false;
+        return getDescripcionGeneral() != null ? getDescripcionGeneral().equals(that.getDescripcionGeneral()) : that.getDescripcionGeneral() == null;
+    }
+
+    @Override
+    public String toString() {
+        return "ReporteDeTutoriaAcademica{" +
+                "id=" + id +
+                ", descripcionGeneral='" + descripcionGeneral + '\'' +
+                ", idSesionDeTutoriaAcademica=" + idSesionDeTutoriaAcademica +
+                ", idTutorAcademico=" + idTutorAcademico +
+                ", idFechaCierreEntregaReporte=" + idFechaCierreEntregaReporte +
+                '}';
     }
 }

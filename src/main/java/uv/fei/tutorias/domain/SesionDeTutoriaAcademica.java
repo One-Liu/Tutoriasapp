@@ -28,6 +28,15 @@ public class SesionDeTutoriaAcademica {
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
 
+    public SesionDeTutoriaAcademica(int id, String fecha, int idPeriodoEscolar) {
+        this.id = id;
+        this.fecha = fecha;
+        this.idPeriodoEscolar = idPeriodoEscolar;
+
+
+
+    }
+
     // Getters of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
     public int getId() {
         return id;

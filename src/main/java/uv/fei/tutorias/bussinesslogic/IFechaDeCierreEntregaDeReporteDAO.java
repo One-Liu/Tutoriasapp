@@ -2,7 +2,7 @@ package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.FechaDeCierreEntregaDeReporte;
+import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
 
 // author @liu
 public interface IFechaDeCierreEntregaDeReporteDAO {

@@ -4,6 +4,7 @@ package uv.fei.tutorias.domain;
 public class Estudiante extends Persona {
     private int id;
     private String matricula;
+    private boolean enRiesgo;
     private int idProgramaEducativo;
     private int idTutorAcademico;
 
@@ -66,6 +67,14 @@ public class Estudiante extends Persona {
         this.idTutorAcademico = idTutorAcademico;
     }
 
+    public boolean getEnRiesgo() {
+        return enRiesgo;
+    }
+
+    public void setEnRiesgo(boolean enRiesgo) {
+        this.enRiesgo = enRiesgo;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Estudiante) {
@@ -86,6 +95,12 @@ public class Estudiante extends Persona {
 
     @Override
     public String toString() {
-        return getNombre() + " " + getApellidoPaterno() + " " + getApellidoMaterno() + " (" + this.matricula + ")";
+        return "Estudiante{" +
+                "matricula='" + matricula + '\'' +
+                ", enRiesgo=" + enRiesgo +
+                ", nombre='" + nombre + '\'' +
+                ", apellidoPaterno='" + apellidoPaterno + '\'' +
+                ", apellidoMaterno='" + apellidoMaterno + '\'' +
+                '}';
     }
 }

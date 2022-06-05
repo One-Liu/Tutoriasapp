@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
-import dataaccess.ConexionBD;
-import domain.Coordinador;
-import domain.Persona;
+import uv.fei.tutorias.dataaccess.ConexionBD;
+import uv.fei.tutorias.domain.Coordinador;
+import uv.fei.tutorias.domain.Persona;
 
 // author @liu
 public class CoordinadorDAO implements ICoordinadorDAO {
@@ -32,6 +32,9 @@ public class CoordinadorDAO implements ICoordinadorDAO {
                     coordinadores.add(getCoordinador(resultado));
                 }while(resultado.next());
             }
+        } catch(SQLException ex) {
+            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
+            throw new  SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -55,6 +58,9 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             } else {
                 coordinador = getCoordinador(resultado);
             }
+        } catch(SQLException ex) {
+            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
+            throw new SQLException("Error en la conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -73,7 +79,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         apellidoPaterno = resultado.getString("apellidoPaterno");
         apellidoMaterno = resultado.getString("apellidoMaterno");
         idProgramaEducativo = resultado.getInt("idProgramaEducativo");
-        
+
         Persona personaCoordinador = new Persona(nombre,apellidoPaterno,apellidoMaterno);
         Coordinador coordinador = new Coordinador(idCoordinador,personaCoordinador,idProgramaEducativo);
         return coordinador;
@@ -89,14 +95,18 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, coordinador.getIdProgramaEducativo());
-            sentencia.setInt(2, personaDAO.addPersonaReturnId(personaCoordinador));
-            sentencia.setInt(3, coordinador.getUsuario().getId());
+            sentencia.setInt(2, personaDAO.agregarPersona(personaCoordinador));
+            sentencia.setInt(3, coordinador.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: El coordinador no se ha agregado");
-            }
-            validacion = true;
-        } finally {
+            } else {
+                validacion = true;
+             }
+        }catch (SQLException ex){
+            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
+            throw new SQLException("Error en la conexion a la base de datos");
+        }finally {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
@@ -115,17 +125,20 @@ public class CoordinadorDAO implements ICoordinadorDAO {
                 throw new SQLException("ERROR: No se ha eliminado el coordinador con el id " + idCoordinador);
             }
             validacion = true;
+        }catch (SQLException ex){
+            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
+            throw new SQLException("Error en la conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
     }
-    
+
     @Override
     public boolean modificarCoordinador(Coordinador coordinador) throws SQLException {
         boolean validacion = false;
-        String consulta = 
-                "UPDATE coordinador " + 
+        String consulta =
+                "UPDATE coordinador " +
                 "SET idProgramaEducativo = ?, " +
                 "SET idPersona = ?, " +
                 "SET idUsuario = ? " +
@@ -135,7 +148,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, coordinador.getIdProgramaEducativo());
             sentencia.setInt(2, coordinador.getIdPersona());
-            sentencia.setInt(3, coordinador.getUsuario().getId());
+            sentencia.setInt(3, coordinador.getIdUsuario());
             sentencia.setInt(4, coordinador.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {

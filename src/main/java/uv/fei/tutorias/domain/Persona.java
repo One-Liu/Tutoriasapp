@@ -1,17 +1,18 @@
 package uv.fei.tutorias.domain;
 
-// author @liu
-public class Persona {
-    private int idPersona;
-    private String nombre;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
+public class  Persona {
+    protected int idPersona;
+    protected String nombre;
+    protected String apellidoPaterno;
+    protected String apellidoMaterno;
+
+    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+    }
 
     public Persona() {
-        this.idPersona = 0;
-        this.nombre = "";
-        this.apellidoPaterno = "";
-        this.apellidoMaterno = "";
     }
 
     public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno) {
@@ -21,45 +22,32 @@ public class Persona {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno) {
-        this.idPersona = 0;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-    }
-
-    // Getters of uv.fei.tutorias.domain.Persona
     public int getIdPersona() {
         return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
-    }
-
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
-    }
-
-    public String getNombreCompleto() {
-        return getApellidoPaterno() + " " + getApellidoMaterno() + " " + getNombre();
-    }
-
-    // Setters of uv.fei.tutorias.domain.Persona
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
     public void setApellidoPaterno(String apellidoPaterno) {
         this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
     public void setApellidoMaterno(String apellidoMaterno) {
@@ -67,21 +55,27 @@ public class Persona {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Persona) {
-            Persona tmpPersona = (Persona)obj;
-            if(this.idPersona == tmpPersona.getIdPersona() 
-                    && this.nombre.equals(tmpPersona.getNombre()) 
-                    && this.apellidoPaterno.equals(tmpPersona.getApellidoPaterno()) 
-                    && this.apellidoMaterno.equals(tmpPersona.getApellidoMaterno())) {
-                return true;
-            }
-        }
-        return false;
+    public String toString() {
+        return "Persona{" +
+                "idPersona=" + idPersona +
+                ", nombre='" + nombre + '\'' +
+                ", apellidoPaterno='" + apellidoPaterno + '\'' +
+                ", apellidoMaterno='" + apellidoMaterno + '\'' +
+                '}';
     }
 
     @Override
-    public String toString() {
-        return getNombreCompleto();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Persona)) return false;
+
+        Persona persona = (Persona) o;
+
+        if (getIdPersona() != persona.getIdPersona()) return false;
+        if (getNombre() != null ? !getNombre().equals(persona.getNombre()) : persona.getNombre() != null) return false;
+        if (getApellidoPaterno() != null ? !getApellidoPaterno().equals(persona.getApellidoPaterno()) : persona.getApellidoPaterno() != null)
+            return false;
+        return getApellidoMaterno() != null ? getApellidoMaterno().equals(persona.getApellidoMaterno()) : persona.getApellidoMaterno() == null;
     }
+
 }

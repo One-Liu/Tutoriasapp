@@ -2,7 +2,7 @@ package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import domain.Coordinador;
+import uv.fei.tutorias.domain.Coordinador;
 
 // author @liu
 public interface ICoordinadorDAO {

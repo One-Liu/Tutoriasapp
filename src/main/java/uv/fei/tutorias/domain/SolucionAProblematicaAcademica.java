@@ -1,31 +1,37 @@
 package uv.fei.tutorias.domain;
 
-// author @liu
 public class SolucionAProblematicaAcademica {
     private int idSolucionAProblematicaAcademica;
-    private String fecha;
-    private String descripcion;
+    private  String descripcion;
 
-    // Getters of uv.fei.tutorias.domain.SolucionAProblematicaAcademica
+    public SolucionAProblematicaAcademica(int idSolucionAProblematicaAcademica, String descripcion) {
+        this.idSolucionAProblematicaAcademica = idSolucionAProblematicaAcademica;
+        this.descripcion = descripcion;
+    }
+
+    public SolucionAProblematicaAcademica(int idSolucionAProblematicaAcademica) {
+        this.idSolucionAProblematicaAcademica = idSolucionAProblematicaAcademica;
+    }
+
+    public SolucionAProblematicaAcademica(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public SolucionAProblematicaAcademica() {
+        this.idSolucionAProblematicaAcademica = 0;
+        this.descripcion = "";
+    }
+
     public int getIdSolucionAProblematicaAcademica() {
         return idSolucionAProblematicaAcademica;
     }
 
-    public String getFecha() {
-        return fecha;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    // Setters of uv.fei.tutorias.domain.SolucionAProblematicaAcademica
     public void setIdSolucionAProblematicaAcademica(int idSolucionAProblematicaAcademica) {
         this.idSolucionAProblematicaAcademica = idSolucionAProblematicaAcademica;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
