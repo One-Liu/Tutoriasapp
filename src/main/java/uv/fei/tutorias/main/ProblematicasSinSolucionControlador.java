@@ -49,7 +49,7 @@ public class ProblematicasSinSolucionControlador implements Initializable {
 
         ObservableList<ProblematicaAcademica> listaObservableProblematicas = FXCollections.observableArrayList();
         ProblematicaAcademicaDAO problematica =new ProblematicaAcademicaDAO();
-        ArrayList<ProblematicaAcademica> listaProblematicas = (ArrayList<ProblematicaAcademica>) problematica.findAllProblematicasAcademicas();
+        ArrayList<ProblematicaAcademica> listaProblematicas = (ArrayList<ProblematicaAcademica>) problematica.mostrarTodasLasProblematicasAcademicas();
         listaObservableProblematicas.addAll(listaProblematicas);
         ProblematicaAcademicaComboBox.setItems(listaObservableProblematicas);
     }
