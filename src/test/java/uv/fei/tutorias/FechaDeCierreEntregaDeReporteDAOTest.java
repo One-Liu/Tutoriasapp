@@ -1,6 +1,7 @@
 package uv.fei.tutorias;
 
-import domain.FechaDeCierreEntregaDeReporte;
+import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
+import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;

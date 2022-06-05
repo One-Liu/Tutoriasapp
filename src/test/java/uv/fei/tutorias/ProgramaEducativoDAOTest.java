@@ -1,6 +1,7 @@
 package uv.fei.tutorias;
 
-import domain.ProgramaEducativo;
+import uv.fei.tutorias.bussinesslogic.ProgramaEducativoDAO;
+import uv.fei.tutorias.domain.ProgramaEducativo;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;

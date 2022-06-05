@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.apache.log4j.Logger;
-import dataaccess.ConexionBD;
-import domain.Persona;
-import domain.Estudiante;
+import uv.fei.tutorias.dataaccess.ConexionBD;
+import uv.fei.tutorias.domain.Persona;
+import uv.fei.tutorias.domain.Estudiante;
 
 // author @liu
 public class EstudianteDAO implements IEstudianteDAO {
@@ -16,9 +18,9 @@ public class EstudianteDAO implements IEstudianteDAO {
     private final Logger LOGGER = Logger.getLogger(EstudianteDAO.class);
 
     @Override
-    public ArrayList<Estudiante> obtenerEstudiantes() throws SQLException {
-        ArrayList<Estudiante> estudiantes = new ArrayList<>();
-        String consulta = 
+    public ObservableList<Estudiante> obtenerEstudiantes() throws SQLException {
+        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+        String consulta =
         "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -32,6 +34,9 @@ public class EstudianteDAO implements IEstudianteDAO {
                     estudiantes.add(getEstudiante(resultado));
                 }while(resultado.next());
             }
+        }catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -41,8 +46,8 @@ public class EstudianteDAO implements IEstudianteDAO {
     @Override
     public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException {
         Estudiante estudiante = new Estudiante();
-        String consulta = 
-        "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+        String consulta =
+        "SELECT E.id, E.matricula, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
         "WHERE E.id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -55,31 +60,36 @@ public class EstudianteDAO implements IEstudianteDAO {
             } else {
                 estudiante = getEstudiante(resultado);
             }
-        } finally {
+        } catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
+        }finally {
             baseDeDatos.cerrarConexion();
         }
         return estudiante;
     }
 
-    private Estudiante getEstudiante(ResultSet resultado) throws SQLException {
-        int idEstudiante;
-        String matricula;
-        String nombre;
-        String apellidoPaterno;
-        String apellidoMaterno;
-        int idProgramaEducativo;
-        int idTutorAcademico;
-        
-        idEstudiante = resultado.getInt("id");
-        matricula = resultado.getString("matricula");
-        nombre = resultado.getString("nombre");
-        apellidoPaterno = resultado.getString("apellidoPaterno");
-        apellidoMaterno = resultado.getString("apellidoMaterno");
-        idTutorAcademico = resultado.getInt("idTutorAcademico");
-        idProgramaEducativo = resultado.getInt("idProgramaEducativo");
-        
+    private Estudiante getEstudiante(ResultSet resultSet)throws SQLException {
+        int idEstudiante = 0;
+        String matricula = "";
+        String nombre = "";
+        String apellidoPaterno = "";
+        String apellidoMaterno = "";
+        boolean enRiesgo = false;
+        int idProgramaEducativo = 0;
+        int idTutorAcademico = 0;
+
+        idEstudiante = resultSet.getInt("id");
+        matricula = resultSet.getString("matricula");
+        nombre = resultSet.getString("nombre");
+        apellidoPaterno = resultSet.getString("apellidoPaterno");
+        apellidoMaterno = resultSet.getString("apellidoMaterno");
+        enRiesgo = resultSet.getBoolean("enRiesgo");
+        idTutorAcademico = resultSet.getInt("idTutorAcademico");
+        idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
         Persona personaEstudiante = new Persona(nombre,apellidoPaterno,apellidoMaterno);
         Estudiante estudiante = new Estudiante(idEstudiante,matricula,personaEstudiante,idTutorAcademico,idProgramaEducativo);
+        estudiante.setEnRiesgo(enRiesgo);
         return estudiante;
     }
 
@@ -95,13 +105,16 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setString(1, estudiante.getMatricula());
             sentencia.setInt(2, estudiante.getIdTutorAcademico());
             sentencia.setInt(3, estudiante.getIdProgramaEducativo());
-            sentencia.setInt(4, personaDao.addPersonaReturnId(personaEstudiante));
+            sentencia.setInt(4, personaDao.agregarPersona(personaEstudiante));
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: El estudiante no se ha agregado");
             } else {
                 validacion = true;
             }
+        }catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -122,20 +135,24 @@ public class EstudianteDAO implements IEstudianteDAO {
             } else {
                 validacion = true;
             }
+        }catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
     }
-    
+
     @Override
     public boolean modificarEstudiante(Estudiante estudiante) throws SQLException {
         boolean validacion = false;
-        String consulta = 
-                "UPDATE estudiante " + 
+        String consulta =
+                "UPDATE estudiante " +
                 "SET matricula = ?, " +
                 "SET idProgramaEducativo = ?, " +
-                "SET idTutorAcademico = ? " +
+                "SET idTutorAcademico = ?, " +
+                "SET enRiesgo = ? " +
                 "WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -143,7 +160,8 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setString(1, estudiante.getMatricula());
             sentencia.setInt(2, estudiante.getIdProgramaEducativo());
             sentencia.setInt(3, estudiante.getIdTutorAcademico());
-            sentencia.setInt(4, estudiante.getId());
+            sentencia.setBoolean(4,estudiante.getEnRiesgo());
+            sentencia.setInt(5, estudiante.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: No se ha modificado el estudiante con el id " + estudiante.getId());
@@ -153,5 +171,31 @@ public class EstudianteDAO implements IEstudianteDAO {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
+    }
+    @Override
+    public ArrayList<Estudiante> recuperarTodosEstudiantesPorIDTutor(int idTutor){
+        ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
+        String query = "SELECT matricula, nombre, apellidoPaterno, apellidoMaterno, estudiante.idPersona " +
+                "FROM estudiante INNER JOIN persona ON estudiante.idPersona = persona.id";
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                do {
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setMatricula(resultSet.getString("matricula"));
+                    estudiante.setNombre(resultSet.getString("nombre"));
+                    estudiante.setApellidoPaterno(resultSet.getString("apellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultSet.getString("apellidoMaterno"));
+                    listaEstudiantes.add(estudiante);
+                } while (resultSet.next());
+            }
+        } catch (SQLException ex) {
+            LOGGER.warn(EstudianteDAO.class.getName(), ex);
+        }finally{
+            dataBaseConnection.cerrarConexion();
+        }
+        return listaEstudiantes;
     }
 }

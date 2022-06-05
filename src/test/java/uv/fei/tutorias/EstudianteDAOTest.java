@@ -1,16 +1,16 @@
 package uv.fei.tutorias;
 
-import domain.Estudiante;
-import domain.Persona;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
+import uv.fei.tutorias.domain.Estudiante;
+import uv.fei.tutorias.domain.Persona;
 
 // author @liu
 public class EstudianteDAOTest {
-    
     private Persona personaNueva;
     private Estudiante estudianteNuevo;
     private Persona persona1;
@@ -19,6 +19,8 @@ public class EstudianteDAOTest {
     
     @Before
     public void inicializar() {
+        personaNueva = new Persona("Mario","Peña","Gonzales");
+        estudianteNuevo = new Estudiante("s20020400",personaNueva,0,0);
         personaNueva = new Persona("","","");
         estudianteNuevo = new Estudiante("",personaNueva,0,0);
         persona1 = new Persona("","","");
@@ -51,7 +53,7 @@ public class EstudianteDAOTest {
         int idEstudiante = 7;
         assertFalse(estudianteDAO.eliminarEstudiantePorId(idEstudiante));
     }
-    
+
     @Test
     public void testModificarEstudiante() throws SQLException {
         assertTrue(estudianteDAO.modificarEstudiante(estudiante1));

@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.apache.log4j.Logger;
-import dataaccess.ConexionBD;
-import domain.PeriodoEscolar;
+import uv.fei.tutorias.dataaccess.ConexionBD;
+import uv.fei.tutorias.domain.PeriodoEscolar;
 
 // author @liu
 public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
@@ -15,8 +16,8 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
     private final Logger LOGGER = Logger.getLogger(PeriodoEscolarDAO.class);
     
     @Override
-    public ArrayList<PeriodoEscolar> obtenerPeriodosEscolares() throws SQLException {
-        ArrayList<PeriodoEscolar> periodosEscolares = new ArrayList<>();
+    public ObservableList<PeriodoEscolar> obtenerPeriodosEscolares() throws SQLException {
+        ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
         String consulta = "SELECT * FROM periodo_escolar";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -71,7 +72,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
     @Override
     public boolean agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
         boolean validacion = false;
-        String consulta = "INSERT INTO periodo_escolar (fechaInicio,fechaTermino) VALUES (?,?)";
+        String consulta = "INSERT INTO periodo_escolar VALUES(NULL,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);

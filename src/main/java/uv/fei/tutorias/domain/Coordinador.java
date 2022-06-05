@@ -1,7 +1,7 @@
 package uv.fei.tutorias.domain;
 
 // author @liu
-public class Coordinador extends Persona {
+public class Coordinador extends Usuario {
     private int id;
     private int idProgramaEducativo;
     private Usuario usuario;

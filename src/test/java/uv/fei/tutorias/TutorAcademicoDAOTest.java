@@ -1,16 +1,20 @@
 package uv.fei.tutorias;
 
-import domain.Persona;
-import domain.TutorAcademico;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
+import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
+import uv.fei.tutorias.domain.TutorAcademico;
+import uv.fei.tutorias.domain.Persona;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 import static org.junit.Assert.*;
 
+import uv.fei.tutorias.domain.Usuario;
+
 // author @liu
+
 public class TutorAcademicoDAOTest {
-    
     private TutorAcademico tutorAcademicoNuevo;
     private Persona persona1;
     private TutorAcademico tutorAcademico1;
@@ -48,9 +52,14 @@ public class TutorAcademicoDAOTest {
         int idTutorAcademico = 0;
         assertFalse(tutorAcademicoDAO.eliminarTutorAcademicoPorId(idTutorAcademico));
     }
-    
+
     @Test
     public void testModificarTutorAcademico() throws SQLException {
         assertTrue(tutorAcademicoDAO.modificarTutorAcademico(tutorAcademico1));
+    }
+    @Test
+    public void testBuscarTutorAcademicoPorElIdDeUsuario()throws SQLException{
+        TutorAcademico tutorAcademicoObtenido = tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(12);
+        assertEquals(tutorAcademico1, tutorAcademicoObtenido);
     }
 }
