@@ -8,6 +8,7 @@ import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
 import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Profesor;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ProfesorDaoTest {
         profesorDAO = new ProfesorDAO();
     }
     @Test
-    public void agregarPersonaYProfesor(){
+    public void agregarPersonaYProfesor() throws SQLException {
         assertTrue(profesorDAO.addProfesorandPersona(profesor));
     }
     @Test

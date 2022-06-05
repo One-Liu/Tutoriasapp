@@ -101,7 +101,7 @@ public class PersonaDAO implements IPersonaDAO {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "DELETE FROM persona WHERE (idPersona = ?)";
+            String query = "DELETE FROM persona WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
             int executeUpdate = statement.executeUpdate();
@@ -118,28 +118,25 @@ public class PersonaDAO implements IPersonaDAO {
         return bandera;
     }
     @Override
-    public int agregarPersona(Persona persona) {
+    public int agregarPersona(Persona persona)throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
-        int id = -1;
-        try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno) VALUES(?,?,?)";
-            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, persona.getNombre());
-            statement.setString(2, persona.getApellidoPaterno());
-            statement.setString(3, persona.getApellidoMaterno());
-            int executeUpdate = statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (executeUpdate == 0) {
-                throw new SQLException("ERROR: La persona no se ha agregado");
-            }else {
-                resultSet.next();
-                id=resultSet.getInt(1);
-            }
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        }finally {
-            dataBaseConnection.cerrarConexion();
+        int id;
+        Connection connection = dataBaseConnection.abrirConexion();
+        String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno) VALUES(?,?,?)";
+        PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, persona.getNombre());
+        statement.setString(2, persona.getApellidoPaterno());
+        statement.setString(3, persona.getApellidoMaterno());
+        int executeUpdate = statement.executeUpdate();
+        ResultSet resultSet = statement.getGeneratedKeys();
+        if (executeUpdate == 0) {
+            LOG.warn(PersonaDAO.class.getName());
+            throw new SQLException("ERROR: en la Conexion a la base de datos");
+        }else {
+            resultSet.next();
+            id=resultSet.getInt(1);
         }
+        dataBaseConnection.cerrarConexion();
         return id;
     }
 

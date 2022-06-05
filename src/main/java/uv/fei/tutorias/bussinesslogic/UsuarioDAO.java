@@ -59,7 +59,7 @@ public class UsuarioDAO implements IUsarioDAO{
     public Usuario findUsuarioReturnId(Usuario usuario){
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "select id,Contrasena, correoInstitucional from usuario where Contrasena = md5 (?) and correoInstitucional = (?)";
+            String query = "select id,Contrasena, correoInstitucional from usuario where Contrasena =  (?) and correoInstitucional = (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, usuario.getContrasena());
             statement.setString(2, usuario.getCorreoInstitucional());

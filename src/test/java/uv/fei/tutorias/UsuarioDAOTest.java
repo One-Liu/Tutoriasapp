@@ -8,7 +8,7 @@ import uv.fei.tutorias.domain.Usuario;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class UsuarioDAOTest {
+public class  UsuarioDAOTest {
     private Usuario usuario, usuario2;
     private UsuarioDAO usuarioDao;
     @Before
