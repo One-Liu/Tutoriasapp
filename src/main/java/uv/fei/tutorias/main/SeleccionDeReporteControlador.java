@@ -9,17 +9,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.domain.TutorAcademico;
 
 public class SeleccionDeReporteControlador implements Initializable {
-
     @FXML
     private ComboBox<TutorAcademico> cbTutoresAcademicos;
     @FXML
@@ -36,13 +35,14 @@ public class SeleccionDeReporteControlador implements Initializable {
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
+    private void cerrarGUI() {
+        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
+        escenarioPrincipal.close();
+    }
+    
     private void cargarTutoresAcademicos() throws SQLException {
         TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
         this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicos();
-    }
-    
-    private void inicializarCBTutoresAcademicos() {
-        this.cbTutoresAcademicos.setItems(tutoresAcademicos);
     }
     
     private void cargarSesionesDeTutoriaAcademica() throws SQLException {
@@ -50,24 +50,25 @@ public class SeleccionDeReporteControlador implements Initializable {
         this.sesionesDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
     }
     
-    private void inicializarCBFechasDeSesionDeTutoriaAcademica() {
-        this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
+    private void cargarCamposGUI() {
+        try {
+            cargarTutoresAcademicos();
+            cargarSesionesDeTutoriaAcademica();
+            this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+            this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
+        } catch(SQLException ex) {
+            Utilidad.mensajePerdidaDeConexion();
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            cargarTutoresAcademicos();
-            cargarSesionesDeTutoriaAcademica();
-            inicializarCBTutoresAcademicos();
-            inicializarCBFechasDeSesionDeTutoriaAcademica();
-        } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
-        }
+        cargarCamposGUI();
     }    
     
     @FXML
     private void clicCancelar(ActionEvent event) {
+        cerrarGUI();
     }
 
     @FXML

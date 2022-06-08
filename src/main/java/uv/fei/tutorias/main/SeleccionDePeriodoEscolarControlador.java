@@ -9,14 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 
 public class SeleccionDePeriodoEscolarControlador implements Initializable {
-    
     @FXML
     private Button btnCancelar;
     @FXML
@@ -26,27 +25,33 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
     
+    private void cerrarGUI() {
+        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
+        escenarioPrincipal.close();
+    }
+    
     private void cargarPeriodosEscolares() throws SQLException {
         PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
         this.periodosEscolares = periodoEscolarDAO.obtenerPeriodosEscolares();
     }
     
-    private void inicializarCBPeriodosEscolares() {
-        this.cbPeriodosEscolares.setItems(periodosEscolares);
+    private void cargarCamposGUI() {
+        try {
+            cargarPeriodosEscolares();
+            this.cbPeriodosEscolares.setItems(periodosEscolares);
+        } catch(SQLException ex) {
+            Utilidad.mensajePerdidaDeConexion();
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            cargarPeriodosEscolares();
-            inicializarCBPeriodosEscolares();
-        } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
-        }
+        cargarCamposGUI();
     }    
     
     @FXML
     private void clicCancelar(ActionEvent event) {
+        cerrarGUI();
     }
 
     @FXML

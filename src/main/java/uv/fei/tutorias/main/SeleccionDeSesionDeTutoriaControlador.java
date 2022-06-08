@@ -9,14 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
-
     @FXML
     private Button btnCancelar;
     @FXML
@@ -26,27 +25,33 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
+    private void cerrarGUI() {
+        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
+        escenarioPrincipal.close();
+    }
+    
     private void cargarSesionesDeTutoriaAcademica() throws SQLException {
         SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
         this.sesionesDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
     }
     
-    private void inicializarCBFechasDeSesionDeTutoria() {
-        this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
+    private void cargarCamposGUI() {
+        try {
+            cargarSesionesDeTutoriaAcademica();
+            this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
+        } catch(SQLException ex) {
+            Utilidad.mensajePerdidaDeConexion();
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            cargarSesionesDeTutoriaAcademica();
-            inicializarCBFechasDeSesionDeTutoria();
-        } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
-        }
+        cargarCamposGUI();
     }    
     
     @FXML
     private void clicCancelar(ActionEvent event) {
+        cerrarGUI();
     }
 
     @FXML

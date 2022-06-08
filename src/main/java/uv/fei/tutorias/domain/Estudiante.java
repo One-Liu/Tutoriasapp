@@ -25,10 +25,11 @@ public class Estudiante extends Persona {
         this.idTutorAcademico = idTutorAcademico;
     }
 
-    public Estudiante(int id, String matricula, Persona estudiante, int idTutorAcademico, int idProgramaEducativo) {
+    public Estudiante(int id, String matricula, boolean enRiesgo, Persona estudiante, int idTutorAcademico, int idProgramaEducativo) {
         super(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
         this.id = id;
         this.matricula = matricula;
+        this.enRiesgo = enRiesgo;
         this.idProgramaEducativo = idProgramaEducativo;
         this.idTutorAcademico = idTutorAcademico;
     }
@@ -49,6 +50,10 @@ public class Estudiante extends Persona {
     public int getIdTutorAcademico() {
         return idTutorAcademico;
     }
+    
+    public boolean getEnRiesgo() {
+        return enRiesgo;
+    }
 
     // Setters of uv.fei.tutorias.domain.Estudiante
     public void setId(int id) {
@@ -67,10 +72,6 @@ public class Estudiante extends Persona {
         this.idTutorAcademico = idTutorAcademico;
     }
 
-    public boolean getEnRiesgo() {
-        return enRiesgo;
-    }
-
     public void setEnRiesgo(boolean enRiesgo) {
         this.enRiesgo = enRiesgo;
     }
@@ -83,6 +84,7 @@ public class Estudiante extends Persona {
                     && this.matricula.equals(tmpEstudiante.getMatricula())
                     && this.idPersona == tmpEstudiante.getIdPersona()
                     && this.nombre.equals(tmpEstudiante.getNombre())
+                    && this.enRiesgo == tmpEstudiante.getEnRiesgo()
                     && this.apellidoPaterno.equals(tmpEstudiante.getApellidoPaterno())
                     && this.apellidoMaterno.equals(tmpEstudiante.getApellidoMaterno())
                     && this.idProgramaEducativo == tmpEstudiante.getIdProgramaEducativo()
