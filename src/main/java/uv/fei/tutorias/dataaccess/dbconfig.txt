@@ -1,0 +1,3 @@
+DireccionBD = jdbc:mysql://sql5.freesqldatabase.com/sql5497387
+Usuario = sql5497387
+Contrasenia = EyryWBDYyf
