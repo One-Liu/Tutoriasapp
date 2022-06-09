@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.SingnUpController">
+   <children>
+      <Button fx:id="okButton" layoutX="416.0" layoutY="352.0" mnemonicParsing="false" onMouseClicked="#onOkButton" text="Ok" />
+      <Button layoutX="491.0" layoutY="352.0" mnemonicParsing="false" text="Cancelar" />
+      <Label layoutX="65.0" layoutY="90.0" text="Nombre" />
+      <Label layoutX="42.0" layoutY="125.0" text="Apellido Paterno" />
+      <Label layoutX="42.0" layoutY="167.0" text="Apellido Materno" />
+      <Label layoutX="34.0" layoutY="200.0" text="Correro institucional" />
+      <Label layoutX="416.0" layoutY="69.0" text="Tipo" />
+      <TextField fx:id="nombre" layoutX="234.0" layoutY="86.0" />
+      <TextField fx:id="apellidoPaterno" layoutX="234.0" layoutY="121.0" />
+      <TextField fx:id="apellidoMaterno" layoutX="234.0" layoutY="163.0" />
+      <TextField fx:id="correoInstitucional" layoutX="234.0" layoutY="196.0" />
+      <ComboBox fx:id="tipo" layoutX="416.0" layoutY="99.0" prefWidth="150.0" promptText="Tipo de usuario">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Jefe de carrera" />
+               <String fx:value="Coordinador" />
+               <String fx:value="Tutor academico" />
+            </FXCollections>
+         </items>
+
+      </ComboBox>
+      <Label layoutX="42.0" layoutY="247.0" text="Contraseña" />
+      <PasswordField fx:id="pastxtcontrasena" layoutX="234.0" layoutY="252.0" />
+
+
+   </children>
+</Pane>

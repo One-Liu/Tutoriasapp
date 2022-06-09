@@ -14,8 +14,6 @@ public class PeriodoEscolar {
     
     public PeriodoEscolar(String fechaInicio, String fechaTermino) {
         this.id = 0;
-        this.fechaInicio = fechaInicio;
-        this.fechaTermino = fechaTermino;
     }
     
     public PeriodoEscolar(int id, String fechaInicio, String fechaTermino) {

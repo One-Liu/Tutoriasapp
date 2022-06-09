@@ -32,7 +32,7 @@ public class InformacionTutorAcademicoControlador implements Initializable {
 
     public void inicializarValores(TutorAcademico tutorSeleccionado) throws SQLException {
         nombreTutor.setText(tutorSeleccionado.getNombre() + " " + tutorSeleccionado.getApellidoPaterno() + " " + tutorSeleccionado.getApellidoMaterno());
-        int idTutor = tutorSeleccionado.getIdTutorAcademico();
+        int idTutor = tutorSeleccionado.getId();
         TutorAcademicoDAO tutorDAO = new TutorAcademicoDAO();
         TutorAcademico datosTutor = tutorDAO.obtenerTutorAcademicoPorId(idTutor);
         correoInstitucionalTutor.setText(datosTutor.getCorreoInstitucional());

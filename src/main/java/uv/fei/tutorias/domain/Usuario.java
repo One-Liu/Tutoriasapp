@@ -1,27 +1,38 @@
 package uv.fei.tutorias.domain;
 
-public class Usuario extends Persona{
-    int id;
+public class Usuario extends Persona {
+    int idUsuario;
     String contrasena;
     String correoInstitucional;
 
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+    }
+    
+    public Usuario(int idUsuario, String contrasena, String correoInstitucional, String nombre, String apellidoPaterno, String apellidoMaterno) {
+        super(nombre, apellidoPaterno, apellidoMaterno);
+        this.idUsuario = idUsuario;
+        this.contrasena = contrasena;
+        this.correoInstitucional = correoInstitucional;
+    }
+    
     public Usuario(String contrasena, String correoInstitucional) {
         this.contrasena = contrasena;
         this.correoInstitucional = correoInstitucional;
     }
 
     public Usuario() {
-        this.id = 0;
+        this.idUsuario = 0;
         this.contrasena = "";
         this.correoInstitucional = "";
     }
 
     public int getIdUsuario() {
-        return id;
+        return idUsuario;
     }
 
     public void setIdUsuario(int id) {
-        this.id = id;
+        this.idUsuario = id;
     }
 
     public String getContrasena() {
@@ -47,35 +58,26 @@ public class Usuario extends Persona{
 
         Usuario usuario = (Usuario) o;
 
+        if (getIdUsuario() != usuario.getIdUsuario()) return false;
         if (getContrasena() != null ? !getContrasena().equals(usuario.getContrasena()) : usuario.getContrasena() != null)
             return false;
         return getCorreoInstitucional() != null ? getCorreoInstitucional().equals(usuario.getCorreoInstitucional()) : usuario.getCorreoInstitucional() == null;
     }
 
+    @Override
+    public int hashCode() {
+        int result = getIdUsuario();
+        result = 31 * result + (getContrasena() != null ? getContrasena().hashCode() : 0);
+        result = 31 * result + (getCorreoInstitucional() != null ? getCorreoInstitucional().hashCode() : 0);
+        return result;
+    }
 
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
+                "id=" + idUsuario +
                 ", contrasena='" + contrasena + '\'' +
                 ", correoInstitucional='" + correoInstitucional + '\'' +
                 '}';
-    }
-
-    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String contrasena, String correoInstitucional) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.contrasena = contrasena;
-        this.correoInstitucional = correoInstitucional;
-    }
-
-    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, int id, String contrasena, String correoInstitucional) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.id = id;
-        this.contrasena = contrasena;
-        this.correoInstitucional = correoInstitucional;
-    }
-
-    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
     }
 }

@@ -19,7 +19,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         ArrayList<ProblematicaAcademica> problematicasAcademicas = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "SELECT  * from problematica_academica where descripcion like ?";
+            String query = "SELECT  * from problematicaacademica where descripcion like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + serchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -30,9 +30,9 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
                 String descripcion = "";
                 int experienciaEducativaIdExperienciaEducativa = 0;
                 do {
-                    idproblematicaAcademica = resultSet.getInt("id");
+                    idproblematicaAcademica = resultSet.getInt("idProblematicaAcademica");
                     descripcion = resultSet.getString("descripcion");
-                    experienciaEducativaIdExperienciaEducativa = resultSet.getInt("idExperienciaEducativa");
+                    experienciaEducativaIdExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
 
                     ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,descripcion,experienciaEducativaIdExperienciaEducativa);
                     problematicasAcademicas.add(problematicaAcademica);
@@ -49,11 +49,11 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     }
 
     @Override
-    public List<ProblematicaAcademica> mostrarTodasLasProblematicasAcademicas() {
+    public List<ProblematicaAcademica> findAllProblematicasAcademicas() {
         ArrayList<ProblematicaAcademica> experienciasEducativas = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "SELECT  * from problematica_academica";
+            String query = "SELECT  * from problematicaacademica";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){
@@ -63,9 +63,9 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
                 String descripcion = "";
                 int experienciaEducativaIdExperienciaEducativa = 0;
                 do {
-                    idproblematicaAcademica = resultSet.getInt("id");
+                    idproblematicaAcademica = resultSet.getInt("idProblematicaAcademica");
                     descripcion = resultSet.getString("descripcion");
-                    experienciaEducativaIdExperienciaEducativa = resultSet.getInt("idExperienciaEducativa");
+                    experienciaEducativaIdExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
 
                     ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,descripcion,experienciaEducativaIdExperienciaEducativa);
                     experienciasEducativas.add(problematicaAcademica);

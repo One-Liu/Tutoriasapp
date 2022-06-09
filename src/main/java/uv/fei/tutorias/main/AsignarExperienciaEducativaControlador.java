@@ -29,8 +29,6 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
     @FXML
     private TableColumn<ExperienciaEducativa, String> colNombreEE;
     @FXML
-    private ToggleButton tbtnEESinProfesorAsignado;
-    @FXML
     private Button btnRegresa;
     @FXML
     private Button btnAsignarEEaProfesor;
