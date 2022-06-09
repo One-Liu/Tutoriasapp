@@ -1,6 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,8 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se han encontrado periodos escolares");
+                LOGGER.warn(PeriodoEscolarDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 do {
                     periodosEscolares.add(getPeriodoEscolar(resultado));
@@ -46,7 +48,8 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             sentencia.setInt(1, idPeriodoEscolar);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se ha encontrado el periodo escolar con el id " + idPeriodoEscolar);
+                LOGGER.warn(PeriodoEscolarDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 periodoEscolar = getPeriodoEscolar(resultado);
             }
@@ -58,14 +61,14 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
 
     private PeriodoEscolar getPeriodoEscolar(ResultSet resultado) throws SQLException {
         int idPeriodoEscolar;
-        String fechaInicio;
-        String fechaTermino;
+        Date fechaInicio;
+        Date fechaTermino;
 
         idPeriodoEscolar = resultado.getInt("id");
-        fechaInicio = resultado.getString("fechaInicio");
-        fechaTermino = resultado.getString("fechaTermino");
+        fechaInicio = resultado.getDate("fechaInicio");
+        fechaTermino = resultado.getDate("fechaTermino");
         
-        PeriodoEscolar periodoEscolar = new PeriodoEscolar(idPeriodoEscolar,fechaInicio,fechaTermino);
+        PeriodoEscolar periodoEscolar = new PeriodoEscolar(idPeriodoEscolar,(java.util.Date) fechaInicio,(java.util.Date) fechaTermino);
         return periodoEscolar;
     }
 
@@ -76,11 +79,12 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, periodoEscolar.getFechaInicio());
-            sentencia.setString(2, periodoEscolar.getFechaTermino());
+            sentencia.setDate(1, (Date) periodoEscolar.getFechaInicio());
+            sentencia.setDate(2, (Date) periodoEscolar.getFechaTermino());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: El periodo escolar no se ha agregado");
+                LOGGER.warn(PeriodoEscolarDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 validacion = true;
             }
@@ -100,7 +104,8 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             sentencia.setInt(1, idPeriodoEscolar);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha eliminado el periodo escolar con el id " + idPeriodoEscolar);
+                LOGGER.warn(PeriodoEscolarDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 validacion = true;
             }
@@ -121,12 +126,13 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, periodoEscolar.getFechaInicio());
-            sentencia.setString(2, periodoEscolar.getFechaTermino());
+            sentencia.setDate(1, (Date) periodoEscolar.getFechaInicio());
+            sentencia.setDate(2, (Date) periodoEscolar.getFechaTermino());
             sentencia.setInt(3, periodoEscolar.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha modificado el periodo escolar con el id " + periodoEscolar.getId());
+                LOGGER.warn(PeriodoEscolarDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             }
             validacion = true;
         } finally {

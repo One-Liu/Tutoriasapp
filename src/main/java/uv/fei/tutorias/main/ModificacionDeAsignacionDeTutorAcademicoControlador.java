@@ -41,7 +41,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
         escenarioPrincipal.close();
     }
     
-    private void setTutorAcademico(TutorAcademico tutorAcademico) {
+    public void setTutorAcademico(TutorAcademico tutorAcademico) {
         this.tutorAcademicoAnterior = tutorAcademico;
     }
     

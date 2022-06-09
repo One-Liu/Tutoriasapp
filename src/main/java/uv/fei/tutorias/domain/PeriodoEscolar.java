@@ -1,22 +1,27 @@
 package uv.fei.tutorias.domain;
 
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Date;
+
+
 // author @liu
 public class PeriodoEscolar {
     private int id;
-    private String fechaInicio;
-    private String fechaTermino;
+    private Date fechaInicio;
+    private Date fechaTermino;
 
     public PeriodoEscolar() {
         this.id = 0;
-        this.fechaInicio = "";
-        this.fechaTermino = "";
+        this.fechaInicio = new Date();
+        this.fechaTermino = new Date();
     }
     
-    public PeriodoEscolar(String fechaInicio, String fechaTermino) {
+    public PeriodoEscolar(Date fechaInicio, Date fechaTermino) {
         this.id = 0;
     }
     
-    public PeriodoEscolar(int id, String fechaInicio, String fechaTermino) {
+    public PeriodoEscolar(int id, Date fechaInicio, Date fechaTermino) {
         this.id = id;
         this.fechaInicio = fechaInicio;
         this.fechaTermino = fechaTermino;
@@ -27,12 +32,19 @@ public class PeriodoEscolar {
         return id;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public String getFechaTermino() {
+    public Date getFechaTermino() {
         return fechaTermino;
+    }
+    
+    public String getFechas() {
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("MMMM yyyy");
+        String fechaInicioConFormato = formatoFecha.format((TemporalAccessor) this.fechaInicio);
+        String fechaTerminoConFormato = formatoFecha.format((TemporalAccessor) this.fechaTermino);
+        return fechaInicioConFormato.toUpperCase() + " - " + fechaTerminoConFormato.toUpperCase();
     }
 
     // Setters of uv.fei.tutorias.domain.PeriodoEscolar
@@ -40,11 +52,11 @@ public class PeriodoEscolar {
         this.id = id;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public void setFechaTermino(String fechaTermino) {
+    public void setFechaTermino(Date fechaTermino) {
         this.fechaTermino = fechaTermino;
     }
     
@@ -59,10 +71,5 @@ public class PeriodoEscolar {
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return getFechaInicio() + " - " + getFechaTermino();
     }
 }

@@ -47,7 +47,7 @@ public class InformacionTutorAcademicoControlador implements Initializable {
     private void mostrarEstudianteTabla(int idTutor) {
         ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
         EstudianteDAO estudianteDAO = new EstudianteDAO();
-        listaEstudiantes = estudianteDAO.recuperarTodosEstudiantesPorIDTutor(idTutor);
+        listaEstudiantes = estudianteDAO.obtenerEstudiantesDeTutor(idTutor);
         if (listaEstudiantes != null) {
             listaObservableEstudiantes.addAll(listaEstudiantes);
             tablaEstudiantes.setItems(listaObservableEstudiantes);
