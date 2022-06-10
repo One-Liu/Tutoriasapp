@@ -8,5 +8,6 @@
       <Button layoutX="162.0" layoutY="134.0" mnemonicParsing="false" onAction="#clicConsultarReporteGeneralDeTutoriasAcademicas" text="Consultar reporte general de tutorias academicas" />
       <Button layoutX="196.0" layoutY="187.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeSesionDeTutoria" text="Registrar fechas de sesion de tutoria" />
       <Button layoutX="155.0" layoutY="234.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeCierreParaLaEntregaDeReporte" text="Registrar fechas de cierre para la entrega de reporte" />
+      <Button layoutX="221.0" layoutY="282.0" mnemonicParsing="false" onAction="#clicConsultarOfertaAcademica" text="Consultar oferta academica" />
    </children>
 </AnchorPane>

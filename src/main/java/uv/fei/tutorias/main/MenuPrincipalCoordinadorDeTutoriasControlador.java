@@ -19,4 +19,6 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     }
 
 
+    public void clicConsultarOfertaAcademica(ActionEvent actionEvent) {
+    }
 }
