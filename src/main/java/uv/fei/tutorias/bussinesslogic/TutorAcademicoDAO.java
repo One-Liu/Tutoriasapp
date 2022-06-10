@@ -204,4 +204,32 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         }
         return listaTutores;
     }
+    
+    @Override
+    public ObservableList<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException {
+        ObservableList<TutorAcademico> tutores = FXCollections.observableArrayList();
+        String consulta =
+                "SELECT TA.idTutorAcademico, P.* " +
+                "FROM TutorAcademico TA INNER JOIN Persona P ON P.idPersona = TA.idPersona" +
+                "WHERE TA.idTutorAcademico != ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try (Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idTutorAcademico);
+            ResultSet resultado = sentencia.executeQuery();
+            if (!resultado.next()) {
+                throw new SQLException("No se han encontrado tutores academicos");
+            } else {
+                do {
+                    tutores.add(getTutorAcademico(resultado));
+                } while (resultado.next());
+            }
+        } catch (SQLException ex) {
+            LOGGER.warn(TutorAcademicoDAO.class.getName(), ex);
+            throw new SQLException("No hay conexion a la base de datos");
+        }finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return tutores;
+    }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="464.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.InformacionTutorAcademicoControlador">
+   <children>
+      <Label fx:id="nombreTutor" layoutX="325.0" layoutY="51.0" text="NombreTutor" />
+      <Label layoutX="194.0" layoutY="115.0" text="Correo Electrónico Institucional:" />
+      <Label fx:id="correoInstitucionalTutor" layoutX="377.0" layoutY="115.0" text="CorreoInstitucioalTutor" />
+      <Label layoutX="42.0" layoutY="183.0" text="Lista de estudiantes asignados" />
+      <TableView fx:id="tablaEstudiantes" layoutX="35.0" layoutY="208.0" prefHeight="200.0" prefWidth="667.0">
+        <columns>
+          <TableColumn fx:id="estudianteMatricula" prefWidth="120.0" text="Matrícula" />
+            <TableColumn fx:id="estudianteNombre" prefWidth="205.0" text="Nombre" />
+            <TableColumn fx:id="estudianteApellidoPaterno" prefWidth="169.0" text="Apellido Paterno" />
+            <TableColumn fx:id="estudianteApellidoMaterno" prefWidth="172.0" text="Apellido Materno" />
+        </columns>
+      </TableView>
+      <Button layoutX="459.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#cerrarBoton" text="Cerrar" />
+      <Button layoutX="539.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#descargarBoton" text="Descargar" />
+      <Button layoutX="640.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#imprimirBoton" text="Imprimir" />
+   </children>
+</AnchorPane>

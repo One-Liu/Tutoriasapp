@@ -50,6 +50,6 @@ public class SesionDeTutoriaAcademicaDAOTest {
     
     @Test
     public void testModificarSesionDeTutoriaAcademica() throws SQLException {
-        assertTrue(sesionDeTutoriaAcademicaDAO.modificarSesionDeTutoriaAcademica(sesionDeTutoriaAcademica1));
+        assertTrue(sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(sesionDeTutoriaAcademica1));
     }
 }

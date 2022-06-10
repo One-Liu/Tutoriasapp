@@ -1,6 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,8 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se han encontrado sesiones de tutoría académica");
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 do {
                     sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
@@ -46,7 +48,8 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setInt(1, idSesionDeTutoriaAcademica);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se ha encontrado la sesión de tutoría académica con el id " + idSesionDeTutoriaAcademica);
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 sesionDeTutoriaAcademica = getSesionDeTutoriaAcademica(resultado);
             }
@@ -58,13 +61,14 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
 
     private SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultado) throws SQLException {
         int idSesionDeTutoriaAcademica;
-        String fecha;
+        Date fecha;
         int idPeriodoEscolar;
         
         idSesionDeTutoriaAcademica = resultado.getInt("id");
-        fecha = resultado.getString("fecha");
+        fecha = resultado.getDate("fecha");
         idPeriodoEscolar = resultado.getInt("idPeriodoEscolar");
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,fecha,idPeriodoEscolar);
+        
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,(java.util.Date) fecha,idPeriodoEscolar);
         return sesionDeTutoriaAcademica;
     }
 
@@ -75,11 +79,12 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, sesionDeTutoriaAcademica.getFecha());
+            sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getFecha());
             sentencia.setInt(2, sesionDeTutoriaAcademica.getIdPeriodoEscolar());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: La sesión de tutoría académica no se ha agregado");
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 validacion = true;
             }
@@ -99,7 +104,8 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setInt(1, idSesionDeTutoriaAcademica);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha eliminado la sesión de tutoría académica con el id " + idSesionDeTutoriaAcademica);
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 validacion = true;
             }
@@ -110,29 +116,49 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
     }
     
     @Override
-    public boolean modificarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
+    public boolean modificarFechaDeSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
         boolean validacion = false;
         String consulta = 
                 "UPDATE sesion_de_tutoria_academica " + 
                 "SET fecha = ?, " +
-                "SET hora = ?, " +
-                "SET idPeriodoEscolar = ? " +
                 "WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, sesionDeTutoriaAcademica.getFecha());
-            sentencia.setString(2, sesionDeTutoriaAcademica.getHora());
-            sentencia.setInt(3, sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-            sentencia.setInt(4, sesionDeTutoriaAcademica.getId());
+            sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getFecha());
+            sentencia.setInt(2, sesionDeTutoriaAcademica.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha modificado la sesion de tutoria academica con el id " + sesionDeTutoriaAcademica.getId());
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             }
             validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
+    }
+    
+    @Override
+    public ObservableList<SesionDeTutoriaAcademica> obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(int idPeriodoEscolar) throws SQLException {
+        ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
+        String consulta = "SELECT * FROM sesion_de_tutoria_academica WHERE idPeriodoEscolar = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idPeriodoEscolar);
+            ResultSet resultado = sentencia.executeQuery();
+            if(!resultado.next()) {
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
+            } else {
+                do {
+                    sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
+                } while(resultado.next());
+            }
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return sesionesDeTutoriaAcademica;
     }
 }

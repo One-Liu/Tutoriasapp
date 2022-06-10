@@ -1,40 +1,29 @@
 package uv.fei.tutorias.domain;
 
+import java.util.Date;
+
 // author @liu
 public class SesionDeTutoriaAcademica {
     private int id;
-    private String fecha;
-    private String hora;
+    private Date fecha;
     private int idPeriodoEscolar;
 
     public SesionDeTutoriaAcademica() {
         this.id = 0;
-        this.fecha = "";
-        this.hora = "";
+        this.fecha = new Date();
         this.idPeriodoEscolar = 0;
     }
 
-    public SesionDeTutoriaAcademica(String fecha, String hora, int idPeriodoEscolar) {
+    public SesionDeTutoriaAcademica(Date fecha, int idPeriodoEscolar) {
         this.id = 0;
         this.fecha = fecha;
-        this.hora = hora;
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
     
-    public SesionDeTutoriaAcademica(int id, String fecha, String hora, int idPeriodoEscolar) {
-        this.id = id;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.idPeriodoEscolar = idPeriodoEscolar;
-    }
-
-    public SesionDeTutoriaAcademica(int id, String fecha, int idPeriodoEscolar) {
+    public SesionDeTutoriaAcademica(int id, Date fecha, int idPeriodoEscolar) {
         this.id = id;
         this.fecha = fecha;
         this.idPeriodoEscolar = idPeriodoEscolar;
-
-
-
     }
 
     // Getters of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
@@ -42,12 +31,8 @@ public class SesionDeTutoriaAcademica {
         return id;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
-    }
-
-    public String getHora() {
-        return hora;
     }
 
     public int getIdPeriodoEscolar() {
@@ -59,12 +44,8 @@ public class SesionDeTutoriaAcademica {
         this.id = id;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
     }
 
     public void setIdPeriodoEscolar(int idPeriodoEscolar) {
@@ -77,16 +58,10 @@ public class SesionDeTutoriaAcademica {
             SesionDeTutoriaAcademica tmpSesionDeTutoriaAcademica = (SesionDeTutoriaAcademica)obj;
             if(this.id == tmpSesionDeTutoriaAcademica.getId()
                     && this.fecha.equals(tmpSesionDeTutoriaAcademica.getFecha())
-                    && this.hora.equals(tmpSesionDeTutoriaAcademica.getHora())
                     && this.idPeriodoEscolar == tmpSesionDeTutoriaAcademica.getIdPeriodoEscolar()) {
                 return true;
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return getFecha();
     }
 }
