@@ -7,7 +7,7 @@ import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.io.IOException;
 
-public class GUIMenuPrincipalDeTutorAcademico {
+public class MenuPrincipalDeTutorAcademicoControlador {
     @FXML
     private AnchorPane panel;
 
