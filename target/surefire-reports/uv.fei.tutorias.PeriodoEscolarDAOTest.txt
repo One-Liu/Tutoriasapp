@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: uv.fei.tutorias.PeriodoEscolarDAOTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 7.167 sec <<< FAILURE! - in uv.fei.tutorias.PeriodoEscolarDAOTest
-testObtenerPeriodosEscolares on testObtenerPeriodosEscolares(uv.fei.tutorias.PeriodoEscolarDAOTest)(uv.fei.tutorias.PeriodoEscolarDAOTest)  Time elapsed: 0.661 sec  <<< FAILURE!
-java.lang.AssertionError
-	at uv.fei.tutorias.PeriodoEscolarDAOTest.testObtenerPeriodosEscolares(PeriodoEscolarDAOTest.java:40)
-
