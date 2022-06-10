@@ -2,14 +2,12 @@ package uv.fei.tutorias.main;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -92,7 +90,7 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     }
     
     @FXML
-    private void clicGuardar() {
+    private void clicGuardar(ActionEvent event) {
         Date fechaPrimeraSesionSeleccionada = (Date) java.sql.Date.valueOf(dpPrimeraSesion.getValue());
         Date fechaSegundaSesionSeleccionada = (Date) java.sql.Date.valueOf(dpSegundaSesion.getValue());
         Date fechaTerceraSesionSeleccionada = (Date) java.sql.Date.valueOf(dpTerceraSesion.getValue());
@@ -113,7 +111,7 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     }
     
     @FXML
-    private void clicCancelar() {
+    private void clicCancelar(ActionEvent event) {
         cerrarGUI();
     }
 }

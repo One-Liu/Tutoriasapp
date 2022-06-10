@@ -1,22 +1,26 @@
 package uv.fei.tutorias.domain;
 
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Date;
+
 // author @liu
 public class FechaDeCierreEntregaDeReporte {
     private int id;
-    private String fecha;
+    private Date fecha;
 
     // Constructors of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
     public FechaDeCierreEntregaDeReporte() {
         this.id = 0;
-        this.fecha = "";
+        this.fecha = new Date();
     }
 
-    public FechaDeCierreEntregaDeReporte(String fecha) {
+    public FechaDeCierreEntregaDeReporte(Date fecha) {
         this.id = 0;
         this.fecha = fecha;
     }
 
-    public FechaDeCierreEntregaDeReporte(int id, String fecha) {
+    public FechaDeCierreEntregaDeReporte(int id, Date fecha) {
         this.id = id;
         this.fecha = fecha;
     }
@@ -26,8 +30,14 @@ public class FechaDeCierreEntregaDeReporte {
         return id;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
+    }
+    
+    public String getFechaConFormato() {
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaConFormato = formatoFecha.format((TemporalAccessor) this.fecha);
+        return fechaConFormato;
     }
 
     // Setters of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
@@ -35,7 +45,7 @@ public class FechaDeCierreEntregaDeReporte {
         this.id = id;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -49,10 +59,5 @@ public class FechaDeCierreEntregaDeReporte {
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return this.getFecha();
     }
 }
