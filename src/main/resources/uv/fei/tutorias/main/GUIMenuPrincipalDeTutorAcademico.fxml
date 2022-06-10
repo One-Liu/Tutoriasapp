@@ -5,7 +5,7 @@
 
 <AnchorPane fx:id="panel" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalDeTutorAcademicoControlador">
    <children>
-      <Button layoutX="192.0" layoutY="135.0" mnemonicParsing="false" onAction="#actLLenarReporteDeTutoriasAcademicas" text="Llenar reporte de tutorias academicas" />
-      <Button layoutX="192.0" layoutY="187.0" mnemonicParsing="false" onAction="#actConsultarProblematicaAcademica" text="Consultar problemtaica academica" />
+      <Button layoutX="192.0" layoutY="135.0" mnemonicParsing="false" onAction="#clicLLenarReporteDeTutoriasAcademicas" text="Llenar reporte de tutorias academicas" />
+      <Button layoutX="192.0" layoutY="187.0" mnemonicParsing="false" onAction="#clicConsultarProblematicaAcademica" text="Consultar problematica academica" />
    </children>
 </AnchorPane>
