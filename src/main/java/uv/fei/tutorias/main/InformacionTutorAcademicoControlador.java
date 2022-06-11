@@ -32,7 +32,7 @@ public class InformacionTutorAcademicoControlador implements Initializable {
 
     public void inicializarValores(TutorAcademico tutorSeleccionado) throws SQLException {
         nombreTutor.setText(tutorSeleccionado.getNombre() + " " + tutorSeleccionado.getApellidoPaterno() + " " + tutorSeleccionado.getApellidoMaterno());
-        int idTutor = tutorSeleccionado.getId();
+        int idTutor = tutorSeleccionado.getIdTutorAcademico();
         TutorAcademicoDAO tutorDAO = new TutorAcademicoDAO();
         TutorAcademico datosTutor = tutorDAO.obtenerTutorAcademicoPorId(idTutor);
         correoInstitucionalTutor.setText(datosTutor.getCorreoInstitucional());
@@ -47,7 +47,7 @@ public class InformacionTutorAcademicoControlador implements Initializable {
     private void mostrarEstudianteTabla(int idTutor) {
         ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
         EstudianteDAO estudianteDAO = new EstudianteDAO();
-        listaEstudiantes = estudianteDAO.recuperarTodosEstudiantesPorIDTutor(idTutor);
+//        listaEstudiantes = estudianteDAO.recuperarTodosEstudiantesPorIDTutor(idTutor);
         if (listaEstudiantes != null) {
             listaObservableEstudiantes.addAll(listaEstudiantes);
             tablaEstudiantes.setItems(listaObservableEstudiantes);
