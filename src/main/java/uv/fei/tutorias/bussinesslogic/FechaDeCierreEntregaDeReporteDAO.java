@@ -1,6 +1,7 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,12 +58,12 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
 
     private FechaDeCierreEntregaDeReporte getFechaDeCierreEntregaDeReporte(ResultSet resultado) throws SQLException {
         int idFechaDeCierreEntregaReporte;
-        String fechaDeCierre;
+        Date fechaDeCierre;
         
         idFechaDeCierreEntregaReporte = resultado.getInt("id");
-        fechaDeCierre = resultado.getString("fecha");
+        fechaDeCierre = resultado.getDate("fecha");
         
-        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte,fechaDeCierre);
+        FechaDeCierreEntregaDeReporte fechaDeCierreEntregaReporte = new FechaDeCierreEntregaDeReporte(idFechaDeCierreEntregaReporte, (java.util.Date) fechaDeCierre);
         return fechaDeCierreEntregaReporte;
     }
 
@@ -73,7 +74,7 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, fechaDeCierreEntregaDeReporte.getFecha());
+            sentencia.setDate(1, (Date) fechaDeCierreEntregaDeReporte.getFecha());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 throw new SQLException("ERROR: La fecha de cierre de entrega de reporte no se ha agregado");
@@ -116,7 +117,7 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, fechaDeCierreEntregaDeReporte.getFecha());
+            sentencia.setDate(1, (Date) fechaDeCierreEntregaDeReporte.getFecha());
             sentencia.setInt(2, fechaDeCierreEntregaDeReporte.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
