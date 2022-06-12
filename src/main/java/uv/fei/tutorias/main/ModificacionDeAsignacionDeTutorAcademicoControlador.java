@@ -50,7 +50,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     }
     
     private void cargarTutoresAcademicos() throws SQLException {
-        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.tutorAcademicoAnterior.getId());
+        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.tutorAcademicoAnterior.getIdTutorAcademico());
     }
     
     public void cargarCamposGUI() {
@@ -83,7 +83,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
         } else if(tutorAcademicoSeleccionado == null) {
             Utilidad.mostrarAlertaSinConfirmacion("Seleccion de tutor académico", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
         } else {
-            estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getId());
+            estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
             try {
                 estudianteDAO.modificarAsignacionDeTutor(estudianteSeleccionado);
                 Utilidad.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);

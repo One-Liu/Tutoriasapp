@@ -75,7 +75,7 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
         } else if(tutorAcademicoSeleccionado == null) {
             Utilidad.mostrarAlertaSinConfirmacion("Seleccion de tutor académico", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
         } else {
-            estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getId());
+            estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
             try {
                 estudianteDAO.modificarAsignacionDeTutor(estudianteSeleccionado);
                 Utilidad.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);

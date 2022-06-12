@@ -18,10 +18,9 @@ public class AplicacionDePrueba extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml").toUri().toURL();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Scene scene = new Scene(fxmlLoader.load(url ), 600, 600);
-        primaryStage.setTitle("Experiencias educativas");
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("GUILogin.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        primaryStage.setTitle("Aplicacion de prueba");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

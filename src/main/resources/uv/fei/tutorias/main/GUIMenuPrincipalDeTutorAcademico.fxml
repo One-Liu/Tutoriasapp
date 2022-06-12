@@ -3,9 +3,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="panel" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.GUIMenuPrincipalDeTutorAcademico">
+<AnchorPane fx:id="panel" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalDeTutorAcademicoControlador">
    <children>
+<<<<<<< HEAD
       <Button layoutX="192.0" layoutY="135.0" mnemonicParsing="false" onAction="#actLLenarReporteDeTutoriasAcademicas" text="Llenar reporte de tutorias academicas" />
       <Button layoutX="192.0" layoutY="187.0" mnemonicParsing="false" onAction="#actConsultarProblematicaAcademica" text="Consultar problemtaica academica" />
+=======
+      <Button layoutX="192.0" layoutY="135.0" mnemonicParsing="false" onAction="#clicLLenarReporteDeTutoriasAcademicas" text="Llenar reporte de tutorias academicas" />
+      <Button layoutX="192.0" layoutY="187.0" mnemonicParsing="false" onAction="#clicConsultarProblematicaAcademica" text="Consultar problematica academica" />
+>>>>>>> 6ed099039e1319beda2c5b37cf2429b6b9f34e10
    </children>
 </AnchorPane>

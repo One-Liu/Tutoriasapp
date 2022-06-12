@@ -44,7 +44,7 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
         ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
         ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
         reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());
-        reporteDeTutoriaAcademica.setIdTutorAcademico(tutorAcademico.getId());
+        reporteDeTutoriaAcademica.setIdTutorAcademico(tutorAcademico.getIdTutorAcademico());
         reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(6);
         reporteDeTutoriaAcademicaDAO.addReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
     }

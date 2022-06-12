@@ -7,18 +7,18 @@ import uv.fei.tutorias.domain.TutorAcademico;
 
 import java.io.IOException;
 
-public class GUIMenuPrincipalDeTutorAcademico {
+public class MenuPrincipalDeTutorAcademicoControlador {
     @FXML
     private AnchorPane panel;
 
-    public void actLLenarReporteDeTutoriasAcademicas(ActionEvent actionEvent) throws IOException {
+    public void clicLLenarReporteDeTutoriasAcademicas(ActionEvent actionEvent) {
         TutorAcademico tutorAcademico = new TutorAcademico();
         tutorAcademico = (TutorAcademico) Utilidad.recuperarValoresDeLaVentana(panel,tutorAcademico);
         System.out.println(tutorAcademico);
-        Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml","LLenar reporte de tutoria",actionEvent);
+//        Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml","LLenar reporte de tutoria",actionEvent);
+
     }
 
-
-    public void actConsultarProblematicaAcademica(ActionEvent actionEvent) {
+    public void clicConsultarProblematicaAcademica(ActionEvent actionEvent) {
     }
 }
