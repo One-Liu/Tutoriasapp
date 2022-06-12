@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.Estudiante;
@@ -27,15 +26,11 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     @FXML
     private Button btnCancelar;
     
-    private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
-    private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     private EstudianteDAO estudianteDAO = new EstudianteDAO();
     private TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
     
-    private void cerrarGUI() {
-        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
-        escenarioPrincipal.close();
-    }
+    private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+    private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
     private void cargarEstudiantes() throws SQLException {
         this.estudiantes = estudianteDAO.obtenerEstudiantesSinTutorAsignado();
@@ -63,26 +58,24 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     
     @FXML
     private void clicCancelar(ActionEvent event) {
-        cerrarGUI();
+        UtilidadVentana.cerrarVentana(event);
     }
     
     @FXML
     private void clicRegistrar(ActionEvent event) {
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
-        if(estudianteSeleccionado == null) {
-            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de estudiante", "Seleccione un estudiante válido", Alert.AlertType.WARNING);
-        } else if(tutorAcademicoSeleccionado == null) {
-            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de tutor académico", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
-        } else {
-            estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
-            try {
-                estudianteDAO.modificarAsignacionDeTutor(estudianteSeleccionado);
-                UtilidadVentana.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);
-            } catch(SQLException ex) {
-                UtilidadVentana.mensajePerdidaDeConexion();
-            }
+        estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
+        try {
+            estudianteDAO.modificarAsignacionDeTutor(estudianteSeleccionado);
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Confirmación de registro", 
+                    "La asignación de tutor académico ha sido registrada correctamente", 
+                    Alert.AlertType.INFORMATION);
+        } catch(SQLException ex) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
-        cerrarGUI();
+        
+        UtilidadVentana.cerrarVentana(event);
     }
 }
