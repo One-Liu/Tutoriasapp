@@ -15,5 +15,5 @@ public interface IListaDeAsistenciaDAO {
     public boolean eliminarListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException;
     public boolean modificarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException;
 
-    ObservableList<ListaDeAsistencia> obtenerListasDeAsistenciaPorIdTutorAcademico(int idSesionDeTutoriaAcademica);
+    ObservableList<ListaDeAsistencia> obtenerListasDeAsistenciaPorIdTutorAcademico(int idSesionDeTutoriaAcademica) throws SQLException;
 }

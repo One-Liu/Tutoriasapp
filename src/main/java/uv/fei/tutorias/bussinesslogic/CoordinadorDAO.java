@@ -20,21 +20,19 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         ArrayList<Coordinador> coordinadores = new ArrayList<>();
         String consulta =
                 "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-                        "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona";
+                "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se han encontrado coordinadores");
+                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 do {
                     coordinadores.add(getCoordinador(resultado));
                 }while(resultado.next());
             }
-        } catch(SQLException ex) {
-            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
-            throw new  SQLException("No hay conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -46,21 +44,19 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         Coordinador coordinador = new Coordinador();
         String consulta =
                 "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-                        "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona " +
-                        "WHERE C.id = ?";
+                "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona " +
+                "WHERE C.id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idCoordinador);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se ha encontrado el coordinador con el id " + idCoordinador);
+                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexión con la base de datos");
             } else {
                 coordinador = getCoordinador(resultado);
             }
-        } catch(SQLException ex) {
-            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
-            throw new SQLException("Error en la conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -99,14 +95,12 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(3, coordinador.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: El coordinador no se ha agregado");
+                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexión con la base de datos");
             } else {
                 validacion = true;
              }
-        }catch (SQLException ex){
-            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
-            throw new SQLException("Error en la conexion a la base de datos");
-        }finally {
+        } finally {
             baseDeDatos.cerrarConexion();
         }
         return validacion;
@@ -122,12 +116,10 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(1, idCoordinador);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha eliminado el coordinador con el id " + idCoordinador);
+                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexión con la base de datos");
             }
             validacion = true;
-        }catch (SQLException ex){
-            LOGGER.warn(CoordinadorDAO.class.getName(),ex);
-            throw new SQLException("Error en la conexion a la base de datos");
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -152,7 +144,8 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(4, coordinador.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha modificado el coordinador con el id " + coordinador.getId());
+                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexión con la base de datos");
             }
             validacion = true;
         } finally {

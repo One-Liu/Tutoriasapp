@@ -24,7 +24,8 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se han encontrado fechas de cierre de entrega de reporte");
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 do {
                     fechasDeCierreEntregaReporte.add(getFechaDeCierreEntregaDeReporte(resultado));
@@ -46,7 +47,8 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setInt(1, idFechaDeCierreEntregaReporte);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                throw new SQLException("No se ha encontrado la fecha de cierre de entrega de reporte con el id " + idFechaDeCierreEntregaReporte);
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 fechaDeCierreEntregaReporte = getFechaDeCierreEntregaDeReporte(resultado);
             }
@@ -77,7 +79,8 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setDate(1, (Date) fechaDeCierreEntregaDeReporte.getFecha());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: La fecha de cierre de entrega de reporte no se ha agregado");
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 validacion = true;
             }
@@ -97,7 +100,8 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setInt(1, idFechaDeCierreEntregaDeReporte);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha eliminado la fecha de cierre de entrega de reporte con el id " + idFechaDeCierreEntregaDeReporte);
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 validacion = true;
             }
@@ -121,7 +125,8 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setInt(2, fechaDeCierreEntregaDeReporte.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                throw new SQLException("ERROR: No se ha modificado la fecha de cierre de entrega de reporte con el id " + fechaDeCierreEntregaDeReporte.getId());
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             }
             validacion = true;
         } finally {
