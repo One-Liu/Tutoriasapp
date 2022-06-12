@@ -12,7 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.Estudiante;
@@ -20,11 +19,11 @@ import uv.fei.tutorias.domain.TutorAcademico;
 
 public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Initializable {
     @FXML
-    private ComboBox<Estudiante> cbEstudiantes;
-    @FXML
-    private ComboBox<TutorAcademico> cbTutoresAcademicos;
+    private Label lblEstudianteSeleccionado;
     @FXML
     private Label lblTutorAcademicoAnterior;
+    @FXML
+    private ComboBox<TutorAcademico> cbTutoresAcademicos;
     @FXML
     private Button btnGuardar;
     @FXML
@@ -32,32 +31,26 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     
     private EstudianteDAO estudianteDAO = new EstudianteDAO();
     private TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
-    private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+    
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
+    
+    private Estudiante estudiante = new Estudiante();
     private TutorAcademico tutorAcademicoAnterior = new TutorAcademico();
     
-    private void cerrarGUI() {
-        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
-        escenarioPrincipal.close();
-    }
-    
-    public void setTutorAcademico(TutorAcademico tutorAcademico) {
-        this.tutorAcademicoAnterior = tutorAcademico;
-    }
-    
-    private void cargarEstudiantes() throws SQLException {
-        this.estudiantes = estudianteDAO.obtenerEstudiantesConTutorAsignado();
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
     
     private void cargarTutoresAcademicos() throws SQLException {
-        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.tutorAcademicoAnterior.getIdTutorAcademico());
+        this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
+        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico());
     }
     
-    public void cargarCamposGUI() {
+    private void cargarCamposGUI() {
         try {
-            cargarEstudiantes();
             cargarTutoresAcademicos();
-            this.cbEstudiantes.setItems(estudiantes);
+            this.lblEstudianteSeleccionado.setText(this.estudiante.getNombreCompleto());
+            this.lblTutorAcademicoAnterior.setText(this.tutorAcademicoAnterior.getNombreCompleto());
             this.cbTutoresAcademicos.setItems(tutoresAcademicos);
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
@@ -71,26 +64,24 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     
     @FXML
     private void clicCancelar(ActionEvent event) {
-        cerrarGUI();
+        UtilidadVentana.cerrarVentana(event);
     }
     
     @FXML
     private void clicGuardar(ActionEvent event) {
-        Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
-        if(estudianteSeleccionado == null) {
-            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de estudiante", "Seleccione un estudiante válido", Alert.AlertType.WARNING);
-        } else if(tutorAcademicoSeleccionado == null) {
-            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de tutor académico", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
-        } else {
-            estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
-            try {
-                estudianteDAO.modificarAsignacionDeTutor(estudianteSeleccionado);
-                UtilidadVentana.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);
-            } catch(SQLException ex) {
-                UtilidadVentana.mensajePerdidaDeConexion();
-            }
+        this.estudiante.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
+        
+        try {
+            estudianteDAO.modificarAsignacionDeTutor(this.estudiante);
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Confirmación de modificación", 
+                    "La asignación de tutor se ha modificado exitosamente", 
+                    Alert.AlertType.INFORMATION);
+        } catch(SQLException ex) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
-        cerrarGUI();
+        
+        UtilidadVentana.cerrarVentana(event);
     }
 }
