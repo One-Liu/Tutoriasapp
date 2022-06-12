@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -27,9 +28,9 @@ import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class RegistroDeProblematicaAcademicaControlador implements Initializable {
     @FXML
-    private ComboBox cbProfesores;
+    private ComboBox<Profesor> cbProfesores;
     @FXML
-    private ComboBox cbExperienciasEducativas;
+    private ComboBox<ExperienciaEducativa> cbExperienciasEducativas;
     @FXML
     private TextField tfProblematicaAcademica;
     @FXML
@@ -98,12 +99,22 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     }
     
     private void registrarProblematicaAcademica() throws SQLException {
-        this.problematicaAcademica
         this.problematicaAcademica.setTitulo(this.tfProblematicaAcademica.getText());
         this.problematicaAcademica.setDescripcion(this.taDescripcion.getText());
+        this.problematicaAcademica.setIdSesionDeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
+        
+        ExperienciaEducativa experienciaEducativaSeleccionada = this.cbExperienciasEducativas.getSelectionModel().getSelectedItem();
+        Profesor profesorSeleccionado = this.cbProfesores.getSelectionModel().getSelectedItem();
+        
+        this.problematicaAcademica.setIdExperienciaEducativa(experienciaEducativaSeleccionada.getIdExperienciaEducativa());
+        this.problematicaAcademica.setIdProfesor(profesorSeleccionado.getId());
+        
         problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica);
     }
     
+    private void registrarEstudiantesConProblematicasAcademicas() {
+        
+    }
     
     @FXML
     private void clicRegistrar(ActionEvent event) {
