@@ -23,6 +23,7 @@ import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.Profesor;
+import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class RegistroDeProblematicaAcademicaControlador implements Initializable {
     @FXML
@@ -53,10 +54,14 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     private ObservableList<Estudiante> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
     
     private ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
-    
+    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
     public void setEstudiantesDelTutor(ObservableList<Estudiante> estudiantesDelTutorAcademico) {
         this.estudiantesDelTutorAcademico = estudiantesDelTutorAcademico;
+    }
+    
+    public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
     }
     
     private void cargarProfesores() throws SQLException {
@@ -93,6 +98,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     }
     
     private void registrarProblematicaAcademica() throws SQLException {
+        this.problematicaAcademica
         this.problematicaAcademica.setTitulo(this.tfProblematicaAcademica.getText());
         this.problematicaAcademica.setDescripcion(this.taDescripcion.getText());
         problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica);

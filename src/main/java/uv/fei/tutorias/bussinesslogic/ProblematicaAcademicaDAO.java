@@ -8,42 +8,47 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     private final Logger LOG = Logger.getLogger(ProblematicaAcademicaDAO.class);
 
     @Override
-    public List<ProblematicaAcademica> findProblematicaAcademicaByDescription(String serchName) {
-        ArrayList<ProblematicaAcademica> problematicasAcademicas = new ArrayList<>();
+    public ObservableList<ProblematicaAcademica> obtenerProblematicaAcademicaPorDescripcion(String descripcionBusqueda) throws SQLException {
+        ObservableList<ProblematicaAcademica> problematicasAcademicas = FXCollections.observableArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT  * from problematicaacademica where descripcion like ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, "%" + serchName + "%");
+            statement.setString(1, "%" + descripcionBusqueda + "%");
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){
-                throw new SQLException("Problematica academica not found");
+                LOG.warn(PersonaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexión con la base de datos");
             }else {
                 int idproblematicaAcademica = 0;
                 String titulo = "";
                 String descripcion = "";
-                int experienciaEducativaIdExperienciaEducativa = 0;
+                int idExperienciaEducativa = 0;
+                int idSolucionProblematicaAcademica = 0;
+                int idSesionDeTutoriaAcademica = 0;
+                int idProfesor = 0;
                 do {
                     idproblematicaAcademica = resultSet.getInt("idProblematicaAcademica");
                     titulo = resultSet.getString("titulo");
                     descripcion = resultSet.getString("descripcion");
-                    experienciaEducativaIdExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
-
-                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,titulo,descripcion,experienciaEducativaIdExperienciaEducativa);
+                    idExperienciaEducativa = resultSet.getInt("idExperienciaEducativa");
+                    idSolucionProblematicaAcademica = resultSet.getInt("idSolucionProblematicaAcademica");
+                    idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
+                    idProfesor = resultSet.getInt("idProfesor");
+                    
+                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,titulo,descripcion,idSolucionProblematicaAcademica,idSesionDeTutoriaAcademica,idExperienciaEducativa,idProfesor);
                     problematicasAcademicas.add(problematicaAcademica);
                 }while (resultSet.next());
             }
 
-        } catch (SQLException e) {
-            LOG.warn(PersonaDAO.class.getName(), e);
-        }finally {
+        } finally {
             dataBaseConnection.cerrarConexion();
         }
 
@@ -51,34 +56,39 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     }
 
     @Override
-    public List<ProblematicaAcademica> findAllProblematicasAcademicas() {
-        ArrayList<ProblematicaAcademica> experienciasEducativas = new ArrayList<>();
+    public ObservableList<ProblematicaAcademica> obtenerProblematicasAcademicas() throws SQLException {
+        ObservableList<ProblematicaAcademica> experienciasEducativas = FXCollections.observableArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT  * from problematicaacademica";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){
-                throw new SQLException("Problematica academica not found");
+                LOG.warn(PersonaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexión con la base de datos");
             }else {
                 int idproblematicaAcademica = 0;
                 String titulo = "";
                 String descripcion = "";
-                int experienciaEducativaIdExperienciaEducativa = 0;
+                int idExperienciaEducativa = 0;
+                int idSolucionProblematicaAcademica = 0;
+                int idSesionDeTutoriaAcademica = 0;
+                int idProfesor = 0;
                 do {
                     idproblematicaAcademica = resultSet.getInt("idProblematicaAcademica");
                     titulo = resultSet.getString("titulo");
                     descripcion = resultSet.getString("descripcion");
-                    experienciaEducativaIdExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
-
-                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,titulo,descripcion,experienciaEducativaIdExperienciaEducativa);
+                    idExperienciaEducativa = resultSet.getInt("idExperienciaEducativa");
+                    idSolucionProblematicaAcademica = resultSet.getInt("idSolucionProblematicaAcademica");
+                    idSesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
+                    idProfesor = resultSet.getInt("idProfesor");
+                    
+                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,titulo,descripcion,idSolucionProblematicaAcademica,idSesionDeTutoriaAcademica,idExperienciaEducativa,idProfesor);
                     experienciasEducativas.add(problematicaAcademica);
                 }while (resultSet.next());
             }
 
-        } catch (SQLException e) {
-            LOG.warn(PersonaDAO.class.getName(), e);
-        }finally {
+        } finally {
             dataBaseConnection.cerrarConexion();
         }
 
@@ -87,14 +97,14 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
 
     @Override
-    public ProblematicaAcademica findProblematicaAcademicaById(int searchId) {
+    public ProblematicaAcademica obtenerProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) {
         ConexionBD dataBaseConnection = new ConexionBD();
         ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
 
         try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT * from problematicaacademica where idProblematicaAcademica like ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,"%" + searchId + "%");
+            statement.setString(1,"%" + idProblematicaAcademicaBusqueda + "%");
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){
                 throw new SQLException("Problematica academica not found");
@@ -142,17 +152,17 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     }
 
     @Override
-    public boolean deleteProblematicaAcademicaById(int searchId) {
+    public boolean eliminarProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) {
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "DELETE FROM problematicaacademica WHERE (idProblematicaAcademica = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, searchId);
+            statement.setInt(1, idProblematicaAcademicaBusqueda);
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0){
                 throw new SQLException("Error la problematica academica no se ha eliminado");
             }else {
-                LOG.info("Problematica academica eliminada con el id " + searchId);
+                LOG.info("Problematica academica eliminada con el id " + idProblematicaAcademicaBusqueda);
             }
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
