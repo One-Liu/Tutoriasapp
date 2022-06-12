@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,10 +21,6 @@ import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 public class SeleccionDeEstudianteControlador implements Initializable {
     @FXML
     private ComboBox<Estudiante> cbEstudiantes;
-    @FXML
-    private Button btnCancelar;
-    @FXML
-    private Button btnSeleccionar;
     
     private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
     

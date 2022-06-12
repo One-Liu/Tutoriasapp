@@ -20,7 +20,7 @@ public class ComunicacionEntreVentanas {
         Node node = (Node) this.actionEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(Utilidad.class.getResource(this.nombreFxml));
+        FXMLLoader fxmlLoader = new FXMLLoader(UtilidadVentana.class.getResource(this.nombreFxml));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setUserData(this.objetoAPasar);
         stage.setTitle(this.nombreDeLaVentana);

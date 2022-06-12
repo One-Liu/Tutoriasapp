@@ -14,7 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.PeriodoEscolar;
@@ -31,10 +30,6 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     private DatePicker dpTerceraSesion;
     @FXML
     private Button btnModificarFechasDeEntregaDeReporte;
-    @FXML
-    private Button btnGuardar;
-    @FXML
-    private Button btnCancelar;
     
     private SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     private PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
@@ -43,11 +38,6 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     private SesionDeTutoriaAcademica primeraSesionDeTutoriaAcademica;
     private SesionDeTutoriaAcademica segundaSesionDeTutoriaAcademica;
     private SesionDeTutoriaAcademica terceraSesionDeTutoriaAcademica;
-    
-    private void cerrarGUI() {
-        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
-        escenarioPrincipal.close();
-    }
     
     public void setPeriodoEscolar(PeriodoEscolar periodoEscolar) {
         this.periodoEscolar = periodoEscolar;
@@ -104,7 +94,7 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
             sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(segundaSesionDeTutoriaAcademica);
             sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(terceraSesionDeTutoriaAcademica);
             UtilidadVentana.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);
-            cerrarGUI();
+            UtilidadVentana.cerrarVentana(event);
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
@@ -112,6 +102,6 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     
     @FXML
     private void clicCancelar(ActionEvent event) {
-        cerrarGUI();
+        UtilidadVentana.cerrarVentana(event);
     }
 }

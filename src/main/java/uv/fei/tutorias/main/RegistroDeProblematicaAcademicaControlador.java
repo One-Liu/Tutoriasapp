@@ -1,6 +1,5 @@
 package uv.fei.tutorias.main;
 
-import java.net.PortUnreachableException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -9,14 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
@@ -41,10 +37,6 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     private TableColumn<?,String> colEstudiante;
     @FXML
     private TableColumn<?,?> colPresenta;
-    @FXML
-    private Button btnRegistrar;
-    @FXML
-    private Button btnCancelar;
     
     private ProfesorDAO profesorDAO = new ProfesorDAO();
     private ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
@@ -71,11 +63,6 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     
     private void cargarExperienciasEducativas() throws SQLException {
         this.experienciasEducativas = experienciaEducativaDAO.obtenerExperienciasEducativas();
-    }
-    
-    private void cerrarGUI() {
-        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
-        escenarioPrincipal.close();
     }
     
     private void inicializarTabla() {
@@ -127,6 +114,6 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     
     @FXML
     private void clicCancelar(ActionEvent event) {
-        cerrarGUI();
+        UtilidadVentana.cerrarVentana(event);
     }
 }

@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
@@ -21,10 +20,6 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     private ComboBox<Estudiante> cbEstudiantes;
     @FXML
     private ComboBox<TutorAcademico> cbTutoresAcademicos;
-    @FXML
-    private Button btnRegistrar;
-    @FXML
-    private Button btnCancelar;
     
     private EstudianteDAO estudianteDAO = new EstudianteDAO();
     private TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();

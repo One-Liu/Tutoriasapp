@@ -9,10 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
@@ -27,18 +25,9 @@ public class SeleccionDeReporteControlador implements Initializable {
     private Label lblTutorAcademico;
     @FXML
     private Label lblFechaDeSesionDeTutoriaAcademica;
-    @FXML
-    private Button btnCancelar;
-    @FXML
-    private Button btnSeleccionar;
     
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
-    
-    private void cerrarGUI() {
-        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
-        escenarioPrincipal.close();
-    }
     
     private void cargarTutoresAcademicos() throws SQLException {
         TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
@@ -68,7 +57,7 @@ public class SeleccionDeReporteControlador implements Initializable {
     
     @FXML
     private void clicCancelar(ActionEvent event) {
-        cerrarGUI();
+        UtilidadVentana.cerrarVentana(event);
     }
 
     @FXML

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.RegistroDeHorarioDeSesionDeTutoriaControlador">
    <children>
       <Label layoutX="21.0" layoutY="14.0" text="Fecha de sesión de tutoría" />
       <Label fx:id="lblFechaDeSesionDeTutoria" layoutX="21.0" layoutY="31.0" text="FECHA_DE_SESION_DE_TUTORIA" />

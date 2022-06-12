@@ -8,10 +8,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
 import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
@@ -24,10 +22,6 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
     private Label lblFechaSesionTutoria;
     @FXML
     private DatePicker dpFechaEntregaReporte;
-    @FXML
-    private Button btnGuardar;
-    @FXML
-    private Button btnCancelar;
     
     private ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
     private SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
@@ -36,11 +30,6 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     private FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte = new FechaDeCierreEntregaDeReporte();
-    
-    private void cerrarGUI() {
-        Stage escenarioPrincipal = (Stage) this.btnCancelar.getScene().getWindow();
-        escenarioPrincipal.close();
-    }
     
     private void cargarFechaDeSesionDeTutoria() throws SQLException {
         this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(reporteDeTutoriaAcademica.getIdSesionDeTutoriaAcademica());
@@ -82,6 +71,6 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
     
     @FXML
     private void clicCancelar(ActionEvent event) {
-        cerrarGUI();
+        UtilidadVentana.cerrarVentana(event);
     }
 }

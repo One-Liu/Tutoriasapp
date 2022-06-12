@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
@@ -24,10 +23,6 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     private Label lblTutorAcademicoAnterior;
     @FXML
     private ComboBox<TutorAcademico> cbTutoresAcademicos;
-    @FXML
-    private Button btnGuardar;
-    @FXML
-    private Button btnCancelar;
     
     private EstudianteDAO estudianteDAO = new EstudianteDAO();
     private TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
