@@ -54,6 +54,10 @@ public class  Persona {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    public String getNombreCompleto() {
+        return this.nombre + " " + this.apellidoPaterno + " " + this.apellidoMaterno;
+    }
+    
     @Override
     public String toString() {
         return "Persona{" +
