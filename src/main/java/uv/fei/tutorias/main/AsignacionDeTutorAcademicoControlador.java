@@ -75,7 +75,5 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
-        
-        UtilidadVentana.cerrarVentana(event);
     }
 }
