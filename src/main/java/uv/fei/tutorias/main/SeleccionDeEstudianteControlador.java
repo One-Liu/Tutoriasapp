@@ -57,7 +57,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     private void clicSeleccionar(ActionEvent event) {
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource(".fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUIModificacionDeAsignacionDeTutorAcademico.fxml"));
             Parent raiz = cargadorFXML.load();
             ModificacionDeAsignacionDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setEstudiante(estudianteSeleccionado);
