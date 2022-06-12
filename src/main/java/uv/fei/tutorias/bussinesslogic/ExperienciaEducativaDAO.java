@@ -173,4 +173,27 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
         return experienciaEducativa;
 
     }
+    
+    @Override
+    public ObservableList<ExperienciaEducativa> obtenerExperienciasEducativas() throws SQLException {
+        ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
+            String query = "SELECT * From experiencia_educativa WHERE nombreEE";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()){
+                LOG.warn(ExperienciaEducativaDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
+            }else {
+                do {
+                    experienciasEducativas.add(getExperienciaEducativa(resultSet));
+                }while (resultSet.next());
+            }
+
+        } finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return experienciasEducativas;
+    }
 }

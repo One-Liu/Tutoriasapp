@@ -17,7 +17,7 @@ public class ProblematicaAcademicaDAOTest {
         System.out.println("problematicaAcademicaDAO.addProblematicaAcademica()");
         ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica("No entraba a clases", 1);
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
-        boolean result = problematicaAcademicaDAO.addProblematicaAcademica(problematicaAcademica);
+        boolean result = problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica);
         assertTrue(result);
     }
 

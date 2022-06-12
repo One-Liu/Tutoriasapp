@@ -8,27 +8,27 @@ import java.util.Date;
 public class SesionDeTutoriaAcademica {
     private int id;
     private Date fecha;
-    private int idFechaDeCierreEntregaDeReporte;
+    private boolean ocurrio;
     private int idPeriodoEscolar;
 
     public SesionDeTutoriaAcademica() {
         this.id = 0;
         this.fecha = new Date();
-        this.idFechaDeCierreEntregaDeReporte = 0;
+        this.ocurrio = false;
         this.idPeriodoEscolar = 0;
     }
 
-    public SesionDeTutoriaAcademica(Date fecha, int idFechaDeCierreEntregaDeReporte, int idPeriodoEscolar) {
+    public SesionDeTutoriaAcademica(Date fecha, boolean ocurrio, int idPeriodoEscolar) {
         this.id = 0;
         this.fecha = fecha;
-        this.idFechaDeCierreEntregaDeReporte = idFechaDeCierreEntregaDeReporte;
+        this.ocurrio = ocurrio;
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
     
-    public SesionDeTutoriaAcademica(int id, Date fecha, int idFechaDeCierreEntregaDeReporte, int idPeriodoEscolar) {
+    public SesionDeTutoriaAcademica(int id, Date fecha, boolean ocurrio, int idPeriodoEscolar) {
         this.id = id;
         this.fecha = fecha;
-        this.idFechaDeCierreEntregaDeReporte = idFechaDeCierreEntregaDeReporte;
+        this.ocurrio = ocurrio;
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
 
@@ -47,8 +47,8 @@ public class SesionDeTutoriaAcademica {
         return fechaConFormato;
     }
 
-    public int getIdFechaDeCierreEntregaDeReporte() {
-        return idFechaDeCierreEntregaDeReporte;
+    public boolean getOcurrio() {
+        return ocurrio;
     }
     
     public int getIdPeriodoEscolar() {
@@ -64,8 +64,8 @@ public class SesionDeTutoriaAcademica {
         this.fecha = fecha;
     }
     
-    public void setIdFechaDeCierreEntregaDeReporte(int idFechaDeCierreEntregaDeReporte) {
-        this.idFechaDeCierreEntregaDeReporte = idFechaDeCierreEntregaDeReporte;
+    public void setOcurrio(boolean ocurrio) {
+        this.ocurrio = ocurrio;
     }
 
     public void setIdPeriodoEscolar(int idPeriodoEscolar) {
@@ -78,7 +78,7 @@ public class SesionDeTutoriaAcademica {
             SesionDeTutoriaAcademica tmpSesionDeTutoriaAcademica = (SesionDeTutoriaAcademica)obj;
             if(this.id == tmpSesionDeTutoriaAcademica.getId()
                     && this.fecha.equals(tmpSesionDeTutoriaAcademica.getFecha())
-                    && this.idFechaDeCierreEntregaDeReporte == tmpSesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte()
+                    && this.ocurrio == tmpSesionDeTutoriaAcademica.getOcurrio()
                     && this.idPeriodoEscolar == tmpSesionDeTutoriaAcademica.getIdPeriodoEscolar()) {
                 return true;
             }

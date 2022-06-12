@@ -150,4 +150,25 @@ public class ProfesorDAO implements IProfesorDAO {
         return profesor;
     }
 
+    @Override
+    public ObservableList<Profesor> obtenerProfesores() throws SQLException {
+        ObservableList<Profesor> profesores = FXCollections.observableArrayList();
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
+            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()){
+                LOG.warn(ProfesorDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
+            } else {
+                do {
+                    profesores.add(getProfesor(resultSet));
+                }while (resultSet.next());
+            }
+        } finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return profesores;
+    }
 }

@@ -27,14 +27,16 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
                 throw new SQLException("Problematica academica not found");
             }else {
                 int idproblematicaAcademica = 0;
+                String titulo = "";
                 String descripcion = "";
                 int experienciaEducativaIdExperienciaEducativa = 0;
                 do {
                     idproblematicaAcademica = resultSet.getInt("idProblematicaAcademica");
+                    titulo = resultSet.getString("titulo");
                     descripcion = resultSet.getString("descripcion");
                     experienciaEducativaIdExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
 
-                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,descripcion,experienciaEducativaIdExperienciaEducativa);
+                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,titulo,descripcion,experienciaEducativaIdExperienciaEducativa);
                     problematicasAcademicas.add(problematicaAcademica);
                 }while (resultSet.next());
             }
@@ -60,14 +62,16 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
                 throw new SQLException("Problematica academica not found");
             }else {
                 int idproblematicaAcademica = 0;
+                String titulo = "";
                 String descripcion = "";
                 int experienciaEducativaIdExperienciaEducativa = 0;
                 do {
                     idproblematicaAcademica = resultSet.getInt("idProblematicaAcademica");
+                    titulo = resultSet.getString("titulo");
                     descripcion = resultSet.getString("descripcion");
                     experienciaEducativaIdExperienciaEducativa = resultSet.getInt("ExperienciaEducativa_idExperienciaEducativa");
 
-                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,descripcion,experienciaEducativaIdExperienciaEducativa);
+                    ProblematicaAcademica problematicaAcademica= new ProblematicaAcademica(idproblematicaAcademica,titulo,descripcion,experienciaEducativaIdExperienciaEducativa);
                     experienciasEducativas.add(problematicaAcademica);
                 }while (resultSet.next());
             }
@@ -115,23 +119,23 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     }
 
     @Override
-    public boolean addProblematicaAcademica(ProblematicaAcademica problematicaAcademica) {
+    public boolean agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean result = false;
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "INSERT INTO problematicaa_cademica(descripcion, ExperienciaEducativa_idExperienciaEducativa ) VALUES (?,?)";
+            String query = "INSERT INTO problematica_academica(titulo, descripcion, idExperienciaEducativa) VALUES (?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, problematicaAcademica.getDescripcion());
-            statement.setInt(2,problematicaAcademica.getIdExperienciaEducativa());
-            int excecuteUpadate = statement.executeUpdate();
-            if (excecuteUpadate == 0){
+            statement.setString(1, problematicaAcademica.getTitulo());
+            statement.setString(2, problematicaAcademica.getDescripcion());
+            statement.setInt(3,problematicaAcademica.getIdExperienciaEducativa());
+            int excecuteUpdate = statement.executeUpdate();
+            if (excecuteUpdate == 0){
+                LOG.warn(ProblematicaAcademicaDAO.class.getName(), new SQLException());
                 throw new SQLException("Error problematica academica no se ha agregado");
             }else{
                 result = true;
             }
-        } catch (SQLException e) {
-            LOG.warn(PersonaDAO.class.getName(), e);
-        }finally {
+        } finally {
             dataBaseConnection.cerrarConexion();
         }
         return result;

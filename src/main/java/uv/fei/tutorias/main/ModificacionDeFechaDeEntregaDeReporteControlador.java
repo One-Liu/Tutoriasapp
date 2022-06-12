@@ -13,7 +13,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
+import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
+import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
+import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initializable {
@@ -26,7 +29,11 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
     @FXML
     private Button btnCancelar;
     
+    private ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
+    private SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     private FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaDeReporteDAO = new FechaDeCierreEntregaDeReporteDAO();
+    
+    private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     private FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte = new FechaDeCierreEntregaDeReporte();
     
@@ -35,12 +42,17 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
         escenarioPrincipal.close();
     }
     
+    private void cargarFechaDeSesionDeTutoria() throws SQLException {
+        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(reporteDeTutoriaAcademica.getIdSesionDeTutoriaAcademica());
+    }
+    
     private void cargarFechaEntregaReporte() throws SQLException {
-        this.fechaDeCierreEntregaDeReporte = fechaDeCierreEntregaDeReporteDAO.obtenerFechaDeCierreEntregaDeReportePorId(sesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte());
+        this.fechaDeCierreEntregaDeReporte = fechaDeCierreEntregaDeReporteDAO.obtenerFechaDeCierreEntregaDeReportePorId(reporteDeTutoriaAcademica.getIdFechaCierreEntregaReporte());
     }
     
     private void cargarCamposGUI() {
         try {
+            cargarFechaDeSesionDeTutoria();
             cargarFechaEntregaReporte();
             this.lblFechaSesionTutoria.setText(sesionDeTutoriaAcademica.getFechaConFormato());
             this.dpFechaEntregaReporte.setValue(fechaDeCierreEntregaDeReporte.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());

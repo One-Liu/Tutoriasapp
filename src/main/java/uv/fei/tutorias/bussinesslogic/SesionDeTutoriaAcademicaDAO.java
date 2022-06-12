@@ -62,13 +62,15 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
     private SesionDeTutoriaAcademica getSesionDeTutoriaAcademica(ResultSet resultado) throws SQLException {
         int idSesionDeTutoriaAcademica;
         Date fecha;
+        boolean ocurrio;
         int idPeriodoEscolar;
         
         idSesionDeTutoriaAcademica = resultado.getInt("id");
         fecha = resultado.getDate("fecha");
+        ocurrio = resultado.getBoolean("ocurrio");
         idPeriodoEscolar = resultado.getInt("idPeriodoEscolar");
         
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,(java.util.Date) fecha,idPeriodoEscolar);
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,(java.util.Date) fecha, ocurrio,idPeriodoEscolar);
         return sesionDeTutoriaAcademica;
     }
 

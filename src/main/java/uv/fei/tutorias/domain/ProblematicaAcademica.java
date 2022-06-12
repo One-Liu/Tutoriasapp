@@ -4,22 +4,27 @@ package uv.fei.tutorias.domain;
 
 public class ProblematicaAcademica {
     private int idProblematicaAcademica;
+    private String titulo;
     private String descripcion;
     private int idExperienciaEducativa;
 
-    public ProblematicaAcademica(int idProblematicaAcademica, String descripcion, int idExperienciaEducativa) {
+    public ProblematicaAcademica(int idProblematicaAcademica, String titulo, String descripcion, int idExperienciaEducativa) {
         this.idProblematicaAcademica = idProblematicaAcademica;
+        this.titulo = titulo;
         this.descripcion = descripcion;
         this.idExperienciaEducativa = idExperienciaEducativa;
     }
 
-    public ProblematicaAcademica(String descripcion, int idExperienciaEducativa) {
+    public ProblematicaAcademica(String titulo, String descripcion, int idExperienciaEducativa) {
+        this.idProblematicaAcademica = 0;
+        this.titulo = titulo;
         this.descripcion = descripcion;
         this.idExperienciaEducativa = idExperienciaEducativa;
     }
 
     public ProblematicaAcademica() {
         this.idProblematicaAcademica = 0;
+        this.titulo = "";
         this.descripcion = "";
         this.idExperienciaEducativa = 0;
 
@@ -30,6 +35,10 @@ public class ProblematicaAcademica {
         return idProblematicaAcademica;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -43,6 +52,10 @@ public class ProblematicaAcademica {
         this.idProblematicaAcademica = idProblematicaAcademica;
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }

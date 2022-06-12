@@ -9,11 +9,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.RegistroDeProblematicaAcademicaControlador">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Profesor" />
+      <Label layoutX="14.0" layoutY="10.0" text="Profesor" />
       <Label layoutX="341.0" layoutY="10.0" text="Experiencia Educativa" />
-      <ComboBox fx:id="cbProfesores" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="250.0" />
+      <ComboBox fx:id="cbProfesores" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="250.0" />
       <ComboBox fx:id="cbExperienciasEducativas" layoutX="341.0" layoutY="27.0" prefHeight="25.0" prefWidth="250.0" />
       <Label layoutX="14.0" layoutY="80.0" text="Estudiantes que presentan la problemática:" />
       <TableView fx:id="tblEstudiante_Presenta" layoutX="14.0" layoutY="100.0" prefHeight="290.0" prefWidth="315.0">
