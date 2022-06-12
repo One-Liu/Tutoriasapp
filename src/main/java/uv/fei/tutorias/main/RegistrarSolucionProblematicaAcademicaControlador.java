@@ -56,7 +56,7 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
         ProblematicaAcademicaDAO problematica = new ProblematicaAcademicaDAO();
         ExperienciaEducativaDAO experiencia = new ExperienciaEducativaDAO();
         ProfesorDAO profesordao = new ProfesorDAO();
-        ArrayList<ProblematicaAcademica> listaProblematica = (ArrayList<ProblematicaAcademica>) problematica.findProblematicaAcademicaByDescription(descripcion);
+        ArrayList<ProblematicaAcademica> listaProblematica = (ArrayList<ProblematicaAcademica>) problematica.obtenerProblematicaAcademicaPorDescripcion(descripcion);
         int idExperienciaEducativa =listaProblematica.get(0).getIdExperienciaEducativa();
         ExperienciaEducativa datosExperiencia = experiencia.obtenerExperienciaEducativaPorId(idExperienciaEducativa);
         Profesor nombreProfesor = profesordao.findProfesorById(datosExperiencia.getIdProfesor());
