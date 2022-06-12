@@ -25,8 +25,8 @@
       <Label layoutX="341.0" layoutY="80.0" text="Problemática académica:" />
       <TextField fx:id="tfProblematicaAcademica" layoutX="341.0" layoutY="100.0" prefHeight="25.0" prefWidth="250.0" />
       <Label layoutX="341.0" layoutY="131.0" text="Descripción:" />
-      <Button fx:id="btnCancelar" layoutX="524.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
-      <Button fx:id="btnRegistrar" layoutX="447.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
+      <Button layoutX="524.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+      <Button layoutX="447.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
       <TextArea fx:id="taDescripcion" layoutX="341.0" layoutY="148.0" prefHeight="200.0" prefWidth="250.0" />
    </children>
 </AnchorPane>

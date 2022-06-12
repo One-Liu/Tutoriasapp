@@ -7,8 +7,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="146.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.SeleccionDePeriodoEscolarControlador">
    <children>
-      <Button fx:id="btnCancelar" layoutX="163.0" layoutY="102.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
-      <Button fx:id="btnSeleccionar" layoutX="78.0" layoutY="102.0" mnemonicParsing="false" onAction="#clicSeleccionar" text="Seleccionar" />
+      <Button layoutX="163.0" layoutY="102.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+      <Button layoutX="78.0" layoutY="102.0" mnemonicParsing="false" onAction="#clicSeleccionar" text="Seleccionar" />
       <ComboBox fx:id="cbPeriodosEscolares" layoutX="34.0" layoutY="48.0" prefHeight="25.0" prefWidth="190.0" />
       <Label layoutX="36.0" layoutY="24.0" text="Periodo escolar" />
    </children>

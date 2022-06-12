@@ -10,8 +10,8 @@
       <Label layoutX="24.0" layoutY="24.0" text="Fecha de sesion de tutoria" />
       <DatePicker fx:id="dpFechaEntregaReporte" layoutX="219.0" layoutY="52.0" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="217.0" layoutY="24.0" text="Fecha de entrega de reporte" />
-      <Button fx:id="btnCancelar" layoutX="310.0" layoutY="108.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
-      <Button fx:id="btnGuardar" layoutX="230.0" layoutY="108.0" mnemonicParsing="false" onAction="#clicGuardar" text="Guardar" />
+      <Button layoutX="310.0" layoutY="108.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+      <Button layoutX="230.0" layoutY="108.0" mnemonicParsing="false" onAction="#clicGuardar" text="Guardar" />
       <Label fx:id="lblFechaSesionTutoria" layoutX="24.0" layoutY="56.0" text="FECHA_SESION_TUTORIA" />
    </children>
 </AnchorPane>

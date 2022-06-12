@@ -14,10 +14,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import uv.fei.tutorias.bussinesslogic.ListaDeAsistenciaDAO;
 import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
+import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.ListaDeAsistencia;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
+import uv.fei.tutorias.domain.TutorAcademico;
 
 public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @FXML
@@ -33,17 +35,19 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @FXML
     private TextArea taDescripcion;
     
-    private PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
-    private ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
+    private final ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
+    private final PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
+    private final ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
     
     private ObservableList<ListaDeAsistencia> listaDeAsistencias = FXCollections.observableArrayList();
     
-    private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
+    private TutorAcademico tutorAcademico = new TutorAcademico();
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
+    private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
     
-    public void setReporteDeTutoriaAcademica(ReporteDeTutoriaAcademica reporteDeTutoriaAcademica) {
-        this.reporteDeTutoriaAcademica = reporteDeTutoriaAcademica;
+    public void setTutorAcademico(TutorAcademico tutorAcademico) {
+        this.tutorAcademico = tutorAcademico;
     }
     
     public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
@@ -54,15 +58,26 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
         this.periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
     }
     
+    private void inicializarReporteDeTutoriaAcademica() throws SQLException {
+        this.reporteDeTutoriaAcademica.setIdTutorAcademico(this.tutorAcademico.getIdTutorAcademico());
+        this.reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(this.sesionDeTutoriaAcademica.getId());
+        this.reporteDeTutoriaAcademica = reporteDeTutoriaAcademicaDAO.obtenerReporteDeTutoriaPorIdSesionTutoriaYIdTutor(reporteDeTutoriaAcademica);
+    }
+    
     private void inicializarListaDeAsistencias() throws SQLException {
-        // Lista de asistencia pero de solo los estudiantes del tutor ??
-        //this.listaDeAsistencias = listaDeAsistenciaDAO.buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
+        // Obtener solo los del tutor académico
+        this.listaDeAsistencias = listaDeAsistenciaDAO.buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
     }
     
     private void cargarCamposGUI() {
         try {
             inicializarPeriodoEscolar();
+            inicializarReporteDeTutoriaAcademica();
             inicializarListaDeAsistencias();
+            this.lblPeriodoEscolar.setText(this.periodoEscolar.getFechas());
+            this.lblFechaSesion.setText(this.sesionDeTutoriaAcademica.getFechaConFormato());
+            //Inicializar lista de asistencia
+            this.taDescripcion.setText(this.reporteDeTutoriaAcademica.getDescripcionGeneral());
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }

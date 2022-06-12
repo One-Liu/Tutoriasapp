@@ -22,10 +22,11 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     @FXML
     private ComboBox<PeriodoEscolar> cbPeriodosEscolares;
     
+    private final PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
+    
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
     
     private void cargarPeriodosEscolares() throws SQLException {
-        PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
         this.periodosEscolares = periodoEscolarDAO.obtenerPeriodosEscolares();
     }
     

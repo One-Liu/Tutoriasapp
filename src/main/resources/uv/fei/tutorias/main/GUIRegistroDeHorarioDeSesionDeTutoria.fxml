@@ -16,7 +16,7 @@
           <TableColumn fx:id="colHorario" prefWidth="163.0" text="Horario" />
         </columns>
       </TableView>
-      <Button fx:id="btnCancelar" layoutX="478.0" layoutY="301.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
-      <Button fx:id="btnRegistrar" layoutX="405.0" layoutY="301.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
+      <Button layoutX="478.0" layoutY="301.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+      <Button layoutX="405.0" layoutY="301.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
    </children>
 </AnchorPane>

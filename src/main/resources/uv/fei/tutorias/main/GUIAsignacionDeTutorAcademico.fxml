@@ -9,8 +9,8 @@
    <children>
       <ComboBox fx:id="cbEstudiantes" layoutX="21.0" layoutY="42.0" prefHeight="25.0" prefWidth="243.0" />
       <ComboBox fx:id="cbTutoresAcademicos" layoutX="21.0" layoutY="101.0" prefHeight="25.0" prefWidth="243.0" />
-      <Button fx:id="btnRegistrar" layoutX="127.0" layoutY="175.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
-      <Button fx:id="btnCancelar" layoutX="202.0" layoutY="175.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+      <Button layoutX="127.0" layoutY="175.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
+      <Button layoutX="202.0" layoutY="175.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
       <Label layoutX="21.0" layoutY="19.0" text="Estudiante" />
       <Label layoutX="21.0" layoutY="77.0" text="Tutor académico" />
    </children>
