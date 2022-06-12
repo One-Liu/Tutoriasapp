@@ -42,6 +42,7 @@ public class UtilidadVentana {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+    
     public static void mostrarAlertaConfirmacion(String titulo, String mensaje, Alert.AlertType tipoAlerta){
         Alert alerta = new Alert(tipoAlerta);
         alerta.setTitle(titulo);
@@ -68,5 +69,9 @@ public class UtilidadVentana {
                 + "al cargar la información. Por favor, inténtelo más tarde",Alert.AlertType.ERROR);
     }
 
-
+    public static void cerrarVentana(ActionEvent evento) {
+        Node fuente = (Node) evento.getSource();
+        Stage escenario = (Stage) fuente.getScene().getWindow();
+        escenario.close();
+    }
 }
