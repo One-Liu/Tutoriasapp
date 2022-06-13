@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalCoordinadorDeTutoriasControlador">
+<AnchorPane prefHeight="485.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalCoordinadorDeTutoriasControlador">
    <children>
-      <Button layoutX="162.0" layoutY="124.0" mnemonicParsing="false" onAction="#actConsultarReporteGeneralDeTutoriasAcademicas" text="Consultar reporte general de tutorias academicas" />
-      <Button layoutX="196.0" layoutY="187.0" mnemonicParsing="false" onAction="#actConsultarReporteGeneralDeTutoriasAcademicas" text="Registrar fechas de sesion de tutoria" />
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalCoordinadorDeTutoriasControlador">
-   <children>
-      <Button layoutX="162.0" layoutY="134.0" mnemonicParsing="false" onAction="#clicConsultarReporteGeneralDeTutoriasAcademicas" text="Consultar reporte general de tutorias academicas" />
-      <Button layoutX="196.0" layoutY="187.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeSesionDeTutoria" text="Registrar fechas de sesion de tutoria" />
-      <Button layoutX="155.0" layoutY="234.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeCierreParaLaEntregaDeReporte" text="Registrar fechas de cierre para la entrega de reporte" />
-      <Button layoutX="221.0" layoutY="282.0" mnemonicParsing="false" onAction="#clicConsultarOfertaAcademica" text="Consultar oferta academica" />
+      <Button layoutX="162.0" layoutY="124.0" mnemonicParsing="false" onAction="#actConsultarReporteGeneralDeTutoriasAcademicas" prefHeight="25.0" prefWidth="292.0" text="Consultar reporte general de tutorias academicas" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" />
+      <Button layoutX="332.0" layoutY="117.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeSesionDeTutoria" prefHeight="25.0" prefWidth="292.0" text="Registrar fechas de sesion de tutoria" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="75.0" />
+      <Button layoutX="155.0" layoutY="234.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeCierreParaLaEntregaDeReporte" text="Registrar fechas de cierre para la entrega de reporte" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="125.0" />
+      <Button layoutX="221.0" layoutY="282.0" mnemonicParsing="false" onAction="#clicConsultarOfertaAcademica" prefHeight="25.0" prefWidth="292.0" text="Consultar oferta academica" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="175.0" />
+      <ImageView fitHeight="364.0" fitWidth="292.0" layoutX="28.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <image>
+            <Image url="@../../../../imagen/Universidad_Veracruzana.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="283.0" layoutY="251.0" mnemonicParsing="false" onAction="#clicConsultarReportePorTutorAcademico" prefHeight="25.0" prefWidth="292.0" text="Consultar reporte por tutor académico" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="225.0" />
+      <Button layoutX="283.0" layoutY="294.0" mnemonicParsing="false" onAction="#clicModificarFechasDeSesionDeTutoria" prefHeight="25.0" prefWidth="292.0" text="Modificar fechas de sesión de tutoría" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="275.0" />
+      <Button layoutX="283.0" layoutY="337.0" mnemonicParsing="false" onAction="#clicRegistrarUsuario" prefHeight="25.0" prefWidth="292.0" text="Registrar usuario" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="325.0" />
+      <Button layoutX="283.0" layoutY="374.0" mnemonicParsing="false" onAction="#clicAsignarTutorAEstudiante" prefHeight="25.0" prefWidth="292.0" text="Asignar tutor a estudiante" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="375.0" />
+      <Button layoutX="283.0" layoutY="418.0" mnemonicParsing="false" onAction="#clicModificarAsignacionDeTutor" prefHeight="25.0" prefWidth="292.0" text="Modificar asignación de tutor" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="425.0" />
    </children>
 </AnchorPane>
