@@ -2,98 +2,56 @@ package uv.fei.tutorias.domain;
 
 // author @liu
 public class Coordinador extends Usuario {
-    private int id;
-    private int idProgramaEducativo;
-    private Usuario usuario;
+    private int idCoordinador;
 
-    // Constructors of uv.fei.tutorias.domain.Coordinador
     public Coordinador() {
-        super("","","");
-        this.id = 0;
+        super();
+        this.idCoordinador = 0;
         this.idProgramaEducativo = 0;
-        this.usuario = new Usuario();
     }
 
-    public Coordinador(Persona coordinador, int idProgramaEducativo) {
-        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
-        this.id = 0;
-        this.idProgramaEducativo = idProgramaEducativo;
-        this.usuario = new Usuario();
+    public Coordinador(int idCoordinador, Persona coordinador) {
+        super(coordinador);
+        this.idCoordinador = idCoordinador;
+    }
+    
+    public Coordinador(int idCoordinador, Persona coordinador, Usuario usuario) {
+        super(usuario.getIdUsuario(), usuario.getContrasena(), usuario.getCorreoInstitucional(), coordinador);
+        this.idCoordinador = idCoordinador;
     }
 
-    public Coordinador(int id, Persona coordinador, int idProgramaEducativo) {
-        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
-        this.id = id;
-        this.idProgramaEducativo = idProgramaEducativo;
-        this.usuario = new Usuario();
+    public int getIdCoordinador() {
+        return idCoordinador;
     }
 
-    public Coordinador(Persona coordinador, int idProgramaEducativo, Usuario usuario) {
-        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
-        this.id = 0;
-        this.idProgramaEducativo = idProgramaEducativo;
-        this.usuario = usuario;
-    }
-
-    public Coordinador(int id, Persona coordinador, int idProgramaEducativo, Usuario usuario) {
-        super(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
-        this.id = id;
-        this.idProgramaEducativo = idProgramaEducativo;
-        this.usuario = usuario;
-    }
-
-    public Coordinador(Persona persona) {
-        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
-        this.id = 0;
-        this.idProgramaEducativo = 0;
-        this.usuario = new Usuario();
-    }
-
-    // Getters of uv.fei.tutorias.domain.Coordinador
-    public int getId() {
-        return id;
-    }
-
-    public int getIdProgramaEducativo() {
-        return idProgramaEducativo;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    // Setters of uv.fei.tutorias.domain.Coordinador
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setIdProgramaEducativo(int idProgramaEducativo) {
-        this.idProgramaEducativo = idProgramaEducativo;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdCoordinador(int idCoordinador) {
+        this.idCoordinador = idCoordinador;
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Coordinador) {
             Coordinador tmpCoordinador = (Coordinador)obj;
-            if(this.id == tmpCoordinador.getId()
+            if(this.idCoordinador == tmpCoordinador.getIdCoordinador()
+                    && this.idUsuario == tmpCoordinador.getIdUsuario()
+                    && this.contrasena.equals(tmpCoordinador.getContrasena())
+                    && this.correoInstitucional.equals(tmpCoordinador.getCorreoInstitucional())
                     && this.idPersona == tmpCoordinador.getIdPersona()
                     && this.nombre.equals(tmpCoordinador.getNombre())
                     && this.apellidoPaterno.equals(tmpCoordinador.getApellidoPaterno())
                     && this.apellidoMaterno.equals(tmpCoordinador.getApellidoMaterno())
-                    && this.idProgramaEducativo == tmpCoordinador.getIdProgramaEducativo()
-                    && this.usuario.equals(tmpCoordinador.getUsuario())) {
+                    && this.idProgramaEducativo == tmpCoordinador.getIdProgramaEducativo()) {
                 return true;
             }
         }
         return false;
     }
-
+    
     @Override
     public String toString() {
-        return getNombre() + " " + getApellidoPaterno() + " " + getApellidoMaterno();
+        return "Coordinador{" +
+                "id=" + idCoordinador +
+                ", Persona="+getNombreCompleto()+
+                '}';
     }
 }

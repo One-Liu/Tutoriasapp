@@ -8,31 +8,15 @@ public class TutorAcademico extends Usuario {
         this.idTutorAcademico = 0;
     }
 
-    public TutorAcademico(Persona persona) {
-        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
+    public TutorAcademico(Persona tutorAcademico) {
+        super(tutorAcademico);
         this.idTutorAcademico = 0;
     }
 
-    public TutorAcademico(int id, Persona persona) {
-        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
-        this.idTutorAcademico = id;
-    }
-    
-    public TutorAcademico(Persona persona, Usuario usuario) {
-        super(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno());
+    public TutorAcademico(Persona tutorAcademico, Usuario usuario) {
+        super(usuario.getIdUsuario(), usuario.getContrasena(), usuario.getCorreoInstitucional(), tutorAcademico);
         this.idTutorAcademico = 0;
     }
-
-    public TutorAcademico(String nombre, String apellidoPaterno, String apellidoMaterno) {
-        super(nombre,apellidoPaterno,apellidoMaterno);
-        this.idTutorAcademico = 0;
-    }
-
-    public TutorAcademico(String nombre, String apellidoPaterno, String apellidoMaterno, Usuario usuario) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.idTutorAcademico = 0;
-    }
-
     
     public int getIdTutorAcademico() {
         return idTutorAcademico;
@@ -46,7 +30,7 @@ public class TutorAcademico extends Usuario {
     public String toString() {
         return "TutorAcademico{" +
                 "id=" + idTutorAcademico +
-                ", Persona="+getNombre()+
+                ", Persona="+getNombreCompleto()+
                 '}';
     }
 
@@ -54,12 +38,15 @@ public class TutorAcademico extends Usuario {
     public boolean equals(Object obj) {
         if(obj instanceof TutorAcademico) {
             TutorAcademico tmpTutorAcademico = (TutorAcademico)obj;
-            if(
-                    this.idTutorAcademico == tmpTutorAcademico.getIdTutorAcademico()
+            if(this.idTutorAcademico == tmpTutorAcademico.getIdTutorAcademico()
+                    && this.idUsuario == tmpTutorAcademico.getIdUsuario()
+                    && this.contrasena.equals(tmpTutorAcademico.getContrasena())
+                    && this.correoInstitucional.equals(tmpTutorAcademico.getCorreoInstitucional())
+                    && this.idPersona == tmpTutorAcademico.getIdPersona()
                     && this.nombre.equals(tmpTutorAcademico.getNombre())
                     && this.apellidoPaterno.equals(tmpTutorAcademico.getApellidoPaterno())
                     && this.apellidoMaterno.equals(tmpTutorAcademico.getApellidoMaterno())
-            ) {
+                    && this.idProgramaEducativo == tmpTutorAcademico.getIdProgramaEducativo()) {
                 return true;
             }
         }

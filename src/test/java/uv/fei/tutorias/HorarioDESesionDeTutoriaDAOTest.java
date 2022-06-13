@@ -19,7 +19,7 @@ public class HorarioDESesionDeTutoriaDAOTest {
         horarioDeSesionDeTutoriaDAO = new HorarioDeSesionDeTutoriaDAO();
         estudiante = new Estudiante();
         sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
-        estudiante.setId(1);
+        estudiante.setIdEstudiante(1);
         sesionDeTutoriaAcademica.setId(3);
 
         horarioDeSesionDeTutoria = new HorarioDeSesionDeTutoria("12:45:00",estudiante,sesionDeTutoriaAcademica);

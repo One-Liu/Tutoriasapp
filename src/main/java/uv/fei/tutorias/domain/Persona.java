@@ -5,21 +5,30 @@ public class  Persona {
     protected String nombre;
     protected String apellidoPaterno;
     protected String apellidoMaterno;
+    protected int idProgramaEducativo;
 
-    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno) {
+    public Persona() {
+        this.idPersona = 0;
+        this.nombre = "";
+        this.apellidoPaterno = "";
+        this.apellidoMaterno = "";
+        this.idProgramaEducativo = 0;
+    }
+    
+    public Persona(String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo) {
+        this.idPersona = 0;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.idProgramaEducativo = idProgramaEducativo;
     }
 
-    public Persona() {
-    }
-
-    public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno) {
+    public Persona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, int idProgramaEducativo) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.idProgramaEducativo = idProgramaEducativo;
     }
 
     public int getIdPersona() {
@@ -57,7 +66,30 @@ public class  Persona {
     public String getNombreCompleto() {
         return this.nombre + " " + this.apellidoPaterno + " " + this.apellidoMaterno;
     }
-    
+
+    public int getIdProgramaEducativo() {
+        return idProgramaEducativo;
+    }
+
+    public void setIdProgramaEducativo(int idProgramaEducativo) {
+        this.idProgramaEducativo = idProgramaEducativo;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Persona) {
+            Persona tmpPersona = (Persona) obj;
+            if(this.idPersona == tmpPersona.getIdPersona()
+                    && this.nombre.equals(tmpPersona.getNombre())
+                    && this.apellidoPaterno.equals(tmpPersona.getApellidoPaterno())
+                    && this.apellidoMaterno.equals(tmpPersona.getApellidoMaterno())
+                    && this.idProgramaEducativo == tmpPersona.getIdProgramaEducativo()) {
+                return true;
+            } 
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Persona{" +
@@ -65,21 +97,7 @@ public class  Persona {
                 ", nombre='" + nombre + '\'' +
                 ", apellidoPaterno='" + apellidoPaterno + '\'' +
                 ", apellidoMaterno='" + apellidoMaterno + '\'' +
+                ", idProgramaEducativo='" + idProgramaEducativo + "'\''" +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Persona)) return false;
-
-        Persona persona = (Persona) o;
-
-        if (getIdPersona() != persona.getIdPersona()) return false;
-        if (getNombre() != null ? !getNombre().equals(persona.getNombre()) : persona.getNombre() != null) return false;
-        if (getApellidoPaterno() != null ? !getApellidoPaterno().equals(persona.getApellidoPaterno()) : persona.getApellidoPaterno() != null)
-            return false;
-        return getApellidoMaterno() != null ? getApellidoMaterno().equals(persona.getApellidoMaterno()) : persona.getApellidoMaterno() == null;
-    }
-
 }

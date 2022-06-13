@@ -5,26 +5,32 @@ public class Usuario extends Persona {
     String contrasena;
     String correoInstitucional;
 
-    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-    }
-    
-    public Usuario(int idUsuario, String contrasena, String correoInstitucional, String nombre, String apellidoPaterno, String apellidoMaterno) {
-        super(nombre, apellidoPaterno, apellidoMaterno);
-        this.idUsuario = idUsuario;
-        this.contrasena = contrasena;
-        this.correoInstitucional = correoInstitucional;
-    }
-    
-    public Usuario(String contrasena, String correoInstitucional) {
-        this.contrasena = contrasena;
-        this.correoInstitucional = correoInstitucional;
-    }
-
     public Usuario() {
+        super();
         this.idUsuario = 0;
         this.contrasena = "";
         this.correoInstitucional = "";
+    }
+    
+    public Usuario(String contrasena, String correoInstitucional) {
+        super();
+        this.idUsuario = 0;
+        this.contrasena = contrasena;
+        this.correoInstitucional = correoInstitucional;
+    }
+    
+    public Usuario(Persona usuario) {
+        super(usuario.getIdPersona(), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getApellidoMaterno(), usuario.getIdProgramaEducativo());
+        this.idUsuario = 0;
+        this.contrasena = "";
+        this.correoInstitucional = "";
+    }
+    
+    public Usuario(int idUsuario, String contrasena, String correoInstitucional, Persona usuario) {
+        super(usuario.getIdPersona(), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getApellidoMaterno(), usuario.getIdProgramaEducativo());
+        this.idUsuario = idUsuario;
+        this.contrasena = contrasena;
+        this.correoInstitucional = correoInstitucional;
     }
 
     public int getIdUsuario() {
@@ -52,16 +58,21 @@ public class Usuario extends Persona {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Usuario)) return false;
-
-        Usuario usuario = (Usuario) o;
-
-        if (getIdUsuario() != usuario.getIdUsuario()) return false;
-        if (getContrasena() != null ? !getContrasena().equals(usuario.getContrasena()) : usuario.getContrasena() != null)
-            return false;
-        return getCorreoInstitucional() != null ? getCorreoInstitucional().equals(usuario.getCorreoInstitucional()) : usuario.getCorreoInstitucional() == null;
+    public boolean equals(Object obj) {
+        if(obj instanceof Usuario) {
+            Usuario tmpUsuario = (Usuario) obj;
+            if(this.idUsuario == tmpUsuario.getIdUsuario()
+                    && this.contrasena.equals(tmpUsuario.getContrasena())
+                    && this.correoInstitucional.equals(tmpUsuario.getCorreoInstitucional())
+                    && this.idPersona == tmpUsuario.getIdPersona()
+                    && this.nombre.equals(tmpUsuario.getNombre())
+                    && this.apellidoPaterno.equals(tmpUsuario.getApellidoPaterno())
+                    && this.apellidoMaterno.equals(tmpUsuario.getApellidoMaterno())
+                    && this.idProgramaEducativo == tmpUsuario.getIdProgramaEducativo()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
