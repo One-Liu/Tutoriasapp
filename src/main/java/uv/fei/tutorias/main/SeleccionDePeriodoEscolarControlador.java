@@ -40,7 +40,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
             cargarPeriodosEscolares();
             this.cbPeriodosEscolares.setItems(periodosEscolares);
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -58,7 +58,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     private void clicSeleccionar(ActionEvent event) {
         PeriodoEscolar periodoEscolarSeleccionado = this.cbPeriodosEscolares.getSelectionModel().getSelectedItem();
         if(periodoEscolarSeleccionado == null) {
-            Utilidad.mostrarAlertaSinConfirmacion("Seleccion de periodo escolar", "Seleccione un periodo escolar válido", Alert.AlertType.WARNING);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de periodo escolar", "Seleccione un periodo escolar válido", Alert.AlertType.WARNING);
         } else {
             
         }

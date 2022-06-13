@@ -76,7 +76,7 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
             inicializarPeriodoEscolar();
             inicializarListaDeAsistencias();
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     

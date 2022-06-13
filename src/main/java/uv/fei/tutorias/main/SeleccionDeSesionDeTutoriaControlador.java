@@ -17,11 +17,11 @@ import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     @FXML
+    private ComboBox<SesionDeTutoriaAcademica> cbFechasDeSesionDeTutoria;
+    @FXML
     private Button btnCancelar;
     @FXML
     private Button btnSeleccionar;
-    @FXML
-    private ComboBox<SesionDeTutoriaAcademica> cbFechasDeSesionDeTutoria;
     
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
@@ -40,7 +40,7 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
             cargarSesionesDeTutoriaAcademica();
             this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -58,7 +58,7 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     private void clicSeleccionar(ActionEvent event) {
         SesionDeTutoriaAcademica sesionDeTutoriaAcademicaSeleccionada = this.cbFechasDeSesionDeTutoria.getSelectionModel().getSelectedItem();
         if(sesionDeTutoriaAcademicaSeleccionada == null) {
-            Utilidad.mostrarAlertaSinConfirmacion("Seleccion de fecha de sesion", "Seleccione una fecha de sesión válida", Alert.AlertType.WARNING);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de fecha de sesion", "Seleccione una fecha de sesión válida", Alert.AlertType.WARNING);
         } else {
             
         }

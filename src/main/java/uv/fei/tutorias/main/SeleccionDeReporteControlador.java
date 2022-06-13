@@ -57,7 +57,7 @@ public class SeleccionDeReporteControlador implements Initializable {
             this.cbTutoresAcademicos.setItems(tutoresAcademicos);
             this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -76,9 +76,9 @@ public class SeleccionDeReporteControlador implements Initializable {
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
         SesionDeTutoriaAcademica sesionDeTutoriaAcademicaSeleccionada = this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().getSelectedItem();
         if(tutorAcademicoSeleccionado == null) {
-            Utilidad.mostrarAlertaSinConfirmacion("Seleccion de tutor", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de tutor", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
         } else if(sesionDeTutoriaAcademicaSeleccionada == null) {
-            Utilidad.mostrarAlertaSinConfirmacion("Seleccion de fecha de sesión", "Seleccione una fecha de sesión válida", Alert.AlertType.WARNING);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de fecha de sesión", "Seleccione una fecha de sesión válida", Alert.AlertType.WARNING);
         } else {
             
         }

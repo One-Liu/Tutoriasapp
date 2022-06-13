@@ -75,7 +75,7 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
             cargarSesionesDeTutoriaAcademica();
             this.lblPeriodoEscolar.setText(this.periodoEscolar.getFechas());
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -103,10 +103,10 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
             sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(primeraSesionDeTutoriaAcademica);
             sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(segundaSesionDeTutoriaAcademica);
             sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(terceraSesionDeTutoriaAcademica);
-            Utilidad.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);
             cerrarGUI();
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     

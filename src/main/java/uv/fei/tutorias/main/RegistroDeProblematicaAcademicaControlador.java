@@ -89,7 +89,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
             this.cbProfesores.setItems(profesores);
             this.cbExperienciasEducativas.setItems(experienciasEducativas);
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -121,7 +121,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
         try {
             registrarProblematicaAcademica();
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     

@@ -60,7 +60,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
             this.cbEstudiantes.setItems(estudiantes);
             this.cbTutoresAcademicos.setItems(tutoresAcademicos);
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -79,16 +79,16 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
         if(estudianteSeleccionado == null) {
-            Utilidad.mostrarAlertaSinConfirmacion("Seleccion de estudiante", "Seleccione un estudiante válido", Alert.AlertType.WARNING);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de estudiante", "Seleccione un estudiante válido", Alert.AlertType.WARNING);
         } else if(tutorAcademicoSeleccionado == null) {
-            Utilidad.mostrarAlertaSinConfirmacion("Seleccion de tutor académico", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de tutor académico", "Seleccione un tutor académico válido", Alert.AlertType.WARNING);
         } else {
             estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
             try {
                 estudianteDAO.modificarAsignacionDeTutor(estudianteSeleccionado);
-                Utilidad.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);
+                UtilidadVentana.mostrarAlertaSinConfirmacion("", "", Alert.AlertType.INFORMATION);
             } catch(SQLException ex) {
-                Utilidad.mensajePerdidaDeConexion();
+                UtilidadVentana.mensajePerdidaDeConexion();
             }
         }
         cerrarGUI();

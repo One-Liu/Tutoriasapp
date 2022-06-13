@@ -57,7 +57,7 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
             this.lblFechaSesionTutoria.setText(sesionDeTutoriaAcademica.getFechaConFormato());
             this.dpFechaEntregaReporte.setValue(fechaDeCierreEntregaDeReporte.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -76,7 +76,7 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
             // Puedo generar una nueva fecha de cierre y asignarsela solo a esa sesión
             // o modificar directamente la fecha (lo cual afectaría al resto de sesiones)
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     

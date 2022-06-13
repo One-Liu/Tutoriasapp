@@ -40,13 +40,13 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
 //        agregar reporte general
 //        asignarEstudiantesEnRiesgo();
         TutorAcademico tutorAcademico = new TutorAcademico();
-        tutorAcademico = (TutorAcademico) Utilidad.recuperarValoresDeLaVentana(panel,tutorAcademico);
+        tutorAcademico = (TutorAcademico) UtilidadVentana.recuperarValoresDeLaVentana(panel,tutorAcademico);
         ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
         ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
         reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());
         reporteDeTutoriaAcademica.setIdTutorAcademico(tutorAcademico.getIdTutorAcademico());
         reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(6);
-        reporteDeTutoriaAcademicaDAO.addReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
+        reporteDeTutoriaAcademicaDAO.agregarReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
     }
     public void asignarEstudiantesEnRiesgo(){
         List<Estudiante> estudiantes = new ArrayList<>();
@@ -87,7 +87,7 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
                 l.setEstudiante(estudianteDAO.obtenerEstudiantePorId(l.getIdEstudiante()));
             }
         } catch (SQLException e) {
-            Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
             e.printStackTrace();
         }
 

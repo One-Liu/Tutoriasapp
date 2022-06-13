@@ -8,15 +8,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import uv.fei.tutorias.domain.ExperienciaEducativa;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-public class Utilidad {
+public class UtilidadVentana {
+    
     private static Optional<ButtonType> option;
+    
     public static void pasarValoresEntreVentanas(Object object,String direccionFxml, String tituloDeLaVentana,ActionEvent actionEvent) throws IOException {
         Node node = (Node) actionEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
@@ -34,6 +34,7 @@ public class Utilidad {
         objeto = stage.getUserData();
         return objeto;
     }
+
     public static void mostrarAlertaSinConfirmacion(String titulo, String mensaje, Alert.AlertType tipoAlerta){
         Alert alerta = new Alert(tipoAlerta);
         alerta.setTitle(titulo);
@@ -54,7 +55,7 @@ public class Utilidad {
     }
 
     public static void mensajePerdidaDeConexion(){
-        Utilidad.mostrarAlertaSinConfirmacion(
+        UtilidadVentana.mostrarAlertaSinConfirmacion(
                 "Pérdida de conexión",
                 "No se pudo conectar con la base de datos. "+
                         "Por favor, inténtelo más tarde.",
@@ -63,7 +64,7 @@ public class Utilidad {
     }
 
     public static void mensajeErrorAlCargarLaInformacionDeLaVentana(){
-        Utilidad.mostrarAlertaSinConfirmacion("Error de sistema", "Hubo un error "
+        UtilidadVentana.mostrarAlertaSinConfirmacion("Error de sistema", "Hubo un error "
                 + "al cargar la información. Por favor, inténtelo más tarde",Alert.AlertType.ERROR);
     }
 

@@ -58,9 +58,9 @@ public class LoginControlador {
                 TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
                 try {
                     TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
-                    Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUIMenuPrincipalDeTutorAcademico.fxml", "Menu principal",actionEvent);
+                    UtilidadVentana.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUIMenuPrincipalDeTutorAcademico.fxml", "Menu principal",actionEvent);
                 }catch (SQLException e){
-                    Utilidad.mensajeErrorAlCargarLaInformacionDeLaVentana();
+                    UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
                 }
 
             }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getIdUsuario())){

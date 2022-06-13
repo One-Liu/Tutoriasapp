@@ -40,7 +40,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
             cargarEstudiantes();
             this.cbEstudiantes.setItems(estudiantes);
         } catch(SQLException ex) {
-            Utilidad.mensajePerdidaDeConexion();
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -58,7 +58,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     private void clicSeleccionar(ActionEvent event) {
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
         if(estudianteSeleccionado == null) {
-            Utilidad.mostrarAlertaSinConfirmacion("Seleccion de estudiante", "Seleccione un estudiante válido", Alert.AlertType.WARNING);
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Seleccion de estudiante", "Seleccione un estudiante válido", Alert.AlertType.WARNING);
         } else {
             
         }
