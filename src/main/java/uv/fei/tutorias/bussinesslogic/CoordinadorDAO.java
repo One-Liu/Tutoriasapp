@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.Coordinador;
@@ -16,8 +17,8 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     private final Logger LOGGER = Logger.getLogger(CoordinadorDAO.class);
 
     @Override
-    public ArrayList<Coordinador> obtenerCoordinadores() throws SQLException {
-        ArrayList<Coordinador> coordinadores = new ArrayList<>();
+    public List<Coordinador> obtenerCoordinadores() throws SQLException {
+        List<Coordinador> coordinadores = new ArrayList<>();
         String consulta =
                 "SELECT C.id, P.nombre, P.apellidoPaterno, P.apellidoMaterno, P.idProgramaEducativo " +
                 "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona";
@@ -26,8 +27,9 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     coordinadores.add(getCoordinador(resultado));
@@ -52,8 +54,9 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(1, idCoordinador);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexión con la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 coordinador = getCoordinador(resultado);
             }
@@ -83,7 +86,6 @@ public class CoordinadorDAO implements ICoordinadorDAO {
 
     @Override
     public boolean agregarCoordinador(Coordinador coordinador) throws SQLException {
-        boolean validacion = false;
         String consulta = "INSERT INTO coordinador (idPersona,idUsuario) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -92,20 +94,18 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(2, coordinador.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexión con la base de datos");
-            } else {
-                validacion = true;
-             }
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
+            }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean eliminarCoordinadorPorId(int idCoordinador) throws SQLException {
-        boolean validacion = false;
         String consulta = "DELETE FROM coordinador WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -113,19 +113,18 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(1, idCoordinador);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexión con la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
-            validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean modificarCoordinador(Coordinador coordinador) throws SQLException {
-        boolean validacion = false;
         String consulta =
                 "UPDATE coordinador " +
                 "SET idPersona = ?, " +
@@ -139,13 +138,13 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(3, coordinador.getIdCoordinador());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexión con la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
-            validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 }

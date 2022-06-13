@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.ProgramaEducativo;
@@ -15,16 +16,17 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
     private final Logger LOGGER = Logger.getLogger(ProgramaEducativoDAO.class);
 
     @Override
-    public ArrayList<ProgramaEducativo> obtenerProgramasEducativos() throws SQLException {
-        ArrayList<ProgramaEducativo> programasEducativos = new ArrayList<>();
+    public List<ProgramaEducativo> obtenerProgramasEducativos() throws SQLException {
+        List<ProgramaEducativo> programasEducativos = new ArrayList<>();
         String consulta = "SELECT * FROM programa_educativo";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     programasEducativos.add(getProgramaEducativo(resultado));
@@ -46,8 +48,9 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             sentencia.setInt(1, idProgramaEducativo);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 programaEducativo = getProgramaEducativo(resultado);
             }
@@ -70,7 +73,6 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
 
     @Override
     public boolean agregarProgramaEducativo(ProgramaEducativo programaEducativo) throws SQLException {
-        boolean validacion = false;
         String consulta = "INSERT INTO programa_educativo (nombreProgramaEducativo) VALUES (?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
@@ -78,20 +80,18 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             sentencia.setString(1, programaEducativo.getNombre());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean eliminarProgramaEducativoPorId(int idProgramaEducativo) throws SQLException {
-        boolean validacion = false;
         String consulta = "DELETE FROM programa_educativo WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
@@ -99,20 +99,18 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             sentencia.setInt(1, idProgramaEducativo);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas != 0) {
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
     
     @Override
     public boolean modificarProgramaEducativo(ProgramaEducativo programaEducativo) throws SQLException {
-        boolean validacion = false;
         String consulta = 
                 "UPDATE programa_educativo " + 
                 "SET nombreProgramaEducativo = ? " +
@@ -124,13 +122,13 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             sentencia.setInt(2, programaEducativo.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
-            validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 }

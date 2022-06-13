@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
@@ -16,16 +17,17 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
     private final Logger LOGGER = Logger.getLogger(FechaDeCierreEntregaDeReporteDAO.class);
 
     @Override
-    public ArrayList<FechaDeCierreEntregaDeReporte> obtenerFechasDeCierreEntregaDeReporte() throws SQLException {
-        ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporte = new ArrayList<>();
+    public List<FechaDeCierreEntregaDeReporte> obtenerFechasDeCierreEntregaDeReporte() throws SQLException {
+        List<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporte = new ArrayList<>();
         String consulta = "SELECT * FROM fecha_cierre_entrega_reporte";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     fechasDeCierreEntregaReporte.add(getFechaDeCierreEntregaDeReporte(resultado));
@@ -47,8 +49,9 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setInt(1, idFechaDeCierreEntregaReporte);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 fechaDeCierreEntregaReporte = getFechaDeCierreEntregaDeReporte(resultado);
             }
@@ -71,7 +74,6 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
 
     @Override
     public boolean agregarFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) throws SQLException {
-        boolean validacion = false;
         String consulta = "INSERT INTO fecha_cierre_entrega_reporte (fecha) VALUES (?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -79,20 +81,18 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setDate(1, (Date) fechaDeCierreEntregaDeReporte.getFecha());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean eliminarFechaDeCierreEntregaDeReportePorId(int idFechaDeCierreEntregaDeReporte) throws SQLException {
-        boolean validacion = false;
         String consulta = "DELETE FROM fecha_cierre_entrega_reporte WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -100,20 +100,18 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setInt(1, idFechaDeCierreEntregaDeReporte);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
     
     @Override
     public boolean modificarFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) throws SQLException {
-        boolean validacion = false;
         String consulta = 
                 "UPDATE fecha_cierre_entrega_reporte " + 
                 "SET fecha = ? " +
@@ -125,13 +123,13 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setInt(2, fechaDeCierreEntregaDeReporte.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
-            validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 }

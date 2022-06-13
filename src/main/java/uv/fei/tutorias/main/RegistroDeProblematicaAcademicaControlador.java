@@ -13,15 +13,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Setter;
+import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
+import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
 import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.Profesor;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
+import uv.fei.tutorias.domain.TBLEstudiante_Presenta;
 
 public class RegistroDeProblematicaAcademicaControlador implements Initializable {
     @FXML
@@ -33,25 +37,35 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     @FXML
     private TextArea taDescripcion;
     @FXML
-    private TableView<?> tblEstudiante_Presenta;
+    private TableView<TBLEstudiante_Presenta> tblEstudiante_Presenta;
     @FXML
-    private TableColumn<?,String> colEstudiante;
+    private TableColumn<TBLEstudiante_Presenta,String> colEstudiante;
     @FXML
-    private TableColumn<?,?> colPresenta;
+    private TableColumn<TBLEstudiante_Presenta,?> colPresenta;
     
     private ProfesorDAO profesorDAO = new ProfesorDAO();
     private ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
     private ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
+    private EstudianteDAO estudianteDAO = new EstudianteDAO();
     
     private ObservableList<Profesor> profesores = FXCollections.observableArrayList();
     private ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
+    private ObservableList<TBLEstudiante_Presenta> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
     
     private ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
     
     @Setter
-    private ObservableList<Estudiante> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
-    @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
+    
+    private void cargarEstudiantesDelTutorAcademico() throws SQLException {
+        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
+        TBLEstudiante_Presenta visualizacionEstudiante;
+        for(Estudiante estudiante : estudiantesObtenidos) {
+            visualizacionEstudiante = new TBLEstudiante_Presenta();
+            visualizacionEstudiante.setEstudiante(estudiante);
+            estudiantesDelTutorAcademico.add(visualizacionEstudiante);
+        }
+    }
     
     private void cargarProfesores() throws SQLException {
         this.profesores = profesorDAO.obtenerProfesores();
@@ -61,16 +75,19 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
         this.experienciasEducativas = experienciaEducativaDAO.obtenerExperienciasEducativas();
     }
     
-    private void inicializarTabla() {
-        
+    private void inicializarColumnasDeTabla() {
+        colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));
+        colEstudiante.setCellValueFactory(new PropertyValueFactory("presenta"));
     }
     
     private void cargarCamposGUI() {
         try {
             cargarProfesores();
             cargarExperienciasEducativas();
+            cargarEstudiantesDelTutorAcademico();
             this.cbProfesores.setItems(profesores);
             this.cbExperienciasEducativas.setItems(experienciasEducativas);
+            this.tblEstudiante_Presenta.setItems(estudiantesDelTutorAcademico);
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
