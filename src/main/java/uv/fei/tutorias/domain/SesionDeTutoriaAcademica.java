@@ -32,7 +32,6 @@ public class SesionDeTutoriaAcademica {
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
 
-    // Getters of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
     public int getId() {
         return id;
     }
@@ -55,7 +54,6 @@ public class SesionDeTutoriaAcademica {
         return idPeriodoEscolar;
     }
 
-    // Setters of uv.fei.tutorias.domain.SesionDeTutoriaAcademica
     public void setId(int id) {
         this.id = id;
     }

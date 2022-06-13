@@ -4,7 +4,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
-
 // author @liu
 public class PeriodoEscolar {
     private int id;
@@ -27,7 +26,6 @@ public class PeriodoEscolar {
         this.fechaTermino = fechaTermino;
     }
     
-    // Getters of uv.fei.tutorias.domain.PeriodoEscolar
     public int getId() {
         return id;
     }
@@ -47,7 +45,6 @@ public class PeriodoEscolar {
         return fechaInicioConFormato.toUpperCase() + " - " + fechaTerminoConFormato.toUpperCase();
     }
 
-    // Setters of uv.fei.tutorias.domain.PeriodoEscolar
     public void setId(int id) {
         this.id = id;
     }

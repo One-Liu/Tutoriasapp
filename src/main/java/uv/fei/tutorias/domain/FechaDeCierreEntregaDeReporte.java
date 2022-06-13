@@ -9,7 +9,6 @@ public class FechaDeCierreEntregaDeReporte {
     private int id;
     private Date fecha;
 
-    // Constructors of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
     public FechaDeCierreEntregaDeReporte() {
         this.id = 0;
         this.fecha = new Date();
@@ -25,7 +24,6 @@ public class FechaDeCierreEntregaDeReporte {
         this.fecha = fecha;
     }
 
-    // Getters of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
     public int getId() {
         return id;
     }
@@ -40,7 +38,6 @@ public class FechaDeCierreEntregaDeReporte {
         return fechaConFormato;
     }
 
-    // Setters of uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte
     public void setId(int id) {
         this.id = id;
     }

@@ -5,7 +5,6 @@ public class ProgramaEducativo {
     private int id;
     private String nombre;
 
-    // Constructors of uv.fei.tutorias.domain.ProgramaEducativo
     public ProgramaEducativo() {
         this.id = 0;
         this.nombre = "";
@@ -21,7 +20,6 @@ public class ProgramaEducativo {
         this.nombre = nombre;
     }
 
-    // Getters of uv.fei.tutorias.domain.ProgramaEducativo
     public int getId() {
         return id;
     }
@@ -30,7 +28,6 @@ public class ProgramaEducativo {
         return nombre;
     }
 
-    // Setters of uv.fei.tutorias.domain.ProgramaEducativo
     public void setId(int id) {
         this.id = id;
     }

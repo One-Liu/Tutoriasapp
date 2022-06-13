@@ -7,29 +7,7 @@ public class ListaDeAsistencia {
     private boolean asistio;
     private int idSesionDeTutoriaAcademica;
     private int idEstudiante;
-    private Estudiante estudiante;
 
-    public ListaDeAsistencia(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public boolean getAsistio() {
-        return asistio;
-    }
-
-    public void setAsistio(boolean asistio) {
-        this.asistio = asistio;
-    }
-
-    public Estudiante getEstudiante() {
-        return estudiante;
-    }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    // Constructors of uv.fei.tutorias.domain.ListaDeAsistencia
     public ListaDeAsistencia() {
         this.id = 0;
         this.hora = "";
@@ -51,7 +29,6 @@ public class ListaDeAsistencia {
         this.idEstudiante = idEstudiante;
     }
 
-    // Getters of uv.fei.tutorias.domain.ListaDeAsistencia
     public int getId() {
         return id;
     }
@@ -68,7 +45,6 @@ public class ListaDeAsistencia {
         return idEstudiante;
     }
 
-    // Setters of uv.fei.tutorias.domain.ListaDeAsistencia
     public void setId(int id) {
         this.id = id;
     }
@@ -84,6 +60,14 @@ public class ListaDeAsistencia {
     public void setIdEstudiante(int idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
+    
+    public boolean getAsistio() {
+        return asistio;
+    }
+
+    public void setAsistio(boolean asistio) {
+        this.asistio = asistio;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -91,6 +75,7 @@ public class ListaDeAsistencia {
             ListaDeAsistencia tmpListaDeAsistencia = (ListaDeAsistencia)obj;
             if(this.id == tmpListaDeAsistencia.getId()
                     && this.hora.equals(tmpListaDeAsistencia.getHora())
+                    && this.asistio == tmpListaDeAsistencia.getAsistio()
                     && this.idSesionDeTutoriaAcademica == tmpListaDeAsistencia.getIdSesionDeTutoriaAcademica()
                     && this.idEstudiante == tmpListaDeAsistencia.getIdEstudiante()) {
                 return true;

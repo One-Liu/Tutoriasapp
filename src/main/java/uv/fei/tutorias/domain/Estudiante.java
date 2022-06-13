@@ -31,7 +31,6 @@ public class Estudiante extends Persona {
         this.idTutorAcademico = idTutorAcademico;
     }
 
-    // Getters of uv.fei.tutorias.domain.Estudiante
     public int getIdEstudiante() {
         return idEstudiante;
     }
@@ -48,7 +47,6 @@ public class Estudiante extends Persona {
         return enRiesgo;
     }
 
-    // Setters of uv.fei.tutorias.domain.Estudiante
     public void setIdEstudiante(int idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
