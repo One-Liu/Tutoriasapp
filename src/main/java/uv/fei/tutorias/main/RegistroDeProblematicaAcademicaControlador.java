@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
@@ -44,18 +45,13 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     
     private ObservableList<Profesor> profesores = FXCollections.observableArrayList();
     private ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
-    private ObservableList<Estudiante> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
     
     private ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
+    
+    @Setter
+    private ObservableList<Estudiante> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
+    @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
-    
-    public void setEstudiantesDelTutor(ObservableList<Estudiante> estudiantesDelTutorAcademico) {
-        this.estudiantesDelTutorAcademico = estudiantesDelTutorAcademico;
-    }
-    
-    public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
-        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
-    }
     
     private void cargarProfesores() throws SQLException {
         this.profesores = profesorDAO.obtenerProfesores();

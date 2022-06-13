@@ -3,14 +3,39 @@ package uv.fei.tutorias.domain;
 // author @liu
 public class DatosGlobalesDeSesion {
     private static DatosGlobalesDeSesion instancia;
-    private Usuario usuario;
+    private TutorAcademico tutorAcademico;
+    private Coordinador coordinador;
+    private JefeDeCarrera jefeDeCarrera;
     
-    public Usuario getUsuario() {
-        return usuario;
+    public TutorAcademico getTutorAcademico() {
+        return tutorAcademico;
     }
-    
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+
+    public Coordinador getCoordinador() {
+        return coordinador;
+    }
+
+    public JefeDeCarrera getJefeDeCarrera() {
+        return jefeDeCarrera;
+    }
+
+    // Solo se guarda el usuario que ingrese
+    public void setTutorAcademico(TutorAcademico tutorAcademico) {
+        this.coordinador = null;
+        this.jefeDeCarrera = null;
+        this.tutorAcademico = tutorAcademico;
+    }
+
+    public void setCoordinador(Coordinador coordinador) {
+        this.tutorAcademico = null;
+        this.jefeDeCarrera = null;
+        this.coordinador = coordinador;
+    }
+
+    public void setJefeDeCarrera(JefeDeCarrera jefeDeCarrera) {
+        this.tutorAcademico = null;
+        this.coordinador = null;
+        this.jefeDeCarrera = jefeDeCarrera;
     }
     
     private DatosGlobalesDeSesion() {

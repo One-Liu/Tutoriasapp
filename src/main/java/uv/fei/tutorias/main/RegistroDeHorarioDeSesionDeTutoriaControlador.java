@@ -11,7 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
+import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
 import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
@@ -29,14 +31,11 @@ public class RegistroDeHorarioDeSesionDeTutoriaControlador implements Initializa
     
     private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
     
+    @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
-    public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
-        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
-    }
-    
     private void inicializarEstudiantes() throws SQLException {
-        this.estudiantes = estudianteDAO.obtenerEstudiantesDeTutor();
+        this.estudiantes = estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
     }
     
     private void cargarCamposGUI() {

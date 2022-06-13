@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.ListaDeAsistenciaDAO;
 import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
 import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
@@ -41,18 +42,13 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     
     private ObservableList<ListaDeAsistencia> listaDeAsistencias = FXCollections.observableArrayList();
     
-    private TutorAcademico tutorAcademico = new TutorAcademico();
-    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
     
-    public void setTutorAcademico(TutorAcademico tutorAcademico) {
-        this.tutorAcademico = tutorAcademico;
-    }
-    
-    public void setSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
-        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademica;
-    }
+    @Setter
+    private TutorAcademico tutorAcademico = new TutorAcademico();
+    @Setter
+    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
     private void inicializarPeriodoEscolar() throws SQLException {
         this.periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
