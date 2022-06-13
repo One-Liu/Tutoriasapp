@@ -5,34 +5,41 @@ import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.TutorAcademico;
 import uv.fei.tutorias.domain.Persona;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import static org.junit.Assert.*;
-
 import uv.fei.tutorias.domain.Usuario;
 
 // author @liu
-
 public class TutorAcademicoDAOTest {
+    private Persona personaNueva;
     private TutorAcademico tutorAcademicoNuevo;
     private Persona persona1;
     private TutorAcademico tutorAcademico1;
+    private Persona persona2;
+    private TutorAcademico tutorAcademico2;
     private TutorAcademicoDAO tutorAcademicoDAO;
     
     @Before
     public void inicializar(){
-        tutorAcademicoNuevo = new TutorAcademico("","","");
-        persona1 = new Persona("MAX WILLIAM","MILLÁN","MARTÍNEZ");
+        personaNueva = new Persona("","","",4);
+        tutorAcademicoNuevo = new TutorAcademico(personaNueva);
+        persona1 = new Persona("MAX WILLIAM","MILLÁN","MARTÍNEZ",4);
+        tutorAcademico1 = new TutorAcademico(1,persona1);
+        persona2 = new Persona("ÁNGEL JUAN","SÁNCHEZ","GARCÍA",4);
+        tutorAcademico2 = new TutorAcademico(2,persona2);
         tutorAcademicoDAO = new TutorAcademicoDAO();
     }
 
     @Test
-    public void testObtenerTutorAcademico() throws SQLException {
-        ArrayList<TutorAcademico> tutoresAcademicosEsperados = new ArrayList<>();
+    public void testObtenerTutoresAcademicos() throws SQLException {
+        ObservableList<TutorAcademico> tutoresAcademicosEsperados = FXCollections.observableArrayList();
         tutoresAcademicosEsperados.add(tutorAcademico1);
-//        ArrayList<TutorAcademico> tutoresAcademicosObtenidos = tutorAcademicoDAO.obtenerTutoresAcademicos();
-//        assertTrue(tutoresAcademicosEsperados.equals(tutoresAcademicosObtenidos));
+        tutoresAcademicosEsperados.add(tutorAcademico2);
+        ObservableList<TutorAcademico> tutoresAcademicosObtenidos = tutorAcademicoDAO.obtenerTutoresAcademicos();
+        assertTrue(tutoresAcademicosEsperados.equals(tutoresAcademicosObtenidos));
     }
 
     @Test
@@ -57,9 +64,10 @@ public class TutorAcademicoDAOTest {
     public void testModificarTutorAcademico() throws SQLException {
         assertTrue(tutorAcademicoDAO.modificarTutorAcademico(tutorAcademico1));
     }
+    
     @Test
     public void testBuscarTutorAcademicoPorElIdDeUsuario()throws SQLException{
-        TutorAcademico tutorAcademicoObtenido = tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(12);
-        assertEquals(tutorAcademico1, tutorAcademicoObtenido);
+        TutorAcademico tutorAcademicoObtenido = tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(2);
+        assertTrue(tutorAcademico2.equals(tutorAcademicoObtenido));
     }
 }

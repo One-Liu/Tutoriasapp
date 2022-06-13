@@ -61,7 +61,7 @@ public class ProfesorDAO implements IProfesorDAO {
         ObservableList<Profesor> profesores = FXCollections.observableArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";
+            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -85,7 +85,7 @@ public class ProfesorDAO implements IProfesorDAO {
         ConexionBD dataBaseConnection = new ConexionBD();
         Profesor profesor = new Profesor();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = (?)";
+            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,searchId);
             ResultSet resultSet = statement.executeQuery();
@@ -133,6 +133,7 @@ public class ProfesorDAO implements IProfesorDAO {
         String nombrePersona = "";
         String apellidoPaternoPersona = "";
         String apellidoMaternoPersona = "";
+        int idProgramaEducativo = 0;
 
         try {
             id = resultSet.getInt("id");
@@ -143,7 +144,9 @@ public class ProfesorDAO implements IProfesorDAO {
             profesor.setApellidoMaterno(apellidoMaternoPersona);
             apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
             profesor.setApellidoPaterno(apellidoPaternoPersona);
-
+            idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
+            profesor.setIdProgramaEducativo(idProgramaEducativo);
+            
         } catch(SQLException ex) {
             LOG.warn(PersonaDAO.class.getName(), ex);
         }
@@ -155,7 +158,7 @@ public class ProfesorDAO implements IProfesorDAO {
         ObservableList<Profesor> profesores = FXCollections.observableArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre";
+            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){

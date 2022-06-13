@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.Estudiante;
@@ -29,12 +30,9 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
+    @Setter
     private Estudiante estudiante = new Estudiante();
     private TutorAcademico tutorAcademicoAnterior = new TutorAcademico();
-    
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
     
     private void cargarTutoresAcademicos() throws SQLException {
         this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());

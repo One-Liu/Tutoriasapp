@@ -13,6 +13,5 @@ public interface ITutorAcademicoDAO {
     public boolean agregarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException;
     public boolean eliminarTutorAcademicoPorId(int idTutorAcademico) throws SQLException;
     public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException;
-    public ArrayList<TutorAcademico> recuperarTodosTutoresAcademicos() throws SQLException;
     public ObservableList<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException;
 }

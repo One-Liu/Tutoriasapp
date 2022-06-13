@@ -51,7 +51,7 @@ public class ConsultarTutorAcademicoControlador implements Initializable {
     public void mostrarTutoresTabla() throws SQLException {
         ArrayList<TutorAcademico> listaTutores = new ArrayList<>();
         TutorAcademicoDAO tutorDAO = new TutorAcademicoDAO();
-        listaTutores = tutorDAO.recuperarTodosTutoresAcademicos();
+        listaTutores = tutorDAO.obtenerTutoresAcademicos();
         if (listaTutores != null) {
             listaObservableTutores.addAll(listaTutores);
             tablaTutores.setItems(listaObservableTutores);
