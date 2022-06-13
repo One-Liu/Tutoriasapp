@@ -4,6 +4,7 @@ import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
 import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -11,14 +12,18 @@ import static org.junit.Assert.*;
 // author @liu
 public class FechaDeCierreEntregaDeReporteDAOTest {
     
+    private Date fechaNueva;
     private FechaDeCierreEntregaDeReporte fechaDeCierreNueva;
+    private Date fecha1;
     private FechaDeCierreEntregaDeReporte fechaDeCierre1;
     private FechaDeCierreEntregaDeReporteDAO fechaDeCierreDAO;
     
     @Before
     public void inicializar() {
+        fechaNueva = new Date();
         fechaDeCierreNueva = new FechaDeCierreEntregaDeReporte("");
-        fechaDeCierre1 = new FechaDeCierreEntregaDeReporte("28-04-2022");
+        fecha1 = new Date("");
+        fechaDeCierre1 = new FechaDeCierreEntregaDeReporte(1,fecha1);
         fechaDeCierreDAO = new FechaDeCierreEntregaDeReporteDAO();
     }
     

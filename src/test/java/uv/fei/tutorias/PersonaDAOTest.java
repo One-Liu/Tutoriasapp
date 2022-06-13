@@ -1,5 +1,6 @@
 package uv.fei.tutorias;
 
+import java.sql.SQLException;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Before;
@@ -11,31 +12,50 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
 public class PersonaDAOTest {
-    private Persona persona;
+    private Persona personaNueva;
+    private Persona persona1;
+    private Persona persona2;
+    private Persona persona3;
+    private Persona persona4;
+    private Persona persona5;
+    private Persona persona6;
+    private Persona persona7;
+    private Persona persona8;
+    private Persona persona9;
+    private Persona persona10;
     private PersonaDAO personaDAO;
 
     @Before
     public void inicio(){
-        persona = new Persona("Marifer","Gonzales","Gutierrez");
+        personaNueva = new Persona("","","",4);
+        persona1 = new Persona(1,"MARÍA DE LOS ÁNGELES","ARENAS","VALDÉZ",4);
+        persona2 = new Persona(2,"MAX WILLIAM","MILLÁN","MARTÍNEZ",4);
+        persona3 = new Persona(3,"SERGIO LUIS","CASTILLO","VALERIO",4);
+        persona4 = new Persona(4,"JUAN CARLOS","PÉREZ","ARRIAGA",4);
+        persona5 = new Persona(5,"PAULO CÉSAR","HERNÁNDEZ","ROSADO",4);
+        persona6 = new Persona(6,"JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ",4);
+        persona7 = new Persona(7,"ALFREDO","TORRES","ESTOPIER",4);
+        persona8 = new Persona(8,"ÁNGEL JUAN","SÁNCHEZ","GARCÍA",4);
+        persona9 = new Persona(9,"JORGE OCTAVIO","OCHARÁN","HERNÁNDEZ",4);
+        persona10 = new Persona(10,"VICTOR AUGUSTO","CUEVAS","BARRADAS",4);
         personaDAO = new PersonaDAO();
     }
 
     @Test
     public void buscarPersonasPorNombre() {
-        MatcherAssert.assertThat(personaDAO.obtenerPersonaPorNombre("Luz"), not(IsEmptyCollection.empty()));
-
+        MatcherAssert.assertThat(personaDAO.obtenerPersonaPorNombre("ALFREDO"), not(IsEmptyCollection.empty()));
+        
     }
 
     @Test
     public void findPersonaById() {
-        persona.setIdPersona(36);
-        assertEquals(personaDAO.obtenerPersonaPorId(36),persona);
+        assertEquals(personaDAO.obtenerPersonaPorId(2),persona2);
 
     }
 
     @Test
-    public void addPersona() {
-        assertNotSame(personaDAO.agregarPersona(persona),-1);
+    public void addPersona() throws SQLException {
+        assertNotSame(personaDAO.agregarPersona(personaNueva),-1);
     }
 
     @Test
@@ -45,9 +65,8 @@ public class PersonaDAOTest {
     }
 
     @Test
-    public void addpersonaReturnId(){
-        assertEquals(37,personaDAO.agregarPersona(persona));
+    public void addpersonaReturnId() throws SQLException {
+        assertEquals(37,personaDAO.agregarPersona(personaNueva));
 
     }
-
 }

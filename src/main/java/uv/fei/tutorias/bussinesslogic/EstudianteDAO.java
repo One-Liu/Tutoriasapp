@@ -92,15 +92,14 @@ public class EstudianteDAO implements IEstudianteDAO {
     public boolean agregarEstudiante(Estudiante estudiante) throws SQLException {
         boolean validacion = false;
         PersonaDAO personaDao = new PersonaDAO();
-        Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno(), estudiante.getIdPersona());
-        String consulta = "INSERT INTO estudiante (matricula, idTutorAcademico, idProgramaEducativo, idPersona) VALUES (?,?,?,?)";
+        Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno(), estudiante.getIdProgramaEducativo());
+        String consulta = "INSERT INTO estudiante (matricula, idTutorAcademico, idPersona) VALUES (?,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setString(1, estudiante.getMatricula());
             sentencia.setInt(2, estudiante.getIdTutorAcademico());
-            sentencia.setInt(3, estudiante.getIdProgramaEducativo());
-            sentencia.setInt(4, personaDao.agregarPersona(personaEstudiante));
+            sentencia.setInt(3, personaDao.agregarPersona(personaEstudiante));
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());

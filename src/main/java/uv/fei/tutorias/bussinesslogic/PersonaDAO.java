@@ -34,17 +34,21 @@ public class PersonaDAO implements IPersonaDAO {
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
+                int idProgramaEducativo;
+                
                 do {
                     idPersona = resultSet.getInt("id");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-
+                    idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
+                    
                     Persona persona = new Persona();
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
+                    persona.setIdProgramaEducativo(idProgramaEducativo);
 
                     personas.add(persona);
                 } while (resultSet.next());
@@ -72,16 +76,20 @@ public class PersonaDAO implements IPersonaDAO {
                 String nombre = "";
                 String apellidoPaterno = "";
                 String apellidoMaterno = "";
+                int idProgramaEducativo = 0;
+                
                 do {
                     idPersona = resultSet.getInt("id");
                     nombre = resultSet.getString("nombre");
                     apellidoPaterno = resultSet.getString("apellidoPaterno");
                     apellidoMaterno = resultSet.getString("apellidoMaterno");
-
+                    idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
+                    
                     persona.setIdPersona(idPersona);
                     persona.setNombre(nombre);
                     persona.setApellidoPaterno(apellidoPaterno);
                     persona.setApellidoMaterno(apellidoMaterno);
+                    persona.setIdProgramaEducativo(idProgramaEducativo);
 
                 } while (resultSet.next());
             }
@@ -122,7 +130,7 @@ public class PersonaDAO implements IPersonaDAO {
         ConexionBD dataBaseConnection = new ConexionBD();
         int id = -1;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno, idProgramaEducativo) VALUES(?,?,?)";
+            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno, idProgramaEducativo) VALUES(?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, persona.getNombre());
             statement.setString(2, persona.getApellidoPaterno());
