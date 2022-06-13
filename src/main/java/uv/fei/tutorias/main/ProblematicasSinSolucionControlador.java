@@ -6,6 +6,7 @@
 package uv.fei.tutorias.main;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -31,8 +32,11 @@ public class ProblematicasSinSolucionControlador implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        CargarProblematicas();
-
+        try {
+            CargarProblematicas();
+        } catch(SQLException ex) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
     }
 
     public void RegistrarSolucionBtn(MouseEvent mouseEvent) {
@@ -45,7 +49,7 @@ public class ProblematicasSinSolucionControlador implements Initializable {
         System.exit(1);
     }
 
-    public void CargarProblematicas(){
+    public void CargarProblematicas() throws SQLException {
 
         ObservableList<ProblematicaAcademica> listaObservableProblematicas = FXCollections.observableArrayList();
         ProblematicaAcademicaDAO problematica =new ProblematicaAcademicaDAO();

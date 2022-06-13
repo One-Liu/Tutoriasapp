@@ -35,7 +35,7 @@ public class TablaPersonaProfesorController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ProfesorDAO profesorDAO = new ProfesorDAO();
         ObservableList<Profesor> profesores = profesorDAO.findProfesoresByName("");
-        this.colIdProfesor.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getId()));
+        this.colIdProfesor.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getIdProfesor()));
         this.colNombre.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getNombre()));
         this.colApellidoPaterno.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getApellidoPaterno()));
         this.colApellidoMaterno.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getApellidoMaterno()));
@@ -54,7 +54,7 @@ public class TablaPersonaProfesorController implements Initializable {
         Stage stage = (Stage) this.raiz.getScene().getWindow();
         ExperienciaEducativa experienciaEducativa = (ExperienciaEducativa) stage.getUserData();
         //Juntamos la informacion con la ventana nueva
-        experienciaEducativa.setIdProfesor(tblPersona.getSelectionModel().getSelectedItem().getId());
+        experienciaEducativa.setIdProfesor(tblPersona.getSelectionModel().getSelectedItem().getIdProfesor());
         //lo agregamos a la base de datos
         experienciaEducativaDAO.modificarExperienciaEducativa(experienciaEducativa);
 

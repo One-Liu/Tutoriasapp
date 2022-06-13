@@ -94,7 +94,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
         Profesor profesorSeleccionado = this.cbProfesores.getSelectionModel().getSelectedItem();
         
         this.problematicaAcademica.setIdExperienciaEducativa(experienciaEducativaSeleccionada.getIdExperienciaEducativa());
-        this.problematicaAcademica.setIdProfesor(profesorSeleccionado.getId());
+        this.problematicaAcademica.setIdProfesor(profesorSeleccionado.getIdProfesor());
         
         problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica);
     }

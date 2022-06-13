@@ -14,6 +14,7 @@ import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.Profesor;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -25,8 +26,11 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
     public TextArea insertarSolucionTextArea;
 
     public RegistrarSolucionProblematicaAcademicaControlador(String seleccion){
-        asignarTextosLabel(seleccion);
-
+        try {
+            asignarTextosLabel(seleccion);
+        } catch(SQLException ex) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
     }
 
     @Override
@@ -51,7 +55,7 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
         System.exit(1);
     }
 
-    public void asignarTextosLabel(String descripcion){
+    public void asignarTextosLabel(String descripcion) throws SQLException {
 
         ProblematicaAcademicaDAO problematica = new ProblematicaAcademicaDAO();
         ExperienciaEducativaDAO experiencia = new ExperienciaEducativaDAO();

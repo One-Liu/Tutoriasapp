@@ -34,7 +34,11 @@ public class ConsultarTutorAcademicoControlador implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
-        mostrarTutoresTabla();
+        try {
+            mostrarTutoresTabla();
+        } catch(SQLException ex) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
     }
     public void configurarTabla(){
         listaObservableTutores = FXCollections.observableArrayList();
@@ -44,7 +48,7 @@ public class ConsultarTutorAcademicoControlador implements Initializable {
         this.tablaTutorApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
     }
 
-    public void mostrarTutoresTabla(){
+    public void mostrarTutoresTabla() throws SQLException {
         ArrayList<TutorAcademico> listaTutores = new ArrayList<>();
         TutorAcademicoDAO tutorDAO = new TutorAcademicoDAO();
         listaTutores = tutorDAO.recuperarTodosTutoresAcademicos();
