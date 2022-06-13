@@ -30,9 +30,10 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
+    private TutorAcademico tutorAcademicoAnterior = new TutorAcademico();
+    
     @Setter
     private Estudiante estudiante = new Estudiante();
-    private TutorAcademico tutorAcademicoAnterior = new TutorAcademico();
     
     private void cargarTutoresAcademicos() throws SQLException {
         this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
