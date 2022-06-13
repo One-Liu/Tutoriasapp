@@ -20,7 +20,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     public ObservableList<Estudiante> obtenerEstudiantes() throws SQLException {
         ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
         String consulta =
-        "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+        "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -44,7 +44,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException {
         Estudiante estudiante = new Estudiante();
         String consulta =
-        "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
+        "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
         "WHERE E.id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -82,8 +82,9 @@ public class EstudianteDAO implements IEstudianteDAO {
         enRiesgo = resultSet.getBoolean("enRiesgo");
         idTutorAcademico = resultSet.getInt("idTutorAcademico");
         idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
-        Persona personaEstudiante = new Persona(nombre,apellidoPaterno,apellidoMaterno);
-        Estudiante estudiante = new Estudiante(idEstudiante,matricula,enRiesgo,personaEstudiante,idTutorAcademico,idProgramaEducativo);
+        
+        Persona personaEstudiante = new Persona(nombre,apellidoPaterno,apellidoMaterno,idProgramaEducativo);
+        Estudiante estudiante = new Estudiante(idEstudiante,matricula,enRiesgo,idTutorAcademico,personaEstudiante);
         return estudiante;
     }
 
@@ -91,7 +92,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     public boolean agregarEstudiante(Estudiante estudiante) throws SQLException {
         boolean validacion = false;
         PersonaDAO personaDao = new PersonaDAO();
-        Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno());
+        Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno(), estudiante.getIdPersona());
         String consulta = "INSERT INTO estudiante (matricula, idTutorAcademico, idProgramaEducativo, idPersona) VALUES (?,?,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -145,7 +146,7 @@ public class EstudianteDAO implements IEstudianteDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, estudiante.getIdTutorAcademico());
-            sentencia.setInt(2, estudiante.getId());
+            sentencia.setInt(2, estudiante.getIdEstudiante());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
@@ -162,7 +163,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     public ObservableList<Estudiante> obtenerEstudiantesDeTutor(int idTutorAcademico) throws SQLException {
         ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
         String consulta =
-                "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
                 "WHERE E.idTutorAcademico = ?";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -188,7 +189,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     public ObservableList<Estudiante> obtenerEstudiantesSinTutorAsignado() throws SQLException {
         ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
         String consulta =
-                "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
                 "WHERE E.idTutorAcademico = 0";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -213,7 +214,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     public ObservableList<Estudiante> obtenerEstudiantesConTutorAsignado() throws SQLException {
         ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
         String consulta =
-                "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, E.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
                 "WHERE E.idTutorAcademico != 0";
         ConexionBD baseDeDatos = new ConexionBD();

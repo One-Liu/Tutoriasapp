@@ -19,7 +19,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     public ArrayList<Coordinador> obtenerCoordinadores() throws SQLException {
         ArrayList<Coordinador> coordinadores = new ArrayList<>();
         String consulta =
-                "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT C.id, P.nombre, P.apellidoPaterno, P.apellidoMaterno, P.idProgramaEducativo " +
                 "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -43,7 +43,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     public Coordinador obtenerCoordinadorPorId(int idCoordinador) throws SQLException {
         Coordinador coordinador = new Coordinador();
         String consulta =
-                "SELECT C.id, C.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT C.id, P.nombre, P.apellidoPaterno, P.apellidoMaterno, P.idProgramaEducativo " +
                 "FROM coordinador C INNER JOIN persona P ON P.id = C.idPersona " +
                 "WHERE C.id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -76,8 +76,8 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         apellidoMaterno = resultado.getString("apellidoMaterno");
         idProgramaEducativo = resultado.getInt("idProgramaEducativo");
 
-        Persona personaCoordinador = new Persona(nombre,apellidoPaterno,apellidoMaterno);
-        Coordinador coordinador = new Coordinador(idCoordinador,personaCoordinador,idProgramaEducativo);
+        Persona personaCoordinador = new Persona(nombre, apellidoPaterno, apellidoMaterno, idProgramaEducativo);
+        Coordinador coordinador = new Coordinador(idCoordinador, personaCoordinador);
         return coordinador;
     }
 
@@ -85,7 +85,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     public boolean agregarCoordinador(Coordinador coordinador) throws SQLException {
         boolean validacion = false;
         PersonaDAO personaDAO = new PersonaDAO();
-        Persona personaCoordinador = new Persona(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno());
+        Persona personaCoordinador = new Persona(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno(), coordinador.getIdProgramaEducativo());
         String consulta = "INSERT INTO coordinador (idProgramaEducativo,idPersona,idUsuario) VALUES (?,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -131,17 +131,15 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         boolean validacion = false;
         String consulta =
                 "UPDATE coordinador " +
-                "SET idProgramaEducativo = ?, " +
                 "SET idPersona = ?, " +
                 "SET idUsuario = ? " +
                 "WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, coordinador.getIdProgramaEducativo());
-            sentencia.setInt(2, coordinador.getIdPersona());
-            sentencia.setInt(3, coordinador.getIdUsuario());
-            sentencia.setInt(4, coordinador.getId());
+            sentencia.setInt(1, coordinador.getIdPersona());
+            sentencia.setInt(2, coordinador.getIdUsuario());
+            sentencia.setInt(3, coordinador.getIdCoordinador());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());

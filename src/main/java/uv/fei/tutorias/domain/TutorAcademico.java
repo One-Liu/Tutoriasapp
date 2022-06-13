@@ -12,6 +12,11 @@ public class TutorAcademico extends Usuario {
         super(tutorAcademico);
         this.idTutorAcademico = 0;
     }
+    
+    public TutorAcademico(int idTutorAcademico, Persona tutorAcademico) {
+        super(tutorAcademico);
+        this.idTutorAcademico = idTutorAcademico;
+    }
 
     public TutorAcademico(Persona tutorAcademico, Usuario usuario) {
         super(usuario.getIdUsuario(), usuario.getContrasena(), usuario.getCorreoInstitucional(), tutorAcademico);

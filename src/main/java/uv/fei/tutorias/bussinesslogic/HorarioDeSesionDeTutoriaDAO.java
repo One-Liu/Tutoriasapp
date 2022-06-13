@@ -43,7 +43,7 @@ public class HorarioDeSesionDeTutoriaDAO implements IHorarioDeSesionDeTutoriaDAO
             String query = "INSERT INTO horario_de_sesion_de_tutoria (hora,idEstudiante,idSesionDeTutoriaAcademica) VALUES(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,horarioDeSesionDeTutoria.getHora());
-            statement.setInt(2, horarioDeSesionDeTutoria.getEstudiante().getId());
+            statement.setInt(2, horarioDeSesionDeTutoria.getEstudiante().getIdEstudiante());
             statement.setInt(3, horarioDeSesionDeTutoria.getSesionDeTutoriaAcademica().getId());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {

@@ -19,8 +19,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     public ObservableList<TutorAcademico> obtenerTutoresAcademicos() throws SQLException {
         ObservableList<TutorAcademico> tutores = FXCollections.observableArrayList();
         String consulta =
-        "SELECT TA.idTutorAcademico, P.* " +
-        "FROM TutorAcademico TA INNER JOIN Persona P ON P.idPersona = TA.idPersona";
+                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
@@ -43,9 +43,9 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     public TutorAcademico obtenerTutorAcademicoPorId(int idTutorAcademico) throws SQLException {
         TutorAcademico tutorAcademico;
         String consulta = 
-        "SELECT TA.idTutorAcademico, P.* " +
-        "FROM TutorAcademico TA LEFT JOIN Persona P ON P.idPersona = TA.idPersona " +
-        "WHERE idTutorAcademico = ?";
+                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
+                "WHERE TA.id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
@@ -68,14 +68,16 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         String nombre;
         String apellidoPaterno;
         String apellidoMaterno;
-
-        idTutorAcademico = resultado.getInt("id");
+        int idProgramaEducativo;
+        
+        idTutorAcademico = resultado.getInt("idTutorAcademico");
         nombre = resultado.getString("nombre");
         apellidoPaterno = resultado.getString("apellidoPaterno");
         apellidoMaterno = resultado.getString("apellidoMaterno");
+        idProgramaEducativo = resultado.getInt("idProgramaEducativo");
 
-        Persona personaCoordinador = new Persona(nombre,apellidoPaterno,apellidoMaterno);
-        TutorAcademico tutorAcademico = new TutorAcademico(idTutorAcademico,personaCoordinador);
+        Persona personaTutorAcademico = new Persona(nombre,apellidoPaterno,apellidoMaterno,idProgramaEducativo);
+        TutorAcademico tutorAcademico = new TutorAcademico(idTutorAcademico,personaTutorAcademico);
         return tutorAcademico;
     }
 
@@ -147,12 +149,13 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         }
         return validacion;
     }
+    
     public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException {
         TutorAcademico tutorAcademico = new TutorAcademico();
         String query =
-                "SELECT TA.id, P.* " +
-                        "FROM tutor_academico TA LEFT JOIN persona P ON P.id = TA.idPersona " +
-                        "WHERE idUsuario = ?";
+                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
+                "WHERE idUsuario = ?";
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -174,7 +177,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     @Override
     public ArrayList<TutorAcademico> recuperarTodosTutoresAcademicos() throws SQLException {
         ArrayList<TutorAcademico> listaTutores = new ArrayList<>();
-        String query = "SELECT tutor_academico.id AS idTutorAcademico, nombre, apellidoPaterno, apellidoMaterno" +
+        String query = 
+                "SELECT tutor_academico.id AS idTutorAcademico, nombre, apellidoPaterno, apellidoMaterno" +
                 " FROM tutor_academico INNER JOIN persona ON tutor_academico.idPersona = persona.id";
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -185,12 +189,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
                 throw new SQLException("No hay conexion a la base de datos");
             } else {
                 do {
-                    TutorAcademico tutor = new TutorAcademico();
-                    tutor.setIdTutorAcademico(resultSet.getInt("idTutorAcademico"));
-                    tutor.setNombre(resultSet.getString("nombre"));
-                    tutor.setApellidoPaterno(resultSet.getString("apellidoPaterno"));
-                    tutor.setApellidoMaterno(resultSet.getString("apellidoMaterno"));
-                    listaTutores.add(tutor);
+                    listaTutores.add(getTutorAcademico(resultSet));
                 } while (resultSet.next());
             }
         } finally{
@@ -203,8 +202,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     public ObservableList<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException {
         ObservableList<TutorAcademico> tutores = FXCollections.observableArrayList();
         String consulta =
-                "SELECT TA.idTutorAcademico, P.* " +
-                "FROM TutorAcademico TA INNER JOIN Persona P ON P.idPersona = TA.idPersona" +
+                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "FROM tutor_academico TA INNER JOIN Persona P ON P.idPersona = TA.idPersona" +
                 "WHERE TA.idTutorAcademico != ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {

@@ -11,8 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-
-
+import uv.fei.tutorias.domain.Persona;
 
 public class ProfesorDAO implements IProfesorDAO {
     private final Logger LOG = Logger.getLogger(ProfesorDAO.class);
@@ -24,7 +23,7 @@ public class ProfesorDAO implements IProfesorDAO {
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO profesor(id, idPersona) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1,profesor.getId());
+            statement.setInt(1, profesor.getIdProfesor());
             statement.setInt(2, profesor.getIdPersona());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
@@ -40,11 +39,12 @@ public class ProfesorDAO implements IProfesorDAO {
         return bandera;
     }
 
-    public boolean addProfesorandPersona(Profesor profesor){
+    public boolean addProfesorandPersona(Persona persona) throws SQLException {
         boolean bandera = false;
         PersonaDAO personaDAO = new PersonaDAO();
         int idPersona;
-        idPersona = personaDAO.agregarPersona(profesor);
+        idPersona = personaDAO.agregarPersona(persona);
+        Profesor profesor = new Profesor();
         if (idPersona != -1){
             profesor.setIdPersona(idPersona);
             addProfesor(profesor);
@@ -136,7 +136,7 @@ public class ProfesorDAO implements IProfesorDAO {
 
         try {
             id = resultSet.getInt("id");
-            profesor.setId(id);
+            profesor.setIdProfesor(id);
             nombrePersona = resultSet.getString("nombre");
             profesor.setNombre(nombrePersona);
             apellidoMaternoPersona = resultSet.getString("apellidoMaterno");
