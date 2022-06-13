@@ -3,7 +3,6 @@ package uv.fei.tutorias;
 import uv.fei.tutorias.bussinesslogic.CoordinadorDAO;
 import uv.fei.tutorias.domain.Coordinador;
 import uv.fei.tutorias.domain.Persona;
-import uv.fei.tutorias.domain.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Before;
@@ -16,17 +15,15 @@ public class CoordinadorDAOTest {
     private Coordinador coordinadorNuevo;
     private Persona persona1;
     private Coordinador coordinador1;
-    private Usuario usuario1;
-    private Coordinador coordinadorWithUsuario1;
     private CoordinadorDAO coordinadorDAO;
     
     @Before
     public void inicializar() {
         coordinadorNuevo = new Coordinador();
-        persona1 = new Persona("MARÍA DE LOS ÁNGELES","ARENAS","VALDÉZ");
-        coordinador1 = new Coordinador(persona1,1);
-        usuario1 = new Usuario("aarenas","aarenas@uv.mx");
-        coordinadorWithUsuario1 = new Coordinador(persona1,1,usuario1);
+        coordinadorNuevo.setIdPersona(0);
+        coordinadorNuevo.setIdUsuario(0);
+        persona1 = new Persona("MARÍA DE LOS ÁNGELES","ARENAS","VALDÉZ",4);
+        coordinador1 = new Coordinador(1,persona1);
         coordinadorDAO = new CoordinadorDAO();
     }
     

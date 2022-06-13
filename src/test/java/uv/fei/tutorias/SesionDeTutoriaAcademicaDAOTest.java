@@ -4,6 +4,7 @@ import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -11,14 +12,18 @@ import static org.junit.Assert.*;
 // author @liu
 public class SesionDeTutoriaAcademicaDAOTest {
     
+    private Date fechaNueva;
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademicaNueva;
+    private Date fecha1;
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica1;
     private SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO;
     
     @Before
     public void inicializar() {
-        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica("","",0);
-        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica("2022-03-09","02:00",1);
+        fechaNueva = new Date();
+        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0);
+        fecha1 = new Date();
+        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica(1,fecha1,false,1);
         sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     }
 

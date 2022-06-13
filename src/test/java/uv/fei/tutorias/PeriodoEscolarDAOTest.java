@@ -1,43 +1,64 @@
 package uv.fei.tutorias;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Date;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 
 // author @liu
 public class PeriodoEscolarDAOTest {
     
+    private Date fechaInicioNueva;
+    private Date fechaTerminoNueva;
     private PeriodoEscolar periodoEscolarNuevo;
+    private Date fechaInicio1;
+    private Date fechaTermino1;
     private PeriodoEscolar periodoEscolar1;
+    private Date fechaInicio2;
+    private Date fechaTermino2;
     private PeriodoEscolar periodoEscolar2;
+    private Date fechaInicio3;
+    private Date fechaTermino3;
     private PeriodoEscolar periodoEscolar3;
+    private Date fechaInicio4;
+    private Date fechaTermino4;
     private PeriodoEscolar periodoEscolar4;
     private PeriodoEscolarDAO periodoEscolarDAO;
     
     @Before
     public void inicializar() {
-        periodoEscolarNuevo = new PeriodoEscolar("2024-02-01","2024-07-01");
-        periodoEscolar1 = new PeriodoEscolar(1,"2022-02-01","2022-07-01");
-        periodoEscolar2 = new PeriodoEscolar(2,"2022-08-01","2023-01-01");
-        periodoEscolar3 = new PeriodoEscolar(3,"2023-02-01","2023-07-01");
-        periodoEscolar4 = new PeriodoEscolar(4,"2023-08-01","2024-01-01");
+        fechaInicioNueva = new Date();
+        fechaTerminoNueva = new Date();
+        periodoEscolarNuevo = new PeriodoEscolar(fechaInicioNueva,fechaTerminoNueva);
+        fechaInicio1 = new Date();
+        fechaTermino1 = new Date();
+        periodoEscolar1 = new PeriodoEscolar(1,fechaInicio1,fechaTermino1);
+        fechaInicio2 = new Date();
+        fechaTermino2 = new Date();
+        periodoEscolar2 = new PeriodoEscolar(2,fechaInicio2,fechaTermino2);
+        fechaInicio3 = new Date();
+        fechaTermino3 = new Date();
+        periodoEscolar3 = new PeriodoEscolar(3,fechaInicio3,fechaTermino3);
+        fechaInicio4 = new Date();
+        fechaTermino4 = new Date();
+        periodoEscolar4 = new PeriodoEscolar(4,fechaInicio4,fechaTermino4);
         periodoEscolarDAO = new PeriodoEscolarDAO();
     }
 
     @Test
     public void testObtenerPeriodosEscolares() throws SQLException {
-        ArrayList<PeriodoEscolar> periodosEscolaresEsperados = new ArrayList<>();
+        ObservableList<PeriodoEscolar> periodosEscolaresEsperados = FXCollections.observableArrayList();
         periodosEscolaresEsperados.add(periodoEscolar1);
         periodosEscolaresEsperados.add(periodoEscolar2);
         periodosEscolaresEsperados.add(periodoEscolar3);
         periodosEscolaresEsperados.add(periodoEscolar4);
-//        ArrayList<PeriodoEscolar> periodosEscolaresObtenidos = periodoEscolarDAO.obtenerPeriodosEscolares();
-//        assertTrue(periodosEscolaresEsperados.equals(periodosEscolaresObtenidos));
+        ObservableList<PeriodoEscolar> periodosEscolaresObtenidos = periodoEscolarDAO.obtenerPeriodosEscolares();
+        assertTrue(periodosEscolaresEsperados.equals(periodosEscolaresObtenidos));
     }
 
     @Test
@@ -51,7 +72,7 @@ public class PeriodoEscolarDAOTest {
     public void testAgregarPeriodoEscolar() throws SQLException {
         assertTrue(periodoEscolarDAO.agregarPeriodoEscolar(periodoEscolarNuevo));
     }
-/*
+
     @Test
     public void testEliminarPeriodoEscolarPorId() throws SQLException {
         int idPeriodoEscolar = 2;
@@ -62,5 +83,4 @@ public class PeriodoEscolarDAOTest {
     public void testModificarPeriodoEscolar() throws SQLException {
         assertTrue(periodoEscolarDAO.modificarPeriodoEscolar(periodoEscolar1));
     }
-    */
 }

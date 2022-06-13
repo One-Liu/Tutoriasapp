@@ -1,5 +1,6 @@
 package uv.fei.tutorias;
 
+import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
@@ -18,17 +19,22 @@ public class ReporteDeTutoriaDAOTest {
         reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica("El alumno va bien en custiones academicas",0,0,0);
     }
     @Test
-    public void agregarReporteDeTutoria(){
-        assertTrue(reporteDeTutoriaAcademicaDAO.addReporteDeTutoriaAcademica(reporteDeTutoriaAcademica));
+    public void agregarReporteDeTutoria() throws SQLException {
+        assertTrue(reporteDeTutoriaAcademicaDAO.agregarReporteDeTutoriaAcademica(reporteDeTutoriaAcademica));
     }
 
     @Test
-    public void buscarReporteDetutoriaPorId(){
-        assertNotNull(reporteDeTutoriaAcademicaDAO.findReporteDeTutoriaById(3));
+    public void buscarReporteDetutoriaPorId() throws SQLException {
+        assertNotNull(reporteDeTutoriaAcademicaDAO.obtenerReporteDeTutoriaPorId(3));
     }
 
     @Test
-    public void EliminarReporteDeTutoriaAcademicaPorId(){
-        assertTrue(reporteDeTutoriaAcademicaDAO.deleteReporteDeTutoriasAcademicasById(3));
+    public void obtenerReporteDeTutoriaPorIdSesionTutoriaYIdTutor() throws SQLException {
+        
+    }
+    
+    @Test
+    public void EliminarReporteDeTutoriaAcademicaPorId() throws SQLException {
+        assertTrue(reporteDeTutoriaAcademicaDAO.eliminarReporteDeTutoriasAcademicasPorId(3));
     }
 }

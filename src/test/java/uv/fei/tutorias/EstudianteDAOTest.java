@@ -1,8 +1,7 @@
 package uv.fei.tutorias;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,23 +16,36 @@ public class EstudianteDAOTest {
     private Estudiante estudianteNuevo;
     private Persona persona1;
     private Estudiante estudiante1;
+    private Persona persona2;
+    private Estudiante estudiante2;
+    private Persona persona3;
+    private Estudiante estudiante3;
+    private Persona persona4;
+    private Estudiante estudiante4;
     private EstudianteDAO estudianteDAO;
     
     @Before
     public void inicializar() {
-        personaNueva = new Persona("Mario","Peña","Gonzales");
-        estudianteNuevo = new Estudiante("s20020400",personaNueva,0,0);
-        personaNueva = new Persona("","","");
-        estudianteNuevo = new Estudiante("",personaNueva,0,0);
-        persona1 = new Persona("","","");
-        estudiante1 = new Estudiante("",persona1,1,1);
+        personaNueva = new Persona("VICTOR AUGUSTO","CUEVAS","BARRADAS",4);
+        estudianteNuevo = new Estudiante("S20020853",personaNueva);
+        persona1 = new Persona("JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ",4);
+        estudiante1 = new Estudiante(1,"S20015728",false,2,persona1);
+        persona2 = new Persona("PAULO CÉSAR","HERNÁNDEZ","ROSADO",4);
+        estudiante2 = new Estudiante(2,"S20020854",false,2,persona2);
+        persona3 = new Persona("ALFREDO","TORRES","ESTOPIER",4);
+        estudiante3 = new Estudiante(3,"S19014028",false,2,persona3);
+        persona4 = new Persona("VICTOR AUGUSTO","CUEVAS","BARRADAS",4);
+        estudiante4 = new Estudiante(4,"S20020853",false,0,persona4);
         estudianteDAO = new EstudianteDAO();
     }
 
     @Test
     public void testObtenerEstudiantes() throws SQLException {
-        ArrayList<Estudiante> estudiantesEsperados = new ArrayList<>();
+        ObservableList<Estudiante> estudiantesEsperados = FXCollections.observableArrayList();
         estudiantesEsperados.add(estudiante1);
+        estudiantesEsperados.add(estudiante2);
+        estudiantesEsperados.add(estudiante3);
+        estudiantesEsperados.add(estudiante4);
         ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantes();
         assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
     }
@@ -57,7 +69,35 @@ public class EstudianteDAOTest {
     }
 
     @Test
-    public void testModificarEstudiante() throws SQLException {
-//        assertTrue(estudianteDAO.modificarEstudiante(estudiante1));
+    public void testModificarAsignacionDeTutor() throws SQLException {
+        assertTrue(estudianteDAO.modificarAsignacionDeTutor(estudiante1));
+    }
+    
+    @Test
+    public void testObtenerEstudiantesDeTutor() throws SQLException {
+        ObservableList<Estudiante> estudiantesEsperados = FXCollections.observableArrayList();
+        estudiantesEsperados.add(estudiante1);
+        estudiantesEsperados.add(estudiante2);
+        estudiantesEsperados.add(estudiante3);
+        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesDeTutor(2);
+        assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
+    }
+    
+    @Test
+    public void testObtenerEstudiantesSinTutorAsignado() throws SQLException {
+        ObservableList<Estudiante> estudiantesEsperados = FXCollections.observableArrayList();
+        estudiantesEsperados.add(estudiante4);
+        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesSinTutorAsignado();
+        assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
+    }
+    
+    @Test
+    public void testObtenerEstudiantesConTutorAsignado() throws SQLException {
+        ObservableList<Estudiante> estudiantesEsperados = FXCollections.observableArrayList();
+        estudiantesEsperados.add(estudiante1);
+        estudiantesEsperados.add(estudiante2);
+        estudiantesEsperados.add(estudiante3);
+        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesConTutorAsignado();
+        assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
     }
 }

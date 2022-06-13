@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -172,30 +171,6 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         }
         return tutorAcademico;
 
-    }
-
-    @Override
-    public ArrayList<TutorAcademico> recuperarTodosTutoresAcademicos() throws SQLException {
-        ArrayList<TutorAcademico> listaTutores = new ArrayList<>();
-        String query = 
-                "SELECT tutor_academico.id AS idTutorAcademico, nombre, apellidoPaterno, apellidoMaterno" +
-                " FROM tutor_academico INNER JOIN persona ON tutor_academico.idPersona = persona.id";
-        ConexionBD dataBaseConnection = new ConexionBD();
-        try (Connection connection = dataBaseConnection.abrirConexion()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                do {
-                    listaTutores.add(getTutorAcademico(resultSet));
-                } while (resultSet.next());
-            }
-        } finally{
-            dataBaseConnection.cerrarConexion();
-        }
-        return listaTutores;
     }
     
     @Override

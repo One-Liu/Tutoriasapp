@@ -31,6 +31,14 @@ public class Estudiante extends Persona {
         this.idTutorAcademico = idTutorAcademico;
     }
 
+    public Estudiante(String matricula, Persona estudiante) {
+        super(estudiante.getIdPersona(), estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno(), estudiante.getIdProgramaEducativo());
+        this.idEstudiante = 0;
+        this.matricula = matricula;
+        this.enRiesgo = false;
+        this.idTutorAcademico = 0;
+    }
+    
     public int getIdEstudiante() {
         return idEstudiante;
     }

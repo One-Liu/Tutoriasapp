@@ -84,15 +84,12 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     @Override
     public boolean agregarCoordinador(Coordinador coordinador) throws SQLException {
         boolean validacion = false;
-        PersonaDAO personaDAO = new PersonaDAO();
-        Persona personaCoordinador = new Persona(coordinador.getNombre(), coordinador.getApellidoPaterno(), coordinador.getApellidoMaterno(), coordinador.getIdProgramaEducativo());
-        String consulta = "INSERT INTO coordinador (idProgramaEducativo,idPersona,idUsuario) VALUES (?,?,?)";
+        String consulta = "INSERT INTO coordinador (idPersona,idUsuario) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, coordinador.getIdProgramaEducativo());
-            sentencia.setInt(2, personaDAO.agregarPersona(personaCoordinador));
-            sentencia.setInt(3, coordinador.getIdUsuario());
+            sentencia.setInt(1, coordinador.getIdPersona());
+            sentencia.setInt(2, coordinador.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
                 LOGGER.warn(CoordinadorDAO.class.getName(), new SQLException());
