@@ -44,10 +44,10 @@ public class InformacionTutorAcademicoControlador implements Initializable {
         configurarTabla();
     }
 
-    private void mostrarEstudianteTabla(int idTutor) {
+    private void mostrarEstudianteTabla(int idTutor) throws SQLException {
         ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
         EstudianteDAO estudianteDAO = new EstudianteDAO();
-        listaEstudiantes = estudianteDAO.obtenerEstudiantesDeTutor(idTutor);
+        listaEstudiantes = (ArrayList<Estudiante>) estudianteDAO.obtenerEstudiantesDeTutor(idTutor);
         // listaEstudiantes = estudianteDAO.recuperarTodosEstudiantesPorIDTutor(idTutor);
         if (listaEstudiantes != null) {
             listaObservableEstudiantes.addAll(listaEstudiantes);
