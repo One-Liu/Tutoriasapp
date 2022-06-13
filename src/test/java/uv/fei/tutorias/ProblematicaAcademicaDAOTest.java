@@ -1,5 +1,6 @@
 package uv.fei.tutorias;
 
+import java.sql.SQLException;
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class ProblematicaAcademicaDAOTest {
     @Test
-    public void addProblematicaAcademica(){
+    public void addProblematicaAcademica() throws SQLException {
         System.out.println("problematicaAcademicaDAO.addProblematicaAcademica()");
         ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica("No entraba a clases", 1);
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();

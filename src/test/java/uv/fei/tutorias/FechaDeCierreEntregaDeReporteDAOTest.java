@@ -21,8 +21,8 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
     @Before
     public void inicializar() {
         fechaNueva = new Date();
-        fechaDeCierreNueva = new FechaDeCierreEntregaDeReporte("");
-        fecha1 = new Date("");
+        fechaDeCierreNueva = new FechaDeCierreEntregaDeReporte(fechaNueva);
+        fecha1 = new Date();
         fechaDeCierre1 = new FechaDeCierreEntregaDeReporte(1,fecha1);
         fechaDeCierreDAO = new FechaDeCierreEntregaDeReporteDAO();
     }

@@ -6,11 +6,9 @@ import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.TutorAcademico;
 import uv.fei.tutorias.domain.Persona;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static org.junit.Assert.*;
-import uv.fei.tutorias.domain.Usuario;
 
 // author @liu
 public class TutorAcademicoDAOTest {
