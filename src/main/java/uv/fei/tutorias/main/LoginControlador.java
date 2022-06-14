@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.bussinesslogic.UsuarioDAO;
+import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
 import uv.fei.tutorias.domain.TutorAcademico;
 import uv.fei.tutorias.domain.Usuario;
 
@@ -47,6 +48,8 @@ public class LoginControlador {
                     if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getIdUsuario())){
                         TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
                         TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
+                        DatosGlobalesDeSesion datosGlobalesDeSesion = new DatosGlobalesDeSesion();
+                        datosGlobalesDeSesion.setTutorAcademico(tutorAcademico);
                     }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getIdUsuario())){
 
                     }else if (usuarioDAO.estaIdUsuarionEnCoordinador(usuario.getIdUsuario())){
