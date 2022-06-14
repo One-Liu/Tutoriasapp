@@ -7,34 +7,13 @@ import uv.fei.tutorias.domain.Usuario;
 import java.sql.*;
 
 public class UsuarioDAO implements IUsarioDAO{
-    private final Logger LOG = Logger.getLogger(PersonaDAO.class);
+    private final Logger LOG = Logger.getLogger(UsuarioDAO.class);
 
 
-    @Override
-    public boolean addUsuario(Usuario usuario) {
+  @Override
+    public int agregarUsuario(Usuario usuario) throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
-        boolean bandera = false;
-        try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "INSERT INTO usuario(contrasena, correoInstitucional) VALUES(MD5(?),?)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, usuario.getContrasena());
-            statement.setString(2, usuario.getCorreoInstitucional());
-            int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0) {
-                throw new SQLException("ERROR: El usuario no se ha agregado");
-            }else {
-                bandera = true;
-            }
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        }finally {
-            dataBaseConnection.cerrarConexion();
-        }
-        return bandera;
-    }
-    public int addUsuarioReturnId(Usuario usuario){
-        ConexionBD dataBaseConnection = new ConexionBD();
-        int id = -1;
+        int id;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "INSERT INTO usuario(contrasena, correoInstitucional) VALUES(MD5(?),?)";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -44,19 +23,21 @@ public class UsuarioDAO implements IUsarioDAO{
             int executeUpdate = statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (executeUpdate == 0) {
-                throw new SQLException("ERROR: El usuario no se ha agregado");
+                SQLException ex = new SQLException();
+                LOG.warn(UsuarioDao.class.getName(), ex);
+                throw ex;
             }else {
                 resultSet.next();
                 id=resultSet.getInt(1);
             }
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
         }finally {
             dataBaseConnection.cerrarConexion();
         }
         return id;
     }
-    public Usuario findUsuarioReturnId(Usuario usuario){
+
+    @Override
+    public Usuario buscarUsuarioPorCorreoYContrasena(Usuario usuario)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select id,Contrasena, correoInstitucional from usuario where Contrasena = md5 (?) and correoInstitucional = (?)";
@@ -65,23 +46,24 @@ public class UsuarioDAO implements IUsarioDAO{
             statement.setString(2, usuario.getCorreoInstitucional());
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                throw new SQLException("No se ha encontrado ningun usuario");
+                SQLException ex = new SQLException();
+                LOG.warn(UsuarioDao.class.getName(), ex);
+                throw ex;
             } else {
                 int id;
                 id = resultSet.getInt("id");
                 usuario.setIdUsuario(id);
             }
-        } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        } finally {
+        }finally {
             dataBaseConnection.cerrarConexion();
         }
         return usuario;
 
     }
-    public boolean estaIdUsuarioEnTutorAcademico(int searchId){
+    @Override
+    public boolean estaIdUsuarioEnTutorAcademico(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
-        boolean resultado = false;
+        boolean resultado;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select idUsuario from tutor_academico where idUsuario=(?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -89,16 +71,19 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 resultado = true;
+            }else {
+                SQLException ex = new SQLException();
+                LOG.warn(UsuarioDao.class.getName(), ex);
+                throw ex;
             }
-        } catch (SQLException e) {
-            LOG.warn(UsuarioDAO.class.getName(), e);
-        } finally {
+        }finally {
             dataBaseConnection.cerrarConexion();
         }
         return resultado;
     }
 
-    public boolean estaIdUsarionEnJefeDeCarrera(int searchId){
+    @Override
+    public boolean estaIdUsarionEnJefeDeCarrera(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean resultado = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -108,15 +93,18 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 resultado = true;
+            }else {
+                SQLException ex = new SQLException();
+                LOG.warn(UsuarioDao.class.getName(), ex);
+                throw ex;
             }
-        } catch (SQLException e) {
-            LOG.warn(UsuarioDAO.class.getName(), e);
-        } finally {
+        }finally {
             dataBaseConnection.cerrarConexion();
         }
         return resultado;
     }
-    public boolean estaIdUsuarionEnCoordinador(int searchId){
+    @Override
+    public boolean estaIdUsuarionEnCoordinador(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean resultado = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
@@ -126,9 +114,11 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 resultado = true;
+            }else {
+                SQLException ex = new SQLException();
+                LOG.warn(UsuarioDao.class.getName(), ex);
+                throw ex;
             }
-        } catch (SQLException e) {
-            LOG.warn(UsuarioDAO.class.getName(), e);
         } finally {
             dataBaseConnection.cerrarConexion();
         }

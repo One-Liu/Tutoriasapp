@@ -1,8 +1,7 @@
 package uv.fei.tutorias;
 
 import java.sql.SQLException;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.collection.IsEmptyCollection;
+
 import org.junit.Before;
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.PersonaDAO;

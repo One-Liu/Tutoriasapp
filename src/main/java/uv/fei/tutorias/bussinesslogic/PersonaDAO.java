@@ -2,7 +2,6 @@ package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
-import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.Persona;
 
 import java.sql.Connection;
@@ -10,11 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 
-public class PersonaDAO implements IPersonaDAO {
+public class UsuarioDao implements IPersonaDAO {
 
     private final Logger LOG = Logger.getLogger(PersonaDAO.class);
 
