@@ -18,16 +18,14 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public Persona obtenerPersonaPorId(int searchId) throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
-        Persona persona;
+        Persona persona = new Persona();
+        String query = "Select * from persona where id like ?";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "Select * from persona where id like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
             ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                persona = new Persona();
-            } else {
-                    persona = getPersona(resultSet);
+            if (resultSet.next()) {
+                persona = getPersona(resultSet);
             }
         }catch (SQLException ex){
             LOG.warn(getClass().getName(), ex);
@@ -44,8 +42,8 @@ public class PersonaDAO implements IPersonaDAO {
     public boolean eliminarPersonaPorId(int searchId) throws SQLException {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
+        String query = "DELETE FROM persona WHERE (id = ?)";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "DELETE FROM persona WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
             int executeUpdate = statement.executeUpdate();
@@ -64,8 +62,8 @@ public class PersonaDAO implements IPersonaDAO {
     public int agregarPersona(Persona persona) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
         int id;
+        String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno, idProgramaEducativo) VALUES(?,?,?,?)";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "INSERT INTO persona(nombre, apellidoPaterno, apellidoMaterno, idProgramaEducativo) VALUES(?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, persona.getNombre());
             statement.setString(2, persona.getApellidoPaterno());

@@ -52,16 +52,16 @@ public class ProfesorDaoTest {
         assertTrue(profesorDAO.addProfesorandPersona(profesorNuevo));
     }
     @Test
-    public void eliminarProfesor(){
+    public void eliminarProfesor() throws SQLException {
         assertTrue(profesorDAO.deleteProfesorById(27));
     }
 
     @Test
-    public void buscarProfesoresPorNombre(){
+    public void buscarProfesoresPorNombre() throws SQLException {
         MatcherAssert.assertThat(profesorDAO.findProfesoresByName("MAX"), not(IsEmptyCollection.empty()));
     }
     @Test
-    public void BuscarProfesoresPorId(){
+    public void BuscarProfesoresPorId() throws SQLException {
         assertTrue(profesorDAO.findProfesorById(1).equals(profesor1));
     }
 }

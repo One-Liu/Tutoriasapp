@@ -70,7 +70,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     }
     
     private void cargarProfesores() throws SQLException {
-        this.profesores = profesorDAO.obtenerProfesores();
+        this.profesores.addAll(profesorDAO.obtenerProfesores());
     }
     
     private void cargarExperienciasEducativas() throws SQLException {
