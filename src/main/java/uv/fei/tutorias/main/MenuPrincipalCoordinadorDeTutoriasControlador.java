@@ -48,7 +48,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
     private void clicModificarFechasDeSesionDeTutoria(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUISeleccionDePeriodoEscolar.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDePeriodoEscolar.fxml"));
             Parent raiz = cargadorFXML.load();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
@@ -65,7 +65,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
     private void clicRegistrarUsuario(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUISignUp.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISignUp.fxml"));
             Parent raiz = cargadorFXML.load();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
@@ -82,7 +82,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
     private void clicAsignarTutorAEstudiante(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUIAsignacionDeTutorAcademico.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIAsignacionDeTutorAcademico.fxml"));
             Parent raiz = cargadorFXML.load();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
@@ -99,13 +99,13 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
     private void clicModificarAsignacionDeTutor(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUIModificacionDeAsignacionDeTutorAcademico.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeEstudiante.fxml"));
             Parent raiz = cargadorFXML.load();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
             escenario.setScene(escena);
-            escenario.setTitle("Modificación de asignación de tutor académico");
+            escenario.setTitle("Selección de estudiante");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
         } catch(IOException ioException) {

@@ -41,7 +41,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
         this.cbEstudiantes.setConverter(new StringConverter<Estudiante>() {
             @Override
             public String toString(Estudiante estudiante) {
-                return "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
+                return estudiante == null ? null : "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
             }
 
             @Override
@@ -65,7 +65,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     @FXML
     private void clicSeleccionar(ActionEvent evento) {
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
-        System.out.println(estudianteSeleccionado);
+        
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeAsignacionDeTutorAcademico.fxml"));
             Parent raiz = cargadorFXML.load();

@@ -82,4 +82,16 @@ public class SesionDeTutoriaAcademica {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "SesionDeTutoriaAcademica{" + 
+                "id=" + id + 
+                ", fecha=" + fecha + 
+                ", ocurrio=" + ocurrio + 
+                ", idPeriodoEscolar=" + idPeriodoEscolar + 
+                '}';
+    }
+    
+    
 }

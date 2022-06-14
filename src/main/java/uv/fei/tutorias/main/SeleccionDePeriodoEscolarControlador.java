@@ -27,34 +27,33 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
     
-    private void cargarPeriodosEscolares() throws SQLException {
-        this.periodosEscolares.addAll(periodoEscolarDAO.obtenerPeriodosEscolares());
-        this.periodosEscolares = (ObservableList<PeriodoEscolar>) periodoEscolarDAO.obtenerPeriodosEscolares();
-    }
-    
-    private void cargarCamposGUI() {
+    private void cargarDatos() {
         try {
-            cargarPeriodosEscolares();
-            this.cbPeriodosEscolares.setItems(periodosEscolares);
-            this.cbPeriodosEscolares.getSelectionModel().selectFirst();
-            this.cbPeriodosEscolares.setConverter(new StringConverter<PeriodoEscolar>() {
-                @Override
-                public String toString(PeriodoEscolar periodoEscolar) {
-                    return periodoEscolar == null ? null : periodoEscolar.getFechas();
-                }
-                
-                @Override
-                public PeriodoEscolar fromString(String string) {
-                    throw new UnsupportedOperationException("Método no soportado");
-                }
-            });
+            this.periodosEscolares.addAll(periodoEscolarDAO.obtenerPeriodosEscolares());
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
+    private void cargarCamposGUI() {
+        this.cbPeriodosEscolares.setItems(periodosEscolares);
+        this.cbPeriodosEscolares.getSelectionModel().selectFirst();
+        this.cbPeriodosEscolares.setConverter(new StringConverter<PeriodoEscolar>() {
+            @Override
+            public String toString(PeriodoEscolar periodoEscolar) {
+                return periodoEscolar == null ? null : periodoEscolar.getFechas();
+            }
+
+            @Override
+            public PeriodoEscolar fromString(String string) {
+                throw new UnsupportedOperationException("Método no soportado");
+            }
+        });
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cargarDatos();
         cargarCamposGUI();
     }    
     
@@ -64,13 +63,17 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     }
 
     @FXML
-    private void clicSeleccionar(ActionEvent event) {
+    private void clicSeleccionar(ActionEvent evento) {
         PeriodoEscolar periodoEscolarSeleccionado = this.cbPeriodosEscolares.getSelectionModel().getSelectedItem();
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeFechasDeSesionDeTutoria.fxml"));
             Parent raiz = cargadorFXML.load();
             ModificacionDeFechasDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setPeriodoEscolar(periodoEscolarSeleccionado);
+            controladorGUI.cargarDatos();
+            controladorGUI.validarPeriodoEscolarConFechasDeSesionRegistradas();
+            controladorGUI.cargarCamposGUI();
+            controladorGUI.cargarDatePickersGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);

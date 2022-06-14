@@ -120,7 +120,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         boolean resultado = false;
         String consulta = 
                 "UPDATE sesion_de_tutoria_academica " + 
-                "SET fecha = ?, " +
+                "SET fecha = ? " +
                 "WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {

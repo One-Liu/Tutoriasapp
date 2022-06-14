@@ -33,51 +33,48 @@ public class SeleccionDeReporteControlador implements Initializable {
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
-    private void cargarTutoresAcademicos() throws SQLException {
-        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
-    }
-    
-    private void cargarSesionesDeTutoriaAcademica() throws SQLException {
-        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
-    }
-    
-    private void cargarCamposGUI() {
+    private void cargarDatos() {
         try {
-            cargarTutoresAcademicos();
-            cargarSesionesDeTutoriaAcademica();
-            this.cbTutoresAcademicos.setItems(tutoresAcademicos);
-            this.cbTutoresAcademicos.getSelectionModel().selectFirst();
-            this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
-                @Override
-                public String toString(TutorAcademico tutorAcademico) {
-                    return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
-                }
-
-                @Override
-                public TutorAcademico fromString(String string) {
-                    throw new UnsupportedOperationException("Método no soportado");
-                }
-            });
-            this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
-            this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().selectFirst();
-            this.cbFechasDeSesionDeTutoriaAcademica.setConverter(new StringConverter<SesionDeTutoriaAcademica>() {
-                @Override
-                public String toString(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
-                    return sesionDeTutoriaAcademica == null ? null : sesionDeTutoriaAcademica.getFechaConFormato();
-                }
-
-                @Override
-                public SesionDeTutoriaAcademica fromString(String string) {
-                    throw new UnsupportedOperationException("Método no soportado");
-                }
-            });
+            this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
+            this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
+    private void cargarCamposGUI() {
+        this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+        this.cbTutoresAcademicos.getSelectionModel().selectFirst();
+        this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
+            @Override
+            public String toString(TutorAcademico tutorAcademico) {
+                return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
+            }
+
+            @Override
+            public TutorAcademico fromString(String string) {
+                throw new UnsupportedOperationException("Método no soportado");
+            }
+        });
+        
+        this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
+        this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().selectFirst();
+        this.cbFechasDeSesionDeTutoriaAcademica.setConverter(new StringConverter<SesionDeTutoriaAcademica>() {
+            @Override
+            public String toString(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
+                return sesionDeTutoriaAcademica == null ? null : sesionDeTutoriaAcademica.getFechaConFormato();
+            }
+
+            @Override
+            public SesionDeTutoriaAcademica fromString(String string) {
+                throw new UnsupportedOperationException("Método no soportado");
+            }
+        });
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cargarDatos();
         cargarCamposGUI();
     }    
     

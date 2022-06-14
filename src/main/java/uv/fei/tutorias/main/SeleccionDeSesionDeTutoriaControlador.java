@@ -26,44 +26,43 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
-    private void cargarSesionesDeTutoriaAcademica() throws SQLException {
-        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
+    private void cargarDatos() {
+        try {
+            this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
         this.sesionesDeTutoriaAcademica = (ObservableList<SesionDeTutoriaAcademica>) sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
+        } catch(SQLException ex) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+        }
     }
     
     private void cargarCamposGUI() {
-        try {
-            cargarSesionesDeTutoriaAcademica();
-            this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        }
+        this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cargarDatos();
         cargarCamposGUI();
     }    
     
     @FXML
-    private void clicCancelar(ActionEvent event) {
-        UtilidadVentana.cerrarVentana(event);
+    private void clicCancelar(ActionEvent evento) {
+        UtilidadVentana.cerrarVentana(evento);
     }
 
     @FXML
-    private void clicSeleccionar(ActionEvent event) {
+    private void clicSeleccionar(ActionEvent evento) {
         SesionDeTutoriaAcademica sesionDeTutoriaAcademicaSeleccionada = this.cbFechasDeSesionDeTutoria.getSelectionModel().getSelectedItem();
         
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistroDeHorarioDeSesionDeTutoria.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeFechaDeEntregaDeReporte.fxml"));
             Parent raiz = cargadorFXML.load();
-            RegistroDeHorarioDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
-            controladorGUI.setSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaSeleccionada);
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
             escenario.setScene(escena);
-            escenario.setTitle("Registro de horario de sesión de tutoría");
+            escenario.setTitle("Modificación de fecha de entrega de reporte");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
         } catch(IOException ioException) {
