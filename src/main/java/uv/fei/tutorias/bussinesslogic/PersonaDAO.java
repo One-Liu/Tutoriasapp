@@ -2,7 +2,6 @@ package uv.fei.tutorias.bussinesslogic;
 
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
-import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.Persona;
 
 import java.sql.Connection;
@@ -10,15 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PersonaDAO implements IPersonaDAO {
 
     private final Logger LOG = Logger.getLogger(PersonaDAO.class);
-
-
 
     @Override
     public Persona obtenerPersonaPorId(int searchId) throws SQLException{
@@ -30,14 +25,13 @@ public class PersonaDAO implements IPersonaDAO {
             statement.setInt(1, searchId);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                SQLException ex = new SQLException();
-                LOG.warn(PersonaDAO.class.getName(), ex);
-                throw ex;
+                persona = new Persona();
             } else {
-                do {
                     persona = getPersona(resultSet);
-                } while (resultSet.next());
             }
+        }catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -48,21 +42,23 @@ public class PersonaDAO implements IPersonaDAO {
 
     @Override
     public boolean eliminarPersonaPorId(int searchId) throws SQLException {
+        boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "DELETE FROM persona WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
             int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0) {
-                SQLException ex = new SQLException();
-                LOG.warn(PersonaDAO.class.getName(), ex);
-                throw ex;
+            if (executeUpdate != 0) {
+                bandera = true;
             }
+        }catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
-        return true;
+        return bandera;
     }
     @Override
     public int agregarPersona(Persona persona) throws SQLException {
@@ -78,13 +74,15 @@ public class PersonaDAO implements IPersonaDAO {
             int executeUpdate = statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (executeUpdate == 0) {
-                LOG.warn(PersonaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexión con la base de datos");
+                id = -1;
             }else {
                 resultSet.next();
                 id=resultSet.getInt(1);
             }
-        } finally {
+        }catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        }finally {
             dataBaseConnection.cerrarConexion();
         }
         return id;

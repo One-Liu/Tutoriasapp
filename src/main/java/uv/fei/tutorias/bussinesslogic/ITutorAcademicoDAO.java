@@ -2,7 +2,11 @@ package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.SQLException;
 import uv.fei.tutorias.domain.TutorAcademico;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import javafx.collections.ObservableList;
 
 // author @liu
 public interface ITutorAcademicoDAO {
@@ -11,5 +15,8 @@ public interface ITutorAcademicoDAO {
     public boolean agregarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException;
     public boolean eliminarTutorAcademicoPorId(int idTutorAcademico) throws SQLException;
     public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException;
-    public List<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException;
+
+    TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException;
+
+    public ObservableList<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException;
 }

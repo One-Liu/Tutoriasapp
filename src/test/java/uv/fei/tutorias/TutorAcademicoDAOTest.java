@@ -6,6 +6,9 @@ import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.TutorAcademico;
 import uv.fei.tutorias.domain.Persona;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static org.junit.Assert.*;
@@ -33,11 +36,10 @@ public class TutorAcademicoDAOTest {
 
     @Test
     public void testObtenerTutoresAcademicos() throws SQLException {
-        ObservableList<TutorAcademico> tutoresAcademicosEsperados = FXCollections.observableArrayList();
+        List<TutorAcademico> tutoresAcademicosEsperados =new ArrayList<>();
         tutoresAcademicosEsperados.add(tutorAcademico1);
         tutoresAcademicosEsperados.add(tutorAcademico2);
-        ObservableList<TutorAcademico> tutoresAcademicosObtenidos = FXCollections.observableArrayList();
-        tutoresAcademicosEsperados.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
+        List<TutorAcademico> tutoresAcademicosObtenidos = tutorAcademicoDAO.obtenerTutoresAcademicos();
         assertTrue(tutoresAcademicosEsperados.equals(tutoresAcademicosObtenidos));
     }
 

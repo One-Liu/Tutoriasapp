@@ -10,9 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 // author @liu
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
-    private final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(PersonaDAO.class);
+    private final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(TutorAcademicoDAO.class);
 
     @Override
     public List<TutorAcademico> obtenerTutoresAcademicos() throws SQLException {
@@ -25,9 +28,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if (!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 do {
                     tutores.add(getTutorAcademico(resultado));
@@ -51,10 +53,9 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next() == false) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if (!resultado.next()) {
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 tutorAcademico = getTutorAcademico(resultado);
             }
@@ -92,10 +93,9 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(2, tutorAcademico.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            }
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
+            } 
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -111,9 +111,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(1, idTutorAcademico);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             }
         } finally {
             baseDeDatos.cerrarConexion();
@@ -123,7 +122,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     
     @Override
     public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
-        String consulta = 
+        String consulta =
                 "UPDATE tutor_academico " + 
                 "SET idPersona = ?, " +
                 "SET idUsuario = ? " +
@@ -136,18 +135,17 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(3, tutorAcademico.getIdTutorAcademico());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
         return true;
     }
-    
+    @Override
     public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException {
-        TutorAcademico tutorAcademico = new TutorAcademico();
+        TutorAcademico tutorAcademico;
         String query =
                 "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
@@ -158,9 +156,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             statement.setInt(1, idUsuario);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             }else {
                 tutorAcademico = getTutorAcademico(resultSet);
             }
@@ -172,8 +169,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     }
     
     @Override
-    public List<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException {
-        List<TutorAcademico> tutores = new ArrayList<>();
+    public ObservableList<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException {
+        ObservableList<TutorAcademico> tutores = FXCollections.observableArrayList();
         String consulta =
                 "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN Persona P ON P.idPersona = TA.idPersona" +
@@ -184,9 +181,8 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
             if (!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
             } else {
                 do {
                     tutores.add(getTutorAcademico(resultado));

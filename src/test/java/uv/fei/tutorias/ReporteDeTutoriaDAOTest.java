@@ -14,7 +14,7 @@ public class ReporteDeTutoriaDAOTest {
     private ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO;
 
     @Before
-    public void incializador(){
+    public void inicio(){
         reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
         reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica("El alumno va bien en custiones academicas",0,0,0);
     }

@@ -18,11 +18,11 @@ public class LoginApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource().);
-////        Scene scene = new Scene(fxmlLoader.load(url ), 600, 400);
-//        primaryStage.setTitle("LOGIN");
-////        primaryStage.setScene(scene);
-//        primaryStage.show();
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("GUILogin.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        primaryStage.setTitle("Aplicacion de prueba");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
     }
 }
