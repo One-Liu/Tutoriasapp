@@ -122,28 +122,22 @@ public class ProfesorDAO implements IProfesorDAO {
 
     private Profesor getProfesor(ResultSet resultSet) throws SQLException {
         Profesor profesor = new Profesor();
-        int id = 0;
-        String nombrePersona = "";
-        String apellidoPaternoPersona = "";
-        String apellidoMaternoPersona = "";
-        int idProgramaEducativo = 0;
+        int id;
+        String nombrePersona;
+        String apellidoPaternoPersona;
+        String apellidoMaternoPersona;
+        int idProgramaEducativo;
+        id = resultSet.getInt("id");
+        profesor.setIdProfesor(id);
+        nombrePersona = resultSet.getString("nombre");
+        profesor.setNombre(nombrePersona);
+        apellidoMaternoPersona = resultSet.getString("apellidoMaterno");
+        profesor.setApellidoMaterno(apellidoMaternoPersona);
+        apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
+        profesor.setApellidoPaterno(apellidoPaternoPersona);
+        idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
+        profesor.setIdProgramaEducativo(idProgramaEducativo);
 
-        try {
-            id = resultSet.getInt("id");
-            profesor.setIdProfesor(id);
-            nombrePersona = resultSet.getString("nombre");
-            profesor.setNombre(nombrePersona);
-            apellidoMaternoPersona = resultSet.getString("apellidoMaterno");
-            profesor.setApellidoMaterno(apellidoMaternoPersona);
-            apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
-            profesor.setApellidoPaterno(apellidoPaternoPersona);
-            idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
-            profesor.setIdProgramaEducativo(idProgramaEducativo);
-            
-        } catch(SQLException ex) {
-            LOG.warn(getClass().getName(), ex);
-            throw ex;
-        }
         return profesor;
     }
 
