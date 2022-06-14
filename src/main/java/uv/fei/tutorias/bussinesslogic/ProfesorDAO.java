@@ -1,7 +1,5 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.Profesor;
 
@@ -9,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.domain.Persona;
@@ -17,22 +17,21 @@ public class ProfesorDAO implements IProfesorDAO {
     private final Logger LOG = Logger.getLogger(ProfesorDAO.class);
 
     @Override
-    public boolean addProfesor(Profesor profesor) {
+    public boolean addProfesor(Profesor profesor) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
+        String query = "INSERT INTO profesor(id, idPersona) VALUES(?,?)";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "INSERT INTO profesor(id, idPersona) VALUES(?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, profesor.getIdProfesor());
             statement.setInt(2, profesor.getIdPersona());
             int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0) {
-                throw new SQLException("ERROR: El profesor no se ha agregado");
-            }else {
+            if (executeUpdate != 0) {
                 bandera = true;
             }
         } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -57,23 +56,20 @@ public class ProfesorDAO implements IProfesorDAO {
 
 
     @Override
-    public ObservableList<Profesor> findProfesoresByName(String searchName) {
-        ObservableList<Profesor> profesores = FXCollections.observableArrayList();
+    public List<Profesor> findProfesoresByName(String searchName) throws SQLException {
+        List<Profesor> profesores = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
+        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchName + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()){
-                throw new SQLException("No se ha encontrado al profesor con el nombre " + searchName);
-            } else {
-                do {
-                    profesores.add(getProfesor(resultSet));
-                }while (resultSet.next());
+            while (resultSet.next()){
+                profesores.add(getProfesor(resultSet));
             }
-        } catch (SQLException e) {
-            LOG.warn(PersonaDAO.class.getName(), e);
+        } catch (SQLException ex) {
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -81,21 +77,20 @@ public class ProfesorDAO implements IProfesorDAO {
     }
 
     @Override
-    public Profesor findProfesorById(int searchId) {
+    public Profesor findProfesorById(int searchId) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
         Profesor profesor = new Profesor();
+        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = (?)";
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,searchId);
             ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()){
-                throw new SQLException("No se ha encontrado al profesor con el nombre " + searchId);
-            } else {
-               profesor = getProfesor(resultSet);
+            if (resultSet.next()){
+                profesor = getProfesor(resultSet);
             }
         } catch (SQLException e) {
-            LOG.warn(PersonaDAO.class.getName(), e);
+            LOG.warn(getClass().getName(), e);
+            throw e;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -104,22 +99,20 @@ public class ProfesorDAO implements IProfesorDAO {
 
 
     @Override
-    public boolean deleteProfesorById(int searchId) {
+    public boolean deleteProfesorById(int searchId) throws SQLException {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
+        String query = "DELETE FROM profesor WHERE (id = ?)";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "DELETE FROM profesor WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
-
             int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0) {
-                throw new SQLException("ERROR: No se ha eliminado ningun profesor con el id " + searchId);
-            }else {
+            if (executeUpdate != 0) {
                 bandera = true;
             }
         } catch (SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -127,49 +120,42 @@ public class ProfesorDAO implements IProfesorDAO {
     }
 
 
-    private Profesor getProfesor(ResultSet resultSet) {
+    private Profesor getProfesor(ResultSet resultSet) throws SQLException {
         Profesor profesor = new Profesor();
-        int id = 0;
-        String nombrePersona = "";
-        String apellidoPaternoPersona = "";
-        String apellidoMaternoPersona = "";
-        int idProgramaEducativo = 0;
+        int id;
+        String nombrePersona;
+        String apellidoPaternoPersona;
+        String apellidoMaternoPersona;
+        int idProgramaEducativo;
+        id = resultSet.getInt("id");
+        profesor.setIdProfesor(id);
+        nombrePersona = resultSet.getString("nombre");
+        profesor.setNombre(nombrePersona);
+        apellidoMaternoPersona = resultSet.getString("apellidoMaterno");
+        profesor.setApellidoMaterno(apellidoMaternoPersona);
+        apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
+        profesor.setApellidoPaterno(apellidoPaternoPersona);
+        idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
+        profesor.setIdProgramaEducativo(idProgramaEducativo);
 
-        try {
-            id = resultSet.getInt("id");
-            profesor.setIdProfesor(id);
-            nombrePersona = resultSet.getString("nombre");
-            profesor.setNombre(nombrePersona);
-            apellidoMaternoPersona = resultSet.getString("apellidoMaterno");
-            profesor.setApellidoMaterno(apellidoMaternoPersona);
-            apellidoPaternoPersona = resultSet.getString("apellidoPaterno");
-            profesor.setApellidoPaterno(apellidoPaternoPersona);
-            idProgramaEducativo = resultSet.getInt("idProgramaEducativo");
-            profesor.setIdProgramaEducativo(idProgramaEducativo);
-            
-        } catch(SQLException ex) {
-            LOG.warn(PersonaDAO.class.getName(), ex);
-        }
         return profesor;
     }
 
     @Override
-    public ObservableList<Profesor> obtenerProfesores() throws SQLException {
-        ObservableList<Profesor> profesores = FXCollections.observableArrayList();
+    public List<Profesor> obtenerProfesores() throws SQLException {
+        List<Profesor> profesores = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
+        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre";
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()){
-                LOG.warn(ProfesorDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                do {
-                    profesores.add(getProfesor(resultSet));
-                }while (resultSet.next());
+            while (resultSet.next()){
+                profesores.add(getProfesor(resultSet));
             }
-        } finally {
+        }catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        }finally {
             dataBaseConnection.cerrarConexion();
         }
         return profesores;

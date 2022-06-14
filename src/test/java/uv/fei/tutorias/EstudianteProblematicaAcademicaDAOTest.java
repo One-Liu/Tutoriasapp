@@ -8,6 +8,8 @@ import uv.fei.tutorias.bussinesslogic.EstudiantesProblematicasAcademicasDAO;
 import uv.fei.tutorias.domain.EstudiantesProblematicasAcademicas;
 
 
+import java.sql.SQLException;
+
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
@@ -22,16 +24,16 @@ public class EstudianteProblematicaAcademicaDAOTest {
     }
 
     @Test
-    public void agregarEstudianteProblematicaAcademicaDAO(){
+    public void agregarEstudianteProblematicaAcademicaDAO() throws SQLException {
         assertTrue(estudiantesProblematicasAcademicasDAO.agregarEstudianteProblemtaicaAcademica(estudiantesProblematicasAcademicas));
     }
     @Test
-    public void eliminarEstudianteProblematicaAcademicaDAO(){
+    public void eliminarEstudianteProblematicaAcademicaDAO() throws SQLException {
         assertTrue(estudiantesProblematicasAcademicasDAO.eliminarEstudianteProblematicaAcademicaPorId(9));
     }
     //este test busca comprobar que una lista no este vacia con la implementacion de codigo de Hamcrest
     @Test
-    public void buscarEstudiantesProblematicaAcademica(){
+    public void buscarEstudiantesProblematicaAcademica() throws SQLException {
         MatcherAssert.assertThat(estudiantesProblematicasAcademicasDAO.obtenerEstudianteProblematicaAcademicaPorId(13), not(IsEmptyCollection.empty()));
     }
 

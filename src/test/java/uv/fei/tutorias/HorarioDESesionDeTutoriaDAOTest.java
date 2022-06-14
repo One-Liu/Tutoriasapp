@@ -7,6 +7,8 @@ import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.HorarioDeSesionDeTutoria;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
+import java.sql.SQLException;
+
 import static org.junit.Assert.assertTrue;
 
 public class HorarioDESesionDeTutoriaDAOTest {
@@ -26,11 +28,11 @@ public class HorarioDESesionDeTutoriaDAOTest {
 
     }
     @Test
-    public void agregarHorarioDeSesionDeTutoria(){
+    public void agregarHorarioDeSesionDeTutoria() throws SQLException {
         assertTrue(horarioDeSesionDeTutoriaDAO.agregarHorarioDeSesionDeTutoria(horarioDeSesionDeTutoria));
     }
     @Test
-    public void eliminarHorarioDeSesionDeTutoria(){
+    public void eliminarHorarioDeSesionDeTutoria() throws SQLException {
         assertTrue(horarioDeSesionDeTutoriaDAO.eliminarHorarioDeSesionDeTutoria(8));
     }
 }

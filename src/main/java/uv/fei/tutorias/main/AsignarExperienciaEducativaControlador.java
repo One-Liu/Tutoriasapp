@@ -17,6 +17,7 @@ import uv.fei.tutorias.domain.ExperienciaEducativa;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AsignarExperienciaEducativaControlador implements Initializable {
@@ -35,6 +36,8 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
     @FXML
     private TableView<ExperienciaEducativa> tblEE;
 
+    private ObservableList experienciasEducativasObservables;
+
     ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
 
 
@@ -50,29 +53,31 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.buscarExperienciasEducativasPorNombre("");
+        try {
+            experienciasEducativasObservables.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
+        } catch (SQLException e) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
 
-        observaList(experienciasEducativas);
+        configurarLista(experienciasEducativasObservables);
         btnAsignarEEaProfesor.setDisable(true);
-
-
 
     }
 
 
-    public void actEeSinProfesorAsignado(ActionEvent actionEvent) {
+    public void actEeSinProfesorAsignado(ActionEvent actionEvent) throws SQLException {
 
         if (chBok.isSelected()){
-            ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.buscarExperienciaEducativasSinTutor();
-            observaList(experienciasEducativas);
+            experienciasEducativasObservables.addAll(experienciaEducativaDAO.buscarExperienciaEducativasSinTutor()) ;
+            configurarLista(experienciasEducativasObservables);
         }else {
-            ObservableList<ExperienciaEducativa> experienciasEducativas = experienciaEducativaDAO.buscarExperienciasEducativasPorNombre("");
-            observaList(experienciasEducativas);
+            experienciasEducativasObservables.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
+            configurarLista(experienciasEducativasObservables);
         }
     }
 
 
-    private void observaList(ObservableList<ExperienciaEducativa> experienciasEducativas) {
+    private void configurarLista(ObservableList<ExperienciaEducativa> experienciasEducativas) {
         this.colIdEe.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getIdExperienciaEducativa()));
         this.colNrc.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getNrc()));
         this.colNombreEE.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getNombre()));
