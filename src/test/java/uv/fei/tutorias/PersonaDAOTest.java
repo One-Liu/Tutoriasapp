@@ -41,32 +41,23 @@ public class PersonaDAOTest {
         personaDAO = new PersonaDAO();
     }
 
-    @Test
-    public void buscarPersonasPorNombre() {
-        MatcherAssert.assertThat(personaDAO.obtenerPersonaPorNombre("ALFREDO"), not(IsEmptyCollection.empty()));
-        
-    }
 
     @Test
-    public void findPersonaById() {
-        assertEquals(personaDAO.obtenerPersonaPorId(2),persona2);
+    public void obtenerPersonaPorId() throws SQLException {
+        personaNueva.setIdPersona(11);
+        assertEquals(personaDAO.obtenerPersonaPorId(11),personaNueva);
 
     }
 
     @Test
-    public void addPersona() throws SQLException {
-        assertNotSame(personaDAO.agregarPersona(personaNueva),-1);
+    public void agregarPersona() throws SQLException {
+        assertEquals(personaDAO.agregarPersona(personaNueva),12);
     }
 
     @Test
-    public void deletePersonaById() {
-        assertTrue(personaDAO.eliminarPersonaPorId(72));
+    public void eliminarPersonaPorId() throws SQLException {
+        assertTrue(personaDAO.eliminarPersonaPorId(12));
 
     }
 
-    @Test
-    public void addpersonaReturnId() throws SQLException {
-        assertEquals(37,personaDAO.agregarPersona(personaNueva));
-
-    }
 }

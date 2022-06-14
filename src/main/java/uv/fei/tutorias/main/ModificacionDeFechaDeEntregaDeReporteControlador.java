@@ -61,12 +61,7 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
         
         fechaDeCierreEntregaDeReporte.setFecha(fechaSeleccionada);
         
-        try {
-            // Puedo generar una nueva fecha de cierre y asignarsela solo a esa sesión
-            // o modificar directamente la fecha (lo cual afectaría al resto de sesiones)
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        }
+
     }
     
     @FXML

@@ -43,7 +43,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException {
-        Estudiante estudiante = new Estudiante();
+        Estudiante estudiante;
         String consulta =
         "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
