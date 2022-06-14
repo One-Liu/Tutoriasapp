@@ -22,58 +22,55 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     @FXML
     private ComboBox<TutorAcademico> cbTutoresAcademicos;
     
-    private EstudianteDAO estudianteDAO = new EstudianteDAO();
-    private TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
+    private final EstudianteDAO estudianteDAO = new EstudianteDAO();
+    private final TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
     
     private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
-    private void cargarEstudiantes() throws SQLException {
-        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesSinTutorAsignado());
-    }
-    
-    private void cargarTutoresAcademicos() throws SQLException {
-        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
-    }
-    
-    private void cargarCamposGUI() {
+    private void cargarDatos() {
         try {
-            cargarEstudiantes();
-            cargarTutoresAcademicos();
-            this.cbEstudiantes.setItems(estudiantes);
-            this.cbEstudiantes.getSelectionModel().selectFirst();
-            this.cbEstudiantes.setConverter(new StringConverter<Estudiante>() {
-                @Override
-                public String toString(Estudiante estudiante) {
-                    return estudiante == null ? null : "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
-                }
-
-                @Override
-                public Estudiante fromString(String string) {
-                    throw new UnsupportedOperationException("Operación no soportada");
-                }
-            });
-            this.cbTutoresAcademicos.setItems(tutoresAcademicos);
-            this.cbTutoresAcademicos.getSelectionModel().selectFirst();
-            this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
-                @Override
-                public String toString(TutorAcademico tutorAcademico) {
-                    return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
-                }
-
-                @Override
-                public TutorAcademico fromString(String string) {
-                    throw new UnsupportedOperationException("Operación no soportada");
-                }
-            });
+            this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesSinTutorAsignado());
+            this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
             UtilidadVentana.cerrarVentana(new ActionEvent());
         }
     }
     
+    private void cargarCamposGUI() {
+        this.cbEstudiantes.setItems(estudiantes);
+        this.cbEstudiantes.getSelectionModel().selectFirst();
+        this.cbEstudiantes.setConverter(new StringConverter<Estudiante>() {
+            @Override
+            public String toString(Estudiante estudiante) {
+                return estudiante == null ? null : "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
+            }
+
+            @Override
+            public Estudiante fromString(String string) {
+                throw new UnsupportedOperationException("Operación no soportada");
+            }
+        });
+        
+        this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+        this.cbTutoresAcademicos.getSelectionModel().selectFirst();
+        this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
+            @Override
+            public String toString(TutorAcademico tutorAcademico) {
+                return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
+            }
+
+            @Override
+            public TutorAcademico fromString(String string) {
+                throw new UnsupportedOperationException("Operación no soportada");
+            }
+        });
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cargarDatos();
         cargarCamposGUI();
     }
     
@@ -93,6 +90,17 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
                     "Confirmación de registro", 
                     "La asignación de tutor académico ha sido registrada correctamente", 
                     Alert.AlertType.INFORMATION);
+            
+            this.cbEstudiantes.getItems().clear();
+            this.cbTutoresAcademicos.getItems().clear();
+            cargarDatos();
+            
+            if(this.estudiantes.isEmpty()) {
+                UtilidadVentana.mostrarAlertaSinConfirmacion("Asignaciones completas", "Se les ha asignado un tutor a todos los estudiantes", Alert.AlertType.INFORMATION);
+                UtilidadVentana.cerrarVentana(evento);
+            } else {
+                cargarCamposGUI();
+            }
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }

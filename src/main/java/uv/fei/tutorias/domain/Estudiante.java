@@ -93,7 +93,8 @@ public class Estudiante extends Persona {
     @Override
     public String toString() {
         return "Estudiante{" +
-                "matricula='" + matricula + '\'' +
+                "idEstudiante='" + idEstudiante + '\'' +
+                ", matricula='" + matricula + '\'' +
                 ", enRiesgo=" + enRiesgo +
                 ", nombre='" + nombre + '\'' +
                 ", apellidoPaterno='" + apellidoPaterno + '\'' +

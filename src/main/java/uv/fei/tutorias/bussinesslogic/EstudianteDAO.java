@@ -137,7 +137,7 @@ public class EstudianteDAO implements IEstudianteDAO {
         boolean resultado = false;
         String consulta =
                 "UPDATE estudiante " +
-                "SET idTutorAcademico = ?, " +
+                "SET idTutorAcademico = ? " +
                 "WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {

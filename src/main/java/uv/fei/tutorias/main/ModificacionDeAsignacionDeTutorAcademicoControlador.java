@@ -26,8 +26,8 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     @FXML
     private ComboBox<TutorAcademico> cbTutoresAcademicos;
     
-    private EstudianteDAO estudianteDAO = new EstudianteDAO();
-    private TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
+    private final EstudianteDAO estudianteDAO = new EstudianteDAO();
+    private final TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
     
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
@@ -36,33 +36,32 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     @Setter
     private Estudiante estudiante = new Estudiante();
     
-    private void cargarTutoresAcademicos() throws SQLException {
-        //this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
-        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico()));
-    }
-    
-    public void cargarCamposGUI() {
+    public void cargarDatos() {
         try {
-            cargarTutoresAcademicos();
-            this.lblEstudianteSeleccionado.setText("(" + this.estudiante.getMatricula() + ") " + this.estudiante.getNombreCompleto());
-            this.lblTutorAcademicoAnterior.setText("(" + this.tutorAcademicoAnterior.getIdTutorAcademico() + ") " + this.tutorAcademicoAnterior.getNombreCompleto());
-            this.cbTutoresAcademicos.setItems(tutoresAcademicos);
-            this.cbTutoresAcademicos.getSelectionModel().selectFirst();
-            this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
-                @Override
-                public String toString(TutorAcademico tutorAcademico) {
-                    return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
-                }
-
-                @Override
-                public TutorAcademico fromString(String string) {
-                    throw new UnsupportedOperationException("Operación no soportada");
-                }
-            });
+            this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
+            this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico()));
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
             UtilidadVentana.cerrarVentana(new ActionEvent());
         }
+    }
+    
+    public void cargarCamposGUI() {
+        this.lblEstudianteSeleccionado.setText("(" + this.estudiante.getMatricula() + ") " + this.estudiante.getNombreCompleto());
+        this.lblTutorAcademicoAnterior.setText("(" + this.tutorAcademicoAnterior.getIdTutorAcademico() + ") " + this.tutorAcademicoAnterior.getNombreCompleto());
+        this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+        this.cbTutoresAcademicos.getSelectionModel().selectFirst();
+        this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
+            @Override
+            public String toString(TutorAcademico tutorAcademico) {
+                return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
+            }
+
+            @Override
+            public TutorAcademico fromString(String string) {
+                throw new UnsupportedOperationException("Operación no soportada");
+            }
+        });
     }
     
     @Override

@@ -10,9 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 // author @liu
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     private final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(TutorAcademicoDAO.class);
@@ -21,7 +18,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     public List<TutorAcademico> obtenerTutoresAcademicos() throws SQLException {
         List<TutorAcademico> tutores = new ArrayList<>();
         String consulta =
-                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT TA.id, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
@@ -43,7 +40,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     public TutorAcademico obtenerTutorAcademicoPorId(int idTutorAcademico) throws SQLException {
         TutorAcademico tutorAcademico = new TutorAcademico();
         String consulta = 
-                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT TA.id, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
                 "WHERE TA.id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
@@ -70,7 +67,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         String apellidoMaterno;
         int idProgramaEducativo;
         
-        idTutorAcademico = resultado.getInt("idTutorAcademico");
+        idTutorAcademico = resultado.getInt("id");
         nombre = resultado.getString("nombre");
         apellidoPaterno = resultado.getString("apellidoPaterno");
         apellidoMaterno = resultado.getString("apellidoMaterno");
@@ -176,10 +173,10 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     }
     
     @Override
-    public ObservableList<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException {
-        ObservableList<TutorAcademico> tutores = FXCollections.observableArrayList();
+    public List<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException {
+        List<TutorAcademico> tutores = new ArrayList<>();
         String consulta =
-                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT TA.id, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
                 "WHERE TA.id != ?";
         ConexionBD baseDeDatos = new ConexionBD();

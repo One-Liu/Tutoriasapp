@@ -6,8 +6,6 @@ import uv.fei.tutorias.domain.TutorAcademico;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.ObservableList;
-
 // author @liu
 public interface ITutorAcademicoDAO {
     public List<TutorAcademico> obtenerTutoresAcademicos() throws SQLException;
@@ -18,5 +16,5 @@ public interface ITutorAcademicoDAO {
 
     TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException;
 
-    public ObservableList<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException;
+    public List<TutorAcademico> obtenerTutoresAcademicosDistintosA(int idTutorAcademico) throws SQLException;
 }

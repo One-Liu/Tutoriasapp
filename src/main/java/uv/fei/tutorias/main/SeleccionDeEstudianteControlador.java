@@ -25,36 +25,35 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     
     private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
     
-    private void cargarEstudiantes() throws SQLException {
-        EstudianteDAO estudianteDAO = new EstudianteDAO();
-        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesConTutorAsignado());
-    }
-    
-    private void cargarCamposGUI() {
+    private void cargarDatos() {
         try {
-            cargarEstudiantes();
-            this.cbEstudiantes.setItems(estudiantes);
-            this.cbEstudiantes.getSelectionModel().selectFirst();
-            this.cbEstudiantes.setConverter(new StringConverter<Estudiante>() {
-                @Override
-                public String toString(Estudiante estudiante) {
-                    return "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
-                }
-
-                @Override
-                public Estudiante fromString(String string) {
-                    throw new UnsupportedOperationException("Método no soportado");
-                }
-                
-            });
+            EstudianteDAO estudianteDAO = new EstudianteDAO();
+            this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesConTutorAsignado());
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
             UtilidadVentana.cerrarVentana(new ActionEvent());
         }
     }
     
+    private void cargarCamposGUI() {
+        this.cbEstudiantes.setItems(estudiantes);
+        this.cbEstudiantes.getSelectionModel().selectFirst();
+        this.cbEstudiantes.setConverter(new StringConverter<Estudiante>() {
+            @Override
+            public String toString(Estudiante estudiante) {
+                return "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
+            }
+
+            @Override
+            public Estudiante fromString(String string) {
+                throw new UnsupportedOperationException("Método no soportado");
+            }
+        });
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cargarDatos();
         cargarCamposGUI();
     }    
     
@@ -72,6 +71,8 @@ public class SeleccionDeEstudianteControlador implements Initializable {
             Parent raiz = cargadorFXML.load();
             ModificacionDeAsignacionDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setEstudiante(estudianteSeleccionado);
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
