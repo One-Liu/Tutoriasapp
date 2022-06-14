@@ -2,26 +2,27 @@ package uv.fei.tutorias;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import uv.fei.tutorias.bussinesslogic.SolucionAProblematicaAcademicaDAO;
+
+import java.sql.SQLException;
+
+import static org.junit.Assert.*;
 
 public class SolucionAProblematicaacademicaDAOTest {
     @Test
-    public void addSolucionAProblematicaAcademica(){
+    public void agregarSolucionAProblematicaAcademica() throws SQLException {
         SolucionAProblematicaAcademicaDAO solucionAProblematicaAcademicaDAO = new SolucionAProblematicaAcademicaDAO();
-        assertTrue(solucionAProblematicaAcademicaDAO.addSolucionProblematicaAcademica("botellita de jerez"));
+        assertEquals(true, solucionAProblematicaAcademicaDAO.agregarSolucionProblematicaAcademica("botellita de jerez"));
     }
     @Test
-    public void deleteSolucionAProblematicaAcademica(){
+    public void eliminarSolucionAProblematicaAcademica() throws SQLException {
         SolucionAProblematicaAcademicaDAO solucionAProblematicaAcademicaDAO = new SolucionAProblematicaAcademicaDAO();
-        assertTrue(solucionAProblematicaAcademicaDAO.deleteSolucionAProblematicaAcademicaById(1));
+        assertTrue(solucionAProblematicaAcademicaDAO.eliminarSolucionAProblematicaAcademicaById(1));
     }
     @Test
-    public void serchSolucionAProblematicaAcademica(){
+    public void buscarSolucionAProblematicaAcademica(){
         SolucionAProblematicaAcademicaDAO solucionAProblematicaAcademicaDAO = new SolucionAProblematicaAcademicaDAO();
-        assertNotNull(solucionAProblematicaAcademicaDAO.findSolucionAProblematicaAcademicaById(1));
+        assertNotNull(solucionAProblematicaAcademicaDAO.buscarSolucionAProblematicaAcademicaById(1));
     }
 
 }

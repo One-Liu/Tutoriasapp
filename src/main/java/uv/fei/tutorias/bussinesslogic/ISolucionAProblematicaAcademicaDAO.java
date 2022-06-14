@@ -1,14 +1,13 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.SolucionAProblematicaAcademica;
 
-import java.util.List;
+import java.sql.SQLException;
 
 public interface ISolucionAProblematicaAcademicaDAO {
-    public boolean addSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto);
-    public  boolean deleteSolucionAProblematicaAcademicaById(int idProblematicaAcademica);
-    public SolucionAProblematicaAcademica findSolucionAProblematicaAcademicaById (int searchId);
+    public boolean agregarSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto) throws SQLException;
+    public  boolean eliminarSolucionAProblematicaAcademicaById(int idProblematicaAcademica) throws SQLException;
+    public SolucionAProblematicaAcademica buscarSolucionAProblematicaAcademicaById(int searchId);
 
 
 }

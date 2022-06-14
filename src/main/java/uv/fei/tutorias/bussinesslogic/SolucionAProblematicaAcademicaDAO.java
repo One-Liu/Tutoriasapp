@@ -10,18 +10,20 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
     private final Logger LOG = Logger.getLogger(SolucionAProblematicaAcademicaDAO.class);
 
     @Override
-    public boolean addSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto) {
+    public boolean agregarSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto) throws SQLException {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
+        String query = "INSERT INTO  solucionaproblematicaacademica (descripcion) VALUES (?)";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "INSERT INTO  solucionaproblematicaacademica (descripcion) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,solucionProblematicaAcademicaTexto);
             int executeUpdate = statement.executeUpdate();
-            bandera = (executeUpdate>0);
+            if (executeUpdate !=  0){
+                bandera = true;
+            }
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
-            bandera =false;
+            throw e;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -30,7 +32,7 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
     }
 
     @Override
-    public boolean deleteSolucionAProblematicaAcademicaById(int idProblematicaAcademica) {
+    public boolean eliminarSolucionAProblematicaAcademicaById(int idProblematicaAcademica) throws SQLException {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
@@ -38,20 +40,20 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProblematicaAcademica);
             int executeUpdate = statement.executeUpdate();
-            if (executeUpdate == 0){
-                throw new SQLException("Error no se ha eliminado ninguna solucion a la problematica academica");
+            if (executeUpdate != 0){
+                bandera = true;
             }
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
+            throw e;
         }finally {
             dataBaseConnection.cerrarConexion();
         }
-        bandera = true;
         return bandera;
     }
 
     @Override
-    public SolucionAProblematicaAcademica findSolucionAProblematicaAcademicaById(int searchId) {
+    public SolucionAProblematicaAcademica buscarSolucionAProblematicaAcademicaById(int searchId) {
         ConexionBD dataBaseConnection = new ConexionBD();
         SolucionAProblematicaAcademica solucionAProblematicaAcademica = new SolucionAProblematicaAcademica();
         try (Connection connection = dataBaseConnection.abrirConexion()){
@@ -59,19 +61,8 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + searchId + "%");
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next() == false){
-                throw new SQLException("Solucion a problematica academica no encontrada");
-            }else {
-                int idSolucProblematicaAcademica = 0;
-                String descripcion = "";
-                do {
-                    idSolucProblematicaAcademica = resultSet.getInt("idsolucionaproblematicaacademica");
-                    descripcion = resultSet.getString("descripcion");
-
-                    solucionAProblematicaAcademica.setIdSolucionAProblematicaAcademica(idSolucProblematicaAcademica);
-                    solucionAProblematicaAcademica.setDescripcion(descripcion);
-                }while (resultSet.next());
-
+            while (resultSet.next()){
+                solucionAProblematicaAcademica = getSolucionAProblematicaAcademica(resultSet);
             }
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
@@ -80,5 +71,17 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
         }
 
         return solucionAProblematicaAcademica;
+    }
+
+    private SolucionAProblematicaAcademica getSolucionAProblematicaAcademica(ResultSet resultSet) throws SQLException {
+        SolucionAProblematicaAcademica solucionAProblematicaAcademica = new SolucionAProblematicaAcademica();
+        int idSolucProblematicaAcademica;
+        String descripcion;
+        idSolucProblematicaAcademica = resultSet.getInt("idsolucionaproblematicaacademica");
+        descripcion = resultSet.getString("descripcion");
+        solucionAProblematicaAcademica.setIdSolucionAProblematicaAcademica(idSolucProblematicaAcademica);
+        solucionAProblematicaAcademica.setDescripcion(descripcion);
+        return solucionAProblematicaAcademica;
+
     }
 }

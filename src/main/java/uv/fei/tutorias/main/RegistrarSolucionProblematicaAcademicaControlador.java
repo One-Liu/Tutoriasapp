@@ -43,7 +43,12 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
 
         SolucionAProblematicaAcademicaDAO solucionProblematica = new SolucionAProblematicaAcademicaDAO();
         String solucionProblematicaTexto = insertarSolucionTextArea.getText();
-        boolean respuesta = solucionProblematica.addSolucionProblematicaAcademica(solucionProblematicaTexto);
+        boolean respuesta = false;
+        try {
+            respuesta = solucionProblematica.agregarSolucionProblematicaAcademica(solucionProblematicaTexto);
+        } catch (SQLException e) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
         if (respuesta == false){
             mostrarAlerta("Error de conexión","Error: la problematica academica no se ha agregado",Alert.AlertType.ERROR);
         }else{
