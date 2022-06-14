@@ -24,15 +24,12 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    fechasDeCierreEntregaReporte.add(getFechaDeCierreEntregaDeReporte(resultado));
-                } while(resultado.next());
+            while(resultado.next()) {
+                fechasDeCierreEntregaReporte.add(getFechaDeCierreEntregaDeReporte(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -48,13 +45,12 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idFechaDeCierreEntregaReporte);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) {
                 fechaDeCierreEntregaReporte = getFechaDeCierreEntregaDeReporte(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -74,44 +70,49 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
 
     @Override
     public boolean agregarFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) throws SQLException {
+        boolean resultado = false;
         String consulta = "INSERT INTO fecha_cierre_entrega_reporte (fecha) VALUES (?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setDate(1, (Date) fechaDeCierreEntregaDeReporte.getFecha());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarFechaDeCierreEntregaDeReportePorId(int idFechaDeCierreEntregaDeReporte) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM fecha_cierre_entrega_reporte WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idFechaDeCierreEntregaDeReporte);
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     @Override
     public boolean modificarFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) throws SQLException {
+        boolean resultado = false;
         String consulta = 
                 "UPDATE fecha_cierre_entrega_reporte " + 
                 "SET fecha = ? " +
@@ -122,14 +123,15 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
             sentencia.setDate(1, (Date) fechaDeCierreEntregaDeReporte.getFecha());
             sentencia.setInt(2, fechaDeCierreEntregaDeReporte.getId());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(FechaDeCierreEntregaDeReporteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 }

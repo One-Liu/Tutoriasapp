@@ -26,15 +26,12 @@ public class CoordinadorDAO implements ICoordinadorDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    coordinadores.add(getCoordinador(resultado));
-                }while(resultado.next());
+            while(resultado.next()) {
+                coordinadores.add(getCoordinador(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -53,13 +50,12 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idCoordinador);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) { 
                 coordinador = getCoordinador(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -86,6 +82,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
 
     @Override
     public boolean agregarCoordinador(Coordinador coordinador) throws SQLException {
+        boolean resultado = false;
         String consulta = "INSERT INTO coordinador (idPersona,idUsuario) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -93,38 +90,42 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(1, coordinador.getIdPersona());
             sentencia.setInt(2, coordinador.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarCoordinadorPorId(int idCoordinador) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM coordinador WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idCoordinador);
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean modificarCoordinador(Coordinador coordinador) throws SQLException {
+        boolean resultado = false;
         String consulta =
                 "UPDATE coordinador " +
                 "SET idPersona = ?, " +
@@ -137,14 +138,15 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             sentencia.setInt(2, coordinador.getIdUsuario());
             sentencia.setInt(3, coordinador.getIdCoordinador());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(CoordinadorDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 }

@@ -26,15 +26,12 @@ public class EstudianteDAO implements IEstudianteDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    estudiantes.add(getEstudiante(resultado));
-                }while(resultado.next());
+            while(resultado.next()) {
+                estudiantes.add(getEstudiante(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -43,7 +40,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException {
-        Estudiante estudiante;
+        Estudiante estudiante = new Estudiante();
         String consulta =
         "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
@@ -53,13 +50,12 @@ public class EstudianteDAO implements IEstudianteDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idEstudiante);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) {
                 estudiante = getEstudiante(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -92,6 +88,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public boolean agregarEstudiante(Estudiante estudiante) throws SQLException {
+        boolean resultado = false;
         PersonaDAO personaDao = new PersonaDAO();
         Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno(), estudiante.getIdProgramaEducativo());
         String consulta = "INSERT INTO estudiante (matricula, idTutorAcademico, idPersona) VALUES (?,?,?)";
@@ -102,38 +99,42 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(2, estudiante.getIdTutorAcademico());
             sentencia.setInt(3, personaDao.agregarPersona(personaEstudiante));
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarEstudiantePorId(int idEstudiante) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM estudiante WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idEstudiante);
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean modificarAsignacionDeTutor(Estudiante estudiante) throws SQLException {
+        boolean resultado = false;
         String consulta =
                 "UPDATE estudiante " +
                 "SET idTutorAcademico = ?, " +
@@ -144,15 +145,16 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(1, estudiante.getIdTutorAcademico());
             sentencia.setInt(2, estudiante.getIdEstudiante());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     @Override
@@ -167,15 +169,12 @@ public class EstudianteDAO implements IEstudianteDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    estudiantes.add(getEstudiante(resultado));
-                }while(resultado.next());
+            while(resultado.next()) {
+                estudiantes.add(getEstudiante(resultado));                
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -187,21 +186,18 @@ public class EstudianteDAO implements IEstudianteDAO {
         List<Estudiante> estudiantes = new ArrayList<>();
         String consulta =
                 "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-                "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
+                "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
                 "WHERE E.idTutorAcademico = 0";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    estudiantes.add(getEstudiante(resultado));
-                }while(resultado.next());
+            while(resultado.next()) {
+                estudiantes.add(getEstudiante(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -213,21 +209,18 @@ public class EstudianteDAO implements IEstudianteDAO {
         List<Estudiante> estudiantes = new ArrayList<>();
         String consulta =
                 "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-                "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
+                "FROM estudiante E INNER JOIN persona P ON P.id = E.idPersona " +
                 "WHERE E.idTutorAcademico != 0";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    estudiantes.add(getEstudiante(resultado));
-                }while(resultado.next());
+            while(resultado.next()) {
+                estudiantes.add(getEstudiante(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }

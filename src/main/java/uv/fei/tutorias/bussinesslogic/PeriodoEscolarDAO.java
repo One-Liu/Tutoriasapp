@@ -24,15 +24,12 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(PeriodoEscolarDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    periodosEscolares.add(getPeriodoEscolar(resultado));
-                } while(resultado.next());
+            while(resultado.next()) {
+                periodosEscolares.add(getPeriodoEscolar(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -48,13 +45,12 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idPeriodoEscolar);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(PeriodoEscolarDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) {
                 periodoEscolar = getPeriodoEscolar(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -76,6 +72,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
 
     @Override
     public boolean agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
+        boolean resultado = false;
         String consulta = "INSERT INTO periodo_escolar VALUES(NULL,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -83,38 +80,42 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             sentencia.setDate(1, (Date) periodoEscolar.getFechaInicio());
             sentencia.setDate(2, (Date) periodoEscolar.getFechaTermino());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(PeriodoEscolarDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarPeriodoEscolarPorId(int idPeriodoEscolar) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM periodo_escolar WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idPeriodoEscolar);
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(PeriodoEscolarDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     @Override
     public boolean modificarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
+        boolean resultado = false;
         String consulta = 
                 "UPDATE periodo_escolar " + 
                 "SET fechaInicio = ?, " +
@@ -127,14 +128,15 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
             sentencia.setDate(2, (Date) periodoEscolar.getFechaTermino());
             sentencia.setInt(3, periodoEscolar.getId());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(PeriodoEscolarDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 }

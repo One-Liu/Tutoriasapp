@@ -24,15 +24,12 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
-                } while(resultado.next());
+            while(resultado.next()) {
+                sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -48,13 +45,12 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idSesionDeTutoriaAcademica);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) {
                 sesionDeTutoriaAcademica = getSesionDeTutoriaAcademica(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -78,6 +74,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
 
     @Override
     public boolean agregarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
+        boolean resultado = false;
         String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -85,38 +82,42 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getFecha());
             sentencia.setInt(2, sesionDeTutoriaAcademica.getIdPeriodoEscolar());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarSesionDeTutoriaAcademicaPorId(int idSesionDeTutoriaAcademica) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM sesion_de_tutoria_academica WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idSesionDeTutoriaAcademica);
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     @Override
     public boolean modificarFechaDeSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
+        boolean resultado = false;
         String consulta = 
                 "UPDATE sesion_de_tutoria_academica " + 
                 "SET fecha = ?, " +
@@ -127,15 +128,16 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getFecha());
             sentencia.setInt(2, sesionDeTutoriaAcademica.getId());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     @Override
@@ -147,15 +149,12 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idPeriodoEscolar);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
-                } while(resultado.next());
+            while(resultado.next()) {
+                sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }

@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.ListaDeAsistencia;
-//TODO agregar asistio
+
 // author @liu
 public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
 
@@ -24,13 +24,12 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idListaDeAsistencia);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) {
                 listaDeAsistencia = getListaDeAsistencia(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -46,15 +45,12 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idEstudiante);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    listasDeAsistencia.add(getListaDeAsistencia(resultado));
-                } while (resultado.next());
+            while(resultado.next()) {
+                listasDeAsistencia.add(getListaDeAsistencia(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -69,15 +65,12 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    listasDeAsistencia.add(getListaDeAsistencia(resultado));
-                } while (resultado.next());
+            while(resultado.next()) {
+                listasDeAsistencia.add(getListaDeAsistencia(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -108,6 +101,7 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
 
     @Override
     public boolean agregarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
+        boolean resultado = false;
         String consulta = "INSERT INTO lista_de_asistencia (hora,asistio,idEstudiante,idSesionDeTutoriaAcademica) VALUES (?,?,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -117,38 +111,42 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             sentencia.setInt(3, listaDeAsistencia.getIdEstudiante());
             sentencia.setInt(4, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM lista_de_asistencia WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idListaDeAsistencia);
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean modificarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
+        boolean resultado = false;
         String consulta =
                 "UPDATE lista_de_asistencia " +
                 "SET hora = ?, " +
@@ -165,14 +163,15 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             sentencia.setInt(4, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
             sentencia.setInt(5, listaDeAsistencia.getId());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ListaDeAsistenciaDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 }

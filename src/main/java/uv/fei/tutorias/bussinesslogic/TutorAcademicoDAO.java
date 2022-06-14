@@ -24,15 +24,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if (!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    tutores.add(getTutorAcademico(resultado));
-                } while (resultado.next());
+            while(resultado.next()) {
+                tutores.add(getTutorAcademico(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -41,7 +38,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
 
     @Override
     public TutorAcademico obtenerTutorAcademicoPorId(int idTutorAcademico) throws SQLException {
-        TutorAcademico tutorAcademico;
+        TutorAcademico tutorAcademico = new TutorAcademico();
         String consulta = 
                 "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
@@ -51,13 +48,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next() == false) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) {
                 tutorAcademico = getTutorAcademico(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -84,6 +80,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
 
     @Override
     public boolean agregarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
+        boolean resultado = false;
         String consulta = "INSERT INTO tutor_academico(idPersona,idUsuario) VALUES(?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
@@ -91,38 +88,42 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(1, tutorAcademico.getIdPersona());
             sentencia.setInt(2, tutorAcademico.getIdUsuario());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarTutorAcademicoPorId(int idTutorAcademico) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM tutor_academico WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idTutorAcademico);
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     @Override
     public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
+        boolean resultado = false;
         String consulta = 
                 "UPDATE tutor_academico " + 
                 "SET idPersona = ?, " +
@@ -135,15 +136,16 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             sentencia.setInt(2, tutorAcademico.getIdUsuario());
             sentencia.setInt(3, tutorAcademico.getIdTutorAcademico());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException {
@@ -157,13 +159,12 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idUsuario);
             ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            }else {
+            if(resultSet.next()) {
                 tutorAcademico = getTutorAcademico(resultSet);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             dataBaseConnection.cerrarConexion();
         }
@@ -176,22 +177,19 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
         List<TutorAcademico> tutores = new ArrayList<>();
         String consulta =
                 "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-                "FROM tutor_academico TA INNER JOIN Persona P ON P.idPersona = TA.idPersona" +
-                "WHERE TA.idTutorAcademico != ?";
+                "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
+                "WHERE TA.id != ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
-            if (!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(TutorAcademicoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    tutores.add(getTutorAcademico(resultado));
-                } while (resultado.next());
+            while(resultado.next()) {
+                tutores.add(getTutorAcademico(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }

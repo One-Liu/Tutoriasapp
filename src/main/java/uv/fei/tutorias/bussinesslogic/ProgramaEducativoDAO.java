@@ -23,15 +23,12 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
-                do {
-                    programasEducativos.add(getProgramaEducativo(resultado));
-                } while(resultado.next());
+            while(resultado.next()) {
+                programasEducativos.add(getProgramaEducativo(resultado));
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -47,13 +44,12 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idProgramaEducativo);
             ResultSet resultado = sentencia.executeQuery();
-            if(!resultado.next()) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
-            } else {
+            if(resultado.next()) {
                 programaEducativo = getProgramaEducativo(resultado);
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
@@ -73,25 +69,28 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
 
     @Override
     public boolean agregarProgramaEducativo(ProgramaEducativo programaEducativo) throws SQLException {
+        boolean resultado = false;
         String consulta = "INSERT INTO programa_educativo (nombreProgramaEducativo) VALUES (?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setString(1, programaEducativo.getNombre());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 
     @Override
     public boolean eliminarProgramaEducativoPorId(int idProgramaEducativo) throws SQLException {
+        boolean resultado = false;
         String consulta = "DELETE FROM programa_educativo WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
@@ -99,18 +98,20 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             sentencia.setInt(1, idProgramaEducativo);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas != 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
     
     @Override
     public boolean modificarProgramaEducativo(ProgramaEducativo programaEducativo) throws SQLException {
+        boolean resultado = false;
         String consulta = 
                 "UPDATE programa_educativo " + 
                 "SET nombreProgramaEducativo = ? " +
@@ -121,14 +122,15 @@ public class ProgramaEducativoDAO implements IProgramaEducativoDAO {
             sentencia.setString(1, programaEducativo.getNombre());
             sentencia.setInt(2, programaEducativo.getId());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas == 0) {
-                SQLException excepcionSQL = new SQLException();
-                LOGGER.warn(ProgramaEducativoDAO.class.getName(), excepcionSQL);
-                throw excepcionSQL;
+            if(columnasAfectadas != 0) {
+                resultado = true;
             }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return true;
+        return resultado;
     }
 }
