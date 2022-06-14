@@ -74,7 +74,11 @@ public class TablaPersonaProfesorController implements Initializable {
         //Juntamos la informacion con la ventana nueva
         experienciaEducativa.setIdProfesor(tblPersona.getSelectionModel().getSelectedItem().getIdProfesor());
         //lo agregamos a la base de datos
-        experienciaEducativaDAO.modificarExperienciaEducativa(experienciaEducativa);
+        try {
+            experienciaEducativaDAO.modificarExperienciaEducativa(experienciaEducativa);
+        } catch (SQLException e) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
 
     }
 }

@@ -74,7 +74,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     }
     
     private void cargarExperienciasEducativas() throws SQLException {
-        this.experienciasEducativas = experienciaEducativaDAO.obtenerExperienciasEducativas();
+        this.experienciasEducativas.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
     }
     
     private void inicializarColumnasDeTabla() {

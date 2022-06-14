@@ -1,13 +1,16 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.SQLException;
-import javafx.collections.ObservableList;
+import java.util.List;
+
 import uv.fei.tutorias.domain.ExperienciaEducativa;
 
 public interface IExperienciaEducativaDAO {
-    public ObservableList<ExperienciaEducativa> buscarExperienciasEducativasPorNombre(String serchName);
-    public ExperienciaEducativa obtenerExperienciaEducativaPorId(int searchId);
-    public boolean agregarExperienciaEducativa(ExperienciaEducativa experienciaEducativa);
-    public boolean eliminarExperienciaEducativa(int searchId);
-    public ObservableList<ExperienciaEducativa> obtenerExperienciasEducativas() throws SQLException;
+    public ExperienciaEducativa obtenerExperienciaEducativaPorId(int searchId) throws SQLException;
+    public boolean agregarExperienciaEducativa(ExperienciaEducativa experienciaEducativa) throws SQLException;
+    public boolean eliminarExperienciaEducativa(int searchId) throws SQLException;
+
+    boolean modificarExperienciaEducativa(ExperienciaEducativa experienciaEducativa) throws SQLException;
+
+    public List<ExperienciaEducativa> obtenerExperienciasEducativas() throws SQLException;
 }
