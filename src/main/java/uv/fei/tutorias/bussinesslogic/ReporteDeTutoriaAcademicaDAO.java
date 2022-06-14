@@ -43,8 +43,9 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
             statement.setInt(1, idReporteDeTutoriaAcademicaBusqueda);
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate == 0) {
-                LOG.warn(ReporteDeTutoriaAcademicaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexión con la base de datos");
+                SQLException ex = new SQLException();
+                LOG.warn(ReporteDeTutoriaAcademicaDAO.class.getName(), ex);
+                throw ex;
             }
         } finally {
             dataBaseConnection.cerrarConexion();
@@ -57,9 +58,9 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
         ConexionBD dataBaseConnection = new ConexionBD();
         ReporteDeTutoriaAcademica reporteDeTutoriaAcademica;
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "SELECT * from reporte_de_tutoria_academica where id like ?";
+            String query = "SELECT * from reporte_de_tutoria_academica where id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,"%" + idReporteDeTutoriaAcademicaBusqueda + "%");
+            statement.setInt(1,idReporteDeTutoriaAcademicaBusqueda);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){
                 SQLException ex = new SQLException();
