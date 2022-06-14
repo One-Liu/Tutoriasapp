@@ -43,14 +43,14 @@ public class PersonaDAOTest {
 
     @Test
     public void obtenerPersonaPorId() throws SQLException {
-        personaNueva.setIdPersona(11);
-        assertEquals(personaDAO.obtenerPersonaPorId(11),personaNueva);
+        personaNueva.setIdPersona(12);
+        assertEquals(personaDAO.obtenerPersonaPorId(12),personaNueva);
 
     }
 
     @Test
     public void agregarPersona() throws SQLException {
-        assertEquals(personaDAO.agregarPersona(personaNueva),12);
+        assertEquals(13,personaDAO.agregarPersona(personaNueva));
     }
 
     @Test

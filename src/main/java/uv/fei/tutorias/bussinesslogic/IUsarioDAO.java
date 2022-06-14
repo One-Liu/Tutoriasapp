@@ -12,7 +12,7 @@ public interface IUsarioDAO {
 
     boolean estaIdUsuarioEnTutorAcademico(int searchId) throws SQLException;
 
-    boolean estaIdUsarionEnJefeDeCarrera(int searchId);
+    boolean estaIdUsarionEnJefeDeCarrera(int searchId) throws SQLException;
 
     boolean estaIdUsuarionEnCoordinador(int searchId) throws SQLException;
 }

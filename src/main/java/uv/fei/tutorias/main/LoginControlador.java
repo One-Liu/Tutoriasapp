@@ -9,11 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import uv.fei.tutorias.bussinesslogic.CoordinadorDAO;
+import uv.fei.tutorias.bussinesslogic.JefeDeCarreraDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.bussinesslogic.UsuarioDAO;
-import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
-import uv.fei.tutorias.domain.TutorAcademico;
-import uv.fei.tutorias.domain.Usuario;
+import uv.fei.tutorias.domain.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,11 +48,10 @@ public class LoginControlador {
                     if (usuarioDAO.estaIdUsuarioEnTutorAcademico(usuario.getIdUsuario())){
                         TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
                         TutorAcademico tutorAcademico =  tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(idUsuario);
-                        DatosGlobalesDeSesion datosGlobalesDeSesion = new DatosGlobalesDeSesion();
-                        datosGlobalesDeSesion.setTutorAcademico(tutorAcademico);
-                    }else if (usuarioDAO.estaIdUsarionEnJefeDeCarrera(usuario.getIdUsuario())){
-
+                        DatosGlobalesDeSesion.getDatosGlobalesDeSesion().setTutorAcademico(tutorAcademico);
                     }else if (usuarioDAO.estaIdUsuarionEnCoordinador(usuario.getIdUsuario())){
+                        CoordinadorDAO coordinadorDAO = new CoordinadorDAO();
+//                        Coordinador coordinador = coordinadorDAO.obtenerCoordinadorPorIdUsuario(usuario.getIdUsuario());
 
                     }
                 } catch (SQLException e) {

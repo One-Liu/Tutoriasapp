@@ -24,7 +24,7 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.getGeneratedKeys();
             if (executeUpdate == 0) {
                 SQLException ex = new SQLException();
-                LOG.warn(UsuarioDao.class.getName(), ex);
+                LOG.warn(UsuarioDAO.class.getName(), ex);
                 throw ex;
             }else {
                 resultSet.next();
@@ -47,7 +47,7 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
                 SQLException ex = new SQLException();
-                LOG.warn(UsuarioDao.class.getName(), ex);
+                LOG.warn(getClass().getName(), ex);
                 throw ex;
             } else {
                 int id;
@@ -73,7 +73,7 @@ public class UsuarioDAO implements IUsarioDAO{
                 resultado = true;
             }else {
                 SQLException ex = new SQLException();
-                LOG.warn(UsuarioDao.class.getName(), ex);
+                LOG.warn(getClass().getName(), ex);
                 throw ex;
             }
         }finally {
@@ -85,7 +85,7 @@ public class UsuarioDAO implements IUsarioDAO{
     @Override
     public boolean estaIdUsarionEnJefeDeCarrera(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
-        boolean resultado = false;
+        boolean resultado;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select idUsuario from jefe_de_carrera where idUsuario=(?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -94,8 +94,8 @@ public class UsuarioDAO implements IUsarioDAO{
             if (resultSet.next()) {
                 resultado = true;
             }else {
-                SQLException ex = new SQLException();
-                LOG.warn(UsuarioDao.class.getName(), ex);
+                SQLException ex = new SQLException("No existe ningun usuario");
+                LOG.warn(getClass().getName(), ex);
                 throw ex;
             }
         }finally {
@@ -114,12 +114,11 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 resultado = true;
-            }else {
-                SQLException ex = new SQLException();
-                LOG.warn(UsuarioDao.class.getName(), ex);
-                throw ex;
             }
-        } finally {
+        }catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        }  finally {
             dataBaseConnection.cerrarConexion();
         }
         return resultado;

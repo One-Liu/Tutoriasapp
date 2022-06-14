@@ -33,7 +33,7 @@ public class SeleccionDeReporteControlador implements Initializable {
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
     private void cargarTutoresAcademicos() throws SQLException {
-        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicos();
+        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
     }
     
     private void cargarSesionesDeTutoriaAcademica() throws SQLException {

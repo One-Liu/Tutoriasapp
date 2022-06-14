@@ -7,16 +7,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 // author @liu
 public class TutorAcademicoDAO implements ITutorAcademicoDAO {
-    private final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(PersonaDAO.class);
+    private final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(TutorAcademicoDAO.class);
 
     @Override
-    public ObservableList<TutorAcademico> obtenerTutoresAcademicos() throws SQLException {
-        ObservableList<TutorAcademico> tutores = FXCollections.observableArrayList();
+    public List<TutorAcademico> obtenerTutoresAcademicos() throws SQLException {
+        List<TutorAcademico> tutores = new ArrayList<>();
         String consulta =
                 "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona";
@@ -50,7 +53,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next() == false) {
+            if (!resultado.next()) {
                 LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
                 throw new SQLException("No hay conexion a la base de datos");
             } else {
@@ -82,7 +85,6 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
 
     @Override
     public boolean agregarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
-        boolean validacion = false;
         String consulta = "INSERT INTO tutor_academico(idPersona,idUsuario) VALUES(?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
@@ -93,18 +95,15 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             if(columnasAfectadas == 0) {
                 LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
                 throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
-            }
+            } 
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean eliminarTutorAcademicoPorId(int idTutorAcademico) throws SQLException {
-        boolean validacion = false;
         String consulta = "DELETE FROM tutor_academico WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try (Connection conexion = baseDeDatos.abrirConexion()) {
@@ -114,19 +113,16 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             if(columnasAfectadas == 0) {
                 LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
                 throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
     
     @Override
     public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
-        boolean validacion;
-        String consulta = 
+        String consulta =
                 "UPDATE tutor_academico " + 
                 "SET idPersona = ?, " +
                 "SET idUsuario = ? " +
@@ -142,15 +138,14 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
                 LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
                 throw new SQLException("No hay conexion a la base de datos");
             }
-            validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
-    
+    @Override
     public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException {
-        TutorAcademico tutorAcademico = new TutorAcademico();
+        TutorAcademico tutorAcademico;
         String query =
                 "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
