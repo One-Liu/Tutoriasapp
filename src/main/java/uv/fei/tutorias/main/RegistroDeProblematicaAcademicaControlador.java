@@ -61,7 +61,6 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     private void cargarEstudiantesDelTutorAcademico() throws SQLException {
         ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
         estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico()));
-        List<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
         TBLEstudiante_Presenta visualizacionEstudiante;
         for(Estudiante estudiante : estudiantesObtenidos) {
             visualizacionEstudiante = new TBLEstudiante_Presenta();

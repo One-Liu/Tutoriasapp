@@ -62,11 +62,8 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     
     private void inicializarListaDeAsistencias() throws SQLException {
         // Obtener solo los del tutor académico
-<<<<<<< HEAD
         this.listaDeAsistencias.addAll(listaDeAsistenciaDAO.buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(sesionDeTutoriaAcademica.getId()));
-=======
         this.listaDeAsistencias = (ObservableList<ListaDeAsistencia>) listaDeAsistenciaDAO.buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
->>>>>>> 42d9a8353964f37eb1a3f54d13e3e2805906f809
     }
     
     private void cargarCamposGUI() {

@@ -28,11 +28,8 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
     
     private void cargarPeriodosEscolares() throws SQLException {
-<<<<<<< HEAD
         this.periodosEscolares.addAll(periodoEscolarDAO.obtenerPeriodosEscolares());
-=======
         this.periodosEscolares = (ObservableList<PeriodoEscolar>) periodoEscolarDAO.obtenerPeriodosEscolares();
->>>>>>> 42d9a8353964f37eb1a3f54d13e3e2805906f809
     }
     
     private void cargarCamposGUI() {

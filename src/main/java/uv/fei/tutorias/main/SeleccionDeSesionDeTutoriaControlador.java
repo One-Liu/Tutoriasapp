@@ -27,11 +27,8 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
     private void cargarSesionesDeTutoriaAcademica() throws SQLException {
-<<<<<<< HEAD
         this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
-=======
         this.sesionesDeTutoriaAcademica = (ObservableList<SesionDeTutoriaAcademica>) sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
->>>>>>> 42d9a8353964f37eb1a3f54d13e3e2805906f809
     }
     
     private void cargarCamposGUI() {
