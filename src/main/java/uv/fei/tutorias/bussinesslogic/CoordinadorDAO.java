@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.Coordinador;
@@ -50,7 +51,7 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setInt(1, idCoordinador);
             ResultSet resultado = sentencia.executeQuery();
-            if(resultado.next()) { 
+            if(resultado.next()) {
                 coordinador = getCoordinador(resultado);
             }
         } catch(SQLException excepcionSQL) {
@@ -148,5 +149,28 @@ public class CoordinadorDAO implements ICoordinadorDAO {
             baseDeDatos.cerrarConexion();
         }
         return resultado;
+    }
+    @Override
+    public Coordinador obtenerCoordinadorPorIdUsuario(int idUsuario) throws SQLException {
+        Coordinador coordinador;
+        String query =
+                "SELECT CR.id AS idCoordinador, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                        "FROM coordinador CR INNER JOIN persona P ON P.id = TA.idPersona " +
+                        "WHERE idUsuario = ?";
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idUsuario);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                LOGGER.warn(TutorAcademicoDAO.class.getName(), new SQLException());
+                throw new SQLException("No hay conexion a la base de datos");
+            }else {
+                coordinador = getCoordinador(resultSet);
+            }
+        } finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return coordinador;
     }
 }

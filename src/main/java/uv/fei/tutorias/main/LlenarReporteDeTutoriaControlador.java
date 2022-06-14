@@ -40,7 +40,6 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
 //        agregar reporte general
 //        asignarEstudiantesEnRiesgo();
         TutorAcademico tutorAcademico = new TutorAcademico();
-        tutorAcademico = (TutorAcademico) UtilidadVentana.recuperarValoresDeLaVentana(panel,tutorAcademico);
         ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
         ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
         reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());

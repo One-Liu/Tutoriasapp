@@ -1,11 +1,6 @@
 package uv.fei.tutorias.domain;
 
-import uv.fei.tutorias.bussinesslogic.IHorarioDeSesionDeTutoriaDAO;
 import uv.fei.tutorias.bussinesslogic.PersonaDAO;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class HorarioDeSesionDeTutoria {
     private int id;

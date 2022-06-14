@@ -19,7 +19,6 @@ public class MenuPrincipalDeTutorAcademicoControlador {
     @FXML
     private void clicLLenarReporteDeTutoriasAcademicas(ActionEvent actionEvent) {
         TutorAcademico tutorAcademico = new TutorAcademico();
-        tutorAcademico = (TutorAcademico) UtilidadVentana.recuperarValoresDeLaVentana(panel,tutorAcademico);
         System.out.println(tutorAcademico);
 //        Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml","LLenar reporte de tutoria",actionEvent);
 

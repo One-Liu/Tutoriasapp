@@ -5,6 +5,8 @@ import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.UsuarioDAO;
 import uv.fei.tutorias.domain.Usuario;
 
+import java.sql.SQLException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -19,15 +21,11 @@ public class UsuarioDAOTest {
     }
 
     @Test
-    public void AgregarUnUsuario(){
-        assertTrue(usuarioDao.addUsuario(usuario));
+    public void estaUsuarionEnCoordinador() throws SQLException {
+        assertTrue(usuarioDao.estaIdUsuarionEnCoordinador(2));
     }
     @Test
-    public void AddUsuarioReturnID(){
-        assertEquals(2,usuarioDao.addUsuarioReturnId(usuario2));
-    }
-    @Test
-    public void estaUsuarioenTutorAcademico(){
+    public void estaUsuarioenTutorAcademico() throws SQLException {
         assertTrue(usuarioDao.estaIdUsuarioEnTutorAcademico(21));
     }
 
