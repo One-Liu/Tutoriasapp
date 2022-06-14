@@ -5,8 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
@@ -17,16 +17,17 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
     private final Logger LOGGER = Logger.getLogger(SesionDeTutoriaAcademicaDAO.class);
 
     @Override
-    public ObservableList<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademica() throws SQLException {
-        ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
+    public List<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademica() throws SQLException {
+        List<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = new ArrayList<>();
         String consulta = "SELECT * FROM sesion_de_tutoria_academica";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
@@ -48,8 +49,9 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setInt(1, idSesionDeTutoriaAcademica);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 sesionDeTutoriaAcademica = getSesionDeTutoriaAcademica(resultado);
             }
@@ -76,7 +78,6 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
 
     @Override
     public boolean agregarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
-        boolean validacion = false;
         String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -85,20 +86,18 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setInt(2, sesionDeTutoriaAcademica.getIdPeriodoEscolar());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean eliminarSesionDeTutoriaAcademicaPorId(int idSesionDeTutoriaAcademica) throws SQLException {
-        boolean validacion = false;
         String consulta = "DELETE FROM sesion_de_tutoria_academica WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -106,20 +105,18 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setInt(1, idSesionDeTutoriaAcademica);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
     
     @Override
     public boolean modificarFechaDeSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
-        boolean validacion = false;
         String consulta = 
                 "UPDATE sesion_de_tutoria_academica " + 
                 "SET fecha = ?, " +
@@ -131,19 +128,19 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setInt(2, sesionDeTutoriaAcademica.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
-            validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
     
     @Override
-    public ObservableList<SesionDeTutoriaAcademica> obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(int idPeriodoEscolar) throws SQLException {
-        ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
+    public List<SesionDeTutoriaAcademica> obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(int idPeriodoEscolar) throws SQLException {
+        List<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = new ArrayList<>();
         String consulta = "SELECT * FROM sesion_de_tutoria_academica WHERE idPeriodoEscolar = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -151,8 +148,9 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
             sentencia.setInt(1, idPeriodoEscolar);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(SesionDeTutoriaAcademicaDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));

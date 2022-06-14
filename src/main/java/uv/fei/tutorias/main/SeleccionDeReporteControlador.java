@@ -57,12 +57,12 @@ public class SeleccionDeReporteControlador implements Initializable {
     }    
     
     @FXML
-    private void clicCancelar(ActionEvent event) {
-        UtilidadVentana.cerrarVentana(event);
+    private void clicCancelar(ActionEvent evento) {
+        UtilidadVentana.cerrarVentana(evento);
     }
 
     @FXML
-    private void clicSeleccionar(ActionEvent event) {
+    private void clicSeleccionar(ActionEvent evento) {
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
         SesionDeTutoriaAcademica sesionDeTutoriaAcademicaSeleccionada = this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().getSelectedItem();
         try {

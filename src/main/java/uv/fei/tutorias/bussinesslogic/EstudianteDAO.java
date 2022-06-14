@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.Persona;
@@ -17,8 +17,8 @@ public class EstudianteDAO implements IEstudianteDAO {
     private final Logger LOGGER = Logger.getLogger(EstudianteDAO.class);
 
     @Override
-    public ObservableList<Estudiante> obtenerEstudiantes() throws SQLException {
-        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+    public List<Estudiante> obtenerEstudiantes() throws SQLException {
+        List<Estudiante> estudiantes = new ArrayList<>();
         String consulta =
         "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona";
@@ -27,8 +27,9 @@ public class EstudianteDAO implements IEstudianteDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     estudiantes.add(getEstudiante(resultado));
@@ -53,9 +54,9 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(1, idEstudiante);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                SQLException ex = new SQLException();
-                LOGGER.warn(EstudianteDAO.class.getName(),ex);
-                throw ex;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 estudiante = getEstudiante(resultado);
             }
@@ -91,7 +92,6 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public boolean agregarEstudiante(Estudiante estudiante) throws SQLException {
-        boolean validacion = false;
         PersonaDAO personaDao = new PersonaDAO();
         Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno(), estudiante.getIdProgramaEducativo());
         String consulta = "INSERT INTO estudiante (matricula, idTutorAcademico, idPersona) VALUES (?,?,?)";
@@ -103,20 +103,18 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(3, personaDao.agregarPersona(personaEstudiante));
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean eliminarEstudiantePorId(int idEstudiante) throws SQLException {
-        boolean validacion = false;
         String consulta = "DELETE FROM estudiante WHERE id = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
@@ -124,20 +122,18 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(1, idEstudiante);
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
-            } else {
-                validacion = true;
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
 
     @Override
     public boolean modificarAsignacionDeTutor(Estudiante estudiante) throws SQLException {
-        boolean validacion;
         String consulta =
                 "UPDATE estudiante " +
                 "SET idTutorAcademico = ?, " +
@@ -149,19 +145,19 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(2, estudiante.getIdEstudiante());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas == 0) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             }
-            validacion = true;
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return validacion;
+        return true;
     }
     
     @Override
-    public ObservableList<Estudiante> obtenerEstudiantesDeTutor(int idTutorAcademico) throws SQLException {
-        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+    public List<Estudiante> obtenerEstudiantesDeTutor(int idTutorAcademico) throws SQLException {
+        List<Estudiante> estudiantes = new ArrayList<>();
         String consulta =
                 "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
@@ -172,8 +168,9 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(1, idTutorAcademico);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     estudiantes.add(getEstudiante(resultado));
@@ -186,8 +183,8 @@ public class EstudianteDAO implements IEstudianteDAO {
     }
     
     @Override
-    public ObservableList<Estudiante> obtenerEstudiantesSinTutorAsignado() throws SQLException {
-        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+    public List<Estudiante> obtenerEstudiantesSinTutorAsignado() throws SQLException {
+        List<Estudiante> estudiantes = new ArrayList<>();
         String consulta =
                 "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
@@ -197,8 +194,9 @@ public class EstudianteDAO implements IEstudianteDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     estudiantes.add(getEstudiante(resultado));
@@ -211,8 +209,8 @@ public class EstudianteDAO implements IEstudianteDAO {
     }
     
     @Override
-    public ObservableList<Estudiante> obtenerEstudiantesConTutorAsignado() throws SQLException {
-        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+    public List<Estudiante> obtenerEstudiantesConTutorAsignado() throws SQLException {
+        List<Estudiante> estudiantes = new ArrayList<>();
         String consulta =
                 "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
@@ -222,8 +220,9 @@ public class EstudianteDAO implements IEstudianteDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException excepcionSQL = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(), excepcionSQL);
+                throw excepcionSQL;
             } else {
                 do {
                     estudiantes.add(getEstudiante(resultado));

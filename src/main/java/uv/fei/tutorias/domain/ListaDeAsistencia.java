@@ -15,16 +15,18 @@ public class ListaDeAsistencia {
         this.idEstudiante = 0;
     }
 
-    public ListaDeAsistencia(String hora, int idSesionDeTutoriaAcademica, int idEstudiante) {
+    public ListaDeAsistencia(String hora, boolean asistio, int idSesionDeTutoriaAcademica, int idEstudiante) {
         this.id = 0;
         this.hora = hora;
+        this.asistio = asistio;
         this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
         this.idEstudiante = idEstudiante;
     }
 
-    public ListaDeAsistencia(int idListaDeAsistencia, String hora, int idSesionDeTutoriaAcademica, int idEstudiante) {
+    public ListaDeAsistencia(int idListaDeAsistencia, String hora, boolean asistio, int idSesionDeTutoriaAcademica, int idEstudiante) {
         this.id = idListaDeAsistencia;
         this.hora = hora;
+        this.asistio = asistio;
         this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
         this.idEstudiante = idEstudiante;
     }
