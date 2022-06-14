@@ -22,16 +22,8 @@ public class AplicacionDePrueba extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("GUIAsignacionDeTutorAcademico.fxml"));
-        //FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("GUISeleccionDeReporte.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 600, 600);
         Scene scene = new Scene(fxmlLoader.load());
-        
-        //Parent raiz = cargadorFXML.load();
-        //ModificacionDeAsignacionDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
-        //controladorGUI.setEstudiante(new Estudiante(1,"S20015728",false,2,new Persona("JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ",4)));
-        //controladorGUI.cargarCamposGUI();
-        //Scene scene = new Scene(raiz);
-        
         primaryStage.setTitle("Aplicacion de prueba");
         primaryStage.setScene(scene);
         primaryStage.show();
