@@ -2,6 +2,7 @@ package uv.fei.tutorias.main;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,7 +59,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
     private void cargarEstudiantesDelTutorAcademico() throws SQLException {
-        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
+        List<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
         TBLEstudiante_Presenta visualizacionEstudiante;
         for(Estudiante estudiante : estudiantesObtenidos) {
             visualizacionEstudiante = new TBLEstudiante_Presenta();

@@ -31,7 +31,7 @@ public class CoordinadorDAOTest {
     public void testObtenerCoordinadores() throws SQLException {
         ArrayList<Coordinador> coordinadoresEsperados = new ArrayList<>();
         coordinadoresEsperados.add(coordinador1);
-        ArrayList<Coordinador> coordinadoresObtenidos = coordinadorDAO.obtenerCoordinadores();
+        ArrayList<Coordinador> coordinadoresObtenidos = (ArrayList<Coordinador>) coordinadorDAO.obtenerCoordinadores();
         assertTrue(coordinadoresEsperados.equals(coordinadoresObtenidos));
     }
 

@@ -75,21 +75,21 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
 
         //Recargamos los lebels de la sesion de tutoria
         //TODO el tutor academico deberia de selecciona la sesion de tutoria academica antes
-        try {
-            sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(6);
-            periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-            ObservableList<ListaDeAsistencia> listasDeAsistencias = listaDeAsistenciaDAO.obtenerListasDeAsistenciaPorIdTutorAcademico(6);
-            observaList(listasDeAsistencias);
-            lblPeriodo.setText(periodoEscolar.getFechaInicio() +" "+periodoEscolar.getFechaTermino());
-            lblFecha.setText(dia.toString());
-            for (ListaDeAsistencia l :
-                    listasDeAsistencias) {
-//                l.setEstudiante(estudianteDAO.obtenerEstudiantePorId(l.getIdEstudiante()));
-            }
-        } catch (SQLException e) {
-            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
-            e.printStackTrace();
-        }
+//        try {
+//            sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(6);
+//            periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
+////            ObservableList<ListaDeAsistencia> listasDeAsistencias = listaDeAsistenciaDAO.obtenerListasDeAsistenciaPorIdTutorAcademico(6);
+//            observaList(listasDeAsistencias);
+//            lblPeriodo.setText(periodoEscolar.getFechaInicio() +" "+periodoEscolar.getFechaTermino());
+//            lblFecha.setText(dia.toString());
+//            for (ListaDeAsistencia l :
+//                    listasDeAsistencias) {
+////                l.setEstudiante(estudianteDAO.obtenerEstudiantePorId(l.getIdEstudiante()));
+//            }
+//        } catch (SQLException e) {
+//            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+//            e.printStackTrace();
+//        }
 
 
 

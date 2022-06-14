@@ -35,7 +35,7 @@ public class RegistroDeHorarioDeSesionDeTutoriaControlador implements Initializa
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
     private void inicializarEstudiantes() throws SQLException {
-        this.estudiantes = estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
+        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico()));
     }
     
     private void cargarCamposGUI() {

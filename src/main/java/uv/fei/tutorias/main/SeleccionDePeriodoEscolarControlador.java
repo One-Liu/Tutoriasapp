@@ -27,7 +27,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
     
     private void cargarPeriodosEscolares() throws SQLException {
-        this.periodosEscolares = periodoEscolarDAO.obtenerPeriodosEscolares();
+        this.periodosEscolares = (ObservableList<PeriodoEscolar>) periodoEscolarDAO.obtenerPeriodosEscolares();
     }
     
     private void cargarCamposGUI() {

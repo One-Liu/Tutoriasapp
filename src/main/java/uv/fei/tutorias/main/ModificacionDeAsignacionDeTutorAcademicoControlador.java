@@ -37,7 +37,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     
     private void cargarTutoresAcademicos() throws SQLException {
         this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
-        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico());
+        this.tutoresAcademicos.addAll( tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico())) ;
     }
     
     private void cargarCamposGUI() {
