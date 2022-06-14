@@ -27,8 +27,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     
     private void cargarEstudiantes() throws SQLException {
         EstudianteDAO estudianteDAO = new EstudianteDAO();
-        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantes());
-        this.estudiantes = (ObservableList<Estudiante>) estudianteDAO.obtenerEstudiantes();
+        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesConTutorAsignado());
     }
     
     private void cargarCamposGUI() {
@@ -50,6 +49,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
             });
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
+            UtilidadVentana.cerrarVentana(new ActionEvent());
         }
     }
     
@@ -59,13 +59,14 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     }    
     
     @FXML
-    private void clicCancelar(ActionEvent event) {
-        UtilidadVentana.cerrarVentana(event);
+    private void clicCancelar(ActionEvent evento) {
+        UtilidadVentana.cerrarVentana(evento);
     }
     
     @FXML
-    private void clicSeleccionar(ActionEvent event) {
+    private void clicSeleccionar(ActionEvent evento) {
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
+        System.out.println(estudianteSeleccionado);
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeAsignacionDeTutorAcademico.fxml"));
             Parent raiz = cargadorFXML.load();

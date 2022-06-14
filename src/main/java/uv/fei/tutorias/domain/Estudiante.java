@@ -98,6 +98,7 @@ public class Estudiante extends Persona {
                 ", nombre='" + nombre + '\'' +
                 ", apellidoPaterno='" + apellidoPaterno + '\'' +
                 ", apellidoMaterno='" + apellidoMaterno + '\'' +
+                ", idTutorAcademico='" + idTutorAcademico + '\'' +
                 '}';
     }
 }

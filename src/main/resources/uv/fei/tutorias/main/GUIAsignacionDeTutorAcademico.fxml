@@ -5,12 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="291.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.AsignacionDeTutorAcademicoControlador">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.AsignacionDeTutorAcademicoControlador">
    <children>
-      <ComboBox fx:id="cbEstudiantes" layoutX="21.0" layoutY="42.0" prefHeight="25.0" prefWidth="243.0" />
-      <ComboBox fx:id="cbTutoresAcademicos" layoutX="21.0" layoutY="101.0" prefHeight="25.0" prefWidth="243.0" />
-      <Button layoutX="127.0" layoutY="175.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
-      <Button layoutX="202.0" layoutY="175.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+      <ComboBox fx:id="cbEstudiantes" layoutX="21.0" layoutY="42.0" prefHeight="25.0" prefWidth="325.0" />
+      <ComboBox fx:id="cbTutoresAcademicos" layoutX="21.0" layoutY="101.0" prefHeight="25.0" prefWidth="325.0" />
+      <Button layoutX="209.0" layoutY="170.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
+      <Button layoutX="284.0" layoutY="170.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
       <Label layoutX="21.0" layoutY="19.0" text="Estudiante" />
       <Label layoutX="21.0" layoutY="77.0" text="Tutor académico" />
    </children>

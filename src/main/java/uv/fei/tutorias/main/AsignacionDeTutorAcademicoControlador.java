@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.util.StringConverter;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.Estudiante;
@@ -33,7 +34,6 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     
     private void cargarTutoresAcademicos() throws SQLException {
         this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
-        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos())  ;
     }
     
     private void cargarCamposGUI() {
@@ -41,9 +41,34 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
             cargarEstudiantes();
             cargarTutoresAcademicos();
             this.cbEstudiantes.setItems(estudiantes);
+            this.cbEstudiantes.getSelectionModel().selectFirst();
+            this.cbEstudiantes.setConverter(new StringConverter<Estudiante>() {
+                @Override
+                public String toString(Estudiante estudiante) {
+                    return estudiante == null ? null : "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
+                }
+
+                @Override
+                public Estudiante fromString(String string) {
+                    throw new UnsupportedOperationException("Operación no soportada");
+                }
+            });
             this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+            this.cbTutoresAcademicos.getSelectionModel().selectFirst();
+            this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
+                @Override
+                public String toString(TutorAcademico tutorAcademico) {
+                    return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
+                }
+
+                @Override
+                public TutorAcademico fromString(String string) {
+                    throw new UnsupportedOperationException("Operación no soportada");
+                }
+            });
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
+            UtilidadVentana.cerrarVentana(new ActionEvent());
         }
     }
     
@@ -53,12 +78,12 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     }
     
     @FXML
-    private void clicCancelar(ActionEvent event) {
-        UtilidadVentana.cerrarVentana(event);
+    private void clicCancelar(ActionEvent evento) {
+        UtilidadVentana.cerrarVentana(evento);
     }
     
     @FXML
-    private void clicRegistrar(ActionEvent event) {
+    private void clicRegistrar(ActionEvent evento) {
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
         estudianteSeleccionado.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
