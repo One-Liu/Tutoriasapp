@@ -31,7 +31,8 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
     public void testObtenerFechasDeCierreEntregaDeReporte() throws SQLException {
         ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteEsperadas = new ArrayList<>();
         fechasDeCierreEntregaReporteEsperadas.add(fechaDeCierre1);
-        ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteObtenidas = fechaDeCierreDAO.obtenerFechasDeCierreEntregaDeReporte();
+        ArrayList<FechaDeCierreEntregaDeReporte> fechasDeCierreEntregaReporteObtenidas = new ArrayList<>();
+        fechasDeCierreEntregaReporteObtenidas.addAll(fechaDeCierreDAO.obtenerFechasDeCierreEntregaDeReporte());
         assertTrue(fechasDeCierreEntregaReporteEsperadas.equals(fechasDeCierreEntregaReporteObtenidas));
     }
     

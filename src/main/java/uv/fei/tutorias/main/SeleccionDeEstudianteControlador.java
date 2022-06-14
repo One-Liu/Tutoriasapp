@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 
 public class SeleccionDeEstudianteControlador implements Initializable {
@@ -26,13 +27,26 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     
     private void cargarEstudiantes() throws SQLException {
         EstudianteDAO estudianteDAO = new EstudianteDAO();
-        this.estudiantes = estudianteDAO.obtenerEstudiantes();
+        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantes());
     }
     
     private void cargarCamposGUI() {
         try {
             cargarEstudiantes();
             this.cbEstudiantes.setItems(estudiantes);
+            this.cbEstudiantes.getSelectionModel().selectFirst();
+            this.cbEstudiantes.setConverter(new StringConverter<Estudiante>() {
+                @Override
+                public String toString(Estudiante estudiante) {
+                    return "(" + estudiante.getMatricula() + ") " + estudiante.getNombreCompleto();
+                }
+
+                @Override
+                public Estudiante fromString(String string) {
+                    throw new UnsupportedOperationException("Método no soportado");
+                }
+                
+            });
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
@@ -52,7 +66,7 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     private void clicSeleccionar(ActionEvent event) {
         Estudiante estudianteSeleccionado = this.cbEstudiantes.getSelectionModel().getSelectedItem();
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUIModificacionDeAsignacionDeTutorAcademico.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeAsignacionDeTutorAcademico.fxml"));
             Parent raiz = cargadorFXML.load();
             ModificacionDeAsignacionDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setEstudiante(estudianteSeleccionado);

@@ -28,11 +28,11 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
     private void cargarEstudiantes() throws SQLException {
-        this.estudiantes = estudianteDAO.obtenerEstudiantesSinTutorAsignado();
+        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesSinTutorAsignado());
     }
     
     private void cargarTutoresAcademicos() throws SQLException {
-        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicos();
+        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
     }
     
     private void cargarCamposGUI() {

@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 // author @liu
@@ -39,9 +38,9 @@ public class PeriodoEscolar {
     }
     
     public String getFechas() {
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("MMMM yyyy");
-        String fechaInicioConFormato = formatoFecha.format((TemporalAccessor) this.fechaInicio);
-        String fechaTerminoConFormato = formatoFecha.format((TemporalAccessor) this.fechaTermino);
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("MMMM yyyy");
+        String fechaInicioConFormato = formatoFecha.format(this.fechaInicio);
+        String fechaTerminoConFormato = formatoFecha.format(this.fechaTermino);
         return fechaInicioConFormato.toUpperCase() + " - " + fechaTerminoConFormato.toUpperCase();
     }
 
@@ -68,5 +67,14 @@ public class PeriodoEscolar {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "PeriodoEscolar{" + 
+                "id=" + id + 
+                ", fechaInicio=" + fechaInicio + 
+                ", fechaTermino=" + fechaTermino 
+                + '}';
     }
 }

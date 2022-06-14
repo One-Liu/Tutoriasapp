@@ -36,7 +36,8 @@ public class TutorAcademicoDAOTest {
         ObservableList<TutorAcademico> tutoresAcademicosEsperados = FXCollections.observableArrayList();
         tutoresAcademicosEsperados.add(tutorAcademico1);
         tutoresAcademicosEsperados.add(tutorAcademico2);
-        ObservableList<TutorAcademico> tutoresAcademicosObtenidos = tutorAcademicoDAO.obtenerTutoresAcademicos();
+        ObservableList<TutorAcademico> tutoresAcademicosObtenidos = FXCollections.observableArrayList();
+        tutoresAcademicosEsperados.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
         assertTrue(tutoresAcademicosEsperados.equals(tutoresAcademicosObtenidos));
     }
 

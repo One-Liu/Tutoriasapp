@@ -57,7 +57,7 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     }
     
     private void cargarSesionesDeTutoriaAcademica() throws SQLException {
-        this.sesionesDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId());
+        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId()));
         inicializarFechasDeSesionDeTutoriaAcademica();
     }
     

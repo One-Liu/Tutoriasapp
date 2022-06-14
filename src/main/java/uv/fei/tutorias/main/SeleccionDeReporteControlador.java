@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.TutorAcademicoDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
@@ -33,11 +34,11 @@ public class SeleccionDeReporteControlador implements Initializable {
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
     private void cargarTutoresAcademicos() throws SQLException {
-        this.tutoresAcademicos = tutorAcademicoDAO.obtenerTutoresAcademicos();
+        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
     }
     
     private void cargarSesionesDeTutoriaAcademica() throws SQLException {
-        this.sesionesDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
+        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
     }
     
     private void cargarCamposGUI() {
@@ -45,7 +46,31 @@ public class SeleccionDeReporteControlador implements Initializable {
             cargarTutoresAcademicos();
             cargarSesionesDeTutoriaAcademica();
             this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+            this.cbTutoresAcademicos.getSelectionModel().selectFirst();
+            this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
+                @Override
+                public String toString(TutorAcademico tutorAcademico) {
+                    return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
+                }
+
+                @Override
+                public TutorAcademico fromString(String string) {
+                    throw new UnsupportedOperationException("Método no soportado");
+                }
+            });
             this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
+            this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().selectFirst();
+            this.cbFechasDeSesionDeTutoriaAcademica.setConverter(new StringConverter<SesionDeTutoriaAcademica>() {
+                @Override
+                public String toString(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
+                    return sesionDeTutoriaAcademica == null ? null : sesionDeTutoriaAcademica.getFechaConFormato();
+                }
+
+                @Override
+                public SesionDeTutoriaAcademica fromString(String string) {
+                    throw new UnsupportedOperationException("Método no soportado");
+                }
+            });
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }

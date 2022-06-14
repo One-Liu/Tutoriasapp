@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 
@@ -27,13 +28,25 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
     
     private void cargarPeriodosEscolares() throws SQLException {
-        this.periodosEscolares = periodoEscolarDAO.obtenerPeriodosEscolares();
+        this.periodosEscolares.addAll(periodoEscolarDAO.obtenerPeriodosEscolares());
     }
     
     private void cargarCamposGUI() {
         try {
             cargarPeriodosEscolares();
             this.cbPeriodosEscolares.setItems(periodosEscolares);
+            this.cbPeriodosEscolares.getSelectionModel().selectFirst();
+            this.cbPeriodosEscolares.setConverter(new StringConverter<PeriodoEscolar>() {
+                @Override
+                public String toString(PeriodoEscolar periodoEscolar) {
+                    return periodoEscolar == null ? null : periodoEscolar.getFechas();
+                }
+                
+                @Override
+                public PeriodoEscolar fromString(String string) {
+                    throw new UnsupportedOperationException("Método no soportado");
+                }
+            });
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
@@ -53,7 +66,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     private void clicSeleccionar(ActionEvent event) {
         PeriodoEscolar periodoEscolarSeleccionado = this.cbPeriodosEscolares.getSelectionModel().getSelectedItem();
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUIModificacionDeFechasDeSesionDeTutoria.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeFechasDeSesionDeTutoria.fxml"));
             Parent raiz = cargadorFXML.load();
             ModificacionDeFechasDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setPeriodoEscolar(periodoEscolarSeleccionado);

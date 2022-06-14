@@ -46,7 +46,8 @@ public class EstudianteDAOTest {
         estudiantesEsperados.add(estudiante2);
         estudiantesEsperados.add(estudiante3);
         estudiantesEsperados.add(estudiante4);
-        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantes();
+        ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
+        estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantes());
         assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
     }
     
@@ -79,7 +80,8 @@ public class EstudianteDAOTest {
         estudiantesEsperados.add(estudiante1);
         estudiantesEsperados.add(estudiante2);
         estudiantesEsperados.add(estudiante3);
-        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesDeTutor(2);
+        ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
+        estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesDeTutor(2));
         assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
     }
     
@@ -87,7 +89,8 @@ public class EstudianteDAOTest {
     public void testObtenerEstudiantesSinTutorAsignado() throws SQLException {
         ObservableList<Estudiante> estudiantesEsperados = FXCollections.observableArrayList();
         estudiantesEsperados.add(estudiante4);
-        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesSinTutorAsignado();
+        ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
+        estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesSinTutorAsignado());
         assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
     }
     
@@ -97,7 +100,8 @@ public class EstudianteDAOTest {
         estudiantesEsperados.add(estudiante1);
         estudiantesEsperados.add(estudiante2);
         estudiantesEsperados.add(estudiante3);
-        ObservableList<Estudiante> estudiantesObtenidos = estudianteDAO.obtenerEstudiantesConTutorAsignado();
+        ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
+        estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesConTutorAsignado());
         assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
     }
 }

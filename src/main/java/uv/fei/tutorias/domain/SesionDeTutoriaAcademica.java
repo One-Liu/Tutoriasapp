@@ -1,7 +1,6 @@
 package uv.fei.tutorias.domain;
 
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 // author @liu
@@ -41,8 +40,8 @@ public class SesionDeTutoriaAcademica {
     }
     
     public String getFechaConFormato() {
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaConFormato = formatoFecha.format((TemporalAccessor) this.fecha);
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaConFormato = formatoFecha.format(this.fecha);
         return fechaConFormato;
     }
 

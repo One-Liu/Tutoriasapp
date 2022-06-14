@@ -57,7 +57,8 @@ public class PeriodoEscolarDAOTest {
         periodosEscolaresEsperados.add(periodoEscolar2);
         periodosEscolaresEsperados.add(periodoEscolar3);
         periodosEscolaresEsperados.add(periodoEscolar4);
-        ObservableList<PeriodoEscolar> periodosEscolaresObtenidos = periodoEscolarDAO.obtenerPeriodosEscolares();
+        ObservableList<PeriodoEscolar> periodosEscolaresObtenidos = FXCollections.observableArrayList();
+        periodosEscolaresObtenidos.addAll(periodoEscolarDAO.obtenerPeriodosEscolares());
         assertTrue(periodosEscolaresEsperados.equals(periodosEscolaresObtenidos));
     }
 

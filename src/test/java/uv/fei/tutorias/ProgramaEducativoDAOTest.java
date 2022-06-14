@@ -29,7 +29,8 @@ public class ProgramaEducativoDAOTest {
         ArrayList<ProgramaEducativo> programasEducativosEsperados = new ArrayList<>();
         programasEducativosEsperados.add(programaEducativo1);
         programasEducativosEsperados.add(programaEducativo2);
-        ArrayList<ProgramaEducativo> programasEducativosObtenidos = programaEducativoDAO.obtenerProgramasEducativos();
+        ArrayList<ProgramaEducativo> programasEducativosObtenidos = new ArrayList<>();
+        programasEducativosObtenidos.addAll(programaEducativoDAO.obtenerProgramasEducativos());
         assertTrue(programasEducativosEsperados.equals(programasEducativosObtenidos));
     }
     

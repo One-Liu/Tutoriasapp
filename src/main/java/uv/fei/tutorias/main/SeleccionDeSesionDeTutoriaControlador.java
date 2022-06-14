@@ -27,7 +27,7 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
     private void cargarSesionesDeTutoriaAcademica() throws SQLException {
-        this.sesionesDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
+        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
     }
     
     private void cargarCamposGUI() {
@@ -54,7 +54,7 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
         SesionDeTutoriaAcademica sesionDeTutoriaAcademicaSeleccionada = this.cbFechasDeSesionDeTutoria.getSelectionModel().getSelectedItem();
         
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUIRegistroDeHorarioDeSesionDeTutoria.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistroDeHorarioDeSesionDeTutoria.fxml"));
             Parent raiz = cargadorFXML.load();
             RegistroDeHorarioDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaSeleccionada);

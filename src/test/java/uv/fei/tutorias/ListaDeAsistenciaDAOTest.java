@@ -17,8 +17,8 @@ public class ListaDeAsistenciaDAOTest {
     
     @Before
     public void inicializar() {
-        listaDeAsistenciaNueva = new ListaDeAsistencia("",0,0);
-        listaDeAsistencia1 = new ListaDeAsistencia("12:00",1,1);
+        listaDeAsistenciaNueva = new ListaDeAsistencia("",false,0,0);
+        listaDeAsistencia1 = new ListaDeAsistencia("12:00",false,1,1);
         listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
     }
 
@@ -34,7 +34,8 @@ public class ListaDeAsistenciaDAOTest {
         int idEstudiante = 0;
         ArrayList<ListaDeAsistencia> listasDeAsistenciaEsperadas = new ArrayList<>();
         listasDeAsistenciaEsperadas.add(listaDeAsistencia1);
-        ArrayList<ListaDeAsistencia> listasDeAsistenciaObtenidas = listaDeAsistenciaDAO.obtenerListasDeAsistenciaPorIdEstudiante(idEstudiante);
+        ArrayList<ListaDeAsistencia> listasDeAsistenciaObtenidas = new ArrayList<>();
+        listasDeAsistenciaObtenidas.addAll(listaDeAsistenciaDAO.obtenerListasDeAsistenciaPorIdEstudiante(idEstudiante));
         assertTrue(listasDeAsistenciaEsperadas.equals(listasDeAsistenciaObtenidas));
     }
 
@@ -42,7 +43,8 @@ public class ListaDeAsistenciaDAOTest {
     public void testObtenerListasDeAsistencia() throws SQLException {
         ArrayList<ListaDeAsistencia> listasDeAsistenciaEsperadas = new ArrayList<>();
         listasDeAsistenciaEsperadas.add(listaDeAsistencia1);
-        ArrayList<ListaDeAsistencia> listasDeAsistenciaObtenidas = listaDeAsistenciaDAO.obtenerListasDeAsistencia();
+        ArrayList<ListaDeAsistencia> listasDeAsistenciaObtenidas = new ArrayList<>();
+        listasDeAsistenciaObtenidas.addAll(listaDeAsistenciaDAO.obtenerListasDeAsistencia());
         assertTrue(listasDeAsistenciaEsperadas.equals(listasDeAsistenciaObtenidas));
     }
 
