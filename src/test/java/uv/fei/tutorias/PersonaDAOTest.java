@@ -43,25 +43,21 @@ public class PersonaDAOTest {
 
 
     @Test
-    public void findPersonaById() throws SQLException {
-        assertEquals(personaDAO.obtenerPersonaPorId(2),persona2);
+    public void obtenerPersonaPorId() throws SQLException {
+        personaNueva.setIdPersona(11);
+        assertEquals(personaDAO.obtenerPersonaPorId(11),personaNueva);
 
     }
 
     @Test
-    public void addPersona() throws SQLException {
-        assertNotSame(personaDAO.agregarPersona(personaNueva),-1);
+    public void agregarPersona() throws SQLException {
+        assertEquals(personaDAO.agregarPersona(personaNueva),12);
     }
 
     @Test
-    public void deletePersonaById() throws SQLException {
-        assertTrue(personaDAO.eliminarPersonaPorId(72));
+    public void eliminarPersonaPorId() throws SQLException {
+        assertTrue(personaDAO.eliminarPersonaPorId(12));
 
     }
 
-    @Test
-    public void addpersonaReturnId() throws SQLException {
-        assertEquals(37,personaDAO.agregarPersona(personaNueva));
-
-    }
 }
