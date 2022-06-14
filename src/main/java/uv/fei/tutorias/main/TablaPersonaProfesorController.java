@@ -1,6 +1,7 @@
 package uv.fei.tutorias.main;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Profesor;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TablaPersonaProfesorController implements Initializable {
@@ -29,18 +32,33 @@ public class TablaPersonaProfesorController implements Initializable {
     @FXML private TableColumn<Persona,String> colNombre;
     @FXML private TableColumn<Persona,String> colApellidoPaterno;
     @FXML private TableColumn<Persona,String> colApellidoMaterno;
+    private ObservableList<Profesor> listaObservableProfesores= FXCollections.observableArrayList();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ProfesorDAO profesorDAO = new ProfesorDAO();
-        ObservableList<Profesor> profesores = profesorDAO.findProfesoresByName("");
+        List<Profesor> profesores = null;
+        try {
+            profesores = profesorDAO.findProfesoresByName("");
+        } catch (SQLException e) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
+        assert profesores != null;
+        listaObservableProfesores.addAll(profesores);
+        configurarTabla(listaObservableProfesores);
+
+
+    }
+
+    public void configurarTabla(ObservableList<Profesor> profesores){
         this.colIdProfesor.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getIdProfesor()));
         this.colNombre.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getNombre()));
         this.colApellidoPaterno.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getApellidoPaterno()));
         this.colApellidoMaterno.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getApellidoMaterno()));
         this.tblPersona.setItems(profesores);
         btnSeleccionarProfesor.setDisable(true);
+
     }
 
     public void actSelectPersona(MouseEvent mouseEvent) {

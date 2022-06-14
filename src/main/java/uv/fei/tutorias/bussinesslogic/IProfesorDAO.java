@@ -1,13 +1,14 @@
 package uv.fei.tutorias.bussinesslogic;
 
 import java.sql.SQLException;
-import javafx.collections.ObservableList;
+import java.util.List;
+
 import uv.fei.tutorias.domain.Profesor;
 
 public interface IProfesorDAO {
-    public ObservableList<Profesor> findProfesoresByName(String searchName);
-    public Profesor findProfesorById(int idProfesor);
-    public boolean addProfesor(Profesor profesor);
-    public boolean deleteProfesorById(int idProfesor);
-    public ObservableList<Profesor> obtenerProfesores() throws SQLException;
+    public List<Profesor> findProfesoresByName(String searchName) throws SQLException;
+    public Profesor findProfesorById(int idProfesor) throws SQLException;
+    public boolean addProfesor(Profesor profesor) throws SQLException;
+    public boolean deleteProfesorById(int idProfesor) throws SQLException;
+    public List<Profesor> obtenerProfesores() throws SQLException;
 }
