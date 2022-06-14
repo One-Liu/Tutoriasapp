@@ -42,7 +42,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException {
-        Estudiante estudiante = new Estudiante();
+        Estudiante estudiante;
         String consulta =
         "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno, E.enRiesgo " +
         "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
@@ -53,8 +53,9 @@ public class EstudianteDAO implements IEstudianteDAO {
             sentencia.setInt(1, idEstudiante);
             ResultSet resultado = sentencia.executeQuery();
             if(!resultado.next()) {
-                LOGGER.warn(EstudianteDAO.class.getName(), new SQLException());
-                throw new SQLException("No hay conexion a la base de datos");
+                SQLException ex = new SQLException();
+                LOGGER.warn(EstudianteDAO.class.getName(),ex);
+                throw ex;
             } else {
                 estudiante = getEstudiante(resultado);
             }
@@ -136,7 +137,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public boolean modificarAsignacionDeTutor(Estudiante estudiante) throws SQLException {
-        boolean validacion = false;
+        boolean validacion;
         String consulta =
                 "UPDATE estudiante " +
                 "SET idTutorAcademico = ?, " +

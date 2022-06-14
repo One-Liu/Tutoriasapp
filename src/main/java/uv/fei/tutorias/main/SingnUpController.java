@@ -27,51 +27,51 @@ public class SingnUpController implements Initializable {
 
 
     @FXML
-    protected void onOkButton() throws SQLException {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        String value = (String) tipo.getValue();
-        if (value == null){
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Error seleccione un tipo");
-            alert.showAndWait();
-        } else {
-            if (!camposVacios()){
-                Persona persona = new Persona( nombre.getText(),
-                        apellidoPaterno.getText(), apellidoMaterno.getText());
-                Usuario usuario = new Usuario(pastxtcontrasena.getText(),correoInstitucional.getText());
-                PersonaDAO personaDAO = new PersonaDAO();
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                switch (value) {
-                    case "Jefe de carrera":
-                        JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
-                        JefeDeCarrera jefeDeCarrera = new JefeDeCarrera(persona);
-                        jefeDeCarrera.setIdPersona(personaDAO.agregarPersona(persona));
-                        jefeDeCarrera.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
-                        jefeDeCarreraDAO.agregarJefeDeCarrera(jefeDeCarrera);
-                        break;
-                    case "Coordinador":
-                        CoordinadorDAO coordinadorDAO = new CoordinadorDAO();
-                        Coordinador coordinador = new Coordinador(persona);
-                        coordinador.setIdPersona(personaDAO.agregarPersona(persona));
-                        coordinador.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
-                        coordinadorDAO.agregarCoordinador(coordinador);
-                        break;
-
-                    case "Tutor academico":
-                        TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
-                        TutorAcademico tutorAcademico = new TutorAcademico(persona);
-                        tutorAcademico.setIdPersona(personaDAO.agregarPersona(persona));
-                        tutorAcademico.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
-                        tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
-                        break;
-
-                }
-            }
-        }
-
-
-    }
+//    protected void onOkButton() throws SQLException {
+//        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        String value = (String) tipo.getValue();
+//        if (value == null){
+//            alert.setHeaderText(null);
+//            alert.setTitle("Error");
+//            alert.setContentText("Error seleccione un tipo");
+//            alert.showAndWait();
+//        } else {
+//            if (!camposVacios()){
+//                Persona persona = new Persona( nombre.getText(),
+//                        apellidoPaterno.getText(), apellidoMaterno.getText());
+//                Usuario usuario = new Usuario(pastxtcontrasena.getText(),correoInstitucional.getText());
+//                PersonaDAO personaDAO = new PersonaDAO();
+//                UsuarioDAO usuarioDAO = new UsuarioDAO();
+//                switch (value) {
+//                    case "Jefe de carrera":
+//                        JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
+//                        JefeDeCarrera jefeDeCarrera = new JefeDeCarrera(persona);
+//                        jefeDeCarrera.setIdPersona(personaDAO.agregarPersona(persona));
+//                        jefeDeCarrera.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
+//                        jefeDeCarreraDAO.agregarJefeDeCarrera(jefeDeCarrera);
+//                        break;
+//                    case "Coordinador":
+//                        CoordinadorDAO coordinadorDAO = new CoordinadorDAO();
+//                        Coordinador coordinador = new Coordinador(persona);
+//                        coordinador.setIdPersona(personaDAO.agregarPersona(persona));
+//                        coordinador.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
+//                        coordinadorDAO.agregarCoordinador(coordinador);
+//                        break;
+//
+//                    case "Tutor academico":
+//                        TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
+//                        TutorAcademico tutorAcademico = new TutorAcademico(persona);
+//                        tutorAcademico.setIdPersona(personaDAO.agregarPersona(persona));
+//                        tutorAcademico.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
+//                        tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
+//                        break;
+//
+//                }
+//            }
+//        }
+//
+//
+//    }
 
     public boolean camposVacios(){
         Alert alert = new Alert(Alert.AlertType.ERROR);

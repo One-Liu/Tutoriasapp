@@ -46,13 +46,13 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
         reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());
         reporteDeTutoriaAcademica.setIdTutorAcademico(tutorAcademico.getIdTutorAcademico());
         reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(6);
-        reporteDeTutoriaAcademicaDAO.agregarReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
+//        reporteDeTutoriaAcademicaDAO.agregarReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
     }
     public void asignarEstudiantesEnRiesgo(){
         List<Estudiante> estudiantes = new ArrayList<>();
         for (int i = 1; i < listaDeAsistenciaTableView.getColumns().size(); i++) {
             Estudiante estudiante = new Estudiante();
-            estudiante.setNombre(listaDeAsistenciaTableView.getItems().get(i).getEstudiante().getNombre());
+//            estudiante.setNombre(listaDeAsistenciaTableView.getItems().get(i).getEstudiante().getNombre());
             if (listaDeAsistenciaTableView.getSelectionModel().isSelected(3)){
                 estudiante.setEnRiesgo(true);
             }
@@ -84,7 +84,7 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
             lblFecha.setText(dia.toString());
             for (ListaDeAsistencia l :
                     listasDeAsistencias) {
-                l.setEstudiante(estudianteDAO.obtenerEstudiantePorId(l.getIdEstudiante()));
+//                l.setEstudiante(estudianteDAO.obtenerEstudiantePorId(l.getIdEstudiante()));
             }
         } catch (SQLException e) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
@@ -96,13 +96,13 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
     }
 
     private void observaList(ObservableList<ListaDeAsistencia> listaDeAsistencias) {
-        this.colNombreEstudiantes.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getEstudiante().getNombre()));
-        this.colAsistio.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getAsistio()));
-        this.colAsistio.setCellFactory( tc -> new CheckBoxTableCell<>());
-        this.colEnRiesgo.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getEstudiante().getEnRiesgo()));
-        this.colEnRiesgo.setCellFactory( tc -> new CheckBoxTableCell<>());
-        this.listaDeAsistenciaTableView.setItems(listaDeAsistencias);
-        this.listaDeAsistenciaTableView.setEditable(true);
+//        this.colNombreEstudiantes.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getEstudiante().getNombre()));
+//        this.colAsistio.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getAsistio()));
+//        this.colAsistio.setCellFactory( tc -> new CheckBoxTableCell<>());
+//        this.colEnRiesgo.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getEstudiante().getEnRiesgo()));
+//        this.colEnRiesgo.setCellFactory( tc -> new CheckBoxTableCell<>());
+//        this.listaDeAsistenciaTableView.setItems(listaDeAsistencias);
+//        this.listaDeAsistenciaTableView.setEditable(true);
     }
 
 }

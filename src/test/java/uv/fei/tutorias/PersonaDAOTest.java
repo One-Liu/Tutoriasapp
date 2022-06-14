@@ -41,14 +41,9 @@ public class PersonaDAOTest {
         personaDAO = new PersonaDAO();
     }
 
-    @Test
-    public void buscarPersonasPorNombre() {
-        MatcherAssert.assertThat(personaDAO.obtenerPersonaPorNombre("ALFREDO"), not(IsEmptyCollection.empty()));
-        
-    }
 
     @Test
-    public void findPersonaById() {
+    public void findPersonaById() throws SQLException {
         assertEquals(personaDAO.obtenerPersonaPorId(2),persona2);
 
     }
@@ -59,7 +54,7 @@ public class PersonaDAOTest {
     }
 
     @Test
-    public void deletePersonaById() {
+    public void deletePersonaById() throws SQLException {
         assertTrue(personaDAO.eliminarPersonaPorId(72));
 
     }
