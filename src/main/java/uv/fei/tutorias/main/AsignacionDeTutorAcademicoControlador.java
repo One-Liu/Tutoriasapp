@@ -32,7 +32,11 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     }
     
     private void cargarTutoresAcademicos() throws SQLException {
+<<<<<<< HEAD
         this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
+=======
+        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos())  ;
+>>>>>>> 42d9a8353964f37eb1a3f54d13e3e2805906f809
     }
     
     private void cargarCamposGUI() {

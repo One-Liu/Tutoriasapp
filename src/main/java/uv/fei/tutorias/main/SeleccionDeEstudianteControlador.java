@@ -27,7 +27,11 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     
     private void cargarEstudiantes() throws SQLException {
         EstudianteDAO estudianteDAO = new EstudianteDAO();
+<<<<<<< HEAD
         this.estudiantes.addAll(estudianteDAO.obtenerEstudiantes());
+=======
+        this.estudiantes = (ObservableList<Estudiante>) estudianteDAO.obtenerEstudiantes();
+>>>>>>> 42d9a8353964f37eb1a3f54d13e3e2805906f809
     }
     
     private void cargarCamposGUI() {
