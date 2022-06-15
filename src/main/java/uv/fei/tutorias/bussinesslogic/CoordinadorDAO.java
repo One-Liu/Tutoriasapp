@@ -154,8 +154,8 @@ public class CoordinadorDAO implements ICoordinadorDAO {
     public Coordinador obtenerCoordinadorPorIdUsuario(int idUsuario) throws SQLException {
         Coordinador coordinador;
         String query =
-                "SELECT CR.id AS idCoordinador, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-                        "FROM coordinador CR INNER JOIN persona P ON P.id = TA.idPersona " +
+                "SELECT CR.id, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                        "FROM coordinador CR INNER JOIN persona P ON P.id = CR.idPersona " +
                         "WHERE idUsuario = ?";
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {

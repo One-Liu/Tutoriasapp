@@ -11,6 +11,6 @@ public interface IProblematicaAcademicaDAO {
 
     public ObservableList<ProblematicaAcademica> obtenerProblematicasAcademicas() throws SQLException;
     public ProblematicaAcademica obtenerProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) throws SQLException;
-    public boolean agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException;
+    public int agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException;
     public boolean eliminarProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) throws SQLException;
 }

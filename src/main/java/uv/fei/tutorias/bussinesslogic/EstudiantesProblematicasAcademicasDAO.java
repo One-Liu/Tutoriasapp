@@ -43,7 +43,7 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
     }
 
     @Override
-    public boolean agregarEstudianteProblemtaicaAcademica(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) throws SQLException {
+    public boolean agregarEstudianteProblematicaAcademica(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {

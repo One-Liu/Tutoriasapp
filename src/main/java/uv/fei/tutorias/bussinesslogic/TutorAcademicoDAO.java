@@ -151,7 +151,7 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException {
         TutorAcademico tutorAcademico = new TutorAcademico();
         String query =
-                "SELECT TA.id AS idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
+                "SELECT TA.id, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
                 "FROM tutor_academico TA INNER JOIN persona P ON P.id = TA.idPersona " +
                 "WHERE idUsuario = ?";
         ConexionBD dataBaseConnection = new ConexionBD();

@@ -6,7 +6,7 @@ import uv.fei.tutorias.domain.Usuario;
 
 import java.sql.*;
 
-public class UsuarioDAO implements IUsarioDAO{
+public class UsuarioDAO implements IUsuarioDAO{
     private final Logger LOG = Logger.getLogger(UsuarioDAO.class);
 
 
@@ -40,7 +40,7 @@ public class UsuarioDAO implements IUsarioDAO{
     public Usuario buscarUsuarioPorCorreoYContrasena(Usuario usuario)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "select id,Contrasena, correoInstitucional from usuario where Contrasena = md5 (?) and correoInstitucional = (?)";
+            String query = "select id, contrasena, correoInstitucional from usuario where contrasena = md5 (?) and correoInstitucional = (?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, usuario.getContrasena());
             statement.setString(2, usuario.getCorreoInstitucional());
@@ -63,7 +63,7 @@ public class UsuarioDAO implements IUsarioDAO{
     @Override
     public boolean estaIdUsuarioEnTutorAcademico(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
-        boolean resultado;
+        boolean resultado = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select idUsuario from tutor_academico where idUsuario=(?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -71,12 +71,11 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 resultado = true;
-            }else {
-                SQLException ex = new SQLException();
-                LOG.warn(getClass().getName(), ex);
-                throw ex;
             }
-        }finally {
+        } catch(SQLException ex) {
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        } finally {
             dataBaseConnection.cerrarConexion();
         }
         return resultado;
@@ -85,7 +84,7 @@ public class UsuarioDAO implements IUsarioDAO{
     @Override
     public boolean estaIdUsarionEnJefeDeCarrera(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
-        boolean resultado;
+        boolean resultado = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             String query = "select idUsuario from jefe_de_carrera where idUsuario=(?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -93,12 +92,11 @@ public class UsuarioDAO implements IUsarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 resultado = true;
-            }else {
-                SQLException ex = new SQLException("No existe ningun usuario");
-                LOG.warn(getClass().getName(), ex);
-                throw ex;
             }
-        }finally {
+        } catch(SQLException ex) {
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        } finally {
             dataBaseConnection.cerrarConexion();
         }
         return resultado;

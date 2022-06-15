@@ -25,7 +25,7 @@ public class EstudianteProblematicaAcademicaDAOTest {
 
     @Test
     public void agregarEstudianteProblematicaAcademicaDAO() throws SQLException {
-        assertTrue(estudiantesProblematicasAcademicasDAO.agregarEstudianteProblemtaicaAcademica(estudiantesProblematicasAcademicas));
+        assertTrue(estudiantesProblematicasAcademicasDAO.agregarEstudianteProblematicaAcademica(estudiantesProblematicasAcademicas));
     }
     @Test
     public void eliminarEstudianteProblematicaAcademicaDAO() throws SQLException {

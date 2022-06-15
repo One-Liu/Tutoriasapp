@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
 
 public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
@@ -53,7 +54,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.setTitle("Selección de reporte");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch(IOException ioException) {
+        } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
     }
@@ -70,7 +71,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.setTitle("Selección de periodo escolar");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch(IOException ioException) {
+        } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
     }
@@ -87,7 +88,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.setTitle("Sign up");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch(IOException ioException) {
+        } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
     }
@@ -104,7 +105,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.setTitle("Asignación de tutor académico");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch(IOException ioException) {
+        } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
     }
@@ -121,7 +122,27 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.setTitle("Selección de estudiante");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch(IOException ioException) {
+        } catch(IOException excepcionIO) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
+    }
+    
+    @FXML
+    private void clicCerrarSesion(ActionEvent evento) {
+        DatosGlobalesDeSesion.getDatosGlobalesDeSesion().setCoordinador(null);
+        UtilidadVentana.cerrarVentana(evento);
+        
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUILogin.fxml"));
+            Parent raiz = cargadorFXML.load();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Login");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
     }

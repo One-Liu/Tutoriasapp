@@ -78,30 +78,32 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         }
         return problematicaAcademica;
     }
-    //cuando agregamos una problematica academica por default su solucion sera null
+    //cuando agregamos una problematica academica por default su solucion sera 0
     @Override
-    public boolean agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException {
-        ConexionBD dataBaseConnection = new ConexionBD();
-        boolean bandera = false;
-        try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "INSERT INTO problematica_academica(titulo, descripcion, idExperienciaEducativa,idProfesor,idSesionDeTutoriaAcademica) VALUES (?,?,?,?,?)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, problematicaAcademica.getTitulo());
-            statement.setString(2, problematicaAcademica.getDescripcion());
-            statement.setInt(3,problematicaAcademica.getIdExperienciaEducativa());
-            statement.setInt(4,problematicaAcademica.getIdProfesor());
-            statement.setInt(5,problematicaAcademica.getIdSesionDeTutoriaAcademica());
-            int excecuteUpdate = statement.executeUpdate();
-            if (excecuteUpdate != 0){
-                bandera = true;
+    public int agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException {
+        ConexionBD baseDeDatos = new ConexionBD();
+        int id = 0;
+        try (Connection conexion = baseDeDatos.abrirConexion()){
+            String consulta = "INSERT INTO problematica_academica(titulo, descripcion, idExperienciaEducativa,idProfesor,idSesionDeTutoriaAcademica) VALUES (?,?,?,?,?)";
+            PreparedStatement sentencia = conexion.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
+            sentencia.setString(1, problematicaAcademica.getTitulo());
+            sentencia.setString(2, problematicaAcademica.getDescripcion());
+            sentencia.setInt(3,problematicaAcademica.getIdExperienciaEducativa());
+            sentencia.setInt(4,problematicaAcademica.getIdProfesor());
+            sentencia.setInt(5,problematicaAcademica.getIdSesionDeTutoriaAcademica());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if (columnasAfectadas != 0){
+                ResultSet resultado = sentencia.getGeneratedKeys();
+                resultado.next();
+                id = resultado.getInt(1);
             }
-        }catch (SQLException e){
+        }catch (SQLException excepcionSQL){
             LOG.warn(getClass().getName(), new SQLException());
-            throw e;
+            throw excepcionSQL;
         }finally {
-            dataBaseConnection.cerrarConexion();
+            baseDeDatos.cerrarConexion();
         }
-        return bandera;
+        return id;
     }
 
     @Override

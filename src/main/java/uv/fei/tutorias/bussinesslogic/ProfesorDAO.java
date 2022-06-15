@@ -145,7 +145,7 @@ public class ProfesorDAO implements IProfesorDAO {
     public List<Profesor> obtenerProfesores() throws SQLException {
         List<Profesor> profesores = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
-        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre";
+        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona";
         try (Connection connection = dataBaseConnection.abrirConexion()){
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();

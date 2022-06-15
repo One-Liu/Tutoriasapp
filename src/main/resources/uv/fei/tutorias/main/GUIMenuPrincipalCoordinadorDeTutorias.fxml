@@ -21,5 +21,6 @@
       <Button layoutX="283.0" layoutY="337.0" mnemonicParsing="false" onAction="#clicRegistrarUsuario" prefHeight="25.0" prefWidth="292.0" text="Registrar usuario" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="325.0" />
       <Button layoutX="283.0" layoutY="374.0" mnemonicParsing="false" onAction="#clicAsignarTutorAEstudiante" prefHeight="25.0" prefWidth="292.0" text="Asignar tutor a estudiante" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="375.0" />
       <Button layoutX="283.0" layoutY="418.0" mnemonicParsing="false" onAction="#clicModificarAsignacionDeTutor" prefHeight="25.0" prefWidth="292.0" text="Modificar asignación de tutor" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="425.0" />
+      <Button layoutX="14.0" layoutY="446.0" mnemonicParsing="false" onAction="#clicCerrarSesion" text="Cerrar sesión" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" />
    </children>
 </AnchorPane>

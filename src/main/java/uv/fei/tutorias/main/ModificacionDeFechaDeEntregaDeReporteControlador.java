@@ -8,11 +8,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
 import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
-import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
 import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
@@ -23,31 +24,26 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
     @FXML
     private DatePicker dpFechaEntregaReporte;
     
-    private ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
-    private SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
-    private FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaDeReporteDAO = new FechaDeCierreEntregaDeReporteDAO();
+    private final ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
+    private final FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaDeReporteDAO = new FechaDeCierreEntregaDeReporteDAO();
     
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
-    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     private FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte = new FechaDeCierreEntregaDeReporte();
     
-    private void cargarFechaDeSesionDeTutoria() throws SQLException {
-        this.sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(reporteDeTutoriaAcademica.getIdSesionDeTutoriaAcademica());
-    }
+    @Setter
+    private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
-    private void cargarFechaEntregaReporte() throws SQLException {
-        this.fechaDeCierreEntregaDeReporte = fechaDeCierreEntregaDeReporteDAO.obtenerFechaDeCierreEntregaDeReportePorId(reporteDeTutoriaAcademica.getIdFechaCierreEntregaReporte());
-    }
-    
-    private void cargarCamposGUI() {
+    public void cargarDatos() {
         try {
-            cargarFechaDeSesionDeTutoria();
-            cargarFechaEntregaReporte();
-            this.lblFechaSesionTutoria.setText(sesionDeTutoriaAcademica.getFechaConFormato());
-            this.dpFechaEntregaReporte.setValue(fechaDeCierreEntregaDeReporte.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            this.fechaDeCierreEntregaDeReporte = fechaDeCierreEntregaDeReporteDAO.obtenerFechaDeCierreEntregaDeReportePorId(reporteDeTutoriaAcademica.getIdFechaCierreEntregaReporte());
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
+    }
+    
+    public void cargarCamposGUI() {
+        this.lblFechaSesionTutoria.setText(sesionDeTutoriaAcademica.getFechaConFormato());
+        this.dpFechaEntregaReporte.setValue(fechaDeCierreEntregaDeReporte.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
     
     @Override
@@ -56,12 +52,21 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
     }
     
     @FXML
-    private void clicGuardar(ActionEvent event) {
+    private void clicGuardar(ActionEvent evento) {
         Date fechaSeleccionada = (Date) java.sql.Date.valueOf(dpFechaEntregaReporte.getValue());
         
         fechaDeCierreEntregaDeReporte.setFecha(fechaSeleccionada);
         
-
+        try {
+            fechaDeCierreEntregaDeReporteDAO.modificarFechaDeCierreEntregaDeReporte(fechaDeCierreEntregaDeReporte);
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Confirmación de modificación", 
+                    "La fecha de cierre para la entrega del reporte se ha modificado exitosamente", 
+                    Alert.AlertType.INFORMATION);
+            UtilidadVentana.cerrarVentana(evento);
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
     }
     
     @FXML

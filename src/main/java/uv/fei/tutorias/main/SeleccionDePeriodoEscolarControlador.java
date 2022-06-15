@@ -71,9 +71,6 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
             ModificacionDeFechasDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setPeriodoEscolar(periodoEscolarSeleccionado);
             controladorGUI.cargarDatos();
-            controladorGUI.validarPeriodoEscolarConFechasDeSesionRegistradas();
-            controladorGUI.cargarCamposGUI();
-            controladorGUI.cargarDatePickersGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
