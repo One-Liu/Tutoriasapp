@@ -21,7 +21,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         List<ProblematicaAcademica> problematicasAcademicas = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "SELECT  * from problematicaacademica where descripcion like ?";
+            String query = "SELECT  * from problematica_academica where descripcion like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + descripcionBusqueda + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -43,7 +43,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         ObservableList<ProblematicaAcademica> experienciasEducativas = FXCollections.observableArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "SELECT  * from problematicaacademica";
+            String query = "SELECT  * from problematica_academica";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
            while (resultSet.next()){
@@ -65,7 +65,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         ConexionBD dataBaseConnection = new ConexionBD();
         ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "SELECT * from problematicaacademica where idProblematicaAcademica like ?";
+            String query = "SELECT * from problematica_academica where id like ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,"%" + idProblematicaAcademicaBusqueda + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -109,7 +109,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
-            String query = "DELETE FROM problematica_academica WHERE (idProblematicaAcademica = ?)";
+            String query = "DELETE FROM problematica_academica WHERE (id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProblematicaAcademicaBusqueda);
             int executeUpdate = statement.executeUpdate();
