@@ -6,7 +6,7 @@ import uv.fei.tutorias.domain.Usuario;
 
 import java.sql.*;
 
-public class UsuarioDAO implements IUsarioDAO{
+public class UsuarioDAO implements IUsuarioDAO{
     private final Logger LOG = Logger.getLogger(UsuarioDAO.class);
 
 

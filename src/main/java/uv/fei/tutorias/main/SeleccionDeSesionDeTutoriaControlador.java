@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
@@ -24,25 +26,27 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     
     private final SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     
+    @Setter
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
-    private void cargarDatos() {
-        try {
-            this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
-        this.sesionesDeTutoriaAcademica = (ObservableList<SesionDeTutoriaAcademica>) sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-            UtilidadVentana.cerrarVentana(new ActionEvent());
-        }
-    }
-    
-    private void cargarCamposGUI() {
+    public void cargarCamposGUI() {
         this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
+        this.cbFechasDeSesionDeTutoria.getSelectionModel().selectFirst();
+        this.cbFechasDeSesionDeTutoria.setConverter(new StringConverter<SesionDeTutoriaAcademica>() {
+            @Override
+            public String toString(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
+                return sesionDeTutoriaAcademica == null ? null : sesionDeTutoriaAcademica.getFechaConFormato();
+            }
+
+            @Override
+            public SesionDeTutoriaAcademica fromString(String string) {
+                throw new UnsupportedOperationException("Operación no soportada");
+            }
+        });
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
         cargarCamposGUI();
     }    
     
@@ -58,6 +62,10 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeFechaDeEntregaDeReporte.fxml"));
             Parent raiz = cargadorFXML.load();
+            ModificacionDeFechaDeEntregaDeReporteControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.setSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaSeleccionada);
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -65,6 +73,7 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
             escenario.setTitle("Modificación de fecha de entrega de reporte");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
+            UtilidadVentana.cerrarVentana(evento);
         } catch(IOException ioException) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }

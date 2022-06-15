@@ -4,7 +4,7 @@ import uv.fei.tutorias.domain.Usuario;
 
 import java.sql.SQLException;
 
-public interface IUsarioDAO {
+public interface IUsuarioDAO {
 
     int agregarUsuario(Usuario usuario) throws SQLException;
 
