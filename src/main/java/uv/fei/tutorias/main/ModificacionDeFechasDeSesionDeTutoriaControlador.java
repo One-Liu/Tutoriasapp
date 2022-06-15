@@ -16,13 +16,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Setter;
-import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
@@ -36,11 +34,8 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     private DatePicker dpSegundaSesion;
     @FXML
     private DatePicker dpTerceraSesion;
-    @FXML
-    private Button btnModificarFechasDeEntregaDeReporte;
     
-    private SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
-    private PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
+    private final SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
@@ -109,30 +104,91 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
         }
     }
     
+    private boolean validarFechasIngresadas() {
+        boolean fechasValidas = true;
+        
+        // Util.date a sql.Date(intermedio) a LocalDate
+        LocalDate localDateFechaInicioPeriodoEscolar = (new java.sql.Date(this.periodoEscolar.getFechaInicio().getTime())).toLocalDate();
+        LocalDate localDateFechaTerminoPeriodoEscolar = (new java.sql.Date(this.periodoEscolar.getFechaTermino().getTime())).toLocalDate();
+        
+        if(!this.dpPrimeraSesion.getValue().isAfter(localDateFechaInicioPeriodoEscolar)
+                || !this.dpPrimeraSesion.getValue().isBefore(localDateFechaTerminoPeriodoEscolar)) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Fecha inválida", 
+                    "La primera fecha de sesión de tutoría no está indicada dentro del periodo escolar", 
+                    Alert.AlertType.WARNING);
+            fechasValidas = false;
+            
+        } else if(!this.dpSegundaSesion.getValue().isAfter(localDateFechaInicioPeriodoEscolar)
+                || !this.dpSegundaSesion.getValue().isBefore(localDateFechaTerminoPeriodoEscolar)) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Fecha inválida", 
+                    "La segunda fecha de sesión de tutoría no está indicada dentro del periodo escolar", 
+                    Alert.AlertType.WARNING);
+            fechasValidas = false;
+            
+        } else if(!this.dpTerceraSesion.getValue().isAfter(localDateFechaInicioPeriodoEscolar)
+                || !this.dpTerceraSesion.getValue().isBefore(localDateFechaTerminoPeriodoEscolar)) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Fecha inválida", 
+                    "La tercera fecha de sesión de tutoría no está indicada dentro del periodo escolar", 
+                    Alert.AlertType.WARNING);
+            fechasValidas = false;
+            
+        } else if(!this.dpPrimeraSesion.getValue().isBefore(this.dpSegundaSesion.getValue())
+                || !this.dpPrimeraSesion.getValue().isBefore(this.dpTerceraSesion.getValue())) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Fecha inválida", 
+                    "La primera fecha de sesión de tutoría debe ocurrir antes de la segunda y tercer fecha de tutoría", 
+                    Alert.AlertType.WARNING);
+            fechasValidas = false;
+            
+        } else if(!this.dpSegundaSesion.getValue().isAfter(this.dpPrimeraSesion.getValue())
+                || !this.dpSegundaSesion.getValue().isBefore(this.dpTerceraSesion.getValue())) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Fecha inválida", 
+                    "La segunda fecha de sesión de tutoría debe ocurrir después de la primera y antes de la tercer fecha de tutoría", 
+                    Alert.AlertType.WARNING);
+            fechasValidas = false;
+            
+        } else if(!this.dpTerceraSesion.getValue().isAfter(this.dpPrimeraSesion.getValue())
+                || !this.dpTerceraSesion.getValue().isAfter(this.dpSegundaSesion.getValue())) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Fecha inválida", 
+                    "La tercer fecha de sesión de tutoría debe ocurrir después de la primera y segunda fecha de tutoría", 
+                    Alert.AlertType.WARNING);
+            fechasValidas = false;
+        }
+        
+        return fechasValidas;
+    }
+    
     @FXML
     private void clicGuardar(ActionEvent evento) {
-        // LocalDate (del combobox) a sql.Date (intermedio) a util.Date (tipo de dato de variable)
-        Date fechaPrimeraSesionSeleccionada = (Date) java.sql.Date.valueOf(dpPrimeraSesion.getValue());
-        Date fechaSegundaSesionSeleccionada = (Date) java.sql.Date.valueOf(dpSegundaSesion.getValue());
-        Date fechaTerceraSesionSeleccionada = (Date) java.sql.Date.valueOf(dpTerceraSesion.getValue());
-        
-        primeraSesionDeTutoriaAcademica.setFecha(fechaPrimeraSesionSeleccionada);
-        segundaSesionDeTutoriaAcademica.setFecha(fechaSegundaSesionSeleccionada);
-        terceraSesionDeTutoriaAcademica.setFecha(fechaTerceraSesionSeleccionada);
-        
-        try {
-            sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(primeraSesionDeTutoriaAcademica);
-            sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(segundaSesionDeTutoriaAcademica);
-            sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(terceraSesionDeTutoriaAcademica);
-            UtilidadVentana.mostrarAlertaSinConfirmacion(
-                    "Confirmación de modificación", 
-                    "Las fechas de las sesiones de tutoría académica se modificaron correctamente", 
-                    Alert.AlertType.INFORMATION);
+        if(validarFechasIngresadas()) {
+            // LocalDate (del combobox) a sql.Date (intermedio) a util.Date (tipo de dato de variable)
+            Date fechaPrimeraSesionSeleccionada = (Date) java.sql.Date.valueOf(dpPrimeraSesion.getValue());
+            Date fechaSegundaSesionSeleccionada = (Date) java.sql.Date.valueOf(dpSegundaSesion.getValue());
+            Date fechaTerceraSesionSeleccionada = (Date) java.sql.Date.valueOf(dpTerceraSesion.getValue());
+
+            primeraSesionDeTutoriaAcademica.setFecha(fechaPrimeraSesionSeleccionada);
+            segundaSesionDeTutoriaAcademica.setFecha(fechaSegundaSesionSeleccionada);
+            terceraSesionDeTutoriaAcademica.setFecha(fechaTerceraSesionSeleccionada);
+
+            try {
+                sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(primeraSesionDeTutoriaAcademica);
+                sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(segundaSesionDeTutoriaAcademica);
+                sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(terceraSesionDeTutoriaAcademica);
+                UtilidadVentana.mostrarAlertaSinConfirmacion(
+                        "Confirmación de modificación",
+                        "Las fechas de las sesiones de tutoría académica se modificaron correctamente",
+                        Alert.AlertType.INFORMATION);
+                UtilidadVentana.cerrarVentana(evento);
+            } catch (SQLException ex) {
+                UtilidadVentana.mensajePerdidaDeConexion();
+            }
             UtilidadVentana.cerrarVentana(evento);
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
         }
-        UtilidadVentana.cerrarVentana(evento);
     }
     
     @FXML
