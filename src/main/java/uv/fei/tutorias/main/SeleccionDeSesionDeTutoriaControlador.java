@@ -2,7 +2,6 @@ package uv.fei.tutorias.main;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,14 +16,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import lombok.Setter;
-import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     @FXML
     private ComboBox<SesionDeTutoriaAcademica> cbFechasDeSesionDeTutoria;
-    
-    private final SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     
     @Setter
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
