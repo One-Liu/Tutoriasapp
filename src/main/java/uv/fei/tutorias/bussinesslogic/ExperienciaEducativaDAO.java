@@ -148,7 +148,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     public List<ExperienciaEducativa> obtenerExperienciasEducativas() throws SQLException {
         List<ExperienciaEducativa> experienciasEducativas = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
-        String query = "SELECT * From experiencia_educativa WHERE nombreEE";
+        String query = "SELECT * From experiencia_educativa";
         try (Connection connection = dataBaseConnection.abrirConexion()){
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();

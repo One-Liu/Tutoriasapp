@@ -78,7 +78,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         }
         return problematicaAcademica;
     }
-    //cuando agregamos una problematica academica por default su solucion sera 0
+    //cuando agregamos una problematica academica por default su solucion sera null
     @Override
     public boolean agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
