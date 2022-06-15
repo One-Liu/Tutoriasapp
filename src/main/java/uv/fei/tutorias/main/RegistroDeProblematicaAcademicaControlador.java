@@ -73,8 +73,25 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
                 visualizacionEstudiante.setEstudiante(estudiante);
                 estudiantesDelTutorAcademico.add(visualizacionEstudiante);
             }
+
+            if(profesores.isEmpty()) {
+                UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "No hay profesores registrados",
+                    "No se han encontrado profesores registrados en el sistema",
+                    Alert.AlertType.ERROR);
+                UtilidadVentana.cerrarVentana(new ActionEvent());
+            } else if(experienciasEducativas.isEmpty()) {
+                UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "No hay experiencias educativas registradas",
+                    "No se han encontrado experiencias educativas registradas en el sistema",
+                    Alert.AlertType.ERROR);
+                UtilidadVentana.cerrarVentana(new ActionEvent());
+            } else {
+                cargarCamposGUI();
+            }
         } catch(SQLException excepcionSQL) {
             UtilidadVentana.mensajePerdidaDeConexion();
+            UtilidadVentana.cerrarVentana(new ActionEvent());
         }
     }
 
@@ -118,7 +135,6 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
         cargarCamposGUI();
     }
 
