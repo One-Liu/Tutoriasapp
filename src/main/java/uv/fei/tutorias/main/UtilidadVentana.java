@@ -1,16 +1,10 @@
 package uv.fei.tutorias.main;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 public class UtilidadVentana {

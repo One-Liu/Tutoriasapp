@@ -162,7 +162,7 @@ public class EstudianteDAO implements IEstudianteDAO {
         List<Estudiante> estudiantes = new ArrayList<>();
         String consulta =
                 "SELECT E.id, E.matricula, E.enRiesgo, E.idTutorAcademico, P.idProgramaEducativo, P.nombre, P.apellidoPaterno, P.apellidoMaterno " +
-                "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona" +
+                "FROM estudiante E LEFT JOIN persona P ON P.id = E.idPersona " +
                 "WHERE E.idTutorAcademico = ?";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {

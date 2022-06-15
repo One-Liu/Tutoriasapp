@@ -13,20 +13,20 @@
    <children>
       <Label layoutX="14.0" layoutY="10.0" text="Profesor" />
       <Label layoutX="341.0" layoutY="10.0" text="Experiencia Educativa" />
-      <ComboBox fx:id="cbProfesores" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="250.0" />
+      <ComboBox fx:id="cbProfesores" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="315.0" />
       <ComboBox fx:id="cbExperienciasEducativas" layoutX="341.0" layoutY="27.0" prefHeight="25.0" prefWidth="250.0" />
       <Label layoutX="14.0" layoutY="80.0" text="Estudiantes que presentan la problemática:" />
       <TableView fx:id="tblEstudiante_Presenta" layoutX="14.0" layoutY="100.0" prefHeight="290.0" prefWidth="315.0">
         <columns>
-          <TableColumn fx:id="colEstudiante" prefWidth="258.0" text="Estudiante" />
-          <TableColumn fx:id="colPresenta" minWidth="0.0" prefWidth="56.0" text="Presenta" />
+          <TableColumn fx:id="colEstudiante" minWidth="0.0" prefWidth="258.0" sortable="false" text="Estudiante" />
+          <TableColumn fx:id="colPresenta" minWidth="0.0" prefWidth="55.0" sortable="false" style="-fx-alignment: CENTER;" text="Presenta" />
         </columns>
       </TableView>
       <Label layoutX="341.0" layoutY="80.0" text="Problemática académica:" />
       <TextField fx:id="tfProblematicaAcademica" layoutX="341.0" layoutY="100.0" prefHeight="25.0" prefWidth="250.0" />
       <Label layoutX="341.0" layoutY="131.0" text="Descripción:" />
-      <Button layoutX="524.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+      <TextArea fx:id="taDescripcion" layoutX="341.0" layoutY="148.0" prefHeight="200.0" prefWidth="250.0" wrapText="true" />
       <Button layoutX="447.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
-      <TextArea fx:id="taDescripcion" layoutX="341.0" layoutY="148.0" prefHeight="200.0" prefWidth="250.0" />
+      <Button layoutX="524.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
    </children>
 </AnchorPane>

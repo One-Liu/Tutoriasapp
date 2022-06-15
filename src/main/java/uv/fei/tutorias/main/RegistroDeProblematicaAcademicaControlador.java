@@ -2,33 +2,38 @@ package uv.fei.tutorias.main;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
+import uv.fei.tutorias.bussinesslogic.EstudiantesProblematicasAcademicasDAO;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
 import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
 import uv.fei.tutorias.domain.Estudiante;
+import uv.fei.tutorias.domain.EstudiantesProblematicasAcademicas;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.Profesor;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
-import uv.fei.tutorias.domain.TBLEstudiante_Presenta;
+import uv.fei.tutorias.domain.TablaEstudiante_Presenta;
 
 public class RegistroDeProblematicaAcademicaControlador implements Initializable {
+
     @FXML
     private ComboBox<Profesor> cbProfesores;
     @FXML
@@ -38,97 +43,157 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     @FXML
     private TextArea taDescripcion;
     @FXML
-    private TableView<TBLEstudiante_Presenta> tblEstudiante_Presenta;
+    private TableView<TablaEstudiante_Presenta> tblEstudiante_Presenta;
     @FXML
-    private TableColumn<TBLEstudiante_Presenta,String> colEstudiante;
+    private TableColumn<TablaEstudiante_Presenta, String> colEstudiante;
     @FXML
-    private TableColumn<TBLEstudiante_Presenta,?> colPresenta;
-    
-    private ProfesorDAO profesorDAO = new ProfesorDAO();
-    private ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
-    private ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
-    private EstudianteDAO estudianteDAO = new EstudianteDAO();
-    
+    private TableColumn<TablaEstudiante_Presenta, CheckBox> colPresenta;
+
     private ObservableList<Profesor> profesores = FXCollections.observableArrayList();
     private ObservableList<ExperienciaEducativa> experienciasEducativas = FXCollections.observableArrayList();
-    private ObservableList<TBLEstudiante_Presenta> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
-    
-    private ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
-    
+    private ObservableList<TablaEstudiante_Presenta> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
+
     @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
-    
-    private void cargarEstudiantesDelTutorAcademico() throws SQLException {
-        ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
-        estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico()));
-        TBLEstudiante_Presenta visualizacionEstudiante;
-        for(Estudiante estudiante : estudiantesObtenidos) {
-            visualizacionEstudiante = new TBLEstudiante_Presenta();
-            visualizacionEstudiante.setEstudiante(estudiante);
-            estudiantesDelTutorAcademico.add(visualizacionEstudiante);
+
+    private void cargarDatos() {
+        ProfesorDAO profesorDAO = new ProfesorDAO();
+        ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
+        EstudianteDAO estudianteDAO = new EstudianteDAO();
+
+        try {
+            this.profesores.addAll(profesorDAO.obtenerProfesores());
+            this.experienciasEducativas.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
+
+            ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
+            estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico()));
+            TablaEstudiante_Presenta visualizacionEstudiante;
+            for(Estudiante estudiante : estudiantesObtenidos) {
+                visualizacionEstudiante = new TablaEstudiante_Presenta();
+                visualizacionEstudiante.setEstudiante(estudiante);
+                estudiantesDelTutorAcademico.add(visualizacionEstudiante);
+            }
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
-    
-    private void cargarProfesores() throws SQLException {
-        this.profesores.addAll(profesorDAO.obtenerProfesores());
-    }
-    
-    private void cargarExperienciasEducativas() throws SQLException {
-        this.experienciasEducativas.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
-    }
-    
+
     private void inicializarColumnasDeTabla() {
         colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));
-        colEstudiante.setCellValueFactory(new PropertyValueFactory("presenta"));
+        colPresenta.setCellValueFactory(new PropertyValueFactory("presenta"));
     }
-    
+
     private void cargarCamposGUI() {
-        try {
-            cargarProfesores();
-            cargarExperienciasEducativas();
-            cargarEstudiantesDelTutorAcademico();
-            this.cbProfesores.setItems(profesores);
-            this.cbExperienciasEducativas.setItems(experienciasEducativas);
-            this.tblEstudiante_Presenta.setItems(estudiantesDelTutorAcademico);
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        }
+        this.cbProfesores.setItems(profesores);
+        this.cbProfesores.getSelectionModel().selectFirst();
+        this.cbProfesores.setConverter(new StringConverter<Profesor>() {
+            @Override
+            public String toString(Profesor profesor) {
+                return profesor == null ? null : "(" + profesor.getIdProfesor() + ") " + profesor.getNombreCompleto();
+            }
+
+            @Override
+            public Profesor fromString(String string) {
+                throw new UnsupportedOperationException("Operación no soportada");
+            }
+        });
+
+        this.cbExperienciasEducativas.setItems(experienciasEducativas);
+        this.cbExperienciasEducativas.getSelectionModel().selectFirst();
+        this.cbExperienciasEducativas.setConverter(new StringConverter<ExperienciaEducativa>() {
+            @Override
+            public String toString(ExperienciaEducativa experienciaEducativa) {
+                return experienciaEducativa == null ? null : "(" + experienciaEducativa.getNrc() + ") " + experienciaEducativa.getNombre();
+            }
+
+            @Override
+            public ExperienciaEducativa fromString(String string) {
+                throw new UnsupportedOperationException("Operación no soportada");
+            }
+        });
+
+        inicializarColumnasDeTabla();
+        this.tblEstudiante_Presenta.setItems(estudiantesDelTutorAcademico);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cargarDatos();
         cargarCamposGUI();
     }
-    
-    private void registrarProblematicaAcademica() throws SQLException {
-        this.problematicaAcademica.setTitulo(this.tfProblematicaAcademica.getText());
-        this.problematicaAcademica.setDescripcion(this.taDescripcion.getText());
-        this.problematicaAcademica.setIdSesionDeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
-        
-        ExperienciaEducativa experienciaEducativaSeleccionada = this.cbExperienciasEducativas.getSelectionModel().getSelectedItem();
-        Profesor profesorSeleccionado = this.cbProfesores.getSelectionModel().getSelectedItem();
-        
-        this.problematicaAcademica.setIdExperienciaEducativa(experienciaEducativaSeleccionada.getIdExperienciaEducativa());
-        this.problematicaAcademica.setIdProfesor(profesorSeleccionado.getIdProfesor());
-        
-        problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica);
+
+    private boolean validarCamposLlenos() {
+        boolean camposLlenos = false;
+
+        if(this.tfProblematicaAcademica.getText().trim().isBlank()
+            || this.taDescripcion.getText().trim().isBlank()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Campos vacíos",
+                "No puede haber campos vacíos",
+                Alert.AlertType.WARNING);
+
+        } else {
+            for(TablaEstudiante_Presenta tablaEstudiante_Presenta : estudiantesDelTutorAcademico) {
+                CheckBox presentaProblematica = tablaEstudiante_Presenta.getPresenta();
+
+                if(presentaProblematica.isSelected()) {
+                    camposLlenos = true;
+                    break;
+                }
+            }
+
+            if(!camposLlenos) {
+                UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "No hay estudiante seleccionado",
+                    "Debe haber al menos un estudiante seleccionado para registrar la problemática académica",
+                    Alert.AlertType.WARNING);
+            }
+        }
+
+        return camposLlenos;
     }
-    
-    private void registrarEstudiantesConProblematicasAcademicas() {
-        
-    }
-    
+
     @FXML
-    private void clicRegistrar(ActionEvent event) {
-        try {
-            registrarProblematicaAcademica();
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
+    private void clicRegistrar(ActionEvent evento) {
+        if(validarCamposLlenos()) {
+            ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
+            ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
+            EstudiantesProblematicasAcademicasDAO estudiantesProblematicasAcademicasDAO = new EstudiantesProblematicasAcademicasDAO();
+
+            ExperienciaEducativa experienciaEducativaSeleccionada = this.cbExperienciasEducativas.getSelectionModel().getSelectedItem();
+            Profesor profesorSeleccionado = this.cbProfesores.getSelectionModel().getSelectedItem();
+
+            problematicaAcademica.setTitulo(this.tfProblematicaAcademica.getText());
+            problematicaAcademica.setDescripcion(this.taDescripcion.getText());
+            problematicaAcademica.setIdSesionDeTutoriaAcademica(this.sesionDeTutoriaAcademica.getId());
+            problematicaAcademica.setIdExperienciaEducativa(experienciaEducativaSeleccionada.getIdExperienciaEducativa());
+            problematicaAcademica.setIdProfesor(profesorSeleccionado.getIdProfesor());
+
+            try {
+                problematicaAcademica.setIdProblematicaAcademica(problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica));
+
+                for(TablaEstudiante_Presenta tablaEstudiante_Presenta : estudiantesDelTutorAcademico) {
+                    Estudiante estudiante = tablaEstudiante_Presenta.getEstudiante();
+                    CheckBox presentaProblematica = tablaEstudiante_Presenta.getPresenta();
+
+                    if(presentaProblematica.isSelected()) {
+                        EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas = new EstudiantesProblematicasAcademicas(estudiante.getIdEstudiante(), problematicaAcademica.getIdProblematicaAcademica());
+                        estudiantesProblematicasAcademicasDAO.agregarEstudianteProblematicaAcademica(estudiantesProblematicasAcademicas);
+                    }
+                }
+
+                UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Confirmación de registro",
+                    "La problemática académica se ha registrado correctamente",
+                    Alert.AlertType.INFORMATION);
+            } catch(SQLException ex) {
+                UtilidadVentana.mensajePerdidaDeConexion();
+            }
         }
     }
-    
+
     @FXML
-    private void clicCancelar(ActionEvent event) {
-        UtilidadVentana.cerrarVentana(event);
+    private void clicCancelar(ActionEvent evento) {
+        UtilidadVentana.cerrarVentana(evento);
     }
 }
