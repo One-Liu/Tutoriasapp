@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="raiz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.TablaPersonaProfesorController">
+<AnchorPane fx:id="raiz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.AsignarExperienciaEducativaAProfesorControlador">
    <children>
       <TableView fx:id="tblPersona" layoutX="57.0" layoutY="47.0" onMouseClicked="#actSelectPersona" prefHeight="306.0" prefWidth="486.0">
         <columns>

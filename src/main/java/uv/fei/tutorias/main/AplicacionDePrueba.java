@@ -21,7 +21,7 @@ public class AplicacionDePrueba extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("GUIRegistroDeProblematicaAcademica.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("GUIConsultarOfertaAcademica.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 600, 600);
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Aplicacion de prueba");

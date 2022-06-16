@@ -28,7 +28,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
     private void clicConsultarOfertaAcademica(ActionEvent actionEvent) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIAsignarExperienciaEducativa.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIConsultarOfertaAcademica.fxml"));
             Parent raiz = cargadorFXML.load();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();

@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
@@ -23,7 +24,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TablaPersonaProfesorController implements Initializable {
+public class AsignarExperienciaEducativaAProfesorControlador implements Initializable {
 
     public AnchorPane raiz;
     @FXML private TableColumn<Profesor,String> colIdProfesor;
@@ -33,6 +34,8 @@ public class TablaPersonaProfesorController implements Initializable {
     @FXML private TableColumn<Persona,String> colApellidoPaterno;
     @FXML private TableColumn<Persona,String> colApellidoMaterno;
     private ObservableList<Profesor> listaObservableProfesores= FXCollections.observableArrayList();
+    @Setter
+    ExperienciaEducativa experienciaEducativa;
 
 
     @Override
@@ -69,8 +72,6 @@ public class TablaPersonaProfesorController implements Initializable {
     public void actSeleccionarProfesor(ActionEvent actionEvent) {
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
         //recuperamos la informacion de la ventana anterior
-        Stage stage = (Stage) this.raiz.getScene().getWindow();
-        ExperienciaEducativa experienciaEducativa = (ExperienciaEducativa) stage.getUserData();
         //Juntamos la informacion con la ventana nueva
         experienciaEducativa.setIdProfesor(tblPersona.getSelectionModel().getSelectedItem().getIdProfesor());
         //lo agregamos a la base de datos
@@ -79,6 +80,7 @@ public class TablaPersonaProfesorController implements Initializable {
         } catch (SQLException e) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
+        UtilidadVentana.cerrarVentana(actionEvent);
 
     }
 }
