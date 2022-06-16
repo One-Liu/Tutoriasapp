@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,26 +36,33 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
         }
     }
     
-    private void cargarCamposGUI() {
-        this.cbPeriodosEscolares.setItems(periodosEscolares);
-        this.cbPeriodosEscolares.getSelectionModel().selectFirst();
-        this.cbPeriodosEscolares.setConverter(new StringConverter<PeriodoEscolar>() {
-            @Override
-            public String toString(PeriodoEscolar periodoEscolar) {
-                return periodoEscolar == null ? null : periodoEscolar.getFechas();
-            }
+    public void cargarCamposGUI() {
+        if(this.periodosEscolares.isEmpty()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Periodos escolares",
+                "No hay periodos escolares registrados",
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+        } else {
+            this.cbPeriodosEscolares.setItems(periodosEscolares);
+            this.cbPeriodosEscolares.getSelectionModel().selectFirst();
+            this.cbPeriodosEscolares.setConverter(new StringConverter<PeriodoEscolar>() {
+                @Override
+                public String toString(PeriodoEscolar periodoEscolar) {
+                    return periodoEscolar == null ? null : periodoEscolar.getFechas();
+                }
 
-            @Override
-            public PeriodoEscolar fromString(String string) {
-                throw new UnsupportedOperationException("Método no soportado");
-            }
-        });
+                @Override
+                public PeriodoEscolar fromString(String string) {
+                    throw new UnsupportedOperationException("Método no soportado");
+                }
+            });
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
-        cargarCamposGUI();
     }    
     
     @FXML
@@ -71,6 +79,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
             ModificacionDeFechasDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setPeriodoEscolar(periodoEscolarSeleccionado);
             controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);

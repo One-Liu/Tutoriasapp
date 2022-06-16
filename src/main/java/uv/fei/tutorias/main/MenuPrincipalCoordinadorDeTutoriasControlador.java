@@ -51,6 +51,8 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDePeriodoEscolar.fxml"));
             Parent raiz = cargadorFXML.load();
+            SeleccionDePeriodoEscolarControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);

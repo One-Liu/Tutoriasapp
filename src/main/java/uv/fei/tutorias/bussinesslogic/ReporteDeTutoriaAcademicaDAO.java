@@ -16,13 +16,12 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
     public boolean agregarReporteDeTutoriaAcademica(ReporteDeTutoriaAcademica reporteDeTutoriaAcademica) throws SQLException {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
-        String query = "INSERT INTO reporte_de_tutoria_academica(descripcionGeneral, idSesionDeTutoriaAcademica, idTutorAcademico, idFechaCierreEntregaReporte) VALUES(?,?,?,?)";
+        String query = "INSERT INTO reporte_de_tutoria_academica(descripcionGeneral, idSesionDeTutoriaAcademica, idTutorAcademico) VALUES(?,?,?)";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, reporteDeTutoriaAcademica.getDescripcionGeneral());
             statement.setInt(2, reporteDeTutoriaAcademica.getIdSesionDeTutoriaAcademica());
             statement.setInt(3, reporteDeTutoriaAcademica.getIdTutorAcademico());
-            statement.setInt(4, reporteDeTutoriaAcademica.getIdFechaCierreEntregaReporte());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate != 0) {
                 bandera = true;
@@ -106,19 +105,16 @@ public class ReporteDeTutoriaAcademicaDAO implements IReporteDeTutoriaAcademicaD
         String descripcion;
         int idsesionDeTutoriaAcademica;
         int idTutorAcademico;
-        int idFechaCierreEntregaReporte;
 
         idReporteDeTutoriaAcademica = resultSet.getInt("id");
         descripcion = resultSet.getString("descripcionGeneral");
         idsesionDeTutoriaAcademica = resultSet.getInt("idSesionDeTutoriaAcademica");
         idTutorAcademico = resultSet.getInt("idTutorAcademico");
-        idFechaCierreEntregaReporte = resultSet.getInt("idFechaCierreEntregaReporte");
 
         reporteDeTutoriaAcademica.setId(idReporteDeTutoriaAcademica);
         reporteDeTutoriaAcademica.setDescripcionGeneral(descripcion);
         reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(idsesionDeTutoriaAcademica);
         reporteDeTutoriaAcademica.setIdTutorAcademico(idTutorAcademico);
-        reporteDeTutoriaAcademica.setIdFechaCierreEntregaReporte(idFechaCierreEntregaReporte);
 
         return reporteDeTutoriaAcademica;
 

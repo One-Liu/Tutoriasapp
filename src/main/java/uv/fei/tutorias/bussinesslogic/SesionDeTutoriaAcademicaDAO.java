@@ -62,25 +62,28 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         Date fecha;
         boolean ocurrio;
         int idPeriodoEscolar;
+        int idFechaDeCierreEntregaDeReporte;
         
         idSesionDeTutoriaAcademica = resultado.getInt("id");
         fecha = resultado.getDate("fecha");
         ocurrio = resultado.getBoolean("ocurrio");
         idPeriodoEscolar = resultado.getInt("idPeriodoEscolar");
+        idFechaDeCierreEntregaDeReporte = resultado.getInt("idFechaCierreEntregaReporte");
         
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,(java.util.Date) fecha, ocurrio,idPeriodoEscolar);
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,(java.util.Date) fecha, ocurrio,idPeriodoEscolar, idFechaDeCierreEntregaDeReporte);
         return sesionDeTutoriaAcademica;
     }
 
     @Override
     public boolean agregarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
         boolean resultado = false;
-        String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?)";
+        String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar,idFechaDeCierreEntregaDeReporte) VALUES (?,?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getFecha());
             sentencia.setInt(2, sesionDeTutoriaAcademica.getIdPeriodoEscolar());
+            sentencia.setInt(3, sesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas != 0) {
                 resultado = true;

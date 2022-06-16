@@ -23,15 +23,24 @@ public class AsignacionDeTutorAcademicoControlador implements Initializable {
     private ComboBox<TutorAcademico> cbTutoresAcademicos;
     
     private final EstudianteDAO estudianteDAO = new EstudianteDAO();
-    private final TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
     
     private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
     private void cargarDatos() {
+        TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
+        
         try {
             this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesSinTutorAsignado());
             this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
+            
+            if(estudiantes.isEmpty()) {
+                
+            } else if(tutoresAcademicos.isEmpty()) {
+                
+            } else {
+                
+            }
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
             UtilidadVentana.cerrarVentana(new ActionEvent());
