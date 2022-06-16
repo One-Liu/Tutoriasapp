@@ -16,6 +16,8 @@ public class PeriodoEscolar {
     }
     
     public PeriodoEscolar(Date fechaInicio, Date fechaTermino) {
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
         this.id = 0;
     }
     

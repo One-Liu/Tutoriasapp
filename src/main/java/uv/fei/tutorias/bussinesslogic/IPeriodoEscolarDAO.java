@@ -8,7 +8,7 @@ import uv.fei.tutorias.domain.PeriodoEscolar;
 public interface IPeriodoEscolarDAO {
     public List<PeriodoEscolar> obtenerPeriodosEscolares() throws SQLException;
     public PeriodoEscolar obtenerPeriodoEscolarPorId(int idPeriodoEscolar) throws SQLException;
-    public boolean agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException;
+    public int agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException;
     public boolean eliminarPeriodoEscolarPorId(int idPeriodoEscolar) throws SQLException;
     public boolean modificarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException;
 }
