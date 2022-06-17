@@ -36,19 +36,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     }
     
     private void cargarCamposGUI() {
-        this.cbPeriodosEscolares.setItems(periodosEscolares);
-        this.cbPeriodosEscolares.getSelectionModel().selectFirst();
-        this.cbPeriodosEscolares.setConverter(new StringConverter<PeriodoEscolar>() {
-            @Override
-            public String toString(PeriodoEscolar periodoEscolar) {
-                return periodoEscolar == null ? null : periodoEscolar.getFechas();
-            }
-
-            @Override
-            public PeriodoEscolar fromString(String string) {
-                throw new UnsupportedOperationException("Método no soportado");
-            }
-        });
+        RegistrarFechasDeCierreParaLaEntregaDeReporteControlador.cargarCamposGui(this.cbPeriodosEscolares, periodosEscolares);
     }
     
     @Override

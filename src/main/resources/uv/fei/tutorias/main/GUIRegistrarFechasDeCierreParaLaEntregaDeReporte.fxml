@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.RegistrarFechasDeCierreParaLaEntregaDeReporteControlador">
+   <children>
+      <FlowPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="71.0" prefWidth="318.0" text="Seleccione un periodo escolar">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbPeriodosEscolares" onAction="#clicSeleccionPeriodoEscolar" prefHeight="25.0" prefWidth="258.0" />
+            <GridPane prefHeight="90.0" prefWidth="598.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="241.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="299.0" minWidth="0.0" prefWidth="244.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="17.0" prefWidth="251.0" text="Fecha de la primera sesion de tutoria">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Fecha de la segunda sesion de tutoria" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="47.0" prefHeight="19.0" prefWidth="220.0" text="Fecha de la tercera sesion de tutoria" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPrimeraSesionDeTutoria" layoutX="10.0" layoutY="16.0" prefHeight="17.0" prefWidth="251.0" text="Fecha de la primera sesion de tutoria" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblSegundaSesionDeTutoria" layoutX="10.0" layoutY="46.0" text="Fecha de la segunda sesion de tutoria" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTerceraSesionDeTutoria" layoutX="10.0" layoutY="16.0" prefHeight="17.0" prefWidth="251.0" text="Fecha de la primera sesion de tutoria" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+            <VBox prefHeight="200.0" prefWidth="598.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="599.0" text="Primera fecha de cierre de entrega de reporte">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dpPrimeraFechaCierre" prefHeight="25.0" prefWidth="307.0" />
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="599.0" text="Segunda fecha de cierre de entrega de reporte">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dpSegundaFechaCierre" layoutX="10.0" layoutY="40.0" prefHeight="25.0" prefWidth="307.0" />
+                  <Label layoutX="10.0" layoutY="65.0" prefHeight="30.0" prefWidth="599.0" text="PrimeraFecha de cierre de entrega de reporte">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dpTerceraFechaCierre" layoutX="10.0" layoutY="95.0" prefHeight="25.0" prefWidth="307.0" />
+               </children>
+            </VBox>
+            <BorderPane prefHeight="80.0" prefWidth="602.0">
+               <right>
+                  <HBox prefHeight="80.0" prefWidth="155.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#clicGuardar" style="-fx-background-color: #0c4ced;" text="Guardar" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#clicCancelar" style="-fx-background-color: #ed0c17;" text="Cancelar" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </right>
+            </BorderPane>
+         </children>
+      </FlowPane>
+   </children>
+</AnchorPane>

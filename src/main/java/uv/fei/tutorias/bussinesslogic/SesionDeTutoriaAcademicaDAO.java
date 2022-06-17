@@ -139,6 +139,30 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         }
         return resultado;
     }
+    @Override
+    public boolean modificarFechaDeCierreDeEntregaDeReporte(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
+        boolean resultado = false;
+        String consulta =
+                "UPDATE sesion_de_tutoria_academica " +
+                "SET idFechaCierreEntregaReporte = ? " +
+                "WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getidFecha());
+            sentencia.setInt(2, sesionDeTutoriaAcademica.getId());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas != 0) {
+                resultado = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return resultado;
+    }
     
     @Override
     public List<SesionDeTutoriaAcademica> obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(int idPeriodoEscolar) throws SQLException {
