@@ -122,4 +122,25 @@ public class UsuarioDAO implements IUsuarioDAO{
         return resultado;
 
     }
+    
+    @Override
+    public boolean validarUsuarioRegistrado(String correoInstitucional) throws SQLException {
+        boolean usuarioRegistrado = false;
+        String consulta = "SELECT * FROM usuario WHERE correoInstitucional = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, correoInstitucional);
+            ResultSet resultado = sentencia.executeQuery();
+            if(resultado.next()) {
+                usuarioRegistrado = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOG.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return usuarioRegistrado;
+    }
 }

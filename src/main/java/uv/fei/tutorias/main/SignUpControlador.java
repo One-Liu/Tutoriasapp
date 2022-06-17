@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.util.StringConverter;
 
-public class SignUpController implements Initializable {
+public class SignUpControlador implements Initializable {
 
     @FXML
     private TextField tfNombre;
@@ -37,28 +37,37 @@ public class SignUpController implements Initializable {
     }
 
     public void cargarCamposGUI() {
-        cbUsuarios.getItems().setAll("Tutor academico", "Coordinador", "Jefe de carrera");
+        if(this.programasEducativos.isEmpty()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Programas educativos", 
+                "No hay programas educativos registrados", 
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+        } else {
+            cbUsuarios.getItems().setAll("TUTOR ACADÉMICO", "COORDINADOR", "JEFE DE CARRERA");
+            cbUsuarios.getSelectionModel().selectFirst();
+                
+            cbProgramasEducativos.setItems(programasEducativos);
+            cbProgramasEducativos.getSelectionModel().selectFirst();
+            cbProgramasEducativos.setConverter(new StringConverter<ProgramaEducativo>() {
+                @Override
+                public String toString(ProgramaEducativo programaEducativo) {
+                    return programaEducativo == null ? null : programaEducativo.getNombre();
+                }
 
-        cbProgramasEducativos.setItems(programasEducativos);
-        cbProgramasEducativos.getSelectionModel().selectFirst();
-        cbProgramasEducativos.setConverter(new StringConverter<ProgramaEducativo>() {
-            @Override
-            public String toString(ProgramaEducativo programaEducativo) {
-                return programaEducativo == null ? null : programaEducativo.getNombre();
-            }
-
-            @Override
-            public ProgramaEducativo fromString(String string) {
-                throw new UnsupportedOperationException("Operación no soportada");
-            }
-        });
+                @Override
+                public ProgramaEducativo fromString(String string) {
+                    throw new UnsupportedOperationException("Operación no soportada");
+                }
+            });
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    public boolean camposLlenos() {
+    private boolean validarCamposLlenos() {
         boolean camposLlenos = true;
 
         if(this.tfNombre.getText().trim().isBlank()
@@ -75,13 +84,53 @@ public class SignUpController implements Initializable {
         return camposLlenos;
     }
 
+    private boolean validarCorreoInstitucional() {
+        boolean correoInstitucionalValido = true;
+        String correoInstitucional = this.tfCorreoInstitucional.getText().replaceAll("\\s+", "").trim();
+        
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        
+        if(!correoInstitucional.endsWith("@uv.mx")) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Correo institucional", 
+                "El correo ingresado no es un correo válido", 
+                Alert.AlertType.WARNING);
+            correoInstitucionalValido = false;
+            
+        } else {
+            try {
+                if(usuarioDAO.validarUsuarioRegistrado(correoInstitucional)) {
+                    UtilidadVentana.mostrarAlertaSinConfirmacion(
+                        "Correo institucional", 
+                        "Ya se ha registrado un usuario con el correo institucional ingresado", 
+                        Alert.AlertType.WARNING);
+                    correoInstitucionalValido = false;
+                }
+            } catch(SQLException excepcionSQL) {
+                UtilidadVentana.mensajePerdidaDeConexion();
+                UtilidadVentana.cerrarVentana(new ActionEvent());
+            }
+        }
+        
+        return correoInstitucionalValido;
+    }
+    
+    private void limpiarCamposGUI() {
+        this.tfNombre.clear();
+        this.tfApellidoPaterno.clear();
+        this.tfApellidoMaterno.clear();
+        this.tfCorreoInstitucional.clear();
+        this.cbProgramasEducativos.getSelectionModel().selectFirst();
+        this.cbUsuarios.getSelectionModel().selectFirst();
+    }
+    
     @FXML
     private void clicRegistrar() {
-        if(camposLlenos()) {
-            String nombre = this.tfNombre.getText();
-            String apellidoPaterno = this.tfApellidoPaterno.getText();
-            String apellidoMaterno = this.tfApellidoMaterno.getText();
-            String correoInstitucional = this.tfCorreoInstitucional.getText();
+        if(validarCamposLlenos() && validarCorreoInstitucional()) {
+            String nombre = this.tfNombre.getText().toUpperCase().replaceAll("\\s+", " ").trim();
+            String apellidoPaterno = this.tfApellidoPaterno.getText().toUpperCase().replaceAll("\\s+", " ").trim();
+            String apellidoMaterno = this.tfApellidoMaterno.getText().toUpperCase().replaceAll("\\s+", " ").trim();
+            String correoInstitucional = this.tfCorreoInstitucional.getText().replaceAll("\\s+", "").trim();
             ProgramaEducativo programaEducativo = this.cbProgramasEducativos.getSelectionModel().getSelectedItem();
 
             Persona persona = new Persona(nombre, apellidoPaterno, apellidoMaterno, programaEducativo.getId());
@@ -92,7 +141,7 @@ public class SignUpController implements Initializable {
 
             try {
                 switch(cbUsuarios.getValue()) {
-                    case "Tutor académico" -> {
+                    case "TUTOR ACADÉMICO" -> {
                         TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
                         TutorAcademico tutorAcademico = new TutorAcademico(persona);
 
@@ -101,7 +150,7 @@ public class SignUpController implements Initializable {
                         tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
                     }
 
-                    case "Coordinador" -> {
+                    case "COORDINADOR" -> {
                         CoordinadorDAO coordinadorDAO = new CoordinadorDAO();
                         Coordinador coordinador = new Coordinador(persona);
 
@@ -110,7 +159,7 @@ public class SignUpController implements Initializable {
                         coordinadorDAO.agregarCoordinador(coordinador);
                     }
 
-                    case "Jefe de carrera" -> {
+                    case "JEFE DE CARRERA" -> {
                         JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
                         JefeDeCarrera jefeDeCarrera = new JefeDeCarrera(persona);
 
@@ -125,6 +174,8 @@ public class SignUpController implements Initializable {
                     "La contraseña del usuario es " + usuario.getContrasena() + ".\n"
                     + "Por favor, solicite al usuario cambiarla al ingresar al sistema.",
                     Alert.AlertType.INFORMATION);
+                
+                limpiarCamposGUI();
             } catch(SQLException excepcionSQL) {
                 UtilidadVentana.mensajePerdidaDeConexion();
             }
