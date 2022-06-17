@@ -33,6 +33,7 @@ public class RegistrarFechasDeCierreParaLaEntregaDeReporteControlador implements
     @FXML private DatePicker dpSegundaFechaCierre;
     @FXML private DatePicker dpTerceraFechaCierre;
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
+    private List<SesionDeTutoriaAcademica> sesionesDeTutoriasAcademicas;
 
 
     @Override
@@ -51,7 +52,15 @@ public class RegistrarFechasDeCierreParaLaEntregaDeReporteControlador implements
 
     public void clicGuardar(ActionEvent actionEvent) {
         if (!camposVacios() && fechasDeCierreCorrectas()){
-
+            try {
+                agregarFechaDeCierreEntregaDeReporte();
+            } catch (SQLException e) {
+                UtilidadVentana.mensajePerdidaDeConexion();
+            }
+            UtilidadVentana.mostrarAlertaConfirmacion("Todo correcto","Datos registrado en la db", Alert.AlertType.CONFIRMATION);
+            UtilidadVentana.cerrarVentana(actionEvent);
+        }else {
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Verifique fechas","No debe de haber campos vacios y las fechas de entrega son despues de la sesion", Alert.AlertType.WARNING);
         }
     }
     public void agregarFechaDeCierreEntregaDeReporte() throws SQLException {
@@ -63,6 +72,8 @@ public class RegistrarFechasDeCierreParaLaEntregaDeReporteControlador implements
         int id3;
         FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte = new FechaDeCierreEntregaDeReporte();
         FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaDeReporteDAO = new FechaDeCierreEntregaDeReporteDAO();
+        SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
 
 
 
@@ -74,11 +85,28 @@ public class RegistrarFechasDeCierreParaLaEntregaDeReporteControlador implements
         id3 = fechaDeCierreEntregaDeReporteDAO.agregarFechaDeCierreEntregaDeReporte(fechaDeCierreEntregaDeReporte);
 
 
+        sesionDeTutoriaAcademica.setIdFechaDeCierreEntregaDeReporte(id1);
+        sesionDeTutoriaAcademica.setId(sesionesDeTutoriasAcademicas.get(0).getId());
+        sesionDeTutoriaAcademicaDAO.modificarFechaDeCierreDeEntregaDeReporte(sesionDeTutoriaAcademica);
+
+        sesionDeTutoriaAcademica.setIdFechaDeCierreEntregaDeReporte(id2);
+        sesionDeTutoriaAcademica.setId(sesionesDeTutoriasAcademicas.get(1).getId());
+        sesionDeTutoriaAcademicaDAO.modificarFechaDeCierreDeEntregaDeReporte(sesionDeTutoriaAcademica);
+
+        sesionDeTutoriaAcademica.setIdFechaDeCierreEntregaDeReporte(id3);
+        sesionDeTutoriaAcademica.setId(sesionesDeTutoriasAcademicas.get(2).getId());
+        sesionDeTutoriaAcademicaDAO.modificarFechaDeCierreDeEntregaDeReporte(sesionDeTutoriaAcademica);
+
+
+
+
+
 
 
     }
 
     public void clicCancelar(ActionEvent actionEvent) {
+        UtilidadVentana.cerrarVentana(actionEvent);
     }
 
     public void clicSeleccionPeriodoEscolar(ActionEvent actionEvent) {
@@ -95,7 +123,7 @@ public class RegistrarFechasDeCierreParaLaEntregaDeReporteControlador implements
 
     private void llenarlabelsConElPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
         SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
-        List<SesionDeTutoriaAcademica> sesionesDeTutoriasAcademicas = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId());
+        sesionesDeTutoriasAcademicas = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId());
 
         lblPrimeraSesionDeTutoria.setText(String.valueOf(sesionesDeTutoriasAcademicas.get(0).getFecha()));
         lblSegundaSesionDeTutoria.setText(String.valueOf(sesionesDeTutoriasAcademicas.get(1).getFecha()));
