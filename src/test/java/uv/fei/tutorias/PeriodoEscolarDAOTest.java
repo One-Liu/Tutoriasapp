@@ -1,6 +1,7 @@
 package uv.fei.tutorias;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,8 +33,9 @@ public class PeriodoEscolarDAOTest {
     
     @Before
     public void inicializar() {
-        fechaInicioNueva = new Date();
-        fechaTerminoNueva = new Date();
+        fechaInicioNueva = (Date) java.sql.Date.valueOf(LocalDate.of(2016, 8, 19));
+        fechaTerminoNueva = (Date) java.sql.Date.valueOf(LocalDate.of(2016, 8, 19));
+        System.out.println(fechaInicioNueva);
         periodoEscolarNuevo = new PeriodoEscolar(fechaInicioNueva,fechaTerminoNueva);
         fechaInicio1 = new Date();
         fechaTermino1 = new Date();
@@ -71,7 +73,7 @@ public class PeriodoEscolarDAOTest {
     
     @Test
     public void testAgregarPeriodoEscolar() throws SQLException {
-        assertTrue(periodoEscolarDAO.agregarPeriodoEscolar(periodoEscolarNuevo));
+        assertNotEquals(periodoEscolarDAO.agregarPeriodoEscolar(periodoEscolarNuevo),-1);
     }
 
     @Test

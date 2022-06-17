@@ -3,11 +3,8 @@ package uv.fei.tutorias.bussinesslogic;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +76,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         }
         return problematicaAcademica;
     }
-    
+    //cuando agregamos una problematica academica por default su solucion sera 0
     @Override
     public int agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException {
         ConexionBD baseDeDatos = new ConexionBD();

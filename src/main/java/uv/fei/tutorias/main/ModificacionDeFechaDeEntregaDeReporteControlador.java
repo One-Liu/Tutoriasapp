@@ -2,6 +2,8 @@ package uv.fei.tutorias.main;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -13,9 +15,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
-import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
-import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
+import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initializable {
@@ -25,55 +26,80 @@ public class ModificacionDeFechaDeEntregaDeReporteControlador implements Initial
     @FXML
     private DatePicker dpFechaEntregaReporte;
 
-    private final ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
     private final FechaDeCierreEntregaDeReporteDAO fechaDeCierreEntregaDeReporteDAO = new FechaDeCierreEntregaDeReporteDAO();
 
-    private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte = new FechaDeCierreEntregaDeReporte();
 
     @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
+    @Setter
+    private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
 
-    public void cargarDatos() {
-        try {
-            this.fechaDeCierreEntregaDeReporte = fechaDeCierreEntregaDeReporteDAO.obtenerFechaDeCierreEntregaDeReportePorId(sesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte());
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        }
+    public void cargarDatos() throws SQLException {
+        this.fechaDeCierreEntregaDeReporte = fechaDeCierreEntregaDeReporteDAO.obtenerFechaDeCierreEntregaDeReportePorId(sesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte());
     }
 
     public void cargarCamposGUI() {
-        if(fechaDeCierreEntregaDeReporte.getFecha() == new Date()) {
+        if(fechaDeCierreEntregaDeReporte.getFecha() == null) {
             UtilidadVentana.mostrarAlertaSinConfirmacion(
-                "Fecha de cierre de entrega de reporte", 
-                "No hay ninguna fecha de cierre de entrega de reporte registrada", 
+                "Fecha de cierre de entrega de reporte",
+                "No hay ninguna fecha de cierre de entrega de reporte registrada",
                 Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+            
         } else {
             this.lblFechaSesionTutoria.setText(sesionDeTutoriaAcademica.getFechaConFormato());
-            this.dpFechaEntregaReporte.setValue(fechaDeCierreEntregaDeReporte.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            this.dpFechaEntregaReporte.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(fechaDeCierreEntregaDeReporte.getFecha())));
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
+    }
+
+    private boolean validarFechaDeCierreIngresada() {
+        boolean fechaDeCierreValida = true;
+
+        LocalDate fechaTerminoPeriodoEscolar = (new java.sql.Date(this.periodoEscolar.getFechaTermino().getTime())).toLocalDate();
+        LocalDate fechaDeSesionDeTutoriaAcademica = (new java.sql.Date(this.sesionDeTutoriaAcademica.getFecha().getTime())).toLocalDate();
+        LocalDate nuevaFechaDeCierre = this.dpFechaEntregaReporte.getValue();
+
+        if(!nuevaFechaDeCierre.isAfter(fechaDeSesionDeTutoriaAcademica)) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Fecha de cierre inválida",
+                "La fecha de cierre para la entrega del reporte debe ser posterior a la fecha de sesión de tutoría académica (" 
+                    + sesionDeTutoriaAcademica.getFechaConFormato() + ")",
+                Alert.AlertType.WARNING);
+            fechaDeCierreValida = false;
+            
+        } else if(!nuevaFechaDeCierre.isBefore(fechaTerminoPeriodoEscolar)) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Fecha de cierre inválida",
+                "La fecha de cierre para la entrega del reporte debe ser antes de que termine el periodo escolar: \n" 
+                    + periodoEscolar.getFechas(),
+                Alert.AlertType.WARNING);
+            fechaDeCierreValida = false;
+        }
+
+        return fechaDeCierreValida;
     }
 
     @FXML
     private void clicGuardar(ActionEvent evento) {
-        Date fechaSeleccionada = (Date) java.sql.Date.valueOf(dpFechaEntregaReporte.getValue());
+        if(validarFechaDeCierreIngresada()) {
+            Date fechaSeleccionada = (Date) java.sql.Date.valueOf(dpFechaEntregaReporte.getValue());
+            fechaDeCierreEntregaDeReporte.setFecha(fechaSeleccionada);
 
-        fechaDeCierreEntregaDeReporte.setFecha(fechaSeleccionada);
-
-        try {
-            fechaDeCierreEntregaDeReporteDAO.modificarFechaDeCierreEntregaDeReporte(fechaDeCierreEntregaDeReporte);
-            UtilidadVentana.mostrarAlertaSinConfirmacion(
-                "Confirmación de modificación",
-                "La fecha de cierre para la entrega del reporte se ha modificado exitosamente",
-                Alert.AlertType.INFORMATION);
-            UtilidadVentana.cerrarVentana(evento);
-        } catch(SQLException excepcionSQL) {
-            UtilidadVentana.mensajePerdidaDeConexion();
+            try {
+                fechaDeCierreEntregaDeReporteDAO.modificarFechaDeCierreEntregaDeReporte(fechaDeCierreEntregaDeReporte);
+                UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Confirmación de modificación",
+                    "La fecha de cierre para la entrega del reporte se ha modificado exitosamente",
+                    Alert.AlertType.INFORMATION);
+                UtilidadVentana.cerrarVentana(evento);
+            } catch(SQLException excepcionSQL) {
+                UtilidadVentana.mensajePerdidaDeConexion();
+            }
         }
     }
 

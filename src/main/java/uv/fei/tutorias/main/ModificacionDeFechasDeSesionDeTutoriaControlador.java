@@ -47,13 +47,8 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     @Setter
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
 
-    public void cargarDatos() {
-        try {
-            this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId()));
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-            UtilidadVentana.cerrarVentana(new ActionEvent());
-        }
+    public void cargarDatos() throws SQLException {
+        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId()));
     }
 
     public void cargarCamposGUI() {
@@ -78,7 +73,6 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
     }
 
     @FXML
@@ -88,6 +82,7 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
             Parent raiz = cargadorFXML.load();
             SeleccionDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setSesionesDeTutoriaAcademica(sesionesDeTutoriaAcademica);
+            controladorGUI.setPeriodoEscolar(periodoEscolar);
             controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();

@@ -14,7 +14,7 @@ public class SesionDeTutoriaAcademica {
 
     public SesionDeTutoriaAcademica() {
         this.id = 0;
-        this.fecha = new Date();
+        this.fecha = null;
         this.ocurrio = false;
         this.idPeriodoEscolar = 0;
         this.idFechaDeCierreEntregaDeReporte = 0;

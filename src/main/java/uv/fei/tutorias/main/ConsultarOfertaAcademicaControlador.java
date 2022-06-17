@@ -1,26 +1,28 @@
 package uv.fei.tutorias.main;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class AsignarExperienciaEducativaControlador implements Initializable {
+public class ConsultarOfertaAcademicaControlador implements Initializable {
+
     @FXML private CheckBox chBok;
     @FXML private TableColumn<ExperienciaEducativa,String> colIdEe;
     @FXML
@@ -36,7 +38,6 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
     @FXML
     private TableView<ExperienciaEducativa> tblEE;
 
-    private ObservableList experienciasEducativasObservables;
 
     ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
 
@@ -53,6 +54,7 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<ExperienciaEducativa> experienciasEducativasObservables = FXCollections.observableArrayList();
         try {
             experienciasEducativasObservables.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
         } catch (SQLException e) {
@@ -65,8 +67,8 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
     }
 
 
-    public void actEeSinProfesorAsignado(ActionEvent actionEvent) throws SQLException {
-
+    public void clicEeSinProfesorAsignado(ActionEvent actionEvent) throws SQLException {
+        ObservableList<ExperienciaEducativa> experienciasEducativasObservables = FXCollections.observableArrayList();
         if (chBok.isSelected()){
             experienciasEducativasObservables.addAll(experienciaEducativaDAO.buscarExperienciaEducativasSinTutor()) ;
             configurarLista(experienciasEducativasObservables);
@@ -86,27 +88,33 @@ public class AsignarExperienciaEducativaControlador implements Initializable {
         this.tblEE.setItems(experienciasEducativas);
     }
 
-    public void actAsignarEeAProfesor(ActionEvent actionEvent) throws IOException {
+    public void clicAsignarEeAProfesor(ActionEvent actionEvent) throws IOException {
         //creamos un objeto con lo que selecciona el usuario en la tabla
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa();
         experienciaEducativa.setIdExperienciaEducativa(tblEE.getSelectionModel().getSelectedItem().getIdExperienciaEducativa());
         experienciaEducativa.setNrc(tblEE.getSelectionModel().getSelectedItem().getNrc());
         experienciaEducativa.setIdProfesor(tblEE.getSelectionModel().getSelectedItem().getIdProfesor());
         experienciaEducativa.setNombre(tblEE.getSelectionModel().getSelectedItem().getNombre());
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIAsignarExperienciaEducativaAProfesor.fxml"));
+            Parent raiz = cargadorFXML.load();
+            AsignarExperienciaEducativaAProfesorControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.setExperienciaEducativa(experienciaEducativa);
+            Scene escenaFormulario = new Scene(raiz);
+            Stage escenarioFormulario = new Stage();
+            escenarioFormulario.setResizable(false);
+            escenarioFormulario.setScene(escenaFormulario);
+            escenarioFormulario.setTitle("Asignar Experiencia educativa a profesor");
+            escenarioFormulario.initModality(Modality.APPLICATION_MODAL);
+            escenarioFormulario.showAndWait();
+        } catch(IOException | IllegalStateException ioException){
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
 
-        Node node = (Node) actionEvent.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
 
+    }
 
-
-        URL url = Paths.get("src\\main\\resources\\uv.fei.tutorias.main\\GUIMostrarProfesores.fxml").toUri().toURL();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Scene scene = new Scene(fxmlLoader.load(url ), 600, 400);
-
-        stage.setUserData(experienciaEducativa);
-        stage.setTitle("Profesores");
-        stage.setScene(scene);
-        stage.show();
+    public void clicCancelar(ActionEvent actionEvent) {
+        UtilidadVentana.cerrarVentana(actionEvent);
     }
 }

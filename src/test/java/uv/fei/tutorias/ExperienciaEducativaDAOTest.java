@@ -47,5 +47,9 @@ public class ExperienciaEducativaDAOTest {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
     }
+    @Test
+    public void OobtenerExperienciasEducativas() throws SQLException {
+        assertNotNull(experienciaEducativaDAO.obtenerExperienciasEducativas());
+    }
 
 }

@@ -28,12 +28,8 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     
     private ObservableList<PeriodoEscolar> periodosEscolares = FXCollections.observableArrayList();
     
-    private void cargarDatos() {
-        try {
-            this.periodosEscolares.addAll(periodoEscolarDAO.obtenerPeriodosEscolares());
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        }
+    public void cargarDatos() throws SQLException {
+        this.periodosEscolares.addAll(periodoEscolarDAO.obtenerPeriodosEscolares());
     }
     
     public void cargarCamposGUI() {
@@ -43,6 +39,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
                 "No hay periodos escolares registrados",
                 Alert.AlertType.ERROR);
             UtilidadVentana.cerrarVentana(new ActionEvent());
+            
         } else {
             this.cbPeriodosEscolares.setItems(periodosEscolares);
             this.cbPeriodosEscolares.getSelectionModel().selectFirst();
@@ -62,7 +59,6 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
     }    
     
     @FXML
@@ -87,8 +83,10 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
             escenario.setTitle("Modificación de fechas de sesión de tutoría");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch(IOException ioException) {
+        } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
 

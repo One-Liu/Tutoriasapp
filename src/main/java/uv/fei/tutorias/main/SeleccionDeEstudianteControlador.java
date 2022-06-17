@@ -80,8 +80,10 @@ public class SeleccionDeEstudianteControlador implements Initializable {
             escenario.setTitle("Modificación de asignación de tutor");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch(IOException ioException) {
+        } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
 }

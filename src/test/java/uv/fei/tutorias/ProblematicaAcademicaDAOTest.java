@@ -29,8 +29,8 @@ public class ProblematicaAcademicaDAOTest {
     @Test
     public void agregarProblematicaAcademica() throws SQLException {
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
-        boolean result = problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica);
-        assertTrue(result);
+        int result = problematicaAcademicaDAO.agregarProblematicaAcademica(problematicaAcademica);
+        assertEquals(result,12);
     }
 
     @Test

@@ -16,7 +16,7 @@ public class ReporteDeTutoriaDAOTest {
     @Before
     public void inicio(){
         reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
-        reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica("El alumno va bien en custiones academicas",0,0,0);
+        reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica("El alumno va bien en custiones academicas",0,0);
     }
     @Test
     public void agregarReporteDeTutoria() throws SQLException {

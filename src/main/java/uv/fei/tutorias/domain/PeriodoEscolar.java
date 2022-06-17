@@ -11,11 +11,13 @@ public class PeriodoEscolar {
 
     public PeriodoEscolar() {
         this.id = 0;
-        this.fechaInicio = new Date();
-        this.fechaTermino = new Date();
+        this.fechaInicio = null;
+        this.fechaTermino = null;
     }
     
     public PeriodoEscolar(Date fechaInicio, Date fechaTermino) {
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
         this.id = 0;
     }
     

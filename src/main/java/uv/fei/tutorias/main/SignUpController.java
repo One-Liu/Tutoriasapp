@@ -85,7 +85,7 @@ public class SignUpController implements Initializable {
         }
         return camposLlenos;
     }
-    
+    /*
     @FXML
     private void clicRegistrar() {
         if(camposLlenos()) {
@@ -94,8 +94,18 @@ public class SignUpController implements Initializable {
             String apellidoMaterno = this.tfApellidoMaterno.getText();
             String correoInstitucional = this.tfCorreoInstitucional.getText();
             
+            Persona persona = new Persona(nombre, apellidoPaterno, apellidoMaterno);
+            Usuario usuario = new Usuario(pastxtcontrasena.getText(),correoInstitucional.getText());
+            PersonaDAO personaDAO = new PersonaDAO();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            
             switch(cbTipoDeUsuario.getValue()) {
                 case "Tutor académico":
+                    TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
+                    TutorAcademico tutorAcademico = new TutorAcademico(persona);
+                    tutorAcademico.setIdPersona(personaDAO.agregarPersona(persona));
+                    tutorAcademico.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
+                    tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
                     break;
                 case "Coordinador":
                     break;
@@ -109,7 +119,7 @@ public class SignUpController implements Initializable {
                 Alert.AlertType.ERROR);
         }
     }
-    
+    */
     @FXML
     private void clicCancelar(ActionEvent evento) {
         UtilidadVentana.cerrarVentana(evento);

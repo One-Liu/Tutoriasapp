@@ -21,9 +21,9 @@ public class SesionDeTutoriaAcademicaDAOTest {
     @Before
     public void inicializar() {
         fechaNueva = new Date();
-        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0);
+        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0,0);
         fecha1 = new Date();
-        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica(1,fecha1,false,1);
+        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica(1,fecha1,false,1,0);
         sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     }
 

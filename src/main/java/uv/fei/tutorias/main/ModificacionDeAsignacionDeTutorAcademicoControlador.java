@@ -36,37 +36,48 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     @Setter
     private Estudiante estudiante = new Estudiante();
     
-    public void cargarDatos() {
-        try {
-            this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
-            this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico()));
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-            UtilidadVentana.cerrarVentana(new ActionEvent());
-        }
+    public void cargarDatos() throws SQLException {
+        this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
+        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico()));
     }
     
     public void cargarCamposGUI() {
-        this.lblEstudianteSeleccionado.setText("(" + this.estudiante.getMatricula() + ") " + this.estudiante.getNombreCompleto());
-        this.lblTutorAcademicoAnterior.setText("(" + this.tutorAcademicoAnterior.getIdTutorAcademico() + ") " + this.tutorAcademicoAnterior.getNombreCompleto());
-        this.cbTutoresAcademicos.setItems(tutoresAcademicos);
-        this.cbTutoresAcademicos.getSelectionModel().selectFirst();
-        this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
-            @Override
-            public String toString(TutorAcademico tutorAcademico) {
-                return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
-            }
+        if(tutorAcademicoAnterior == new TutorAcademico()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Estudiante sin tutor académico",
+                "El estudiante aún no tiene un tutor académico asignado", 
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+            
+        } else if(tutoresAcademicos.isEmpty()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Tutores académicos",
+                "No hay más tutores académicos registrados",
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+            
+        } else {
+            this.lblEstudianteSeleccionado.setText("(" + this.estudiante.getMatricula() + ") " + this.estudiante.getNombreCompleto());
+            this.lblTutorAcademicoAnterior.setText("(" + this.tutorAcademicoAnterior.getIdTutorAcademico() + ") " + this.tutorAcademicoAnterior.getNombreCompleto());
+            
+            this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+            this.cbTutoresAcademicos.getSelectionModel().selectFirst();
+            this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
+                @Override
+                public String toString(TutorAcademico tutorAcademico) {
+                    return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
+                }
 
-            @Override
-            public TutorAcademico fromString(String string) {
-                throw new UnsupportedOperationException("Operación no soportada");
-            }
-        });
+                @Override
+                public TutorAcademico fromString(String string) {
+                    throw new UnsupportedOperationException("Operación no soportada");
+                }
+            });
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarCamposGUI();
     }
     
     @FXML
@@ -87,8 +98,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
                     Alert.AlertType.INFORMATION);
         } catch(SQLException ex) {
             UtilidadVentana.mensajePerdidaDeConexion();
+            UtilidadVentana.cerrarVentana(evento);
         }
-        
-        UtilidadVentana.cerrarVentana(evento);
     }
 }

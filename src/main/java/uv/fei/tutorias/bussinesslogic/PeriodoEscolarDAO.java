@@ -1,10 +1,6 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -71,17 +67,21 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
     }
 
     @Override
-    public boolean agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
-        boolean resultado = false;
-        String consulta = "INSERT INTO periodo_escolar VALUES(NULL,?,?)";
+    public int agregarPeriodoEscolar(PeriodoEscolar periodoEscolar) throws SQLException {
+        int id;
+        String consulta = "INSERT INTO periodo_escolar (fechaInicio, fechaTermino) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            PreparedStatement sentencia = conexion.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
             sentencia.setDate(1, (Date) periodoEscolar.getFechaInicio());
             sentencia.setDate(2, (Date) periodoEscolar.getFechaTermino());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
+            ResultSet resultado = sentencia.getGeneratedKeys();
+            if(columnasAfectadas == 0) {
+                id = -1;
+            }else {
+                resultado.next();
+                id=resultado.getInt(1);
             }
         } catch(SQLException excepcionSQL) {
             LOGGER.warn(getClass().getName(), excepcionSQL);
@@ -89,7 +89,7 @@ public class PeriodoEscolarDAO implements IPeriodoEscolarDAO {
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return resultado;
+        return id;
     }
 
     @Override
