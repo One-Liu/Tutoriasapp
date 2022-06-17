@@ -26,8 +26,4 @@ public class TablaEstudiante_Presenta {
     public CheckBox getPresenta() {
         return presenta;
     }
-
-    public void setPresenta(CheckBox presenta) {
-        this.presenta = presenta;
-    }
 }

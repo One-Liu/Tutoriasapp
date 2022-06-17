@@ -71,7 +71,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
             for(Estudiante estudiante : estudiantesObtenidos) {
                 visualizacionEstudiante = new TablaEstudiante_Presenta();
                 visualizacionEstudiante.setEstudiante(estudiante);
-                estudiantesDelTutorAcademico.add(visualizacionEstudiante);
+                this.estudiantesDelTutorAcademico.add(visualizacionEstudiante);
             }
 
             if(profesores.isEmpty()) {
@@ -131,6 +131,7 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
 
         inicializarColumnasDeTabla();
         this.tblEstudiante_Presenta.setItems(estudiantesDelTutorAcademico);
+        this.tblEstudiante_Presenta.getSelectionModel().clearSelection();
     }
 
     @Override

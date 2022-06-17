@@ -12,8 +12,12 @@
       <Label fx:id="lblFechaDeSesionDeTutoria" layoutX="21.0" layoutY="31.0" text="FECHA_DE_SESION_DE_TUTORIA" />
       <TableView fx:id="tblTutorado_Horario" layoutX="21.0" layoutY="61.0" prefHeight="229.0" prefWidth="519.0">
         <columns>
-          <TableColumn fx:id="colTutorado" prefWidth="355.0" text="Tutorado" />
-          <TableColumn fx:id="colHorario" prefWidth="163.0" text="Horario" />
+          <TableColumn fx:id="colEstudiante" editable="false" prefWidth="367.0" sortable="false" style="-fx-alignment: CENTER-LEFT;" text="Estudiante" />
+          <TableColumn fx:id="colHorario" editable="false" prefWidth="138.0" resizable="false" sortable="false" text="Horario">
+               <columns>
+                  <TableColumn fx:id="colHoras" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="Horas" />
+                  <TableColumn fx:id="colMinutos" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="Minutos" />
+               </columns></TableColumn>
         </columns>
       </TableView>
       <Button layoutX="478.0" layoutY="301.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
