@@ -11,5 +11,8 @@ public interface ISesionDeTutoriaAcademicaDAO {
     public boolean agregarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException;
     public boolean eliminarSesionDeTutoriaAcademicaPorId(int idSesionDeTutoriaAcademica) throws SQLException;
     public boolean modificarFechaDeSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException;
+
+    boolean modificarFechaDeCierreDeEntregaDeReporte(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException;
+
     public List<SesionDeTutoriaAcademica> obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(int idPeriodoEscolar) throws SQLException;
 }

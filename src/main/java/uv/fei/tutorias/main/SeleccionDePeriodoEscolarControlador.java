@@ -38,7 +38,7 @@ public class SeleccionDePeriodoEscolarControlador implements Initializable {
                 "No hay periodos escolares registrados",
                 Alert.AlertType.ERROR);
             UtilidadVentana.cerrarVentana(new ActionEvent());
-            
+
         } else {
             this.cbPeriodosEscolares.setItems(periodosEscolares);
             this.cbPeriodosEscolares.getSelectionModel().selectFirst();

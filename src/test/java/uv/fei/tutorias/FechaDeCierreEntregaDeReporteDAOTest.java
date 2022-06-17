@@ -3,6 +3,7 @@ package uv.fei.tutorias;
 import uv.fei.tutorias.bussinesslogic.FechaDeCierreEntregaDeReporteDAO;
 import uv.fei.tutorias.domain.FechaDeCierreEntregaDeReporte;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
     
     @Before
     public void inicializar() {
-        fechaNueva = new Date();
+        fechaNueva = (Date) java.sql.Date.valueOf(LocalDate.of(2016, 8, 19));
         fechaDeCierreNueva = new FechaDeCierreEntregaDeReporte(fechaNueva);
         fecha1 = new Date();
         fechaDeCierre1 = new FechaDeCierreEntregaDeReporte(1,fecha1);
@@ -45,7 +46,7 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
 
     @Test
     public void testAgregarFechaDeCierreEntregaDeReporte() throws SQLException {
-        assertTrue(fechaDeCierreDAO.agregarFechaDeCierreEntregaDeReporte(fechaDeCierreNueva));
+        assertEquals(fechaDeCierreDAO.agregarFechaDeCierreEntregaDeReporte(fechaDeCierreNueva),3);
     }
 
     @Test

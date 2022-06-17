@@ -77,13 +77,12 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
     @Override
     public boolean agregarSesionDeTutoriaAcademica(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
         boolean resultado = false;
-        String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar,idFechaDeCierreEntregaDeReporte) VALUES (?,?,?)";
+        String consulta = "INSERT INTO sesion_de_tutoria_academica (fecha,idPeriodoEscolar) VALUES (?,?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getFecha());
             sentencia.setInt(2, sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-            sentencia.setInt(3, sesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas != 0) {
                 resultado = true;
@@ -129,6 +128,30 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getFecha());
+            sentencia.setInt(2, sesionDeTutoriaAcademica.getId());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas != 0) {
+                resultado = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return resultado;
+    }
+    @Override
+    public boolean modificarFechaDeCierreDeEntregaDeReporte(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) throws SQLException {
+        boolean resultado = false;
+        String consulta =
+                "UPDATE sesion_de_tutoria_academica " +
+                "SET idFechaCierreEntregaReporte = ? " +
+                "WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1,  sesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte());
             sentencia.setInt(2, sesionDeTutoriaAcademica.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas != 0) {

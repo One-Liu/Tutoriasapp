@@ -38,6 +38,19 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
 
     @FXML
     private void clicRegistrarFechasDeCierreParaLaEntregaDeReporte(ActionEvent actionEvent) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistrarFechasDeCierreParaLaEntregaDeReporte.fxml"));
+            Parent raiz = cargadorFXML.load();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Consultar oferta academica");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException ioException) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
     }
 
     @FXML

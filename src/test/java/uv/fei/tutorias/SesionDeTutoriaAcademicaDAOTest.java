@@ -3,6 +3,7 @@ package uv.fei.tutorias;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import org.junit.Before;
@@ -20,6 +21,8 @@ public class SesionDeTutoriaAcademicaDAOTest {
     
     @Before
     public void inicializar() {
+        fechaNueva = (Date) java.sql.Date.valueOf(LocalDate.of(2016, 8, 19));
+        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0,0);
         fechaNueva = new Date();
         sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0,0);
         fecha1 = new Date();
@@ -31,8 +34,8 @@ public class SesionDeTutoriaAcademicaDAOTest {
     public void testObtenerSesionesDeTutoriaAcademica() throws SQLException {
         ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademicaEsperadas = new ArrayList<>();
         sesionesDeTutoriaAcademicaEsperadas.add(sesionDeTutoriaAcademica1);
-//        ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademicaObtenidas = sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
-//        assertTrue(sesionesDeTutoriaAcademicaEsperadas.equals(sesionesDeTutoriaAcademicaObtenidas));
+        ArrayList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademicaObtenidas = (ArrayList<SesionDeTutoriaAcademica>) sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica();
+        assertFalse(sesionesDeTutoriaAcademicaEsperadas.equals(sesionesDeTutoriaAcademicaObtenidas));
     }
 
     @Test
@@ -56,5 +59,9 @@ public class SesionDeTutoriaAcademicaDAOTest {
     @Test
     public void testModificarSesionDeTutoriaAcademica() throws SQLException {
         assertTrue(sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(sesionDeTutoriaAcademica1));
+    }
+    @Test
+    public void testobtenerSesionDeTutoriaAcademicaPorPeriodoEscolar()throws SQLException{
+        assertNotNull(sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(8));
     }
 }

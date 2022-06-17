@@ -1,10 +1,6 @@
 package uv.fei.tutorias.bussinesslogic;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -69,16 +65,20 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
     }
 
     @Override
-    public boolean agregarFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) throws SQLException {
-        boolean resultado = false;
+    public int agregarFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) throws SQLException {
+        int id;
         String consulta = "INSERT INTO fecha_cierre_entrega_reporte (fecha) VALUES (?)";
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            PreparedStatement sentencia = conexion.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
             sentencia.setDate(1, (Date) fechaDeCierreEntregaDeReporte.getFecha());
             int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
+            ResultSet resultSet = sentencia.getGeneratedKeys();
+            if(columnasAfectadas == 0) {
+                id = -1;
+            }else {
+                resultSet.next();
+                id=resultSet.getInt(1);
             }
         } catch(SQLException excepcionSQL) {
             LOGGER.warn(getClass().getName(), excepcionSQL);
@@ -86,7 +86,7 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         } finally {
             baseDeDatos.cerrarConexion();
         }
-        return resultado;
+        return id;
     }
 
     @Override
