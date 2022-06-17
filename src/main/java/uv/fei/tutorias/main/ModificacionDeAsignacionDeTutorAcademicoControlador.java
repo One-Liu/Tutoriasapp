@@ -26,9 +26,6 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     @FXML
     private ComboBox<TutorAcademico> cbTutoresAcademicos;
     
-    private final EstudianteDAO estudianteDAO = new EstudianteDAO();
-    private final TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
-    
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     
     private TutorAcademico tutorAcademicoAnterior = new TutorAcademico();
@@ -37,6 +34,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     private Estudiante estudiante = new Estudiante();
     
     public void cargarDatos() throws SQLException {
+        TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
         this.tutorAcademicoAnterior = tutorAcademicoDAO.obtenerTutorAcademicoPorId(this.estudiante.getIdTutorAcademico());
         this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicosDistintosA(this.estudiante.getIdTutorAcademico()));
     }
@@ -87,6 +85,7 @@ public class ModificacionDeAsignacionDeTutorAcademicoControlador implements Init
     
     @FXML
     private void clicGuardar(ActionEvent evento) {
+        EstudianteDAO estudianteDAO = new EstudianteDAO();
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
         this.estudiante.setIdTutorAcademico(tutorAcademicoSeleccionado.getIdTutorAcademico());
         
