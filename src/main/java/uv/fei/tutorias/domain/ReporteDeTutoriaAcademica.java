@@ -7,20 +7,17 @@ public class ReporteDeTutoriaAcademica {
     private String descripcionGeneral;
     private int idSesionDeTutoriaAcademica;
     private int idTutorAcademico;
-    private int idFechaCierreEntregaReporte;
 
-    public ReporteDeTutoriaAcademica(String descripcionGeneral, int idSesionDeTutoriaAcademica, int idTutorAcademico, int idFechaCierreEntregaReporte) {
+    public ReporteDeTutoriaAcademica(String descripcionGeneral, int idSesionDeTutoriaAcademica, int idTutorAcademico) {
         this.descripcionGeneral = descripcionGeneral;
         this.idSesionDeTutoriaAcademica = idSesionDeTutoriaAcademica;
         this.idTutorAcademico = idTutorAcademico;
-        this.idFechaCierreEntregaReporte = idFechaCierreEntregaReporte;
     }
 
     public ReporteDeTutoriaAcademica() {
         this.descripcionGeneral = "";
         this.idSesionDeTutoriaAcademica = 0;
         this.idTutorAcademico = 0;
-        this.idFechaCierreEntregaReporte = 0;
     }
 
     public int getId() {
@@ -55,26 +52,18 @@ public class ReporteDeTutoriaAcademica {
         this.idTutorAcademico = idTutorAcademico;
     }
 
-    public int getIdFechaCierreEntregaReporte() {
-        return idFechaCierreEntregaReporte;
-    }
-
-    public void setIdFechaCierreEntregaReporte(int idFechaCierreEntregaReporte) {
-        this.idFechaCierreEntregaReporte = idFechaCierreEntregaReporte;
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ReporteDeTutoriaAcademica)) return false;
-
-        ReporteDeTutoriaAcademica that = (ReporteDeTutoriaAcademica) o;
-
-        if (getId() != that.getId()) return false;
-        if (getIdSesionDeTutoriaAcademica() != that.getIdSesionDeTutoriaAcademica()) return false;
-        if (getIdTutorAcademico() != that.getIdTutorAcademico()) return false;
-        if (getIdFechaCierreEntregaReporte() != that.getIdFechaCierreEntregaReporte()) return false;
-        return getDescripcionGeneral() != null ? getDescripcionGeneral().equals(that.getDescripcionGeneral()) : that.getDescripcionGeneral() == null;
+    public boolean equals(Object obj) {
+        if(obj instanceof ReporteDeTutoriaAcademica) {
+            ReporteDeTutoriaAcademica tmpReporteDeTutoriaAcademica = (ReporteDeTutoriaAcademica)obj;
+            if(this.id == tmpReporteDeTutoriaAcademica.getId()
+                && this.descripcionGeneral.equals(tmpReporteDeTutoriaAcademica.getDescripcionGeneral())
+                && this.idSesionDeTutoriaAcademica == tmpReporteDeTutoriaAcademica.getIdSesionDeTutoriaAcademica()
+                && this.idTutorAcademico == tmpReporteDeTutoriaAcademica.getIdTutorAcademico()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -84,7 +73,6 @@ public class ReporteDeTutoriaAcademica {
                 ", descripcionGeneral='" + descripcionGeneral + '\'' +
                 ", idSesionDeTutoriaAcademica=" + idSesionDeTutoriaAcademica +
                 ", idTutorAcademico=" + idTutorAcademico +
-                ", idFechaCierreEntregaReporte=" + idFechaCierreEntregaReporte +
                 '}';
     }
 }

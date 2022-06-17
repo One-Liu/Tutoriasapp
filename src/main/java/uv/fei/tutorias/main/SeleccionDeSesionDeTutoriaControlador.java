@@ -2,6 +2,7 @@ package uv.fei.tutorias.main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import lombok.Setter;
+import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
@@ -24,8 +26,11 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     
     @Setter
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
+    @Setter
+    private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
     
     public void cargarCamposGUI() {
+        // No se hacen las validaciones ya que se validó que haya sesiones de tutoría en la ventana que llama a esta
         this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
         this.cbFechasDeSesionDeTutoria.getSelectionModel().selectFirst();
         this.cbFechasDeSesionDeTutoria.setConverter(new StringConverter<SesionDeTutoriaAcademica>() {
@@ -43,7 +48,6 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarCamposGUI();
     }    
     
     @FXML
@@ -60,6 +64,7 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
             Parent raiz = cargadorFXML.load();
             ModificacionDeFechaDeEntregaDeReporteControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaSeleccionada);
+            controladorGUI.setPeriodoEscolar(periodoEscolar);
             controladorGUI.cargarDatos();
             controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
@@ -72,6 +77,8 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
             UtilidadVentana.cerrarVentana(evento);
         } catch(IOException ioException) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
 

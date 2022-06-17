@@ -22,9 +22,11 @@ public class SesionDeTutoriaAcademicaDAOTest {
     @Before
     public void inicializar() {
         fechaNueva = (Date) java.sql.Date.valueOf(LocalDate.of(2016, 8, 19));
-        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0);
+        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0,0);
+        fechaNueva = new Date();
+        sesionDeTutoriaAcademicaNueva = new SesionDeTutoriaAcademica(fechaNueva,false,0,0);
         fecha1 = new Date();
-        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica(1,fecha1,false,1);
+        sesionDeTutoriaAcademica1 = new SesionDeTutoriaAcademica(1,fecha1,false,1,0);
         sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
     }
 

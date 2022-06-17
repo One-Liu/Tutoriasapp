@@ -47,39 +47,32 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     @Setter
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
 
-    public void cargarDatos() {
-        try {
-            this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId()));
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        } finally {
-            if(sesionesDeTutoriaAcademica.isEmpty()) {
-                UtilidadVentana.mostrarAlertaSinConfirmacion(
-                    "Periodo escolar sin fechas registradas",
-                    "El periodo escolar seleccionado aún no tiene ninguna fecha de sesión de tutoría registrada",
-                    Alert.AlertType.ERROR);
-                UtilidadVentana.cerrarVentana(new ActionEvent());
-
-            } else {
-                cargarCamposGUI();
-            }
-        }
+    public void cargarDatos() throws SQLException {
+        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(periodoEscolar.getId()));
     }
 
     public void cargarCamposGUI() {
-        this.primeraSesionDeTutoriaAcademica = sesionesDeTutoriaAcademica.get(0);
-        this.segundaSesionDeTutoriaAcademica = sesionesDeTutoriaAcademica.get(1);
-        this.terceraSesionDeTutoriaAcademica = sesionesDeTutoriaAcademica.get(2);
+        if(sesionesDeTutoriaAcademica.isEmpty()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Sesiones de tutoria académica",
+                "El periodo escolar seleccionado aún no tiene ninguna sesión de tutoría registrada",
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
 
-        this.lblPeriodoEscolar.setText(this.periodoEscolar.getFechas());
-        this.dpPrimeraSesion.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(primeraSesionDeTutoriaAcademica.getFecha())));
-        this.dpSegundaSesion.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(segundaSesionDeTutoriaAcademica.getFecha())));
-        this.dpTerceraSesion.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(terceraSesionDeTutoriaAcademica.getFecha())));
+        } else {
+            this.primeraSesionDeTutoriaAcademica = sesionesDeTutoriaAcademica.get(0);
+            this.segundaSesionDeTutoriaAcademica = sesionesDeTutoriaAcademica.get(1);
+            this.terceraSesionDeTutoriaAcademica = sesionesDeTutoriaAcademica.get(2);
+
+            this.lblPeriodoEscolar.setText(this.periodoEscolar.getFechas());
+            this.dpPrimeraSesion.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(primeraSesionDeTutoriaAcademica.getFecha())));
+            this.dpSegundaSesion.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(segundaSesionDeTutoriaAcademica.getFecha())));
+            this.dpTerceraSesion.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(terceraSesionDeTutoriaAcademica.getFecha())));
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarCamposGUI();
     }
 
     @FXML
@@ -89,6 +82,7 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
             Parent raiz = cargadorFXML.load();
             SeleccionDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setSesionesDeTutoriaAcademica(sesionesDeTutoriaAcademica);
+            controladorGUI.setPeriodoEscolar(periodoEscolar);
             controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();

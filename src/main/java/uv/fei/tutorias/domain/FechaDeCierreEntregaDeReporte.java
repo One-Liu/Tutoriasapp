@@ -11,7 +11,7 @@ public class FechaDeCierreEntregaDeReporte {
 
     public FechaDeCierreEntregaDeReporte() {
         this.id = 0;
-        this.fecha = new Date();
+        this.fecha = null;
     }
 
     public FechaDeCierreEntregaDeReporte(Date fecha) {
@@ -57,4 +57,14 @@ public class FechaDeCierreEntregaDeReporte {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "FechaDeCierreEntregaDeReporte{" + 
+            "id=" + id + 
+            ", fecha=" + fecha + 
+            '}';
+    }
+    
+    
 }

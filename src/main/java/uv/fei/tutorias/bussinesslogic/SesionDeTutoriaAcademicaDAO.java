@@ -62,13 +62,15 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         Date fecha;
         boolean ocurrio;
         int idPeriodoEscolar;
+        int idFechaDeCierreEntregaDeReporte;
         
         idSesionDeTutoriaAcademica = resultado.getInt("id");
         fecha = resultado.getDate("fecha");
         ocurrio = resultado.getBoolean("ocurrio");
         idPeriodoEscolar = resultado.getInt("idPeriodoEscolar");
+        idFechaDeCierreEntregaDeReporte = resultado.getInt("idFechaCierreEntregaReporte");
         
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,(java.util.Date) fecha, ocurrio,idPeriodoEscolar);
+        SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica(idSesionDeTutoriaAcademica,(java.util.Date) fecha, ocurrio,idPeriodoEscolar, idFechaDeCierreEntregaDeReporte);
         return sesionDeTutoriaAcademica;
     }
 
@@ -149,7 +151,7 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         ConexionBD baseDeDatos = new ConexionBD();
         try(Connection conexion = baseDeDatos.abrirConexion()) {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setDate(1, (Date) sesionDeTutoriaAcademica.getidFecha());
+            sentencia.setInt(1,  sesionDeTutoriaAcademica.getIdFechaDeCierreEntregaDeReporte());
             sentencia.setInt(2, sesionDeTutoriaAcademica.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas != 0) {

@@ -9,24 +9,26 @@ import uv.fei.tutorias.domain.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 
-public class SingnUpController implements Initializable {
+public class SignUpController implements Initializable {
+    
+    @FXML
+    private TextField tfNombre;
+    @FXML
+    private TextField tfApellidoPaterno;
+    @FXML
+    private TextField tfApellidoMaterno;
+    @FXML
+    private TextField tfCorreoInstitucional;
+    @FXML
+    private ComboBox<String> cbTipoDeUsuario;
 
-    @FXML
-    private PasswordField pastxtcontrasena;
-    @FXML
-    private TextField nombre;
-    @FXML
-    private TextField apellidoMaterno;
-    @FXML
-    private TextField apellidoPaterno;
-    @FXML
-    private TextField correoInstitucional;
-    @FXML
-    private ComboBox<String> tipo;
-
-
-    @FXML
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        cbTipoDeUsuario.getItems().setAll("Tutor academico",  "Coordinador", "Jefe de carrera");
+    }
+    
 //    protected void onOkButton() throws SQLException {
 //        Alert alert = new Alert(Alert.AlertType.ERROR);
 //        String value = (String) tipo.getValue();
@@ -73,35 +75,53 @@ public class SingnUpController implements Initializable {
 //
 //    }
 
-    public boolean camposVacios(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        boolean bandera = true;
-        if (nombre.getText().trim().isEmpty()){
-            UtilidadVentana.mostrarAlertaSinConfirmacion("Error","El campo nombre esta vacio", Alert.AlertType.ERROR);
-        }else if (apellidoPaterno.getText().trim().isEmpty()){
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Error apellido paterno vacio");
-            alert.showAndWait();
-        }else if (apellidoMaterno.getText().trim().isEmpty()){
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Error apellido materno");
-            alert.showAndWait();
-        }else if (correoInstitucional.getText().trim().isEmpty()){
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Error correo institucional vacio");
-            alert.showAndWait();
-        }else {
-            bandera = false;
+    public boolean camposLlenos(){
+        boolean camposLlenos = true;
+        if (this.tfNombre.getText().trim().isBlank()
+            || this.tfApellidoPaterno.getText().trim().isBlank()
+            || this.tfApellidoMaterno.getText().trim().isBlank()
+            || this.tfCorreoInstitucional.getText().trim().isBlank()){
+            camposLlenos = false;
         }
-        return bandera;
+        return camposLlenos;
     }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        tipo.getItems().setAll("Jefe de carrera",  "Coordinador", "Tutor academico");
+    /*
+    @FXML
+    private void clicRegistrar() {
+        if(camposLlenos()) {
+            String nombre = this.tfNombre.getText();
+            String apellidoPaterno = this.tfApellidoPaterno.getText();
+            String apellidoMaterno = this.tfApellidoMaterno.getText();
+            String correoInstitucional = this.tfCorreoInstitucional.getText();
+            
+            Persona persona = new Persona(nombre, apellidoPaterno, apellidoMaterno);
+            Usuario usuario = new Usuario(pastxtcontrasena.getText(),correoInstitucional.getText());
+            PersonaDAO personaDAO = new PersonaDAO();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            
+            switch(cbTipoDeUsuario.getValue()) {
+                case "Tutor académico":
+                    TutorAcademicoDAO tutorAcademicoDAO= new TutorAcademicoDAO();
+                    TutorAcademico tutorAcademico = new TutorAcademico(persona);
+                    tutorAcademico.setIdPersona(personaDAO.agregarPersona(persona));
+                    tutorAcademico.setIdUsuario(usuarioDAO.addUsuarioReturnId(usuario));
+                    tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
+                    break;
+                case "Coordinador":
+                    break;
+                case "Jefe de carrera":
+                    break;
+            }
+        } else {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Campos vacíos",
+                "No puede haber campos vacíos", 
+                Alert.AlertType.ERROR);
+        }
+    }
+    */
+    @FXML
+    private void clicCancelar(ActionEvent evento) {
+        UtilidadVentana.cerrarVentana(evento);
     }
 }

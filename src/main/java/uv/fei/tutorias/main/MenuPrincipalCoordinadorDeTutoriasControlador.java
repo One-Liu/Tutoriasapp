@@ -1,6 +1,7 @@
 package uv.fei.tutorias.main;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,6 +79,9 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDePeriodoEscolar.fxml"));
             Parent raiz = cargadorFXML.load();
+            SeleccionDePeriodoEscolarControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -87,6 +91,8 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.showAndWait();
         } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
 
@@ -112,6 +118,9 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIAsignacionDeTutorAcademico.fxml"));
             Parent raiz = cargadorFXML.load();
+            AsignacionDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -121,6 +130,8 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.showAndWait();
         } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
@@ -129,6 +140,9 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeEstudiante.fxml"));
             Parent raiz = cargadorFXML.load();
+            ModificacionDeAsignacionDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -138,6 +152,8 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.showAndWait();
         } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     
