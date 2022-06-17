@@ -37,7 +37,7 @@ public class RegistroDeHorarioDeSesionDeTutoriaControlador implements Initializa
     @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
-    private void cargarDatos() throws SQLException {
+    public void cargarDatos() throws SQLException {
         EstudianteDAO estudianteDAO = new EstudianteDAO();
         ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
         estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico()));
@@ -51,7 +51,7 @@ public class RegistroDeHorarioDeSesionDeTutoriaControlador implements Initializa
         }
     }
     
-    private void cargarCamposGUI() {
+    public void cargarCamposGUI() {
         this.lblFechaDeSesionDeTutoria.setText(this.sesionDeTutoriaAcademica.getFechaConFormato());
         
         this.colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));

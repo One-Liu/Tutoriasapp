@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import uv.fei.tutorias.domain.TutorAcademico;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,8 +28,11 @@ public class MenuPrincipalDeTutorAcademicoControlador {
     @FXML
     private void clicRegistrarHorariosDeSesionDeTutoria() {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUISeleccionDeSesionDeTutoria.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSesionDeTutoria_RegistroDeHorarioDeSesionDeTutoria.fxml"));
             Parent raiz = cargadorFXML.load();
+            SeleccionDeSesionDeTutoria_RegistroDeHorarioDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -38,6 +42,8 @@ public class MenuPrincipalDeTutorAcademicoControlador {
             escenario.showAndWait();
         } catch(IOException ioException) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
     

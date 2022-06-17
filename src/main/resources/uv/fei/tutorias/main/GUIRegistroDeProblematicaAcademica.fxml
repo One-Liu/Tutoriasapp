@@ -18,8 +18,8 @@
       <Label layoutX="14.0" layoutY="80.0" text="Estudiantes que presentan la problemática:" />
       <TableView fx:id="tblEstudiante_Presenta" layoutX="14.0" layoutY="100.0" prefHeight="290.0" prefWidth="315.0">
         <columns>
-          <TableColumn fx:id="colEstudiante" minWidth="0.0" prefWidth="258.0" sortable="false" text="Estudiante" />
-          <TableColumn fx:id="colPresenta" minWidth="0.0" prefWidth="55.0" sortable="false" style="-fx-alignment: CENTER;" text="Presenta" />
+          <TableColumn fx:id="colEstudiante" editable="false" minWidth="0.0" prefWidth="258.0" sortable="false" text="Estudiante" />
+          <TableColumn fx:id="colPresenta" editable="false" minWidth="0.0" prefWidth="55.0" sortable="false" style="-fx-alignment: CENTER;" text="Presenta" />
         </columns>
       </TableView>
       <Label layoutX="341.0" layoutY="80.0" text="Problemática académica:" />
