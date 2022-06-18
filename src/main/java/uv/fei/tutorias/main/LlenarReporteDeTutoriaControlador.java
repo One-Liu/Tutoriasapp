@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.AnchorPane;
+import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.*;
 import uv.fei.tutorias.domain.*;
 
@@ -35,6 +36,10 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
     private Label lblFecha;
     @FXML
     private Label lblPeriodo;
+    @Setter
+    PeriodoEscolar periodoEscolar;
+    @Setter
+    SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
 
     public void actEnviar(ActionEvent actionEvent) {
 //        agregar reporte general
