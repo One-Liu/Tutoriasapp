@@ -186,4 +186,24 @@ public class SesionDeTutoriaAcademicaDAO implements ISesionDeTutoriaAcademicaDAO
         }
         return sesionesDeTutoriaAcademica;
     }
+    
+    @Override
+    public List<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademicaSinOcurrir() throws SQLException {
+        List<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = new ArrayList<>();
+        String consulta = "SELECT * FROM sesion_de_tutoria_academica WHERE ocurrio = 0";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            ResultSet resultado = sentencia.executeQuery();
+            while(resultado.next()) {
+                sesionesDeTutoriaAcademica.add(getSesionDeTutoriaAcademica(resultado));
+            }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return sesionesDeTutoriaAcademica;
+    }
 }

@@ -13,4 +13,5 @@ public interface IListaDeAsistenciaDAO {
     public boolean agregarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException;
     public boolean eliminarListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException;
     public boolean modificarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException;
+    public boolean validarRegistroDeListasDeAsistencia(int idTutorAcademico, int idSesionDeTutoriaAcademica) throws SQLException;
 }

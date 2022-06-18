@@ -56,87 +56,78 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
     @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
 
-    private void cargarDatos() {
+    private void cargarDatos() throws SQLException {
         ProfesorDAO profesorDAO = new ProfesorDAO();
         ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
         EstudianteDAO estudianteDAO = new EstudianteDAO();
 
-        try {
-            this.profesores.addAll(profesorDAO.obtenerProfesores());
-            this.experienciasEducativas.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
+        this.profesores.addAll(profesorDAO.obtenerProfesores());
+        this.experienciasEducativas.addAll(experienciaEducativaDAO.obtenerExperienciasEducativas());
 
-            ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
-            estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico()));
-            TablaEstudiante_Presenta visualizacionEstudiante;
-            for(Estudiante estudiante : estudiantesObtenidos) {
-                visualizacionEstudiante = new TablaEstudiante_Presenta();
-                visualizacionEstudiante.setEstudiante(estudiante);
-                this.estudiantesDelTutorAcademico.add(visualizacionEstudiante);
-            }
-
-            if(profesores.isEmpty()) {
-                UtilidadVentana.mostrarAlertaSinConfirmacion(
-                    "No hay profesores registrados",
-                    "No se han encontrado profesores registrados en el sistema",
-                    Alert.AlertType.ERROR);
-                UtilidadVentana.cerrarVentana(new ActionEvent());
-            } else if(experienciasEducativas.isEmpty()) {
-                UtilidadVentana.mostrarAlertaSinConfirmacion(
-                    "No hay experiencias educativas registradas",
-                    "No se han encontrado experiencias educativas registradas en el sistema",
-                    Alert.AlertType.ERROR);
-                UtilidadVentana.cerrarVentana(new ActionEvent());
-            } else {
-                cargarCamposGUI();
-            }
-        } catch(SQLException excepcionSQL) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-            UtilidadVentana.cerrarVentana(new ActionEvent());
+        ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
+        estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico()));
+        TablaEstudiante_Presenta visualizacionEstudiante;
+        for(Estudiante estudiante : estudiantesObtenidos) {
+            visualizacionEstudiante = new TablaEstudiante_Presenta();
+            visualizacionEstudiante.setEstudiante(estudiante);
+            this.estudiantesDelTutorAcademico.add(visualizacionEstudiante);
         }
     }
 
-    private void inicializarColumnasDeTabla() {
-        colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));
-        colPresenta.setCellValueFactory(new PropertyValueFactory("presenta"));
-    }
-
     private void cargarCamposGUI() {
-        this.cbProfesores.setItems(profesores);
-        this.cbProfesores.getSelectionModel().selectFirst();
-        this.cbProfesores.setConverter(new StringConverter<Profesor>() {
-            @Override
-            public String toString(Profesor profesor) {
-                return profesor == null ? null : "(" + profesor.getIdProfesor() + ") " + profesor.getNombreCompleto();
-            }
+        if(profesores.isEmpty()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "No hay profesores registrados",
+                "No se han encontrado profesores registrados en el sistema",
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
 
-            @Override
-            public Profesor fromString(String string) {
-                throw new UnsupportedOperationException("Operación no soportada");
-            }
-        });
+        } else if(experienciasEducativas.isEmpty()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "No hay experiencias educativas registradas",
+                "No se han encontrado experiencias educativas registradas en el sistema",
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
 
-        this.cbExperienciasEducativas.setItems(experienciasEducativas);
-        this.cbExperienciasEducativas.getSelectionModel().selectFirst();
-        this.cbExperienciasEducativas.setConverter(new StringConverter<ExperienciaEducativa>() {
-            @Override
-            public String toString(ExperienciaEducativa experienciaEducativa) {
-                return experienciaEducativa == null ? null : "(" + experienciaEducativa.getNrc() + ") " + experienciaEducativa.getNombre();
-            }
+        } else {
+            this.cbProfesores.setItems(profesores);
+            this.cbProfesores.getSelectionModel().selectFirst();
+            this.cbProfesores.setConverter(new StringConverter<Profesor>() {
+                @Override
+                public String toString(Profesor profesor) {
+                    return profesor == null ? null : "(" + profesor.getIdProfesor() + ") " + profesor.getNombreCompleto();
+                }
 
-            @Override
-            public ExperienciaEducativa fromString(String string) {
-                throw new UnsupportedOperationException("Operación no soportada");
-            }
-        });
+                @Override
+                public Profesor fromString(String string) {
+                    throw new UnsupportedOperationException("Operación no soportada");
+                }
+            });
 
-        inicializarColumnasDeTabla();
-        this.tblEstudiante_Presenta.setItems(estudiantesDelTutorAcademico);
-        this.tblEstudiante_Presenta.getSelectionModel().clearSelection();
+            this.cbExperienciasEducativas.setItems(experienciasEducativas);
+            this.cbExperienciasEducativas.getSelectionModel().selectFirst();
+            this.cbExperienciasEducativas.setConverter(new StringConverter<ExperienciaEducativa>() {
+                @Override
+                public String toString(ExperienciaEducativa experienciaEducativa) {
+                    return experienciaEducativa == null ? null : "(" + experienciaEducativa.getNrc() + ") " + experienciaEducativa.getNombre();
+                }
+
+                @Override
+                public ExperienciaEducativa fromString(String string) {
+                    throw new UnsupportedOperationException("Operación no soportada");
+                }
+            });
+
+            colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));
+            colPresenta.setCellValueFactory(new PropertyValueFactory("presenta"));
+
+            this.tblEstudiante_Presenta.setItems(estudiantesDelTutorAcademico);
+            this.tblEstudiante_Presenta.getSelectionModel().clearSelection();
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarCamposGUI();
     }
 
     private boolean validarCamposLlenos() {
@@ -154,16 +145,13 @@ public class RegistroDeProblematicaAcademicaControlador implements Initializable
                 CheckBox presentaProblematica = tablaEstudiante_Presenta.getPresenta();
 
                 if(presentaProblematica.isSelected()) {
+                    UtilidadVentana.mostrarAlertaSinConfirmacion(
+                        "No hay estudiante seleccionado",
+                        "Debe haber al menos un estudiante seleccionado para registrar la problemática académica",
+                        Alert.AlertType.WARNING);
                     camposLlenos = true;
                     break;
                 }
-            }
-
-            if(!camposLlenos) {
-                UtilidadVentana.mostrarAlertaSinConfirmacion(
-                    "No hay estudiante seleccionado",
-                    "Debe haber al menos un estudiante seleccionado para registrar la problemática académica",
-                    Alert.AlertType.WARNING);
             }
         }
 

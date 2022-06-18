@@ -8,10 +8,10 @@ import javafx.scene.control.SpinnerValueFactory;
 public class TablaEstudiante_Horario {
 
     private Estudiante estudiante;
-    private ObservableList<String> horas = FXCollections.observableArrayList(
+    private static final ObservableList<String> HORAS = FXCollections.observableArrayList(
         "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", 
         "15", "16", "17", "18", "19", "20", "21", "22", "23");
-    private ObservableList<String> minutos = FXCollections.observableArrayList(
+    private static final ObservableList<String> MINUTOS = FXCollections.observableArrayList(
         "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", 
         "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", 
         "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", 
@@ -23,13 +23,13 @@ public class TablaEstudiante_Horario {
         this.estudiante = new Estudiante();
 
         this.hora = new Spinner<>();
-        SpinnerValueFactory<String> valoresDeSpinnerHora = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.unmodifiableObservableList(horas));
+        SpinnerValueFactory<String> valoresDeSpinnerHora = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.unmodifiableObservableList(HORAS));
         valoresDeSpinnerHora.setValue("00");
         this.hora.setValueFactory(valoresDeSpinnerHora);
         this.hora.setEditable(true);
 
         this.minuto = new Spinner<>();
-        SpinnerValueFactory<String> valoresDeSpinnerMinuto = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.unmodifiableObservableList(minutos));
+        SpinnerValueFactory<String> valoresDeSpinnerMinuto = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.unmodifiableObservableList(MINUTOS));
         valoresDeSpinnerMinuto.setValue("00");
         this.minuto.setValueFactory(valoresDeSpinnerMinuto);
         this.minuto.setEditable(true);
@@ -54,11 +54,12 @@ public class TablaEstudiante_Horario {
     public Spinner<String> getMinuto() {
         return minuto;
     }
-
-    @Override
-    public String toString() {
-        return "TablaEstudiante_Horario{" + "estudiante=" + estudiante.getNombreCompleto() + ", horas=" + horas + ", minutos=" + minutos + ", hora=" + hora + ", minuto=" + minuto + '}';
+    
+    public ObservableList<String> getHORAS() {
+        return TablaEstudiante_Horario.HORAS;
     }
     
-    
+    public ObservableList<String> getMINUTOS() {
+        return TablaEstudiante_Horario.MINUTOS;
+    }
 }

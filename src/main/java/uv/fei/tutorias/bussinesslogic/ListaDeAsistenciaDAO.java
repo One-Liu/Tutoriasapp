@@ -174,4 +174,28 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
         }
         return resultado;
     }
+    
+    @Override
+    public boolean validarRegistroDeListasDeAsistencia(int idTutorAcademico, int idSesionDeTutoriaAcademica) throws SQLException {
+        boolean listasDeAsistenciaRegistradas = false;
+        String consulta = "SELECT LDA.id " +
+            "FROM lista_de_asistencia LDA INNER JOIN estudiante E ON E.id = LDA.idEstudiante " +
+            "WHERE E.idTutorAcademico = ? AND LDA.idSesionDeTutoriaAcademica = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idTutorAcademico);
+            sentencia.setInt(2, idSesionDeTutoriaAcademica);
+            ResultSet resultado = sentencia.executeQuery();
+            if(resultado.next()) {
+                listasDeAsistenciaRegistradas = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return listasDeAsistenciaRegistradas;
+    }
 }
