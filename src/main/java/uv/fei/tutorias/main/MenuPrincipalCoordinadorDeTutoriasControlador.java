@@ -114,6 +114,9 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISignUp.fxml"));
             Parent raiz = cargadorFXML.load();
+            SignUpControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -123,6 +126,8 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.showAndWait();
         } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
 

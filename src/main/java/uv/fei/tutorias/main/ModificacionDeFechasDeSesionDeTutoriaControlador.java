@@ -78,9 +78,9 @@ public class ModificacionDeFechasDeSesionDeTutoriaControlador implements Initial
     @FXML
     private void clicModificarFechasDeEntregaDeReporte(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSesionDeTutoria.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSesionDeTutoria_ModificacionDeFechaDeEntregaDeReporte.fxml"));
             Parent raiz = cargadorFXML.load();
-            SeleccionDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
+            SeleccionDeSesionDeTutoria_ModificacionDeFechaDeEntregaDeReporteControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setSesionesDeTutoriaAcademica(sesionesDeTutoriaAcademica);
             controladorGUI.setPeriodoEscolar(periodoEscolar);
             controladorGUI.cargarCamposGUI();

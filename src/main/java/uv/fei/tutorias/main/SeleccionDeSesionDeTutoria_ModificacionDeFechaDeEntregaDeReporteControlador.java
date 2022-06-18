@@ -20,15 +20,16 @@ import lombok.Setter;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
-public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
+public class SeleccionDeSesionDeTutoria_ModificacionDeFechaDeEntregaDeReporteControlador implements Initializable {
+
     @FXML
     private ComboBox<SesionDeTutoriaAcademica> cbFechasDeSesionDeTutoria;
-    
+
     @Setter
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     @Setter
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
-    
+
     public void cargarCamposGUI() {
         // No se hacen las validaciones ya que se validó que haya sesiones de tutoría en la ventana que llama a esta
         this.cbFechasDeSesionDeTutoria.setItems(sesionesDeTutoriaAcademica);
@@ -45,11 +46,11 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
             }
         });
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }    
-    
+    }
+
     @FXML
     private void clicCancelar(ActionEvent evento) {
         UtilidadVentana.cerrarVentana(evento);
@@ -58,7 +59,7 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
     @FXML
     private void clicSeleccionar(ActionEvent evento) {
         SesionDeTutoriaAcademica sesionDeTutoriaAcademicaSeleccionada = this.cbFechasDeSesionDeTutoria.getSelectionModel().getSelectedItem();
-        
+
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeFechaDeEntregaDeReporte.fxml"));
             Parent raiz = cargadorFXML.load();
@@ -81,5 +82,4 @@ public class SeleccionDeSesionDeTutoriaControlador implements Initializable {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
-
 }

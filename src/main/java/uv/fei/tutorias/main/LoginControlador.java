@@ -14,27 +14,26 @@ import uv.fei.tutorias.domain.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.scene.Parent;
+import javafx.scene.control.PasswordField;
 import javafx.stage.Modality;
 
 public class LoginControlador {
     @FXML
-    private TextField txtcorreoInstitucional;
+    private TextField tfCorreoInstitucional;
     @FXML
-    private TextField txtContrasena;
-
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private PasswordField pfContrasena;
     
     private Usuario usuario = new Usuario();
     
     public boolean camposVacios(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         boolean bandera = true;
-        if (txtcorreoInstitucional.getText().trim().isEmpty()){
+        if (tfCorreoInstitucional.getText().trim().isEmpty()){
             alert.setHeaderText(null);
             alert.setTitle("Error");
             alert.setContentText("Error correo institucional vacio");
             alert.showAndWait();
-        }else if (txtContrasena.getText().trim().isEmpty()){
+        }else if (pfContrasena.getText().trim().isEmpty()){
             alert.setHeaderText(null);
             alert.setTitle("Error");
             alert.setContentText("Error contraseña vacia");
@@ -46,6 +45,7 @@ public class LoginControlador {
     }
     
     private void validarTipoDeUsuario(ActionEvent evento) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
         try {
             if (usuarioDAO.estaIdUsuarioEnTutorAcademico(this.usuario.getIdUsuario())) {
                 TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
@@ -87,9 +87,10 @@ public class LoginControlador {
     }
     
     @FXML
-    private void onIngresarBtn(ActionEvent evento) {
+    private void clicIngresar(ActionEvent evento) {
         if(!camposVacios()) {
-            this.usuario = new Usuario(this.txtContrasena.getText(),this.txtcorreoInstitucional.getText());
+            this.usuario = new Usuario(this.pfContrasena.getText(),this.tfCorreoInstitucional.getText());
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             
             try {
                 this.usuario = usuarioDAO.buscarUsuarioPorCorreoYContrasena(this.usuario);

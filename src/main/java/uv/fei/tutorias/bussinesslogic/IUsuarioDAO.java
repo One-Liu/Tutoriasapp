@@ -6,13 +6,15 @@ import java.sql.SQLException;
 
 public interface IUsuarioDAO {
 
-    int agregarUsuario(Usuario usuario) throws SQLException;
+    public int agregarUsuario(Usuario usuario) throws SQLException;
 
-    Usuario buscarUsuarioPorCorreoYContrasena(Usuario usuario) throws SQLException;
+    public Usuario buscarUsuarioPorCorreoYContrasena(Usuario usuario) throws SQLException;
 
-    boolean estaIdUsuarioEnTutorAcademico(int searchId) throws SQLException;
+    public boolean estaIdUsuarioEnTutorAcademico(int searchId) throws SQLException;
 
-    boolean estaIdUsarionEnJefeDeCarrera(int searchId) throws SQLException;
+    public boolean estaIdUsarionEnJefeDeCarrera(int searchId) throws SQLException;
 
-    boolean estaIdUsuarionEnCoordinador(int searchId) throws SQLException;
+    public boolean estaIdUsuarionEnCoordinador(int searchId) throws SQLException;
+    
+    public boolean validarUsuarioRegistrado(String correoInstitucional) throws SQLException;
 }

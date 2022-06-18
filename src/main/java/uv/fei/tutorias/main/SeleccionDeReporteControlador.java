@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,62 +28,71 @@ public class SeleccionDeReporteControlador implements Initializable {
     @FXML
     private ComboBox<SesionDeTutoriaAcademica> cbFechasDeSesionDeTutoriaAcademica;
     
-    private final TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
-    private final SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
-    
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
-    private void cargarDatos() {
-        try {
-            this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
-            this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        }
+    private void cargarDatos() throws SQLException {
+        TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
+        SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
+        this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
+        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
     }
     
     private void cargarCamposGUI() {
-        this.cbTutoresAcademicos.setItems(tutoresAcademicos);
-        this.cbTutoresAcademicos.getSelectionModel().selectFirst();
-        this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
-            @Override
-            public String toString(TutorAcademico tutorAcademico) {
-                return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
-            }
+        if(tutoresAcademicos.isEmpty()) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Tutores académicos", 
+                "No hay tutores académicos registrados", 
+                Alert.AlertType.ERROR);
+           UtilidadVentana.cerrarVentana(new ActionEvent());
+           
+        } else if(sesionesDeTutoriaAcademica.isEmpty()) {
+           UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Sesiones de tutoría académica", 
+                "No hay sesiones de tutoría académica registradas", 
+                Alert.AlertType.ERROR);
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+            
+        } else {
+            this.cbTutoresAcademicos.setItems(tutoresAcademicos);
+            this.cbTutoresAcademicos.getSelectionModel().selectFirst();
+            this.cbTutoresAcademicos.setConverter(new StringConverter<TutorAcademico>() {
+                @Override
+                public String toString(TutorAcademico tutorAcademico) {
+                    return tutorAcademico == null ? null : "(" + tutorAcademico.getIdTutorAcademico() + ") " + tutorAcademico.getNombreCompleto();
+                }
 
-            @Override
-            public TutorAcademico fromString(String string) {
-                throw new UnsupportedOperationException("Método no soportado");
-            }
-        });
-        
-        this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
-        this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().selectFirst();
-        this.cbFechasDeSesionDeTutoriaAcademica.setConverter(new StringConverter<SesionDeTutoriaAcademica>() {
-            @Override
-            public String toString(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
-                return sesionDeTutoriaAcademica == null ? null : sesionDeTutoriaAcademica.getFechaConFormato();
-            }
+                @Override
+                public TutorAcademico fromString(String string) {
+                    throw new UnsupportedOperationException("Método no soportado");
+                }
+            });
 
-            @Override
-            public SesionDeTutoriaAcademica fromString(String string) {
-                throw new UnsupportedOperationException("Método no soportado");
-            }
-        });
+            this.cbFechasDeSesionDeTutoriaAcademica.setItems(sesionesDeTutoriaAcademica);
+            this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().selectFirst();
+            this.cbFechasDeSesionDeTutoriaAcademica.setConverter(new StringConverter<SesionDeTutoriaAcademica>() {
+                @Override
+                public String toString(SesionDeTutoriaAcademica sesionDeTutoriaAcademica) {
+                    return sesionDeTutoriaAcademica == null ? null : sesionDeTutoriaAcademica.getFechaConFormato();
+                }
+
+                @Override
+                public SesionDeTutoriaAcademica fromString(String string) {
+                    throw new UnsupportedOperationException("Método no soportado");
+                }
+            });
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
-        cargarCamposGUI();
     }    
     
     @FXML
     private void clicCancelar(ActionEvent evento) {
         UtilidadVentana.cerrarVentana(evento);
     }
-
+    
     @FXML
     private void clicSeleccionar(ActionEvent evento) {
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();

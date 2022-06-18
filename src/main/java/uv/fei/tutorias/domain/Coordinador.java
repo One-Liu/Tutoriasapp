@@ -9,6 +9,12 @@ public class Coordinador extends Usuario {
         this.idCoordinador = 0;
         this.idProgramaEducativo = 0;
     }
+    
+    public Coordinador(Persona coordinador) {
+        super(coordinador);
+        this.idCoordinador = 0;
+        this.idProgramaEducativo = 0;
+    }
 
     public Coordinador(int idCoordinador, Persona coordinador) {
         super(coordinador);

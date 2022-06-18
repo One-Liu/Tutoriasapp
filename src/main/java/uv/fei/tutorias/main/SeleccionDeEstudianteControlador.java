@@ -25,14 +25,9 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     
     private ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
     
-    private void cargarDatos() {
-        try {
-            EstudianteDAO estudianteDAO = new EstudianteDAO();
-            this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesConTutorAsignado());
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-            UtilidadVentana.cerrarVentana(new ActionEvent());
-        }
+    private void cargarDatos() throws SQLException {
+        EstudianteDAO estudianteDAO = new EstudianteDAO();
+        this.estudiantes.addAll(estudianteDAO.obtenerEstudiantesConTutorAsignado());
     }
     
     private void cargarCamposGUI() {
@@ -53,8 +48,6 @@ public class SeleccionDeEstudianteControlador implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
-        cargarCamposGUI();
     }    
     
     @FXML
