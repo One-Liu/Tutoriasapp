@@ -1,6 +1,7 @@
-package uv.fei.tutorias.domain;
+package uv.fei.tutorias.utilidades;
 
 import javafx.scene.control.CheckBox;
+import uv.fei.tutorias.domain.Estudiante;
 
 public class TablaEstudiante_Presenta {
     private Estudiante estudiante;

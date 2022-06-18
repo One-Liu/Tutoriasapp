@@ -18,7 +18,7 @@ import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
 import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
-import uv.fei.tutorias.domain.TablaEstudiante_Horario;
+import uv.fei.tutorias.utilidades.TablaEstudiante_Horario;
 
 public class RegistroDeHorarioDeSesionDeTutoriaControlador implements Initializable {
     @FXML

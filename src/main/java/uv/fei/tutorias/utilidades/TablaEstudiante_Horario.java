@@ -1,9 +1,10 @@
-package uv.fei.tutorias.domain;
+package uv.fei.tutorias.utilidades;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import uv.fei.tutorias.domain.Estudiante;
 
 public class TablaEstudiante_Horario {
 

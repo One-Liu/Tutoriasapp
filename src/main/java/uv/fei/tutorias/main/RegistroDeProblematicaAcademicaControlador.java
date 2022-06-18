@@ -30,7 +30,7 @@ import uv.fei.tutorias.domain.ExperienciaEducativa;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.Profesor;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
-import uv.fei.tutorias.domain.TablaEstudiante_Presenta;
+import uv.fei.tutorias.utilidades.TablaEstudiante_Presenta;
 
 public class RegistroDeProblematicaAcademicaControlador implements Initializable {
 
