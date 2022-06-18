@@ -23,7 +23,7 @@ import uv.fei.tutorias.bussinesslogic.EstudiantesProblematicasAcademicasDAO;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
-import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
+import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.EstudiantesProblematicasAcademicas;
 import uv.fei.tutorias.domain.ExperienciaEducativa;

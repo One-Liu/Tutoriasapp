@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import uv.fei.tutorias.domain.DatosGlobalesDeSesion;
+import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 
 public class MenuPrincipalDeTutorAcademicoControlador {    
     @FXML

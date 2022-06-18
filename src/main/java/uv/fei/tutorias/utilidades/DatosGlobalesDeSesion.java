@@ -1,6 +1,11 @@
-package uv.fei.tutorias.domain;
+package uv.fei.tutorias.utilidades;
 
 // author @liu
+
+import uv.fei.tutorias.domain.Coordinador;
+import uv.fei.tutorias.domain.JefeDeCarrera;
+import uv.fei.tutorias.domain.TutorAcademico;
+
 public class DatosGlobalesDeSesion {
     private static DatosGlobalesDeSesion instancia;
     private TutorAcademico tutorAcademico;

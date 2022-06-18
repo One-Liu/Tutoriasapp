@@ -1,4 +1,4 @@
-package uv.fei.tutorias.domain;
+package uv.fei.tutorias.utilidades;
 
 public class GeneradorDeContrasena {
 
