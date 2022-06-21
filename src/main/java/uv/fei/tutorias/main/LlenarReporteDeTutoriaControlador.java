@@ -62,7 +62,14 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
 
     public void actEnviar(ActionEvent actionEvent) {
         try {
-            registrarAsistentesyEnRiesgo();
+            if (!datosNulos()){
+                registrarAsistentesyEnRiesgo();
+                registrarComentariosGenerales();
+                UtilidadVentana.mostrarAlertaConfirmacion("El reporte ha sido guardado"," Reporte de tutoria guardado exitosamente", Alert.AlertType.CONFIRMATION);
+                UtilidadVentana.cerrarVentana(actionEvent);
+            }else {
+                UtilidadVentana.mostrarAlertaConfirmacion("Campos nulos","No debe de haber campos nulos", Alert.AlertType.ERROR);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,18 +100,19 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
         Estudiante estudiante;
         EstudianteDAO estudianteDAO = new EstudianteDAO();
         ObservableList<TablaEstudiante_asistioEnRiesgo> estudiantes = tblEstudiantes.getItems();
+        boolean resultadoLA = false;
         for (TablaEstudiante_asistioEnRiesgo ta :
                 estudiantes) {
             if (ta.getAsistio().isSelected()) {
                 listaDeAsistencia.setIdEstudiante(ta.estudiante.getIdEstudiante());
                 listaDeAsistencia.setIdSesionDeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
                 listaDeAsistencia.setAsistio(true);
-                listaDeAsistenciaDAO.modificarAsistencia(listaDeAsistencia);
+                resultadoLA = listaDeAsistenciaDAO.modificarAsistencia(listaDeAsistencia);
             }else {
                 listaDeAsistencia.setIdEstudiante(ta.estudiante.getIdEstudiante());
                 listaDeAsistencia.setIdSesionDeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
                 listaDeAsistencia.setAsistio(false);
-                listaDeAsistenciaDAO.modificarAsistencia(listaDeAsistencia);
+               resultadoLA = listaDeAsistenciaDAO.modificarAsistencia(listaDeAsistencia);
             }
             if (ta.getEnRiesgo().isSelected()){
                 estudiante = ta.estudiante;
@@ -115,7 +123,23 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
                 estudiante.setEnRiesgo(false);
                 estudianteDAO.modificarEstadoDeEstudiante(estudiante);
             }
-
         }
+        if (!resultadoLA){
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Lista de asistencia vacia","Asegurece de registrar los horarios", Alert.AlertType.ERROR);
+        }
+    }
+    private boolean datosNulos(){
+        return txtComentariosGenerales.getText().isEmpty();
+    }
+    private void registrarComentariosGenerales() throws SQLException {
+        ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
+        ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
+
+        reporteDeTutoriaAcademica.setIdTutorAcademico(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
+        reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
+        reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());
+
+        reporteDeTutoriaAcademicaDAO.agregarReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
+
     }
 }
