@@ -16,9 +16,9 @@ public class MenuPrincipalDeTutorAcademicoControlador {
     @FXML
     private void clicLlenarReporteDeTutoriasAcademicas(ActionEvent actionEvent) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSesionDeTutoria_RegistroDeHorarioDeSesionDeTutoria.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSesionDeTutoria_LlenarReporteDeTutoria.fxml"));
             Parent raiz = cargadorFXML.load();
-            SeleccionDeSesionDeTutoria_RegistroDeHorarioDeSesionDeTutoriaControlador controladorGUI = cargadorFXML.getController();
+            SeleccionDeSesionDeTutoria_LlenarReporteDeTutoriaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.cargarDatos();
             controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);

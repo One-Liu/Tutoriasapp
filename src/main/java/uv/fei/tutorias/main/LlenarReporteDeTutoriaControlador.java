@@ -1,21 +1,21 @@
 package uv.fei.tutorias.main;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.*;
 import uv.fei.tutorias.domain.*;
+import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
+import uv.fei.tutorias.utilidades.TablaEstudiante_asistioEnRiesgo;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -23,90 +23,99 @@ public class LlenarReporteDeTutoriaControlador implements Initializable {
     @FXML
     private AnchorPane panel;
     @FXML
-    private TableView<ListaDeAsistencia> listaDeAsistenciaTableView;
+    private TableView<TablaEstudiante_asistioEnRiesgo> tblEstudiantes;
     @FXML
-    private TableColumn<ListaDeAsistencia, String> colNombreEstudiantes;
+    private TableColumn<TablaEstudiante_asistioEnRiesgo, String> colNombreEstudiantes;
     @FXML
-    private TableColumn<ListaDeAsistencia, Boolean> colEnRiesgo;
+    private TableColumn<TablaEstudiante_asistioEnRiesgo, CheckBox> colEnRiesgo;
     @FXML
-    private TableColumn<ListaDeAsistencia, Boolean> colAsistio;
+    private TableColumn<TablaEstudiante_asistioEnRiesgo, CheckBox> colAsistio;
     @FXML
     private TextArea txtComentariosGenerales;
     @FXML
     private Label lblFecha;
     @FXML
     private Label lblPeriodo;
-    @Setter
-    PeriodoEscolar periodoEscolar;
+
     @Setter
     SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
 
-    public void actEnviar(ActionEvent actionEvent) {
-//        agregar reporte general
-//        asignarEstudiantesEnRiesgo();
-        TutorAcademico tutorAcademico = new TutorAcademico();
-        ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
-        ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
-        reporteDeTutoriaAcademica.setDescripcionGeneral(txtComentariosGenerales.getText());
-        reporteDeTutoriaAcademica.setIdTutorAcademico(tutorAcademico.getIdTutorAcademico());
-        reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(6);
-//        reporteDeTutoriaAcademicaDAO.agregarReporteDeTutoriaAcademica(reporteDeTutoriaAcademica);
-    }
-    public void asignarEstudiantesEnRiesgo(){
-        List<Estudiante> estudiantes = new ArrayList<>();
-        for (int i = 1; i < listaDeAsistenciaTableView.getColumns().size(); i++) {
-            Estudiante estudiante = new Estudiante();
-//            estudiante.setNombre(listaDeAsistenciaTableView.getItems().get(i).getEstudiante().getNombre());
-            if (listaDeAsistenciaTableView.getSelectionModel().isSelected(3)){
-                estudiante.setEnRiesgo(true);
-            }
-        }
-        for (Estudiante e: estudiantes) {
-            System.out.println(e);
-        }
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Date dia = new Date();
-        SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
+        try {
+            recuperarTutorados();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public void cargarDatos() throws SQLException {
         PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
-        ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
+        PeriodoEscolar periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
+        lblFecha.setText(sesionDeTutoriaAcademica.getFechaConFormato());
+        lblPeriodo.setText(periodoEscolar.getFechas());
+    }
+
+    public void actEnviar(ActionEvent actionEvent) {
+        try {
+            registrarAsistentesyEnRiesgo();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void recuperarTutorados() throws SQLException {
         EstudianteDAO estudianteDAO = new EstudianteDAO();
-        PeriodoEscolar periodoEscolar;
-        SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
-
-        //Recargamos los lebels de la sesion de tutoria
-        //TODO el tutor academico deberia de selecciona la sesion de tutoria academica antes
-//        try {
-//            sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(6);
-//            periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-////            ObservableList<ListaDeAsistencia> listasDeAsistencias = listaDeAsistenciaDAO.obtenerListasDeAsistenciaPorIdTutorAcademico(6);
-//            observaList(listasDeAsistencias);
-//            lblPeriodo.setText(periodoEscolar.getFechaInicio() +" "+periodoEscolar.getFechaTermino());
-//            lblFecha.setText(dia.toString());
-//            for (ListaDeAsistencia l :
-//                    listasDeAsistencias) {
-////                l.setEstudiante(estudianteDAO.obtenerEstudiantePorId(l.getIdEstudiante()));
-//            }
-//        } catch (SQLException e) {
-//            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
-//            e.printStackTrace();
-//        }
-
-
+        List<Estudiante> estudiantesConElMismoTutor = estudianteDAO.obtenerEstudiantesDeTutor(DatosGlobalesDeSesion.getDatosGlobalesDeSesion().getTutorAcademico().getIdTutorAcademico());
+        ObservableList<TablaEstudiante_asistioEnRiesgo> listaObserbable = FXCollections.observableArrayList();
+        for(Estudiante estudiante : estudiantesConElMismoTutor) {
+            TablaEstudiante_asistioEnRiesgo objeto = new TablaEstudiante_asistioEnRiesgo();
+            objeto.setEstudiante(estudiante);
+            listaObserbable.add(objeto);
+        }
+        tblEstudiantes.setItems(listaObserbable);
+        configurarTabla(listaObserbable);
 
     }
-
-    private void observaList(ObservableList<ListaDeAsistencia> listaDeAsistencias) {
-//        this.colNombreEstudiantes.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getEstudiante().getNombre()));
-//        this.colAsistio.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getAsistio()));
-//        this.colAsistio.setCellFactory( tc -> new CheckBoxTableCell<>());
-//        this.colEnRiesgo.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper(cellDataFeatures.getValue().getEstudiante().getEnRiesgo()));
-//        this.colEnRiesgo.setCellFactory( tc -> new CheckBoxTableCell<>());
-//        this.listaDeAsistenciaTableView.setItems(listaDeAsistencias);
-//        this.listaDeAsistenciaTableView.setEditable(true);
+    private void configurarTabla(ObservableList<TablaEstudiante_asistioEnRiesgo> proyectos) {
+        this.colEnRiesgo.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper<>(cellDataFeatures.getValue().getEnRiesgo()));
+        this.colAsistio.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper<>(cellDataFeatures.getValue().getAsistio()));
+        this.colNombreEstudiantes.setCellValueFactory(cellDataFeatures -> new ReadOnlyObjectWrapper<>(cellDataFeatures.getValue().getEstudiante().getNombre()));
+        this.tblEstudiantes.setItems(proyectos);
     }
 
+    private void registrarAsistentesyEnRiesgo() throws SQLException {
+        ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
+        ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia();
+        Estudiante estudiante;
+        EstudianteDAO estudianteDAO = new EstudianteDAO();
+        ObservableList<TablaEstudiante_asistioEnRiesgo> estudiantes = tblEstudiantes.getItems();
+        for (TablaEstudiante_asistioEnRiesgo ta :
+                estudiantes) {
+            if (ta.getAsistio().isSelected()) {
+                listaDeAsistencia.setIdEstudiante(ta.estudiante.getIdEstudiante());
+                listaDeAsistencia.setIdSesionDeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
+                listaDeAsistencia.setAsistio(true);
+                listaDeAsistenciaDAO.modificarAsistencia(listaDeAsistencia);
+            }else {
+                listaDeAsistencia.setIdEstudiante(ta.estudiante.getIdEstudiante());
+                listaDeAsistencia.setIdSesionDeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
+                listaDeAsistencia.setAsistio(false);
+                listaDeAsistenciaDAO.modificarAsistencia(listaDeAsistencia);
+            }
+            if (ta.getEnRiesgo().isSelected()){
+                estudiante = ta.estudiante;
+                estudiante.setEnRiesgo(true);
+                estudianteDAO.modificarEstadoDeEstudiante(estudiante);
+            }else {
+                estudiante = ta.estudiante;
+                estudiante.setEnRiesgo(false);
+                estudianteDAO.modificarEstadoDeEstudiante(estudiante);
+            }
+
+        }
+    }
 }
