@@ -5,18 +5,19 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="463.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.RegistrarSolucionProblematicaAcademicaControlador">
    <children>
-      <Label layoutX="145.0" layoutY="45.0" text="Problemática Académica:" />
-      <Label fx:id="problematicaAcadémica" layoutX="300.0" layoutY="45.0" text="problematicaAcadémica" />
-      <Label layoutX="162.0" layoutY="88.0" text="Experiencia Educativa:" />
-      <Label fx:id="experienciaEducativa" layoutX="300.0" layoutY="88.0" text="experienciaEducativa" />
-      <Label layoutX="231.0" layoutY="128.0" text="Profesor:" />
-      <Label fx:id="profesor" layoutX="300.0" layoutY="128.0" text="profesor" />
+      <Label layoutX="25.0" layoutY="14.0" text="Problemática académica:" />
+      <Label fx:id="lblProblematicaAcadémica" layoutX="25.0" layoutY="31.0" text="PROBLEMÁTICA_ACADÉMICA" />
+      <Label layoutX="25.0" layoutY="59.0" text="Experiencia Educativa:" />
+      <Label fx:id="experienciaEducativa" layoutX="25.0" layoutY="76.0" text="EXPERIENCIA_EDUCATIVA" />
+      <Label layoutX="345.0" layoutY="59.0" text="Profesor:" />
+      <Label fx:id="profesor" layoutX="345.0" layoutY="76.0" text="PROFESOR" />
       <TextArea fx:id="insertarSolucionTextArea" layoutX="25.0" layoutY="205.0" prefHeight="200.0" prefWidth="550.0" />
       <Label layoutX="25.0" layoutY="188.0" text="Solución:" />
       <Button layoutX="422.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#guardarBtn" text="Guardar" />
       <Button layoutX="505.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#cancelarBtn" text="Cancelar" />
+      <Label layoutX="345.0" layoutY="14.0" text="Fecha de reporte:" />
+      <Label fx:id="profesor1" layoutX="345.0" layoutY="31.0" text="FECHA_DE_REPORTE" />
    </children>
 </AnchorPane>

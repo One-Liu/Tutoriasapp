@@ -27,7 +27,7 @@ import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.domain.TutorAcademico;
-import uv.fei.tutorias.utilidades.TablaEstudiante_Asistencia_EnRiesgo;
+import uv.fei.tutorias.utilidades.TablaEstudiante_asistioEnRiesgo;
 
 public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @FXML
@@ -37,15 +37,15 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @FXML
     private TextArea taDescripcion;
     @FXML
-    private TableView<TablaEstudiante_Asistencia_EnRiesgo> tblEstudiante_Asistencia_EnRiesgo;
+    private TableView<TablaEstudiante_asistioEnRiesgo> tblEstudiante_Asistencia_EnRiesgo;
     @FXML
-    private TableColumn<TablaEstudiante_Asistencia_EnRiesgo,String> colEstudiante;
+    private TableColumn<TablaEstudiante_asistioEnRiesgo,String> colEstudiante;
     @FXML
-    private TableColumn<TablaEstudiante_Asistencia_EnRiesgo,CheckBox> colAsistencia;
+    private TableColumn<TablaEstudiante_asistioEnRiesgo,CheckBox> colAsistencia;
     @FXML
-    private TableColumn<TablaEstudiante_Asistencia_EnRiesgo,CheckBox> colEnRiesgo;
+    private TableColumn<TablaEstudiante_asistioEnRiesgo,CheckBox> colEnRiesgo;
     
-    private ObservableList<TablaEstudiante_Asistencia_EnRiesgo> listaDeAsistenciasEstudiantes = FXCollections.observableArrayList();
+    private ObservableList<TablaEstudiante_asistioEnRiesgo> listaDeAsistenciasEstudiantes = FXCollections.observableArrayList();
     
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
@@ -70,10 +70,10 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
         ObservableList<ListaDeAsistencia> asistencias = FXCollections.observableArrayList();
         asistencias.addAll(listaDeAsistenciaDAO.obtenerListaDeAsistenciasPorTutorYSesionDeTutoria(this.tutorAcademico.getIdTutorAcademico(), this.sesionDeTutoriaAcademica.getId()));
         
-        TablaEstudiante_Asistencia_EnRiesgo visualizacionEstudiantes;
+        TablaEstudiante_asistioEnRiesgo visualizacionEstudiantes;
         
         for(ListaDeAsistencia listaDeAsistencia : asistencias) {
-            visualizacionEstudiantes = new TablaEstudiante_Asistencia_EnRiesgo();
+            visualizacionEstudiantes = new TablaEstudiante_asistioEnRiesgo();
             Estudiante estudianteRecuperado = estudianteDAO.obtenerEstudiantePorId(listaDeAsistencia.getIdEstudiante());
             CheckBox asistencia = new CheckBox();
             asistencia.setSelected(listaDeAsistencia.getAsistio());
@@ -81,7 +81,7 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
             enRiesgo.setSelected(estudianteRecuperado.getEnRiesgo());
             
             visualizacionEstudiantes.setEstudiante(estudianteRecuperado);
-            visualizacionEstudiantes.setAsistencia(asistencia);
+            visualizacionEstudiantes.setAsistio(asistencia);
             visualizacionEstudiantes.setEnRiesgo(enRiesgo);
             this.listaDeAsistenciasEstudiantes.add(visualizacionEstudiantes);
         }

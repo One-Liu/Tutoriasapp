@@ -18,13 +18,19 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 
 public class RegistrarSolucionProblematicaAcademicaControlador implements Initializable{
-
-    public Label problematicaAcadémica;
-    public Label experienciaEducativa;
-    public Label profesor;
-    public TextArea insertarSolucionTextArea;
+    @FXML
+    public Label lblProblematicaAcadémica;
+    @FXML
+    public Label lblExperienciaEducativa;
+    @FXML
+    public Label lblProfesor;
+    @FXML
+    public Label lblFechaReporte;
+    @FXML
+    public TextArea taSolucion;
 
     public RegistrarSolucionProblematicaAcademicaControlador(String seleccion){
         try {
@@ -36,14 +42,12 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-
     }
 
     public void guardarBtn(MouseEvent mouseEvent) {
 
         SolucionAProblematicaAcademicaDAO solucionProblematica = new SolucionAProblematicaAcademicaDAO();
-        String solucionProblematicaTexto = insertarSolucionTextArea.getText();
+        String solucionProblematicaTexto = taSolucion.getText();
         boolean respuesta = false;
         try {
             respuesta = solucionProblematica.agregarSolucionProblematicaAcademica(solucionProblematicaTexto);
@@ -71,9 +75,9 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
         ExperienciaEducativa datosExperiencia = experiencia.obtenerExperienciaEducativaPorId(idExperienciaEducativa);
         Profesor nombreProfesor = profesordao.findProfesorById(datosExperiencia.getIdProfesor());
 
-        experienciaEducativa.setText(datosExperiencia.getNombre());
-        profesor.setText(nombreProfesor.getNombre());
-        problematicaAcadémica.setText(listaProblematica.get(0).getDescripcion());
+        lblExperienciaEducativa.setText(datosExperiencia.getNombre());
+        lblProfesor.setText(nombreProfesor.getNombre());
+        lblProblematicaAcadémica.setText(listaProblematica.get(0).getDescripcion());
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo){

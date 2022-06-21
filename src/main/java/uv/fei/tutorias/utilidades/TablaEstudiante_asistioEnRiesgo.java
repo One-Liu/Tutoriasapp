@@ -37,4 +37,8 @@ public class TablaEstudiante_asistioEnRiesgo {
     public void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
     }
+    
+    public String getNombre() {
+        return this.estudiante.getNombreCompleto();
+    }
 }
