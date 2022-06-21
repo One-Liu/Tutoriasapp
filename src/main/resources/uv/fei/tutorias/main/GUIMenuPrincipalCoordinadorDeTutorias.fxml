@@ -1,26 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="485.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalCoordinadorDeTutoriasControlador">
+<AnchorPane prefHeight="552.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalCoordinadorDeTutoriasControlador">
    <children>
-      <Button layoutX="162.0" layoutY="124.0" mnemonicParsing="false" onAction="#clicConsultarReporteGeneralDeTutoriasAcademicas" prefHeight="25.0" prefWidth="292.0" text="Consultar reporte general de tutorias academicas" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" />
-      <Button layoutX="332.0" layoutY="117.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeSesionDeTutoria" prefHeight="25.0" prefWidth="292.0" text="Registrar fechas de sesion de tutoria" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="75.0" />
-      <Button layoutX="155.0" layoutY="234.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeCierreParaLaEntregaDeReporte" text="Registrar fechas de cierre para la entrega de reporte" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="125.0" />
-      <Button layoutX="221.0" layoutY="282.0" mnemonicParsing="false" onAction="#clicConsultarOfertaAcademica" prefHeight="25.0" prefWidth="292.0" text="Consultar oferta academica" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="175.0" />
-      <ImageView fitHeight="364.0" fitWidth="292.0" layoutX="28.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+      <Button layoutX="326.0" layoutY="46.0" mnemonicParsing="false" onAction="#clicConsultarReporteGeneralDeTutoriasAcademicas" prefHeight="25.0" prefWidth="300.0" text="Consultar reporte general de tutorias academicas" AnchorPane.topAnchor="46.0" />
+      <Button layoutX="326.0" layoutY="136.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeSesionDeTutoria" prefHeight="25.0" prefWidth="300.0" text="Registrar fechas de sesion de tutoria" AnchorPane.topAnchor="136.0" />
+      <Button layoutX="326.0" layoutY="196.0" mnemonicParsing="false" onAction="#clicRegistrarFechasDeCierreParaLaEntregaDeReporte" prefWidth="300.0" text="Registrar fechas de cierre para la entrega de reporte" AnchorPane.topAnchor="196.0" />
+      <Button layoutX="326.0" layoutY="476.0" mnemonicParsing="false" onAction="#clicConsultarOfertaAcademica" prefHeight="25.0" prefWidth="300.0" text="Consultar oferta academica" AnchorPane.topAnchor="476.0" />
+      <ImageView fitHeight="333.0" fitWidth="269.0" layoutX="36.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="85.0">
          <image>
             <Image url="@../../../../imagen/Universidad_Veracruzana.png" />
          </image>
       </ImageView>
-      <Button layoutX="283.0" layoutY="251.0" mnemonicParsing="false" onAction="#clicConsultarReportePorTutorAcademico" prefHeight="25.0" prefWidth="292.0" text="Consultar reporte por tutor académico" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="225.0" />
-      <Button layoutX="283.0" layoutY="294.0" mnemonicParsing="false" onAction="#clicModificarFechasDeSesionDeTutoria" prefHeight="25.0" prefWidth="292.0" text="Modificar fechas de sesión de tutoría" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="275.0" />
-      <Button layoutX="283.0" layoutY="337.0" mnemonicParsing="false" onAction="#clicRegistrarUsuario" prefHeight="25.0" prefWidth="292.0" text="Registrar usuario" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="325.0" />
-      <Button layoutX="283.0" layoutY="374.0" mnemonicParsing="false" onAction="#clicAsignarTutorAEstudiante" prefHeight="25.0" prefWidth="292.0" text="Asignar tutor a estudiante" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="375.0" />
-      <Button layoutX="283.0" layoutY="418.0" mnemonicParsing="false" onAction="#clicModificarAsignacionDeTutor" prefHeight="25.0" prefWidth="292.0" text="Modificar asignación de tutor" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="425.0" />
-      <Button layoutX="14.0" layoutY="446.0" mnemonicParsing="false" onAction="#clicCerrarSesion" text="Cerrar sesión" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" />
+      <Button layoutX="326.0" layoutY="76.0" mnemonicParsing="false" onAction="#clicConsultarReportePorTutorAcademico" prefHeight="25.0" prefWidth="300.0" text="Consultar reporte por tutor académico" AnchorPane.topAnchor="76.0" />
+      <Button layoutX="326.0" layoutY="166.0" mnemonicParsing="false" onAction="#clicModificarFechasDeSesionDeTutoria" prefHeight="25.0" prefWidth="300.0" text="Modificar fechas de sesión de tutoría" AnchorPane.topAnchor="166.0" />
+      <Button layoutX="326.0" layoutY="351.0" mnemonicParsing="false" onAction="#clicRegistrarTutorAcademico" prefHeight="25.0" prefWidth="300.0" text="Registrar tutor académico" AnchorPane.topAnchor="351.0" />
+      <Button layoutX="326.0" layoutY="381.0" mnemonicParsing="false" onAction="#clicAsignarTutorAEstudiante" prefHeight="25.0" prefWidth="300.0" text="Asignar tutor a estudiante" AnchorPane.topAnchor="381.0" />
+      <Button layoutX="326.0" layoutY="411.0" mnemonicParsing="false" onAction="#clicModificarAsignacionDeTutor" prefHeight="25.0" prefWidth="300.0" text="Modificar asignación de tutor" AnchorPane.topAnchor="411.0" />
+      <Button layoutX="14.0" layoutY="506.0" mnemonicParsing="false" onAction="#clicCerrarSesion" text="Cerrar sesión" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="14.0" />
+      <Label layoutX="326.0" layoutY="21.0" text="Gestión de reportes tutoriales" textFill="#000000c0" underline="true" AnchorPane.topAnchor="21.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="326.0" layoutY="226.0" mnemonicParsing="false" onAction="#clicModificarFechasDeCierreParaLaEntregaDeReporte" prefHeight="25.0" prefWidth="300.0" text="Modificar fechas de cierre para la entrega de reporte" AnchorPane.topAnchor="226.0" />
+      <Label layoutX="326.0" layoutY="111.0" text="Administración de sesiones de tutoría" textFill="#000000c0" underline="true" AnchorPane.topAnchor="111.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="326.0" layoutY="261.0" text="Seguimiento a problemáticas académicas" textFill="#000000c0" underline="true" AnchorPane.topAnchor="261.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="326.0" layoutY="286.0" mnemonicParsing="false" onAction="#clicConsultarSolucionAProblematicaAcademica" prefHeight="25.0" prefWidth="300.0" text="Consultar solución a problemática académica" AnchorPane.topAnchor="286.0" />
+      <Label layoutX="326.0" layoutY="326.0" text="Gestión de tutores académicos y estudiantes" textFill="#000000c0" underline="true" AnchorPane.topAnchor="326.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="326.0" layoutY="451.0" text="Administración del programa educativo" textFill="#000000c0" underline="true" AnchorPane.topAnchor="451.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="326.0" layoutY="506.0" mnemonicParsing="false" onAction="#clicAsignarExperienciaEducativaAProfesor" prefHeight="25.0" prefWidth="300.0" text="Asignar experiencia educativa a profesor" AnchorPane.topAnchor="506.0" />
    </children>
 </AnchorPane>

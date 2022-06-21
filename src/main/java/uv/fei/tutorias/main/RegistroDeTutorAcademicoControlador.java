@@ -1,5 +1,6 @@
 package uv.fei.tutorias.main;
 
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 import uv.fei.tutorias.utilidades.GeneradorDeContrasena;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.util.StringConverter;
 
-public class SignUpControlador implements Initializable {
+public class RegistroDeTutorAcademicoControlador implements Initializable {
 
     @FXML
     private TextField tfNombre;
@@ -25,8 +26,6 @@ public class SignUpControlador implements Initializable {
     private TextField tfApellidoMaterno;
     @FXML
     private TextField tfCorreoInstitucional;
-    @FXML
-    private ComboBox<String> cbUsuarios;
     @FXML
     private ComboBox<ProgramaEducativo> cbProgramasEducativos;
 
@@ -45,9 +44,6 @@ public class SignUpControlador implements Initializable {
                 Alert.AlertType.ERROR);
             UtilidadVentana.cerrarVentana(new ActionEvent());
         } else {
-            cbUsuarios.getItems().setAll("TUTOR ACADÉMICO", "COORDINADOR", "JEFE DE CARRERA");
-            cbUsuarios.getSelectionModel().selectFirst();
-                
             cbProgramasEducativos.setItems(programasEducativos);
             cbProgramasEducativos.getSelectionModel().selectFirst();
             cbProgramasEducativos.setConverter(new StringConverter<ProgramaEducativo>() {
@@ -122,7 +118,6 @@ public class SignUpControlador implements Initializable {
         this.tfApellidoMaterno.clear();
         this.tfCorreoInstitucional.clear();
         this.cbProgramasEducativos.getSelectionModel().selectFirst();
-        this.cbUsuarios.getSelectionModel().selectFirst();
     }
     
     @FXML
@@ -141,38 +136,16 @@ public class SignUpControlador implements Initializable {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
             try {
-                switch(cbUsuarios.getValue()) {
-                    case "TUTOR ACADÉMICO" -> {
-                        TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
-                        TutorAcademico tutorAcademico = new TutorAcademico(persona);
+                TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
+                TutorAcademico tutorAcademico = new TutorAcademico(persona);
 
-                        tutorAcademico.setIdPersona(personaDAO.agregarPersona(persona));
-                        tutorAcademico.setIdUsuario(usuarioDAO.agregarUsuario(usuario));
-                        tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
-                    }
-
-                    case "COORDINADOR" -> {
-                        CoordinadorDAO coordinadorDAO = new CoordinadorDAO();
-                        Coordinador coordinador = new Coordinador(persona);
-
-                        coordinador.setIdPersona(personaDAO.agregarPersona(persona));
-                        coordinador.setIdUsuario(usuarioDAO.agregarUsuario(usuario));
-                        coordinadorDAO.agregarCoordinador(coordinador);
-                    }
-
-                    case "JEFE DE CARRERA" -> {
-                        JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
-                        JefeDeCarrera jefeDeCarrera = new JefeDeCarrera(persona);
-
-                        jefeDeCarrera.setIdPersona(personaDAO.agregarPersona(persona));
-                        jefeDeCarrera.setIdUsuario(usuarioDAO.agregarUsuario(usuario));
-                        jefeDeCarreraDAO.agregarJefeDeCarrera(jefeDeCarrera);
-                    }
-                }
+                tutorAcademico.setIdPersona(personaDAO.agregarPersona(persona));
+                tutorAcademico.setIdUsuario(usuarioDAO.agregarUsuario(usuario));
+                tutorAcademicoDAO.agregarTutorAcademico(tutorAcademico);
 
                 UtilidadVentana.mostrarAlertaSinConfirmacion(
-                    "Usuario registrado",
-                    "La contraseña del usuario es " + usuario.getContrasena() + ".\n"
+                    "Tutor académico registrado",
+                    "La contraseña del tutor académico es " + usuario.getContrasena() + ".\n"
                     + "Por favor, solicite al usuario cambiarla al ingresar al sistema.",
                     Alert.AlertType.INFORMATION);
                 

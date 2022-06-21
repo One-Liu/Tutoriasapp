@@ -3,7 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
-import uv.fei.tutorias.main.UtilidadVentana;
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

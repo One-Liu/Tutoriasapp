@@ -1,5 +1,6 @@
 package uv.fei.tutorias.main;
 
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -51,7 +52,6 @@ public class RegistroDeHorarioDeSesionDeTutoriaControlador implements Initializa
             visualizacionEstudiante = new TablaEstudiante_Horario();
             visualizacionEstudiante.setEstudiante(estudiante);
             this.estudiantesDelTutorAcademico.add(visualizacionEstudiante);
-            System.out.println(estudiante);
         }
     }
     
