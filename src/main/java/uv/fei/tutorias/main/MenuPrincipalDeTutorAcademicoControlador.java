@@ -16,10 +16,24 @@ import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 public class MenuPrincipalDeTutorAcademicoControlador {    
     @FXML
     private void clicLlenarReporteDeTutoriasAcademicas(ActionEvent evento) {
-        TutorAcademico tutorAcademico = new TutorAcademico();
-        System.out.println(tutorAcademico);
-//        Utilidad.pasarValoresEntreVentanas(tutorAcademico,"src\\main\\resources\\uv.fei.tutorias.main\\GUILlenarReporteDeTutoria.fxml","LLenar reporte de tutoria",actionEvent);
-
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSesionDeTutoria_LlenarReporteDeTutoria.fxml"));
+            Parent raiz = cargadorFXML.load();
+            SeleccionDeSesionDeTutoria_LlenarReporteDeTutoriaControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Selección de sesión de tutoría");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException ioException) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
     }
     
     @FXML

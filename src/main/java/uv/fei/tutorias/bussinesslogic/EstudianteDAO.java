@@ -226,4 +226,28 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
         return estudiantes;
     }
+    @Override
+    public boolean modificarEstadoDeEstudiante(Estudiante estudiante) throws SQLException{
+        boolean resultado = false;
+        String consulta ="UPDATE estudiante t " +
+                "SET t.enRiesgo = ? " +
+                "WHERE t.id = ? ";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setBoolean(1, estudiante.getEnRiesgo());
+            sentencia.setInt(2, estudiante.getIdEstudiante());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas != 0) {
+                resultado = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return resultado;
+
+    }
 }

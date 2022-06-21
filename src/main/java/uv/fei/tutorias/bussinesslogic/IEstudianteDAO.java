@@ -14,4 +14,5 @@ public interface IEstudianteDAO {
     public List<Estudiante> obtenerEstudiantesDeTutor(int idTutorAcademico) throws SQLException;
     public List<Estudiante> obtenerEstudiantesSinTutorAsignado() throws SQLException;
     public List<Estudiante> obtenerEstudiantesConTutorAsignado() throws SQLException;
+    boolean modificarEstadoDeEstudiante(Estudiante estudiante) throws SQLException;
 }

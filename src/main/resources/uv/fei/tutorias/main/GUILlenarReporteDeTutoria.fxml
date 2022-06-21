@@ -9,9 +9,26 @@
 
 <AnchorPane fx:id="panel" prefHeight="366.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.LlenarReporteDeTutoriaControlador">
    <children>
+<<<<<<< HEAD
       <Button layoutX="522.0" layoutY="327.0" mnemonicParsing="false" text="Cancelar" />
       <Button layoutX="598.0" layoutY="327.0" mnemonicParsing="false" onAction="#actEnviar" text="Enviar" />
       <Button layoutX="307.0" layoutY="327.0" mnemonicParsing="false" text="Registrar problematica academica" />
+=======
+      <Label layoutX="40.0" layoutY="85.0" text="Periodo" />
+      <TableView fx:id="tblEstudiantes" layoutX="40.0" layoutY="133.0" prefHeight="200.0" prefWidth="286.0">
+        <columns>
+          <TableColumn fx:id="colNombreEstudiantes" prefWidth="160.800048828125" text="Noombre de estudiante" />
+            <TableColumn fx:id="colAsistio" prefWidth="60.79994201660156" text="Asistio" />
+            <TableColumn fx:id="colEnRiesgo" prefWidth="60.79994201660156" text="En riesgo" />
+        </columns>
+      </TableView>
+      <TextArea fx:id="txtComentariosGenerales" layoutX="360.0" layoutY="133.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="356.0" layoutY="103.0" text="Comentarios generales" />
+      <Button layoutX="436.0" layoutY="350.0" mnemonicParsing="false" text="Cancelar" />
+      <Button layoutX="512.0" layoutY="350.0" mnemonicParsing="false" onAction="#actEnviar" text="Enviar" />
+      <Label layoutX="40.0" layoutY="46.0" prefHeight="18.0" prefWidth="48.0" text="Fecha" />
+      <Button layoutX="221.0" layoutY="350.0" mnemonicParsing="false" text="Registrar problematica academica" />
+>>>>>>> 49731a5431e534a532d92a3c0bc78325680f0e87
       <Label fx:id="lblFecha" layoutX="96.0" layoutY="46.0" />
       <Label fx:id="lblPeriodo" layoutX="108.0" layoutY="85.0" />
       <Label layoutX="14.0" layoutY="14.0" text="Periodo escolar:" />

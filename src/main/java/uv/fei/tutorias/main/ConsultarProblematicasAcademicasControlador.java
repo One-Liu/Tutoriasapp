@@ -4,10 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class MostrarProblematicasAcademicasControlador {
+public class ConsultarProblematicasAcademicasControlador {
     public TableView tblProblematicaAcademica;
     public TableColumn colExperienciaEducativa;
     public TableColumn colFechaDETutoria;
+    public TableColumn colTitulo;
 
     public void actEliminar(ActionEvent actionEvent) {
     }

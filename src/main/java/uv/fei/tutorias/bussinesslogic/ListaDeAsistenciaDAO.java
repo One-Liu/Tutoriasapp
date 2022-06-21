@@ -78,8 +78,29 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     }
 
     @Override
-    public List<ListaDeAsistencia> buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(int idSesionDeTutoriaAcademica) throws SQLException {
-        return null;
+    public boolean modificarAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
+        boolean resultado = false;
+        String consulta = "UPDATE lista_de_asistencia t " +
+                "SET t.asistio = ? " +
+                "WHERE t.idEstudiante = ? " +
+                "  AND t.idSesionDeTutoriaAcademica = ? ";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setBoolean(1, listaDeAsistencia.getAsistio());
+            sentencia.setInt(2, listaDeAsistencia.getIdEstudiante());
+            sentencia.setInt(3, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas != 0) {
+                resultado = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return resultado;
     }
 
     private ListaDeAsistencia getListaDeAsistencia(ResultSet resultado) throws SQLException {
@@ -197,5 +218,10 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             baseDeDatos.cerrarConexion();
         }
         return listasDeAsistenciaRegistradas;
+    }
+
+    public ListaDeAsistencia buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(int id) {
+        ListaDeAsistencia ListaDeAsistencia = new ListaDeAsistencia();
+        return ListaDeAsistencia;
     }
 }
