@@ -18,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.ListaDeAsistenciaDAO;
-import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
 import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.ListaDeAsistencia;

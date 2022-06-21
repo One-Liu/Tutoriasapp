@@ -32,14 +32,16 @@ public class SeleccionDeReporteControlador implements Initializable {
     private ObservableList<TutorAcademico> tutoresAcademicos = FXCollections.observableArrayList();
     private ObservableList<SesionDeTutoriaAcademica> sesionesDeTutoriaAcademica = FXCollections.observableArrayList();
     
-    private void cargarDatos() throws SQLException {
+    public void cargarDatos() throws SQLException {
         TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
         SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
         this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
+        
+        //RECUPERAR SOLO LAS SESIONES CON LA FECHA DE CIERRE TERMINADA
         this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
     }
     
-    private void cargarCamposGUI() {
+    public void cargarCamposGUI() {
         if(tutoresAcademicos.isEmpty()) {
             UtilidadVentana.mostrarAlertaSinConfirmacion(
                 "Tutores académicos", 
@@ -99,11 +101,13 @@ public class SeleccionDeReporteControlador implements Initializable {
         TutorAcademico tutorAcademicoSeleccionado = this.cbTutoresAcademicos.getSelectionModel().getSelectedItem();
         SesionDeTutoriaAcademica sesionDeTutoriaAcademicaSeleccionada = this.cbFechasDeSesionDeTutoriaAcademica.getSelectionModel().getSelectedItem();
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource(".fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIReporteDeTutoriaAcademica.fxml"));
             Parent raiz = cargadorFXML.load();
             ReporteDeTutoriaAcademicaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setTutorAcademico(tutorAcademicoSeleccionado);
             controladorGUI.setSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaSeleccionada);
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -113,6 +117,8 @@ public class SeleccionDeReporteControlador implements Initializable {
             escenario.showAndWait();
         } catch(IOException ioException) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
 

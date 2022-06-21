@@ -21,8 +21,11 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
     private void clicConsultarReportePorTutorAcademico(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUISeleccionDeReporte.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeReporte.fxml"));
             Parent raiz = cargadorFXML.load();
+            SeleccionDeReporteControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
@@ -32,6 +35,8 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             escenario.showAndWait();
         } catch(IOException excepcionIO) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
 
@@ -102,7 +107,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
     private void clicRegistrarTutorAcademico(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISignUp.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistroDeTutorAcademico.fxml"));
             Parent raiz = cargadorFXML.load();
             RegistroDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.cargarDatos();
@@ -111,7 +116,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             Stage escenario = new Stage();
             escenario.setResizable(false);
             escenario.setScene(escena);
-            escenario.setTitle("Sign up");
+            escenario.setTitle("Registro de tutor académico");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
         } catch(IOException excepcionIO) {

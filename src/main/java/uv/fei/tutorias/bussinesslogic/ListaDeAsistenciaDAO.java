@@ -219,9 +219,28 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
         }
         return listasDeAsistenciaRegistradas;
     }
-
-    public ListaDeAsistencia buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(int id) {
-        ListaDeAsistencia ListaDeAsistencia = new ListaDeAsistencia();
-        return ListaDeAsistencia;
+    
+    @Override
+    public List<ListaDeAsistencia> obtenerListaDeAsistenciasPorTutorYSesionDeTutoria(int idTutorAcademico, int idSesionDeTutoriaAcademica) throws SQLException {
+        List<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
+        String consulta = "SELECT LDA.* " +
+            "FROM lista_de_asistencia LDA INNER JOIN estudiante E ON E.id = LDA.idEstudiante " +
+            "WHERE E.idTutorAcademico = ? AND LDA.idSesionDeTutoriaAcademica = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, idTutorAcademico);
+            sentencia.setInt(2, idSesionDeTutoriaAcademica);
+            ResultSet resultado = sentencia.executeQuery();
+            while(resultado.next()) {
+                listasDeAsistencia.add(getListaDeAsistencia(resultado));
+            }
+        } catch(SQLException excepcionSQL) {
+            LOGGER.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return listasDeAsistencia;
     }
 }

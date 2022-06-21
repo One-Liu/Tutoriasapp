@@ -30,7 +30,15 @@ public class TablaEstudiante_Asistencia_EnRiesgo {
         return asistencia;
     }
 
+    public void setAsistencia(CheckBox asistencia) {
+        this.asistencia = asistencia;
+    }
+
     public CheckBox getEnRiesgo() {
         return enRiesgo;
+    }
+    
+    public void setEnRiesgo(CheckBox enRiesgo) {
+        this.enRiesgo = enRiesgo;
     }
 }

@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -44,8 +45,7 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @FXML
     private TableColumn<TablaEstudiante_Asistencia_EnRiesgo,CheckBox> colEnRiesgo;
     
-    private ObservableList<TablaEstudiante_Asistencia_EnRiesgo> listaDeAsistencias = FXCollections.observableArrayList();
-    private ObservableList<Estudiante> estudiantesDelTutorAcademico = FXCollections.observableArrayList();
+    private ObservableList<TablaEstudiante_Asistencia_EnRiesgo> listaDeAsistenciasEstudiantes = FXCollections.observableArrayList();
     
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
@@ -55,7 +55,7 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
-    private void cargarDatos() throws SQLException {
+    public void cargarDatos() throws SQLException {
         ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
         PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
         ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
@@ -66,26 +66,56 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
         this.reporteDeTutoriaAcademica.setIdTutorAcademico(this.tutorAcademico.getIdTutorAcademico());
         this.reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(this.sesionDeTutoriaAcademica.getId());
         this.reporteDeTutoriaAcademica = reporteDeTutoriaAcademicaDAO.obtenerReporteDeTutoriaPorIdSesionTutoriaYIdTutor(reporteDeTutoriaAcademica);
+
+        ObservableList<ListaDeAsistencia> asistencias = FXCollections.observableArrayList();
+        asistencias.addAll(listaDeAsistenciaDAO.obtenerListaDeAsistenciasPorTutorYSesionDeTutoria(this.tutorAcademico.getIdTutorAcademico(), this.sesionDeTutoriaAcademica.getId()));
         
-        // Obtener solo los del tutor académico
-        this.listaDeAsistencias.addAll(listaDeAsistenciaDAO.buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(sesionDeTutoriaAcademica.getId()));
+        TablaEstudiante_Asistencia_EnRiesgo visualizacionEstudiantes;
         
-        for(ListaDeAsistencia listaDeAsistencia : listaDeAsistencias) {
-            this.estudiantesDelTutorAcademico.add(estudianteDAO.obtenerEstudiantePorId(listaDeAsistencia.getIdEstudiante()));
+        for(ListaDeAsistencia listaDeAsistencia : asistencias) {
+            visualizacionEstudiantes = new TablaEstudiante_Asistencia_EnRiesgo();
+            Estudiante estudianteRecuperado = estudianteDAO.obtenerEstudiantePorId(listaDeAsistencia.getIdEstudiante());
+            CheckBox asistencia = new CheckBox();
+            asistencia.setSelected(listaDeAsistencia.getAsistio());
+            CheckBox enRiesgo = new CheckBox();
+            enRiesgo.setSelected(estudianteRecuperado.getEnRiesgo());
+            
+            visualizacionEstudiantes.setEstudiante(estudianteRecuperado);
+            visualizacionEstudiantes.setAsistencia(asistencia);
+            visualizacionEstudiantes.setEnRiesgo(enRiesgo);
+            this.listaDeAsistenciasEstudiantes.add(visualizacionEstudiantes);
         }
     }
     
-    private void cargarCamposGUI() {
-        this.lblPeriodoEscolar.setText(this.periodoEscolar.getFechas());
-        this.lblFechaSesion.setText(this.sesionDeTutoriaAcademica.getFechaConFormato());
-        this.taDescripcion.setText(this.reporteDeTutoriaAcademica.getDescripcionGeneral());
+    private boolean validarDatos() {
+        boolean datosValidos = true;
         
-        this.colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));
-        this.colAsistencia.setCellValueFactory(new PropertyValueFactory("asistencia"));
-        this.colEnRiesgo.setCellValueFactory(new PropertyValueFactory("enRiesgo"));
+        if(reporteDeTutoriaAcademica.equals(new ReporteDeTutoriaAcademica())) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Reporte de tutoría académica sin registrar", 
+                "El tutor académico no ha entregado el reporte de tutoría académica.", 
+                Alert.AlertType.ERROR);
+            datosValidos = false;
+        }
         
-        this.tblEstudiante_Asistencia_EnRiesgo.setItems(estudiantesDelTutorAcademico);
-        this.tblEstudiante_Asistencia_EnRiesgo.getSelectionModel().clearSelection();
+        return datosValidos;
+    }
+    
+    public void cargarCamposGUI() {
+        if(validarDatos()) {
+            this.lblPeriodoEscolar.setText(this.periodoEscolar.getFechas());
+            this.lblFechaSesion.setText(this.sesionDeTutoriaAcademica.getFechaConFormato());
+            this.taDescripcion.setText(this.reporteDeTutoriaAcademica.getDescripcionGeneral());
+
+            this.colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));
+            this.colAsistencia.setCellValueFactory(new PropertyValueFactory("asistencia"));
+            this.colEnRiesgo.setCellValueFactory(new PropertyValueFactory("enRiesgo"));
+
+            this.tblEstudiante_Asistencia_EnRiesgo.setItems(this.listaDeAsistenciasEstudiantes);
+            this.tblEstudiante_Asistencia_EnRiesgo.getSelectionModel().clearSelection();
+        } else {
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+        }
     }
     
     @Override
