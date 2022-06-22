@@ -8,6 +8,7 @@ module uv.fei.tutorias {
     requires log4j;
     requires java.base;
     requires lombok;
+    requires itextpdf;
     
     exports uv.fei.tutorias.bussinesslogic to test.java.uv.fei.tutorias, uv.fei.tutorias;
     exports uv.fei.tutorias.dataaccess to test.java.uv.fei.tutorias;
