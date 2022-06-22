@@ -73,7 +73,7 @@ public class RegistrarSolucionProblematicaAcademicaControlador implements Initia
         ArrayList<ProblematicaAcademica> listaProblematica = (ArrayList<ProblematicaAcademica>) problematica.obtenerProblematicaAcademicaPorDescripcion(descripcion);
         int idExperienciaEducativa =listaProblematica.get(0).getIdExperienciaEducativa();
         ExperienciaEducativa datosExperiencia = experiencia.obtenerExperienciaEducativaPorId(idExperienciaEducativa);
-        Profesor nombreProfesor = profesordao.findProfesorById(datosExperiencia.getIdProfesor());
+        Profesor nombreProfesor = profesordao.obtenerProfesorPorId(datosExperiencia.getIdProfesor());
 
         lblExperienciaEducativa.setText(datosExperiencia.getNombre());
         lblProfesor.setText(nombreProfesor.getNombre());

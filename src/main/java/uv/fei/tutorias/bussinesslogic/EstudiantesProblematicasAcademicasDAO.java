@@ -3,7 +3,6 @@ package uv.fei.tutorias.bussinesslogic;
 import org.apache.log4j.Logger;
 import uv.fei.tutorias.dataaccess.ConexionBD;
 import uv.fei.tutorias.domain.EstudiantesProblematicasAcademicas;
-import uv.fei.tutorias.domain.ProblematicaAcademica;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,6 +62,25 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
         }
         return bandera;
     }
+    @Override
+    public boolean existeEstudianteProblematicaAcademica(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) throws SQLException {
+        ConexionBD conexionBD = new ConexionBD();
+        boolean bandera = false;
+        try (Connection connection = conexionBD.abrirConexion()){
+            String query = "SELECT * FROM estudiantes_problematicasacademicas WHERE idEstudiante = ? and idProblematicaAcademica = ? ";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, estudiantesProblematicasAcademicas.getIdEstudiante());
+            statement.setInt(2, estudiantesProblematicasAcademicas.getIdProblematicaAcademica());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                bandera = true;
+            }
+        } catch (SQLException ex) {
+            LOG.warn(PersonaDAO.class.getName(), ex);
+            throw ex;
+        }
+        return bandera;
+    }
 
     @Override
     public boolean eliminarEstudianteProblematicaAcademicaPorId(int searchId) throws SQLException {
@@ -72,6 +90,27 @@ public class EstudiantesProblematicasAcademicasDAO implements IEstudianteProblem
         try (Connection connection = dataBaseConnection.abrirConexion()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, searchId);
+            int executeUpdate = statement.executeUpdate();
+            if (executeUpdate != 0) {
+                bandera = true;
+            }
+        } catch (SQLException ex) {
+            LOG.warn(PersonaDAO.class.getName(), ex);
+            throw ex;
+        } finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return bandera;
+    }
+    @Override
+    public boolean eliminarAEstudianteDeLaProblematicaAcademica(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) throws SQLException {
+        ConexionBD dataBaseConnection = new ConexionBD();
+        boolean bandera = false;
+        String query = "DELETE FROM estudiantes_problematicasacademicas WHERE idEstudiante = ? AND idProblematicaAcademica = ? ";
+        try (Connection connection = dataBaseConnection.abrirConexion()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, estudiantesProblematicasAcademicas.getIdEstudiante());
+            statement.setInt(1, estudiantesProblematicasAcademicas.getIdProblematicaAcademica());
             int executeUpdate = statement.executeUpdate();
             if (executeUpdate != 0) {
                 bandera = true;

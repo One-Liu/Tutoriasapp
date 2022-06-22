@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="uv.fei.tutorias.main.ModificarProblematicaAcademicaControlador"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <Label layoutX="14.0" layoutY="10.0" text="Profesor" />
+        <Label layoutX="341.0" layoutY="10.0" text="Experiencia Educativa" />
+        <ComboBox fx:id="cbProfesores" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="315.0" />
+        <ComboBox fx:id="cbExperienciasEducativas" layoutX="341.0" layoutY="27.0" prefHeight="25.0" prefWidth="250.0" />
+        <Label layoutX="14.0" layoutY="80.0" text="Estudiantes que presentan la problemática:" />
+        <TableView fx:id="tblEstudiante_Presenta" layoutX="14.0" layoutY="100.0" prefHeight="290.0" prefWidth="315.0">
+            <columns>
+                <TableColumn fx:id="colEstudiante" editable="false" minWidth="0.0" prefWidth="258.0" sortable="false" text="Estudiante" />
+                <TableColumn fx:id="colPresenta" editable="false" minWidth="0.0" prefWidth="55.0" sortable="false" style="-fx-alignment: CENTER;" text="Presenta" />
+            </columns>
+        </TableView>
+        <Label layoutX="341.0" layoutY="80.0" text="Problemática académica:" />
+        <TextField fx:id="tfProblematicaAcademica" layoutX="341.0" layoutY="100.0" prefHeight="25.0" prefWidth="250.0" />
+        <Label layoutX="341.0" layoutY="131.0" text="Descripción:" />
+        <TextArea fx:id="taDescripcion" layoutX="341.0" layoutY="148.0" prefHeight="200.0" prefWidth="250.0" wrapText="true" />
+        <Button layoutX="447.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicRegistrar" text="Registrar" />
+        <Button layoutX="524.0" layoutY="365.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
+    </children>
+</AnchorPane>
