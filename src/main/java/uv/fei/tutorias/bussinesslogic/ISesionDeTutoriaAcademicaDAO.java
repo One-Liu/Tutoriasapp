@@ -16,4 +16,5 @@ public interface ISesionDeTutoriaAcademicaDAO {
 
     public List<SesionDeTutoriaAcademica> obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(int idPeriodoEscolar) throws SQLException;
     public List<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademicaSinOcurrir() throws SQLException;
+    public List<SesionDeTutoriaAcademica> obtenerSesionesDeTutoriaAcademicaQueYaOcurrieron() throws SQLException;
 }

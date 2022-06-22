@@ -36,9 +36,7 @@ public class SeleccionDeReporteControlador implements Initializable {
         TutorAcademicoDAO tutorAcademicoDAO = new TutorAcademicoDAO();
         SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
         this.tutoresAcademicos.addAll(tutorAcademicoDAO.obtenerTutoresAcademicos());
-        
-        //RECUPERAR SOLO LAS SESIONES CON LA FECHA DE CIERRE TERMINADA
-        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademica());
+        this.sesionesDeTutoriaAcademica.addAll(sesionDeTutoriaAcademicaDAO.obtenerSesionesDeTutoriaAcademicaQueYaOcurrieron());
     }
     
     public void cargarCamposGUI() {
