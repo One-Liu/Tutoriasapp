@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="333.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.ModificarSolucionProblematicaAcademicaControlador">
+<AnchorPane id="AnchorPane" prefHeight="333.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.SeleccionDeSolucionAProblematicaAcademicaControladorControlador">
    <children>
       <Button layoutX="612.0" layoutY="294.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
       <Button layoutX="525.0" layoutY="294.0" mnemonicParsing="false" onAction="#clicSeleccionar" text="Seleccionar" />

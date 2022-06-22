@@ -14,7 +14,7 @@ import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 
-public class ModificarSolucionProblematicaAcademicaControlador implements Initializable {
+public class SeleccionDeSolucionAProblematicaAcademicaControlador implements Initializable {
     
     @FXML
     private TableView<?> tblProblematicasAcademicas;
