@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 
@@ -19,6 +20,20 @@ public class MenuPrincipalJefeDeCarreraControlador {
     
     @FXML
     private void clicRegistrarSolucionAProblematicaAcademica(ActionEvent evento) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIProblematicasSinSolucion.fxml"));
+            Parent raiz = cargadorFXML.load();
+            ProblematicasSinSolucionControlador controladorGUI = cargadorFXML.getController();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Probleamaticas academicas sin solucion");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException excepcionIO) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
         
     }
     

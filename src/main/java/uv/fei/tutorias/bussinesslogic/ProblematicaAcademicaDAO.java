@@ -134,6 +134,32 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         return resultado;
 
     }
+    @Override
+    public boolean modificarSolucionAProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException {
+        boolean resultado = false;
+        String consulta =
+                "UPDATE problematica_academica " +
+                        "SET " +
+                        "idSolucionProblematicaAcademica = ? " +
+                        "WHERE id = ? ";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setInt(1, problematicaAcademica.getIdSolucionProblematicaAcademica());
+            sentencia.setInt(2, problematicaAcademica.getIdProblematicaAcademica());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas != 0) {
+                resultado = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOG.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return resultado;
+
+    }
 
     @Override
     public boolean eliminarProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) throws SQLException {
@@ -236,4 +262,27 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
         }
         return experienciasEducativas;
     }
+
+    @Override
+    public List<ProblematicaAcademica> obtenerProblematicasAcademicasSinSolucion() throws SQLException {
+        List<ProblematicaAcademica> experienciasEducativas = new ArrayList();
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
+            String query = "SELECT  * from problematica_academica " +
+                "WHERE idSolucionProblematicaAcademica is null ";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+           while (resultSet.next()){
+               experienciasEducativas.add(getProblematicaAcademica(resultSet));
+           }
+        } catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return experienciasEducativas;
+    }
+
+
 }

@@ -10,16 +10,20 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
     private final Logger LOG = Logger.getLogger(SolucionAProblematicaAcademicaDAO.class);
 
     @Override
-    public boolean agregarSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto) throws SQLException {
-        boolean bandera = false;
+    public int agregarSolucionProblematicaAcademica(String solucionProblematicaAcademicaTexto) throws SQLException {
+        int id;
         ConexionBD dataBaseConnection = new ConexionBD();
-        String query = "INSERT INTO  solucionaproblematicaacademica (descripcion) VALUES (?)";
+        String query = "INSERT INTO  solucion_a_problematica_academica (descripcion) VALUES (?) ";
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1,solucionProblematicaAcademicaTexto);
             int executeUpdate = statement.executeUpdate();
-            if (executeUpdate !=  0){
-                bandera = true;
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (executeUpdate == 0) {
+                id = -1;
+            }else {
+                resultSet.next();
+                id=resultSet.getInt(1);
             }
         } catch (SQLException e) {
             LOG.warn(PersonaDAO.class.getName(), e);
@@ -28,7 +32,7 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
             dataBaseConnection.cerrarConexion();
         }
 
-        return bandera;
+        return id;
     }
 
     @Override

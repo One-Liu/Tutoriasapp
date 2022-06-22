@@ -15,11 +15,11 @@
       <Label fx:id="lblProfesor" layoutX="345.0" layoutY="76.0" text="PROFESOR" />
       <TextArea fx:id="taSolucion" layoutX="25.0" layoutY="283.0" prefHeight="122.0" prefWidth="550.0" />
       <Label layoutX="25.0" layoutY="260.0" text="Solución:" />
-      <Button layoutX="422.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#guardarBtn" text="Guardar" />
-      <Button layoutX="505.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#cancelarBtn" text="Cancelar" />
+      <Button layoutX="422.0" layoutY="425.0" mnemonicParsing="false" onAction="#guardarBtn" text="Guardar" />
+      <Button layoutX="505.0" layoutY="425.0" mnemonicParsing="false" onAction="#cancelarBtn" text="Cancelar" />
       <Label layoutX="345.0" layoutY="14.0" text="Fecha de reporte:" />
-      <Label fx:id="profesor1" layoutX="345.0" layoutY="31.0" text="FECHA_DE_REPORTE" />
-      <TextArea layoutX="25.0" layoutY="140.0" prefHeight="106.0" prefWidth="550.0" />
+      <Label fx:id="lblFechaReporte" layoutX="345.0" layoutY="31.0" text="FECHA_DE_REPORTE" />
+      <TextArea fx:id="taDescripcioProbleamticaAcademica" layoutX="25.0" layoutY="140.0" prefHeight="106.0" prefWidth="550.0" />
       <Label layoutX="25.0" layoutY="123.0" text="Problemática académica:" />
    </children>
 </AnchorPane>

@@ -1,15 +1,15 @@
 package uv.fei.tutorias.main;
 
+import javafx.event.ActionEvent;
+import lombok.Setter;
+import uv.fei.tutorias.bussinesslogic.*;
+import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
-import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
-import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
-import uv.fei.tutorias.bussinesslogic.SolucionAProblematicaAcademicaDAO;
 import uv.fei.tutorias.domain.ExperienciaEducativa;
 import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.Profesor;
@@ -22,69 +22,73 @@ import javafx.fxml.FXML;
 
 public class RegistrarSolucionProblematicaAcademicaControlador implements Initializable{
     @FXML
-    public Label lblProblematicaAcadémica;
+    private TextArea taDescripcioProbleamticaAcademica;
     @FXML
-    public Label lblExperienciaEducativa;
+    private Label lblProblematicaAcadémica;
     @FXML
-    public Label lblProfesor;
+    private Label lblExperienciaEducativa;
     @FXML
-    public Label lblFechaReporte;
+    private Label lblProfesor;
     @FXML
-    public TextArea taSolucion;
+    private Label lblFechaReporte;
+    @FXML
+    private TextArea taSolucion;
 
-    public RegistrarSolucionProblematicaAcademicaControlador(String seleccion){
-        try {
-            asignarTextosLabel(seleccion);
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
-        }
-    }
+    @Setter
+    ProblematicaAcademica problematicaAcademica;
+    @Setter
+    SesionDeTutoriaAcademica sesionDeTutoriaAcademica;
+    @Setter
+    ExperienciaEducativa experienciaEducativa;
+    @Setter
+    Profesor profesor;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void guardarBtn(MouseEvent mouseEvent) {
+    public void guardarBtn(ActionEvent actionEvent) {
+        SolucionAProblematicaAcademicaDAO solucionAProblematicaAcademicaDAO = new SolucionAProblematicaAcademicaDAO();
+        ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
+        int idSolucion;
+        if (!taSolucion.getText().isEmpty()){
+            try {
+                idSolucion = solucionAProblematicaAcademicaDAO.agregarSolucionProblematicaAcademica(taSolucion.getText());
+                problematicaAcademica.setIdSolucionProblematicaAcademica(idSolucion);
+                problematicaAcademicaDAO.modificarSolucionAProblematicaAcademica(problematicaAcademica);
 
-        SolucionAProblematicaAcademicaDAO solucionProblematica = new SolucionAProblematicaAcademicaDAO();
-        String solucionProblematicaTexto = taSolucion.getText();
-        boolean respuesta = false;
-        try {
-            respuesta = solucionProblematica.agregarSolucionProblematicaAcademica(solucionProblematicaTexto);
-        } catch (SQLException e) {
-            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+            } catch (SQLException e) {
+                UtilidadVentana.mensajePerdidaDeConexion();
+            }
+            UtilidadVentana.mostrarAlertaConfirmacion("Cambios guardados",
+            "Los cambios se han guardado exitosamente", Alert.AlertType.CONFIRMATION);
+            UtilidadVentana.cerrarVentana(actionEvent);
+        }else {
+            UtilidadVentana.mostrarAlertaSinConfirmacion("Datos vacios",
+                    "Asegurece de llenar los campos", Alert.AlertType.WARNING);
         }
-        if (respuesta == false){
-            mostrarAlerta("Error de conexión","Error: la problematica academica no se ha agregado",Alert.AlertType.ERROR);
-        }else{
-            mostrarAlerta("Solución guardada","La solución ha problemática académica\nfue guardada exitosamente", Alert.AlertType.INFORMATION);
-        }
+
     }
 
-    public void cancelarBtn(MouseEvent mouseEvent) {
-        System.exit(1);
+    public void cancelarBtn(ActionEvent actionEvent) {
+        UtilidadVentana.cerrarVentana(actionEvent);
     }
 
-    public void asignarTextosLabel(String descripcion) throws SQLException {
 
-        ProblematicaAcademicaDAO problematica = new ProblematicaAcademicaDAO();
-        ExperienciaEducativaDAO experiencia = new ExperienciaEducativaDAO();
-        ProfesorDAO profesordao = new ProfesorDAO();
-        ArrayList<ProblematicaAcademica> listaProblematica = (ArrayList<ProblematicaAcademica>) problematica.obtenerProblematicaAcademicaPorDescripcion(descripcion);
-        int idExperienciaEducativa =listaProblematica.get(0).getIdExperienciaEducativa();
-        ExperienciaEducativa datosExperiencia = experiencia.obtenerExperienciaEducativaPorId(idExperienciaEducativa);
-        Profesor nombreProfesor = profesordao.obtenerProfesorPorId(datosExperiencia.getIdProfesor());
+    public void recuperarDatos(){
+        ExperienciaEducativaDAO experienciaEducativaDAO = new ExperienciaEducativaDAO();
+        SesionDeTutoriaAcademicaDAO sesionDeTutoriaAcademicaDAO = new SesionDeTutoriaAcademicaDAO();
 
-        lblExperienciaEducativa.setText(datosExperiencia.getNombre());
-        lblProfesor.setText(nombreProfesor.getNombre());
-        lblProblematicaAcadémica.setText(listaProblematica.get(0).getDescripcion());
+        lblProblematicaAcadémica.setText(problematicaAcademica.getTitulo());
+        taDescripcioProbleamticaAcademica.setText(problematicaAcademica.getDescripcion());
+        taDescripcioProbleamticaAcademica.setDisable(true);
+        lblFechaReporte.setText(sesionDeTutoriaAcademica.getFechaConFormato());
+        lblExperienciaEducativa.setText(experienciaEducativa.getNombre());
+        lblProfesor.setText(profesor.getNombreCompleto());
+
+
     }
 
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo){
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
+
 }
