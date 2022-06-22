@@ -1,5 +1,6 @@
 package uv.fei.tutorias.main;
 
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -8,19 +9,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Setter;
+import uv.fei.tutorias.bussinesslogic.EstudianteDAO;
 import uv.fei.tutorias.bussinesslogic.ListaDeAsistenciaDAO;
 import uv.fei.tutorias.bussinesslogic.PeriodoEscolarDAO;
 import uv.fei.tutorias.bussinesslogic.ReporteDeTutoriaAcademicaDAO;
+import uv.fei.tutorias.domain.Estudiante;
 import uv.fei.tutorias.domain.ListaDeAsistencia;
 import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.ReporteDeTutoriaAcademica;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.domain.TutorAcademico;
+import uv.fei.tutorias.utilidades.TablaEstudiante_asistioEnRiesgo;
 
 public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @FXML
@@ -28,19 +35,17 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @FXML
     private Label lblFechaSesion;
     @FXML
-    private TableView<?> tblEstudiante_Asistencia;
-    @FXML
-    private TableColumn<?,?> colEstudiante;
-    @FXML
-    private TableColumn<?,?> colAsistencia;
-    @FXML
     private TextArea taDescripcion;
+    @FXML
+    private TableView<TablaEstudiante_asistioEnRiesgo> tblEstudiante_Asistencia_EnRiesgo;
+    @FXML
+    private TableColumn<TablaEstudiante_asistioEnRiesgo,String> colEstudiante;
+    @FXML
+    private TableColumn<TablaEstudiante_asistioEnRiesgo,CheckBox> colAsistencia;
+    @FXML
+    private TableColumn<TablaEstudiante_asistioEnRiesgo,CheckBox> colEnRiesgo;
     
-    private final ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
-    private final PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
-    private final ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
-    
-    private ObservableList<ListaDeAsistencia> listaDeAsistencias = FXCollections.observableArrayList();
+    private ObservableList<TablaEstudiante_asistioEnRiesgo> listaDeAsistenciasEstudiantes = FXCollections.observableArrayList();
     
     private ReporteDeTutoriaAcademica reporteDeTutoriaAcademica = new ReporteDeTutoriaAcademica();
     private PeriodoEscolar periodoEscolar = new PeriodoEscolar();
@@ -50,39 +55,71 @@ public class ReporteDeTutoriaAcademicaControlador implements Initializable {
     @Setter
     private SesionDeTutoriaAcademica sesionDeTutoriaAcademica = new SesionDeTutoriaAcademica();
     
-    private void inicializarPeriodoEscolar() throws SQLException {
+    public void cargarDatos() throws SQLException {
+        ReporteDeTutoriaAcademicaDAO reporteDeTutoriaAcademicaDAO = new ReporteDeTutoriaAcademicaDAO();
+        PeriodoEscolarDAO periodoEscolarDAO = new PeriodoEscolarDAO();
+        ListaDeAsistenciaDAO listaDeAsistenciaDAO = new ListaDeAsistenciaDAO();
+        EstudianteDAO estudianteDAO = new EstudianteDAO();
+        
         this.periodoEscolar = periodoEscolarDAO.obtenerPeriodoEscolarPorId(sesionDeTutoriaAcademica.getIdPeriodoEscolar());
-    }
-    
-    private void inicializarReporteDeTutoriaAcademica() throws SQLException {
+        
         this.reporteDeTutoriaAcademica.setIdTutorAcademico(this.tutorAcademico.getIdTutorAcademico());
         this.reporteDeTutoriaAcademica.setIdSesionDeTutoriaAcademica(this.sesionDeTutoriaAcademica.getId());
         this.reporteDeTutoriaAcademica = reporteDeTutoriaAcademicaDAO.obtenerReporteDeTutoriaPorIdSesionTutoriaYIdTutor(reporteDeTutoriaAcademica);
+
+        ObservableList<ListaDeAsistencia> asistencias = FXCollections.observableArrayList();
+        asistencias.addAll(listaDeAsistenciaDAO.obtenerListaDeAsistenciasPorTutorYSesionDeTutoria(this.tutorAcademico.getIdTutorAcademico(), this.sesionDeTutoriaAcademica.getId()));
+        
+        TablaEstudiante_asistioEnRiesgo visualizacionEstudiantes;
+        
+        for(ListaDeAsistencia listaDeAsistencia : asistencias) {
+            visualizacionEstudiantes = new TablaEstudiante_asistioEnRiesgo();
+            Estudiante estudianteRecuperado = estudianteDAO.obtenerEstudiantePorId(listaDeAsistencia.getIdEstudiante());
+            CheckBox asistencia = new CheckBox();
+            asistencia.setSelected(listaDeAsistencia.getAsistio());
+            CheckBox enRiesgo = new CheckBox();
+            enRiesgo.setSelected(estudianteRecuperado.getEnRiesgo());
+            
+            visualizacionEstudiantes.setEstudiante(estudianteRecuperado);
+            visualizacionEstudiantes.setAsistio(asistencia);
+            visualizacionEstudiantes.setEnRiesgo(enRiesgo);
+            this.listaDeAsistenciasEstudiantes.add(visualizacionEstudiantes);
+        }
     }
     
-    private void inicializarListaDeAsistencias() throws SQLException {
-        // Obtener solo los del tutor académico
-        this.listaDeAsistencias.addAll(listaDeAsistenciaDAO.buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(sesionDeTutoriaAcademica.getId()));
-        this.listaDeAsistencias = (ObservableList<ListaDeAsistencia>) listaDeAsistenciaDAO.buscarListasDeAsistenciasPorIdSesiondeTutoriaAcademica(sesionDeTutoriaAcademica.getId());
+    private boolean validarDatos() {
+        boolean datosValidos = true;
+        
+        if(reporteDeTutoriaAcademica.equals(new ReporteDeTutoriaAcademica())) {
+            UtilidadVentana.mostrarAlertaSinConfirmacion(
+                "Reporte de tutoría académica sin registrar", 
+                "El tutor académico no ha entregado el reporte de tutoría académica.", 
+                Alert.AlertType.ERROR);
+            datosValidos = false;
+        }
+        
+        return datosValidos;
     }
     
-    private void cargarCamposGUI() {
-        try {
-            inicializarPeriodoEscolar();
-            inicializarReporteDeTutoriaAcademica();
-            inicializarListaDeAsistencias();
+    public void cargarCamposGUI() {
+        if(validarDatos()) {
             this.lblPeriodoEscolar.setText(this.periodoEscolar.getFechas());
             this.lblFechaSesion.setText(this.sesionDeTutoriaAcademica.getFechaConFormato());
-            //Inicializar lista de asistencia
             this.taDescripcion.setText(this.reporteDeTutoriaAcademica.getDescripcionGeneral());
-        } catch(SQLException ex) {
-            UtilidadVentana.mensajePerdidaDeConexion();
+
+            this.colEstudiante.setCellValueFactory(new PropertyValueFactory("nombre"));
+            this.colAsistencia.setCellValueFactory(new PropertyValueFactory("asistencia"));
+            this.colEnRiesgo.setCellValueFactory(new PropertyValueFactory("enRiesgo"));
+
+            this.tblEstudiante_Asistencia_EnRiesgo.setItems(this.listaDeAsistenciasEstudiantes);
+            this.tblEstudiante_Asistencia_EnRiesgo.getSelectionModel().clearSelection();
+        } else {
+            UtilidadVentana.cerrarVentana(new ActionEvent());
         }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarCamposGUI();
     }
     
     @FXML

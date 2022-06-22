@@ -1,4 +1,4 @@
-package uv.fei.tutorias.main;
+package uv.fei.tutorias.utilidades;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

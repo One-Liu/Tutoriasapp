@@ -13,15 +13,14 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import lombok.Setter;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
-import uv.fei.tutorias.domain.PeriodoEscolar;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 
 public class SeleccionDeSesionDeTutoria_LlenarReporteDeTutoriaControlador implements Initializable {
 

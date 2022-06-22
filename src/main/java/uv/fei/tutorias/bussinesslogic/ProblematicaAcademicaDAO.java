@@ -35,7 +35,7 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
     @Override
     public List<ProblematicaAcademica> obtenerProblematicasAcademicas() throws SQLException {
-        List<ProblematicaAcademica> experienciasEducativas = new ArrayList<>();
+        List<ProblematicaAcademica> experienciasEducativas = new ArrayList();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT  * from problematica_academica";
@@ -180,5 +180,26 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
 
         return problematicaAcademica;
 
+    }
+
+    @Override
+    public List<ProblematicaAcademica> obtenerProblematicasAcademicasConSolucion() throws SQLException {
+        List<ProblematicaAcademica> experienciasEducativas = new ArrayList();
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
+            String query = "SELECT  * from problematica_academica" +
+                "WHERE idSolucionProblematicaAcademica != 0";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+           while (resultSet.next()){
+               experienciasEducativas.add(getProblematicaAcademica(resultSet));
+           }
+        } catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+        return experienciasEducativas;
     }
 }

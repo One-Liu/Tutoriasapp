@@ -1,5 +1,6 @@
 package uv.fei.tutorias.main;
 
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import uv.fei.tutorias.domain.TutorAcademico;
@@ -59,7 +60,7 @@ public class MenuPrincipalDeTutorAcademicoControlador {
     }
     
     @FXML
-    private void clicRegistrarHorariosDeSesionDeTutoria() {
+    private void clicRegistrarHorariosDeSesionDeTutoria(ActionEvent evento) {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSesionDeTutoria_RegistroDeHorarioDeSesionDeTutoria.fxml"));
             Parent raiz = cargadorFXML.load();
@@ -80,6 +81,10 @@ public class MenuPrincipalDeTutorAcademicoControlador {
         }
     }
     
+    @FXML
+    private void clicConsultarOfertaAcademica(ActionEvent evento) {
+    }
+
     @FXML
     private void clicCerrarSesion(ActionEvent evento) {
         DatosGlobalesDeSesion.getDatosGlobalesDeSesion().setTutorAcademico(null);

@@ -1,5 +1,6 @@
 package uv.fei.tutorias.main;
 
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
@@ -13,12 +14,34 @@ import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 
 public class MenuPrincipalCoordinadorDeTutoriasControlador {
     @FXML
-    private void clicConsultarReporteGeneralDeTutoriasAcademicas(ActionEvent actionEvent) {
+    private void clicConsultarReporteGeneralDeTutoriasAcademicas(ActionEvent evento) {
 
+    }
+    
+    @FXML
+    private void clicConsultarReportePorTutorAcademico(ActionEvent evento) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeReporte.fxml"));
+            Parent raiz = cargadorFXML.load();
+            SeleccionDeReporteControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Selección de reporte");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException excepcionIO) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
     }
 
     @FXML
-    private void clicRegistrarFechasDeSesionDeTutoria(ActionEvent actionEvent) {
+    private void clicRegistrarFechasDeSesionDeTutoria(ActionEvent evento) {
         try {
             FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistrarFechasDeSesionDeTutoria.fxml"));
             Parent raiz = cargadorFXML.load();
@@ -32,61 +55,8 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
         } catch(IOException ioException) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
-
-
-    }
-
-    @FXML
-    private void clicRegistrarFechasDeCierreParaLaEntregaDeReporte(ActionEvent actionEvent) {
-        try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistrarFechasDeCierreParaLaEntregaDeReporte.fxml"));
-            Parent raiz = cargadorFXML.load();
-            Scene escena = new Scene(raiz);
-            Stage escenario = new Stage();
-            escenario.setResizable(false);
-            escenario.setScene(escena);
-            escenario.setTitle("Consultar oferta academica");
-            escenario.initModality(Modality.APPLICATION_MODAL);
-            escenario.showAndWait();
-        } catch(IOException ioException) {
-            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
-        }
-    }
-
-    @FXML
-    private void clicConsultarOfertaAcademica(ActionEvent actionEvent) {
-        try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIConsultarOfertaAcademica.fxml"));
-            Parent raiz = cargadorFXML.load();
-            Scene escena = new Scene(raiz);
-            Stage escenario = new Stage();
-            escenario.setResizable(false);
-            escenario.setScene(escena);
-            escenario.setTitle("Consultar oferta academica");
-            escenario.initModality(Modality.APPLICATION_MODAL);
-            escenario.showAndWait();
-        } catch(IOException ioException) {
-            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
-        }
     }
     
-    @FXML
-    private void clicConsultarReportePorTutorAcademico(ActionEvent evento) {
-        try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("/src/main/resources/uv/fei/tutorias/main/GUISeleccionDeReporte.fxml"));
-            Parent raiz = cargadorFXML.load();
-            Scene escena = new Scene(raiz);
-            Stage escenario = new Stage();
-            escenario.setResizable(false);
-            escenario.setScene(escena);
-            escenario.setTitle("Selección de reporte");
-            escenario.initModality(Modality.APPLICATION_MODAL);
-            escenario.showAndWait();
-        } catch(IOException excepcionIO) {
-            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
-        }
-    }
-
     @FXML
     private void clicModificarFechasDeSesionDeTutoria(ActionEvent evento) {
         try {
@@ -110,18 +80,43 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
     }
 
     @FXML
-    private void clicRegistrarUsuario(ActionEvent evento) {
+    private void clicRegistrarFechasDeCierreParaLaEntregaDeReporte(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISignUp.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistrarFechasDeCierreParaLaEntregaDeReporte.fxml"));
             Parent raiz = cargadorFXML.load();
-            SignUpControlador controladorGUI = cargadorFXML.getController();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Consultar oferta academica");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException ioException) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
+    }
+    
+    @FXML
+    private void clicModificarFechasDeCierreParaLaEntregaDeReporte(ActionEvent evento) {
+    }
+    
+    @FXML
+    private void clicConsultarSolucionAProblematicaAcademica(ActionEvent evento) {
+    }
+
+    @FXML
+    private void clicRegistrarTutorAcademico(ActionEvent evento) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIRegistroDeTutorAcademico.fxml"));
+            Parent raiz = cargadorFXML.load();
+            RegistroDeTutorAcademicoControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.cargarDatos();
             controladorGUI.cargarCamposGUI();
             Scene escena = new Scene(raiz);
             Stage escenario = new Stage();
             escenario.setResizable(false);
             escenario.setScene(escena);
-            escenario.setTitle("Sign up");
+            escenario.setTitle("Registro de tutor académico");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
         } catch(IOException excepcionIO) {
@@ -130,7 +125,7 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
     }
-
+    
     @FXML
     private void clicAsignarTutorAEstudiante(ActionEvent evento) {
         try {
@@ -173,6 +168,27 @@ public class MenuPrincipalCoordinadorDeTutoriasControlador {
         } catch(SQLException excepcionSQL) {
             UtilidadVentana.mensajePerdidaDeConexion();
         }
+    }
+    
+    @FXML
+    private void clicConsultarOfertaAcademica(ActionEvent actionEvent) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIConsultarOfertaAcademica.fxml"));
+            Parent raiz = cargadorFXML.load();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Consultar oferta academica");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException ioException) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        }
+    }
+    
+    @FXML
+    private void clicAsignarExperienciaEducativaAProfesor(ActionEvent evento) {
     }
     
     @FXML

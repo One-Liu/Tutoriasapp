@@ -13,14 +13,15 @@
       <Label fx:id="lblPeriodoEscolar" layoutX="108.0" layoutY="14.0" text="PERIODO_ESCOLAR" />
       <Label layoutX="14.0" layoutY="38.0" text="Fecha:" />
       <Label fx:id="lblFechaSesion" layoutX="108.0" layoutY="38.0" text="FECHA_SESION" />
-      <TableView fx:id="tblEstudiante_Asistencia" layoutX="14.0" layoutY="61.0" prefHeight="248.0" prefWidth="365.0">
+      <TableView fx:id="tblEstudiante_Asistencia_EnRiesgo" layoutX="14.0" layoutY="61.0" prefHeight="248.0" prefWidth="365.0">
         <columns>
-          <TableColumn fx:id="colEstudiante" prefWidth="300.0" text="Estudiante" />
-          <TableColumn fx:id="colAsistencia" prefWidth="64.0" text="Asistencia" />
+          <TableColumn fx:id="colEstudiante" editable="false" prefWidth="238.0" sortable="false" text="Estudiante" />
+          <TableColumn fx:id="colAsistencia" editable="false" prefWidth="68.0" sortable="false" text="Asistencia" />
+            <TableColumn fx:id="colEnRiesgo" editable="false" prefWidth="58.0" sortable="false" text="En riesgo" />
         </columns>
       </TableView>
-      <Label layoutX="388.0" layoutY="38.0" text="Descripcion:" />
-      <TextArea fx:id="taDescripcion" layoutX="388.0" layoutY="61.0" prefHeight="248.0" prefWidth="258.0" />
+      <Label layoutX="388.0" layoutY="38.0" text="Comentarios generales:" />
+      <TextArea fx:id="taDescripcion" editable="false" layoutX="388.0" layoutY="61.0" prefHeight="248.0" prefWidth="258.0" wrapText="true" />
       <Button layoutX="584.0" layoutY="319.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar" />
       <Button layoutX="513.0" layoutY="319.0" mnemonicParsing="false" onAction="#clicImprimir" text="Imprimir" />
       <Button layoutX="434.0" layoutY="319.0" mnemonicParsing="false" onAction="#clicDescargar" text="Descargar" />

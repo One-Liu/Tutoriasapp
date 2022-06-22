@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 
 public class LlenarReporteDeTutoriaControlador implements Initializable {
     @FXML
