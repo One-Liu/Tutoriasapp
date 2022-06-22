@@ -12,10 +12,10 @@
       <Button layoutX="525.0" layoutY="294.0" mnemonicParsing="false" onAction="#clicSeleccionar" text="Seleccionar" />
       <TableView fx:id="tblProblematicasAcademicas" layoutX="14.0" layoutY="37.0" prefHeight="241.0" prefWidth="660.0">
         <columns>
-          <TableColumn fx:id="clmFechaDeReporte" prefWidth="108.0" text="Fecha de reporte" />
-          <TableColumn fx:id="clmProblematicaAcademica" prefWidth="215.0" text="Problemática académica" />
-          <TableColumn fx:id="clmExperienciaEducativa" minWidth="0.0" prefWidth="138.0" text="Experiencia educativa" />
-          <TableColumn fx:id="clmProfesor" minWidth="0.0" prefWidth="198.0" text="Profesor" />
+          <TableColumn fx:id="colFechaDeReporte" prefWidth="108.0" text="Fecha de reporte" />
+          <TableColumn fx:id="colProblematicaAcademica" prefWidth="215.0" text="Problemática académica" />
+          <TableColumn fx:id="colExperienciaEducativa" minWidth="0.0" prefWidth="138.0" text="Experiencia educativa" />
+          <TableColumn fx:id="colProfesor" minWidth="0.0" prefWidth="198.0" text="Profesor" />
         </columns>
       </TableView>
       <Label layoutX="14.0" layoutY="14.0" text="Seleccione una problemática académica:" />
