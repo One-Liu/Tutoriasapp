@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import lombok.Setter;
@@ -18,7 +17,7 @@ import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.domain.SolucionAProblematicaAcademica;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 
-public class ModificacionDeSolucionAProblematicaAcademicaControlador implements Initializable {
+public class SolucionAProblematicaAcademicaControlador implements Initializable {
 
     @FXML
     private Label lblProblematicaAcademica;
@@ -33,7 +32,7 @@ public class ModificacionDeSolucionAProblematicaAcademicaControlador implements 
     @FXML
     private TextArea taSolucion;
     
-    private SolucionAProblematicaAcademica solucionAnterior;
+    private SolucionAProblematicaAcademica solucion;
     
     @Setter
     private ProblematicaAcademica problematicaAcademica = new ProblematicaAcademica();
@@ -46,7 +45,7 @@ public class ModificacionDeSolucionAProblematicaAcademicaControlador implements 
     
     public void cargarDatos() throws SQLException {
         SolucionAProblematicaAcademicaDAO solucionAProblematicaAcademicaDAO = new SolucionAProblematicaAcademicaDAO();
-        this.solucionAnterior = solucionAProblematicaAcademicaDAO.buscarSolucionAProblematicaAcademicaById(problematicaAcademica.getIdSolucionProblematicaAcademica());
+        this.solucion = solucionAProblematicaAcademicaDAO.buscarSolucionAProblematicaAcademicaById(problematicaAcademica.getIdSolucionProblematicaAcademica());
     }
     
     public void cargarCamposGUI() {
@@ -55,45 +54,21 @@ public class ModificacionDeSolucionAProblematicaAcademicaControlador implements 
         this.lblExperienciaEducativa.setText(this.experienciaEducativa.getNombre());
         this.lblProfesor.setText(this.profesor.getNombreCompleto());
         this.taProblematicaAcademica.setText(this.problematicaAcademica.getDescripcion());
-        this.taSolucion.setText(this.solucionAnterior.getDescripcion());
+        this.taSolucion.setText(this.solucion.getDescripcion());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
     
-    private boolean validarCamposLlenos() {
-        boolean camposLlenos = true;
+    @FXML
+    private void clicDescargar(ActionEvent evento) {
         
-        if(this.taSolucion.getText().trim().isBlank()) {
-            UtilidadVentana.mostrarAlertaSinConfirmacion(
-                "Campos vacíos", 
-                "No puede haber campos vacíos", 
-                Alert.AlertType.WARNING);
-            camposLlenos = false;
-        }
-        
-        return camposLlenos;
     }
     
     @FXML
-    private void clicGuardar(ActionEvent evento) {
-        if(validarCamposLlenos()) {
-            SolucionAProblematicaAcademicaDAO solucionAProblematicaAcademicaDAO = new SolucionAProblematicaAcademicaDAO();
-            SolucionAProblematicaAcademica solucionNueva = new SolucionAProblematicaAcademica();
-            solucionNueva.setDescripcion(this.taSolucion.getText());
-
-            try {
-                solucionAProblematicaAcademicaDAO.modificarSolucionAProblematicaAcademica(solucionNueva);
-                UtilidadVentana.mostrarAlertaSinConfirmacion(
-                    "Confirmación de modificación",
-                    "La solución a la problemática académica se modificó correctamente",
-                    Alert.AlertType.INFORMATION);
-                UtilidadVentana.cerrarVentana(evento);
-            } catch(SQLException excepcionSQL) {
-                UtilidadVentana.mensajePerdidaDeConexion();
-            }
-        }
+    private void clicImprimir(ActionEvent evento) {
+        
     }
     
     @FXML

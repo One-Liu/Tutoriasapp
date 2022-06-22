@@ -29,7 +29,7 @@ import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.utilidades.TablaProblematica_FechaReporte_EE_Profesor;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 
-public class SeleccionDeSolucionAProblematicaAcademica_ModificacionSolucionControlador implements Initializable {
+public class SeleccionDeSolucionAProblematicaAcademica_ConsultarSolucionControlador implements Initializable {
     
     @FXML
     private TableView<TablaProblematica_FechaReporte_EE_Profesor> tblProblematicasAcademicas;
@@ -105,9 +105,9 @@ public class SeleccionDeSolucionAProblematicaAcademica_ModificacionSolucionContr
         TablaProblematica_FechaReporte_EE_Profesor problematicaSeleccionada = this.tblProblematicasAcademicas.getSelectionModel().getSelectedItem();
         
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeSolucionAProblematicaAcademica.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISolucionAProblematicaAcademica.fxml"));
             Parent raiz = cargadorFXML.load();
-            ModificacionDeSolucionAProblematicaAcademicaControlador controladorGUI = cargadorFXML.getController();
+            SolucionAProblematicaAcademicaControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.setProblematicaAcademica(problematicaSeleccionada.getProblematicaAcademica());
             controladorGUI.setSesionDeTutoriaAcademica(problematicaSeleccionada.getSesionDeTutoriaAcademica());
             controladorGUI.setExperienciaEducativa(problematicaSeleccionada.getExperienciaEducativa());
@@ -118,7 +118,7 @@ public class SeleccionDeSolucionAProblematicaAcademica_ModificacionSolucionContr
             Stage escenario = new Stage();
             escenario.setResizable(false);
             escenario.setScene(escena);
-            escenario.setTitle("Selección de solución a problemática académica");
+            escenario.setTitle("Solución a problemática académica");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
             UtilidadVentana.cerrarVentana(evento);

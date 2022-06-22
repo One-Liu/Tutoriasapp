@@ -3,7 +3,6 @@ package uv.fei.tutorias.main;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import uv.fei.tutorias.domain.TutorAcademico;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.fxml.FXMLLoader;

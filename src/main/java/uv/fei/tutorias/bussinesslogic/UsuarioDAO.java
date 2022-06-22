@@ -38,28 +38,25 @@ public class UsuarioDAO implements IUsuarioDAO{
 
     @Override
     public Usuario buscarUsuarioPorCorreoYContrasena(Usuario usuario)throws SQLException{
-        ConexionBD dataBaseConnection = new ConexionBD();
-        try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "select id, contrasena, correoInstitucional from usuario where contrasena = md5 (?) and correoInstitucional = (?)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, usuario.getContrasena());
-            statement.setString(2, usuario.getCorreoInstitucional());
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                SQLException ex = new SQLException();
-                LOG.warn(getClass().getName(), ex);
-                throw ex;
-            } else {
-                int id;
-                id = resultSet.getInt("id");
-                usuario.setIdUsuario(id);
+        ConexionBD baseDeDatos = new ConexionBD();
+        try (Connection conexion = baseDeDatos.abrirConexion()) {
+            String consulta = "select id, contrasena, correoInstitucional from usuario where contrasena = md5 (?) and correoInstitucional = (?)";
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, usuario.getContrasena());
+            sentencia.setString(2, usuario.getCorreoInstitucional());
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                usuario.setIdUsuario(resultado.getInt("id"));
             }
-        }finally {
-            dataBaseConnection.cerrarConexion();
+        } catch(SQLException excepcionSQL) {
+            LOG.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
         }
         return usuario;
-
     }
+    
     @Override
     public boolean estaIdUsuarioEnTutorAcademico(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
@@ -82,7 +79,7 @@ public class UsuarioDAO implements IUsuarioDAO{
     }
 
     @Override
-    public boolean estaIdUsarionEnJefeDeCarrera(int searchId)throws SQLException{
+    public boolean estaIdUsuarioEnJefeDeCarrera(int searchId)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean resultado = false;
         try (Connection connection = dataBaseConnection.abrirConexion()) {

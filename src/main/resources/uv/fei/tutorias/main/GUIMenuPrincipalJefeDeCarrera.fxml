@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.MenuPrincipalJefeDeCarreraControlador">
    <children>
       <ImageView fitHeight="187.0" fitWidth="130.0" layoutX="39.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,7 +19,7 @@
       <Button layoutX="212.0" layoutY="165.0" mnemonicParsing="false" prefWidth="300.0" text="Modificar solución a problemática académica" AnchorPane.topAnchor="165.0" />
       <Button layoutX="212.0" layoutY="105.0" mnemonicParsing="false" prefWidth="300.0" text="Registrar solución a problemática académica" AnchorPane.topAnchor="105.0" />
       <Button layoutX="212.0" layoutY="230.0" mnemonicParsing="false" prefWidth="300.0" text="Consultar oferta académica" AnchorPane.topAnchor="230.0" />
-      <Button layoutX="27.0" layoutY="230.0" mnemonicParsing="false" text="Cerrar sesión" />
+      <Button layoutX="27.0" layoutY="230.0" mnemonicParsing="false" onAction="#clicCerrarSesion" text="Cerrar sesión" />
       <Label layoutX="212.0" layoutY="20.0" text="Gestión de reportes tutoriales" textFill="#000000c0" underline="true" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="System Bold Italic" size="12.0" />
