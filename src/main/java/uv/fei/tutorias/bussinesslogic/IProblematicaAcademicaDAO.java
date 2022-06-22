@@ -12,6 +12,9 @@ public interface IProblematicaAcademicaDAO {
     public List<ProblematicaAcademica> obtenerProblematicasAcademicas() throws SQLException;
     public ProblematicaAcademica obtenerProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) throws SQLException;
     public int agregarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException;
+
+    boolean modificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException;
+
     public boolean eliminarProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) throws SQLException;
 
     public List<ProblematicaAcademica> obtenerProblematicasAcademicasDeUnTutor(int idTutorAcademico)throws SQLException;

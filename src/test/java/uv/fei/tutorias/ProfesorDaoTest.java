@@ -9,9 +9,6 @@ import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
 import uv.fei.tutorias.domain.Persona;
 import uv.fei.tutorias.domain.Profesor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
@@ -49,19 +46,19 @@ public class ProfesorDaoTest {
     
     @Test
     public void agregarPersonaYProfesor() throws SQLException {
-        assertTrue(profesorDAO.addProfesorandPersona(profesorNuevo));
+        assertTrue(profesorDAO.agregarProfesorYPersona(profesorNuevo));
     }
     @Test
     public void eliminarProfesor() throws SQLException {
-        assertTrue(profesorDAO.deleteProfesorById(27));
+        assertTrue(profesorDAO.eliminarProfesorPorId(27));
     }
 
     @Test
     public void buscarProfesoresPorNombre() throws SQLException {
-        MatcherAssert.assertThat(profesorDAO.findProfesoresByName("MAX"), not(IsEmptyCollection.empty()));
+        MatcherAssert.assertThat(profesorDAO.obtenerProfesores(), not(IsEmptyCollection.empty()));
     }
     @Test
     public void BuscarProfesoresPorId() throws SQLException {
-        assertTrue(profesorDAO.findProfesorById(1).equals(profesor1));
+        assertTrue(profesorDAO.obtenerProfesorPorId(1).equals(profesor1));
     }
 }

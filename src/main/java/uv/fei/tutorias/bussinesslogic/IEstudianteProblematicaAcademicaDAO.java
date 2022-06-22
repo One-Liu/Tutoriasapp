@@ -8,5 +8,10 @@ import java.util.List;
 public interface IEstudianteProblematicaAcademicaDAO {
     public List<EstudiantesProblematicasAcademicas> obtenerEstudianteProblematicaAcademicaPorId(int searchIdproblematicaAcademica) throws SQLException;
     public boolean agregarEstudianteProblematicaAcademica(EstudiantesProblematicasAcademicas estudiante_problematicaAcademica) throws SQLException;
+
+    boolean existeEstudianteProblematicaAcademica(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) throws SQLException;
+
     public boolean eliminarEstudianteProblematicaAcademicaPorId(int searchId) throws SQLException;
+
+    boolean eliminarAEstudianteDeLaProblematicaAcademica(EstudiantesProblematicasAcademicas estudiantesProblematicasAcademicas) throws SQLException;
 }

@@ -102,6 +102,40 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     }
 
     @Override
+    public boolean modificarProblematicaAcademica(ProblematicaAcademica problematicaAcademica) throws SQLException {
+        boolean resultado = false;
+        String consulta =
+                "UPDATE problematica_academica " +
+                        "SET descripcion = ?, " +
+                        "titulo = ?, " +
+                        "idExperienciaEducativa = ?, " +
+                        "idSesionDeTutoriaAcademica = ?, " +
+                        "idProfesor = ? " +
+                        "WHERE id = ? ";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try(Connection conexion = baseDeDatos.abrirConexion()) {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, problematicaAcademica.getDescripcion());
+            sentencia.setString(2, problematicaAcademica.getTitulo());
+            sentencia.setInt(3, problematicaAcademica.getIdExperienciaEducativa());
+            sentencia.setInt(4, problematicaAcademica.getIdSesionDeTutoriaAcademica());
+            sentencia.setInt(5, problematicaAcademica.getIdProfesor());
+            sentencia.setInt(6, problematicaAcademica.getIdProblematicaAcademica());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if(columnasAfectadas != 0) {
+                resultado = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            LOG.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        } finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return resultado;
+
+    }
+
+    @Override
     public boolean eliminarProblematicaAcademicaPorId(int idProblematicaAcademicaBusqueda) throws SQLException {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
