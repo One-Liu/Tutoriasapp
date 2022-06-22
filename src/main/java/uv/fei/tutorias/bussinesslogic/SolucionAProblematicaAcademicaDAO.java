@@ -84,4 +84,28 @@ public class SolucionAProblematicaAcademicaDAO implements ISolucionAProblematica
         return solucionAProblematicaAcademica;
 
     }
+    
+    @Override
+    public boolean modificarSolucionAProblematicaAcademica(SolucionAProblematicaAcademica solucionAProblematicaAcademica) throws SQLException {
+        boolean resultado = false;
+        String consulta = "UPDATE solucion_a_problematica_academica " +
+            "SET descripcion = ? " + 
+            "WHERE id = ?";
+        ConexionBD baseDeDatos = new ConexionBD();
+        try (Connection conexion = baseDeDatos.abrirConexion()){
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, solucionAProblematicaAcademica.getDescripcion());
+            sentencia.setInt(2, solucionAProblematicaAcademica.getIdSolucionAProblematicaAcademica());
+            int columnasAfectadas = sentencia.executeUpdate();
+            if (columnasAfectadas != 0){
+                resultado = true;
+            }
+        } catch (SQLException excepcionSQL) {
+            LOG.warn(getClass().getName(), excepcionSQL);
+            throw excepcionSQL;
+        }finally {
+            baseDeDatos.cerrarConexion();
+        }
+        return resultado;
+    }
 }
