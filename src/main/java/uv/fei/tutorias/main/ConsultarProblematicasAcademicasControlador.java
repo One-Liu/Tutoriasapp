@@ -19,6 +19,7 @@ import uv.fei.tutorias.domain.ProblematicaAcademica;
 import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 import uv.fei.tutorias.utilidades.TablaProblematicaAcademica_Detalles;
+import uv.fei.tutorias.utilidades.UtilidadVentana;
 
 import java.net.URL;
 import java.sql.SQLException;

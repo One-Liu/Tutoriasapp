@@ -84,7 +84,7 @@ public class LoginControlador {
         } catch (SQLException excepcionSQL) {
             UtilidadVentana.mensajePerdidaDeConexion();
         } catch (IOException excepcionIO) {
-            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+            excepcionIO.printStackTrace();
         }
     }
     

@@ -104,4 +104,13 @@ public class MenuPrincipalDeTutorAcademicoControlador {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }
     }
+
+    public void clicRegistrarProblematicaAcademica(ActionEvent actionEvent) {
+    }
+
+    public void clicModificarProblematicaAcademica(ActionEvent actionEvent) {
+    }
+
+    public void clicEliminarProblematicaAcademica(ActionEvent actionEvent) {
+    }
 }
