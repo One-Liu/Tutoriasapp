@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.ConsultarProblematicasAcademicasControlador">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uv.fei.tutorias.main.ConsultarProblematicasAcademicasControlador">
    <children>
       <TableView fx:id="tblProblematicaAcademica" layoutX="127.0" layoutY="100.0" onMouseClicked="#clicEnProblematicaAcademica" prefHeight="200.0" prefWidth="345.0">
         <columns>
@@ -14,8 +12,8 @@
             <TableColumn fx:id="colExperienciaEducativa" prefWidth="140.0" text="Experiencia educativa" />
         </columns>
       </TableView>
-      <Button fx:id="btnEliminar" layoutX="309.0" layoutY="344.0" mnemonicParsing="false" onAction="#actEliminar" text="Eliminar" />
-      <Button fx:id="btnConsultar" layoutX="385.0" layoutY="344.0" mnemonicParsing="false" onAction="#actConsultar" text="Consultar" />
-      <Button layoutX="473.0" layoutY="344.0" mnemonicParsing="false" onAction="#actRegresar" text="Regresar" />
+      <Button fx:id="btnEliminar" layoutX="309.0" layoutY="344.0" mnemonicParsing="false" onAction="#clicEliminar" text="Eliminar" />
+      <Button fx:id="btnConsultar" layoutX="385.0" layoutY="344.0" mnemonicParsing="false" onAction="#clicModificar" text="modificar" />
+      <Button layoutX="473.0" layoutY="344.0" mnemonicParsing="false" onAction="#clicRegresar" text="Regresar" />
    </children>
 </AnchorPane>

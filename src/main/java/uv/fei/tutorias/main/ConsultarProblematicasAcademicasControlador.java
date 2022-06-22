@@ -5,12 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.SesionDeTutoriaAcademicaDAO;
@@ -21,6 +26,7 @@ import uv.fei.tutorias.utilidades.DatosGlobalesDeSesion;
 import uv.fei.tutorias.utilidades.TablaProblematicaAcademica_Detalles;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,7 +41,7 @@ public class ConsultarProblematicasAcademicasControlador implements Initializabl
     @FXML  private Button btnEliminar;
     @FXML  private Button btnConsultar;
 
-    public void actEliminar(ActionEvent actionEvent) {
+    public void clicEliminar(ActionEvent actionEvent) {
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
         int idProblematicaAcademica = tblProblematicaAcademica.getSelectionModel().getSelectedItem().problematicaAcademica.getIdProblematicaAcademica();
         try {
@@ -46,10 +52,30 @@ public class ConsultarProblematicasAcademicasControlador implements Initializabl
         UtilidadVentana.mostrarAlertaConfirmacion("Modificaciones","La problematica academica se ha eliminado exitosamente", Alert.AlertType.CONFIRMATION);
     }
 
-    public void actConsultar(ActionEvent actionEvent) {
+    public void clicModificar(ActionEvent actionEvent) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificarProblematicaAcademica.fxml"));
+            Parent raiz = cargadorFXML.load();
+            ModificarProblematicaAcademicaControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.setProblematicaAcademica(tblProblematicaAcademica.getSelectionModel().getSelectedItem().problematicaAcademica);
+            controladorGUI.cargarDatosProblematicaAcademica();
+            controladorGUI.cargarCamposGUI();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Modificar problematica academica");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException ioException) {
+            ioException.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public void actRegresar(ActionEvent actionEvent) {
+    public void clicRegresar(ActionEvent actionEvent) {
     }
 
     public void crearTabla() throws SQLException {

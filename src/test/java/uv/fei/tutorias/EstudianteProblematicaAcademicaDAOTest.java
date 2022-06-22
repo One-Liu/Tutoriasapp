@@ -36,5 +36,9 @@ public class EstudianteProblematicaAcademicaDAOTest {
     public void buscarEstudiantesProblematicaAcademica() throws SQLException {
         MatcherAssert.assertThat(estudiantesProblematicasAcademicasDAO.obtenerEstudianteProblematicaAcademicaPorId(13), not(IsEmptyCollection.empty()));
     }
+    @Test
+    public void existeEstudianteProblematicaAcademica()throws SQLException{
+        assertTrue(estudiantesProblematicasAcademicasDAO.existeEstudianteProblematicaAcademica(estudiantesProblematicasAcademicas));
+    }
 
 }

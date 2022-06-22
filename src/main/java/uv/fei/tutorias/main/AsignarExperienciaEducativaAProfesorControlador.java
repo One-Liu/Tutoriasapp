@@ -44,7 +44,7 @@ public class AsignarExperienciaEducativaAProfesorControlador implements Initiali
         ProfesorDAO profesorDAO = new ProfesorDAO();
         List<Profesor> profesores = null;
         try {
-            profesores = profesorDAO.findProfesoresByName("");
+            profesores = profesorDAO.obtenerProfesores();
         } catch (SQLException e) {
             UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
         }

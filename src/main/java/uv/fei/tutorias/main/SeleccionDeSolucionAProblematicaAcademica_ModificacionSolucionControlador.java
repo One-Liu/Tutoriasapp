@@ -58,7 +58,7 @@ public class SeleccionDeSolucionAProblematicaAcademica_ModificacionSolucionContr
             visualizacionProblematica = new TablaProblematica_FechaReporte_EE_Profesor();
             SesionDeTutoriaAcademica sesionDeTutoriaAcademica = sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorId(problematicaAcademica.getIdSesionDeTutoriaAcademica());
             ExperienciaEducativa experienciaEducativa = experienciaEducativaDAO.obtenerExperienciaEducativaPorId(problematicaAcademica.getIdExperienciaEducativa());
-            Profesor profesor = profesorDAO.findProfesorById(experienciaEducativa.getIdProfesor());
+            Profesor profesor = profesorDAO.obtenerProfesorPorId(experienciaEducativa.getIdProfesor());
             
             visualizacionProblematica.setProblematicaAcademica(problematicaAcademica);
             visualizacionProblematica.setSesionDeTutoriaAcademica(sesionDeTutoriaAcademica);

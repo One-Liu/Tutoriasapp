@@ -17,7 +17,7 @@ public class ProfesorDAO implements IProfesorDAO {
     private final Logger LOG = Logger.getLogger(ProfesorDAO.class);
 
     @Override
-    public boolean addProfesor(Profesor profesor) throws SQLException {
+    public boolean agregarProfesor(Profesor profesor) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
         boolean bandera = false;
         String query = "INSERT INTO profesor(id, idPersona) VALUES(?,?)";
@@ -37,8 +37,8 @@ public class ProfesorDAO implements IProfesorDAO {
         }
         return bandera;
     }
-
-    public boolean addProfesorandPersona(Persona persona) throws SQLException {
+    @Override
+    public boolean agregarProfesorYPersona(Persona persona) throws SQLException {
         boolean bandera = false;
         PersonaDAO personaDAO = new PersonaDAO();
         int idPersona;
@@ -46,41 +46,18 @@ public class ProfesorDAO implements IProfesorDAO {
         Profesor profesor = new Profesor();
         if (idPersona != -1){
             profesor.setIdPersona(idPersona);
-            addProfesor(profesor);
+            agregarProfesor(profesor);
             bandera = true;
         }
         return bandera;
     }
 
 
-
-
     @Override
-    public List<Profesor> findProfesoresByName(String searchName) throws SQLException {
-        List<Profesor> profesores = new ArrayList<>();
-        ConexionBD dataBaseConnection = new ConexionBD();
-        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where per.nombre LIKE ?";
-        try (Connection connection = dataBaseConnection.abrirConexion()){
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,"%" + searchName + "%");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
-                profesores.add(getProfesor(resultSet));
-            }
-        } catch (SQLException ex) {
-            LOG.warn(getClass().getName(), ex);
-            throw ex;
-        }finally {
-            dataBaseConnection.cerrarConexion();
-        }
-        return profesores;
-    }
-
-    @Override
-    public Profesor findProfesorById(int searchId) throws SQLException {
+    public Profesor obtenerProfesorPorId(int searchId) throws SQLException {
         ConexionBD dataBaseConnection = new ConexionBD();
         Profesor profesor = new Profesor();
-        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = (?)";
+        String query = "select prof.id, per.nombre, per.apellidoPaterno, per.apellidoMaterno, per.idProgramaEducativo from persona per inner join profesor prof on per.id = prof.idPersona where prof.id = ? ";
         try (Connection connection = dataBaseConnection.abrirConexion()){
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,searchId);
@@ -99,7 +76,7 @@ public class ProfesorDAO implements IProfesorDAO {
 
 
     @Override
-    public boolean deleteProfesorById(int searchId) throws SQLException {
+    public boolean eliminarProfesorPorId(int searchId) throws SQLException {
         boolean bandera = false;
         ConexionBD dataBaseConnection = new ConexionBD();
         String query = "DELETE FROM profesor WHERE (id = ?)";

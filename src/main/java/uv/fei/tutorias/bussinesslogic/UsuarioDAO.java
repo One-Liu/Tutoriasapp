@@ -40,7 +40,7 @@ public class UsuarioDAO implements IUsuarioDAO{
     public Usuario buscarUsuarioPorCorreoYContrasena(Usuario usuario)throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()) {
-            String query = "select id, contrasena, correoInstitucional from usuario where contrasena = md5 (?) and correoInstitucional = (?)";
+            String query = "select id, contrasena, correoInstitucional from usuario where contrasena = md5 (?) and correoInstitucional = ? ";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, usuario.getContrasena());
             statement.setString(2, usuario.getCorreoInstitucional());
