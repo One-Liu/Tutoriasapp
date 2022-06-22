@@ -8,7 +8,4 @@ import uv.fei.tutorias.domain.ProgramaEducativo;
 public interface IProgramaEducativoDAO {
     public List<ProgramaEducativo> obtenerProgramasEducativos() throws SQLException;
     public ProgramaEducativo obtenerProgramaEducativoPorId(int idProgramaEducativo) throws SQLException;
-    public boolean agregarProgramaEducativo(ProgramaEducativo programaEducativo) throws SQLException;
-    public boolean eliminarProgramaEducativoPorId(int idProgramaEducativo) throws SQLException;
-    public boolean modificarProgramaEducativo(ProgramaEducativo programaEducativo) throws SQLException;
 }

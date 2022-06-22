@@ -49,19 +49,29 @@ public class SesionDeTutoriaAcademicaDAOTest {
     public void testAgregarSesionDeTutoriaAcademica() throws SQLException {
         assertTrue(sesionDeTutoriaAcademicaDAO.agregarSesionDeTutoriaAcademica(sesionDeTutoriaAcademicaNueva));
     }
-
-    @Test
-    public void testEliminarSesionDeTutoriaAcademicaPorId() throws SQLException {
-        int idSesionDeTutoriaAcademica = 0;
-        assertFalse(sesionDeTutoriaAcademicaDAO.eliminarSesionDeTutoriaAcademicaPorId(idSesionDeTutoriaAcademica));
-    }
     
     @Test
     public void testModificarSesionDeTutoriaAcademica() throws SQLException {
         assertTrue(sesionDeTutoriaAcademicaDAO.modificarFechaDeSesionDeTutoriaAcademica(sesionDeTutoriaAcademica1));
     }
+    
+    @Test
+    public void testModificarFechaDeCierreDeEntregaDeReporte() throws SQLException {
+        
+    }
+    
     @Test
     public void testobtenerSesionDeTutoriaAcademicaPorPeriodoEscolar()throws SQLException{
         assertNotNull(sesionDeTutoriaAcademicaDAO.obtenerSesionDeTutoriaAcademicaPorPeriodoEscolar(8));
+    }
+    
+    @Test
+    public void testObtenerSesionesDeTutoriaAcademicaSinOcurrir() throws SQLException {
+        
+    }
+    
+    @Test
+    public void testObtenerSesionesDeTutoriaAcademicaQueYaOcurrieron() throws SQLException {
+        
     }
 }

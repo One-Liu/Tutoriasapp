@@ -12,8 +12,6 @@ import uv.fei.tutorias.domain.Persona;
 
 // author @liu
 public class EstudianteDAOTest {
-    private Persona personaNueva;
-    private Estudiante estudianteNuevo;
     private Persona persona1;
     private Estudiante estudiante1;
     private Persona persona2;
@@ -26,8 +24,6 @@ public class EstudianteDAOTest {
     
     @Before
     public void inicializar() {
-        personaNueva = new Persona("VICTOR AUGUSTO","CUEVAS","BARRADAS",4);
-        estudianteNuevo = new Estudiante("S20020853",personaNueva);
         persona1 = new Persona("JOSHUA ELIUD","HERNÁNDEZ","SUÁREZ",4);
         estudiante1 = new Estudiante(1,"S20015728",false,2,persona1);
         persona2 = new Persona("PAULO CÉSAR","HERNÁNDEZ","ROSADO",4);
@@ -56,17 +52,6 @@ public class EstudianteDAOTest {
         int idEstudiante = 1;
         Estudiante estudianteObtenido = estudianteDAO.obtenerEstudiantePorId(idEstudiante);
         assertTrue(estudiante1.equals(estudianteObtenido));
-    }
-    
-    @Test
-    public void testAgregarEstudiante() throws SQLException {
-        assertTrue(estudianteDAO.agregarEstudiante(estudianteNuevo));
-    }
-    
-    @Test
-    public void testEliminarEstudiantePorId() throws SQLException {
-        int idEstudiante = 7;
-        assertFalse(estudianteDAO.eliminarEstudiantePorId(idEstudiante));
     }
 
     @Test
@@ -103,5 +88,10 @@ public class EstudianteDAOTest {
         ObservableList<Estudiante> estudiantesObtenidos = FXCollections.observableArrayList();
         estudiantesObtenidos.addAll(estudianteDAO.obtenerEstudiantesConTutorAsignado());
         assertTrue(estudiantesEsperados.equals(estudiantesObtenidos));
+    }
+    
+    @Test
+    public void testModificarEstadoDeEstudiante() throws SQLException {
+        
     }
 }

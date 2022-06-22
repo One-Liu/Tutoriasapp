@@ -13,6 +13,11 @@ public class JefeDeCarrera extends Usuario {
         this.idJefeDeCarrera = 0;
     }
     
+    public JefeDeCarrera(int idJefeDeCarrera, Persona jefeDeCarrera){
+        super(jefeDeCarrera);
+        this.idJefeDeCarrera = idJefeDeCarrera;
+    }
+    
     public JefeDeCarrera(Persona jefeDeCarrera, Usuario usuario) {
         super(usuario.getIdUsuario(), usuario.getContrasena(), usuario.getCorreoInstitucional(), jefeDeCarrera);
         this.idJefeDeCarrera = 0;

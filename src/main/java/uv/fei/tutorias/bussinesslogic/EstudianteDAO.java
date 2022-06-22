@@ -87,52 +87,6 @@ public class EstudianteDAO implements IEstudianteDAO {
     }
 
     @Override
-    public boolean agregarEstudiante(Estudiante estudiante) throws SQLException {
-        boolean resultado = false;
-        PersonaDAO personaDao = new PersonaDAO();
-        Persona personaEstudiante = new Persona(estudiante.getNombre(), estudiante.getApellidoPaterno(), estudiante.getApellidoMaterno(), estudiante.getIdProgramaEducativo());
-        String consulta = "INSERT INTO estudiante (matricula, idTutorAcademico, idPersona) VALUES (?,?,?)";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, estudiante.getMatricula());
-            sentencia.setInt(2, estudiante.getIdTutorAcademico());
-            sentencia.setInt(3, personaDao.agregarPersona(personaEstudiante));
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return resultado;
-    }
-
-    @Override
-    public boolean eliminarEstudiantePorId(int idEstudiante) throws SQLException {
-        boolean resultado = false;
-        String consulta = "DELETE FROM estudiante WHERE id = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, idEstudiante);
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return resultado;
-    }
-
-    @Override
     public boolean modificarAsignacionDeTutor(Estudiante estudiante) throws SQLException {
         boolean resultado = false;
         String consulta =

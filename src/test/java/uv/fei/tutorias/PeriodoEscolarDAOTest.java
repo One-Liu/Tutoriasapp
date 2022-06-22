@@ -75,15 +75,4 @@ public class PeriodoEscolarDAOTest {
     public void testAgregarPeriodoEscolar() throws SQLException {
         assertNotEquals(periodoEscolarDAO.agregarPeriodoEscolar(periodoEscolarNuevo),-1);
     }
-
-    @Test
-    public void testEliminarPeriodoEscolarPorId() throws SQLException {
-        int idPeriodoEscolar = 2;
-        assertTrue(periodoEscolarDAO.eliminarPeriodoEscolarPorId(idPeriodoEscolar));
-    }
-    
-    @Test
-    public void testModificarPeriodoEscolar() throws SQLException {
-        assertTrue(periodoEscolarDAO.modificarPeriodoEscolar(periodoEscolar1));
-    }
 }

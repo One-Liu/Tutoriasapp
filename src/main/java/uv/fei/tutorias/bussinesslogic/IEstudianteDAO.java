@@ -8,8 +8,6 @@ import uv.fei.tutorias.domain.Estudiante;
 public interface IEstudianteDAO {
     public List<Estudiante> obtenerEstudiantes() throws SQLException;
     public Estudiante obtenerEstudiantePorId(int idEstudiante) throws SQLException;
-    public boolean agregarEstudiante(Estudiante estudiante) throws SQLException;
-    public boolean eliminarEstudiantePorId(int idEstudiante) throws SQLException;
     public boolean modificarAsignacionDeTutor(Estudiante estudiante) throws SQLException;
     public List<Estudiante> obtenerEstudiantesDeTutor(int idTutorAcademico) throws SQLException;
     public List<Estudiante> obtenerEstudiantesSinTutorAsignado() throws SQLException;

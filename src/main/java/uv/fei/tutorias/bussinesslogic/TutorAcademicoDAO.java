@@ -101,53 +101,6 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
     }
 
     @Override
-    public boolean eliminarTutorAcademicoPorId(int idTutorAcademico) throws SQLException {
-        boolean resultado = false;
-        String consulta = "DELETE FROM tutor_academico WHERE id = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try (Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, idTutorAcademico);
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return resultado;
-    }
-    
-    @Override
-    public boolean modificarTutorAcademico(TutorAcademico tutorAcademico) throws SQLException {
-        boolean resultado = false;
-        String consulta = 
-                "UPDATE tutor_academico " + 
-                "SET idPersona = ?, " +
-                "SET idUsuario = ? " +
-                "WHERE id = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, tutorAcademico.getIdPersona());
-            sentencia.setInt(2, tutorAcademico.getIdUsuario());
-            sentencia.setInt(3, tutorAcademico.getIdTutorAcademico());
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return resultado;
-    }
-    @Override
     public TutorAcademico buscarTutorAcademicoPorElIdDeUsuario(int idUsuario) throws SQLException {
         TutorAcademico tutorAcademico = new TutorAcademico();
         String query =
@@ -169,7 +122,6 @@ public class TutorAcademicoDAO implements ITutorAcademicoDAO {
             dataBaseConnection.cerrarConexion();
         }
         return tutorAcademico;
-
     }
     
     @Override

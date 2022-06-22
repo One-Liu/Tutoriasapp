@@ -17,9 +17,4 @@ public class JefeDeCarreraDAOTest {
         jefeDeCarrera.setIdPersona(40);
         jefeDeCarrera.setIdUsuario(1);
     }
-    @Test
-    public void agregarJefeDeCarrera(){
-        assertTrue(jefeDeCarreraDAO.agregarJefeDeCarrera(jefeDeCarrera));
-    }
-
 }

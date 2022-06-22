@@ -48,12 +48,6 @@ public class FechaDeCierreEntregaDeReporteDAOTest {
     public void testAgregarFechaDeCierreEntregaDeReporte() throws SQLException {
         assertEquals(fechaDeCierreDAO.agregarFechaDeCierreEntregaDeReporte(fechaDeCierreNueva),3);
     }
-
-    @Test
-    public void testEliminarFechaDeCierreEntregaDeReportePorId() throws SQLException {
-        int idFechaDeCierreEntregaReporte = 0;
-        assertFalse(fechaDeCierreDAO.eliminarFechaDeCierreEntregaDeReportePorId(idFechaDeCierreEntregaReporte));
-    }
     
     @Test
     public void testModificarFechaDeCierreEntregaDeReporte() throws SQLException {

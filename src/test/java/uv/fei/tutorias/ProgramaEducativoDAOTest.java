@@ -40,20 +40,4 @@ public class ProgramaEducativoDAOTest {
         ProgramaEducativo programaEducativoObtenido = programaEducativoDAO.obtenerProgramaEducativoPorId(idProgramaEducativo);
         assertTrue(programaEducativo1.equals(programaEducativoObtenido));
     }
-    
-    @Test
-    public void testAgregarProgramaEducativo() throws SQLException {
-        assertTrue(programaEducativoDAO.agregarProgramaEducativo(programaEducativoNuevo));
-    }
-
-    @Test
-    public void testEliminarProgramaEducativoPorId() throws SQLException {
-        int idProgramaEducativo = 0;
-        assertFalse(programaEducativoDAO.eliminarProgramaEducativoPorId(idProgramaEducativo));
-    } 
-    
-    @Test
-    public void testModificarProgramaEducativo() throws SQLException {
-        assertTrue(programaEducativoDAO.modificarProgramaEducativo(programaEducativo1));
-    }
 }

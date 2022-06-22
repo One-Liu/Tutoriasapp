@@ -83,7 +83,7 @@ public class SeleccionDeTipoDeUsuarioControlador implements Initializable {
                 }
                 case "Jefe de carrera" -> {
                     JefeDeCarreraDAO jefeDeCarreraDAO = new JefeDeCarreraDAO();
-                    JefeDeCarrera jefeDeCarrera = jefeDeCarreraDAO.obtenerJefeDeCarreraPorId(this.usuario.getIdUsuario());
+                    JefeDeCarrera jefeDeCarrera = jefeDeCarreraDAO.obtenerJefeDeCarreraPorIdUsuario(this.usuario.getIdUsuario());
                     DatosGlobalesDeSesion.getDatosGlobalesDeSesion().setJefeDeCarrera(jefeDeCarrera);
 
                     FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIMenuPrincipalJefeDeCarrera.fxml"));

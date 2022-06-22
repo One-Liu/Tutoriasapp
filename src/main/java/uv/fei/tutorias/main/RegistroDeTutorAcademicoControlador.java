@@ -120,9 +120,30 @@ public class RegistroDeTutorAcademicoControlador implements Initializable {
         this.cbProgramasEducativos.getSelectionModel().selectFirst();
     }
     
+    private boolean validarSiCorreoYaFueRegistrado() {
+        boolean correoRegistradoAnteriormente = false;
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        String correoInstitucional = this.tfCorreoInstitucional.getText().replaceAll("\\s+", "").trim();
+        
+        try {
+            if(usuarioDAO.validarUsuarioRegistrado(correoInstitucional)) {
+                UtilidadVentana.mostrarAlertaSinConfirmacion(
+                    "Usuario ya registrado", 
+                    "El usuario ya ha sido registrado", 
+                    Alert.AlertType.ERROR);
+                correoRegistradoAnteriormente = true;
+            }
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+            UtilidadVentana.cerrarVentana(new ActionEvent());
+        }
+        
+        return correoRegistradoAnteriormente;
+    }
+    
     @FXML
     private void clicRegistrar() {
-        if(validarCamposLlenos() && validarCorreoInstitucional()) {
+        if(validarCamposLlenos() && validarCorreoInstitucional() && !validarSiCorreoYaFueRegistrado()) {
             String nombre = this.tfNombre.getText().toUpperCase().replaceAll("\\s+", " ").trim();
             String apellidoPaterno = this.tfApellidoPaterno.getText().toUpperCase().replaceAll("\\s+", " ").trim();
             String apellidoMaterno = this.tfApellidoMaterno.getText().toUpperCase().replaceAll("\\s+", " ").trim();

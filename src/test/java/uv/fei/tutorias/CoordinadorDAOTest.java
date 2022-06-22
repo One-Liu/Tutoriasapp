@@ -5,8 +5,6 @@ import uv.fei.tutorias.domain.Coordinador;
 import uv.fei.tutorias.domain.Persona;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -43,23 +41,15 @@ public class CoordinadorDAOTest {
         Coordinador coordinadorObtenido = coordinadorDAO.obtenerCoordinadorPorId(idCoordinador);
         assertTrue(coordinador1.equals(coordinadorObtenido));
     }
-
-    @Test
-    public void testAgregarCoordinador() throws SQLException {
-        assertTrue(coordinadorDAO.agregarCoordinador(coordinadorNuevo));
-
-    }
-
-    @Test
-    public void testEliminarCoordinadorById() throws SQLException {
-        int idCoordinador = 2;
-        assertFalse(coordinadorDAO.eliminarCoordinadorPorId(idCoordinador));
-    }
     
     @Test
     public void testModificarCoordinador() throws SQLException {
         assertTrue(coordinadorDAO.modificarCoordinador(coordinador1));
     }
-
+    
+    @Test
+    public void testObtenerCoordinadorPorIdUsuario() throws SQLException {
+        
+    }
 }
 

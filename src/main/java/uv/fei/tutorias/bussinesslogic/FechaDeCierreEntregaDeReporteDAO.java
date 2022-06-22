@@ -88,27 +88,6 @@ public class FechaDeCierreEntregaDeReporteDAO implements IFechaDeCierreEntregaDe
         }
         return id;
     }
-
-    @Override
-    public boolean eliminarFechaDeCierreEntregaDeReportePorId(int idFechaDeCierreEntregaDeReporte) throws SQLException {
-        boolean resultado = false;
-        String consulta = "DELETE FROM fecha_cierre_entrega_reporte WHERE id = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, idFechaDeCierreEntregaDeReporte);
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return resultado;
-    }
     
     @Override
     public boolean modificarFechaDeCierreEntregaDeReporte(FechaDeCierreEntregaDeReporte fechaDeCierreEntregaDeReporte) throws SQLException {

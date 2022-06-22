@@ -25,7 +25,7 @@ public class MenuPrincipalJefeDeCarreraControlador {
     @FXML
     private void clicConsultarSolucionAProblematicaAcademica(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSolucionAProblematicaAcademica_ConsultarSolucion.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionSolucionAProblematicaAcademica_ConsultarSolucion.fxml"));
             Parent raiz = cargadorFXML.load();
             SeleccionDeSolucionAProblematicaAcademica_ConsultarSolucionControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.cargarDatos();
@@ -47,7 +47,7 @@ public class MenuPrincipalJefeDeCarreraControlador {
     @FXML
     private void clicModificarSolucionAProblematicaAcademica(ActionEvent evento) {
         try {
-            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionDeSolucionAProblematicaAcademica_ModificacionSolucion.fxml"));
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUISeleccionSolucionAProblematicaAcademica_ModificacionSolucion.fxml"));
             Parent raiz = cargadorFXML.load();
             SeleccionDeSolucionAProblematicaAcademica_ModificacionSolucionControlador controladorGUI = cargadorFXML.getController();
             controladorGUI.cargarDatos();

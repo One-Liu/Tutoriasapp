@@ -8,9 +8,6 @@ import uv.fei.tutorias.domain.Persona;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import static org.junit.Assert.*;
 
 // author @liu
@@ -54,21 +51,15 @@ public class TutorAcademicoDAOTest {
     public void testAgregarTutorAcademico() throws SQLException{
         assertTrue(tutorAcademicoDAO.agregarTutorAcademico(tutorAcademicoNuevo));
     }
-
-    @Test
-    public void testEliminarTutorAcademicoById() throws SQLException {
-        int idTutorAcademico = 0;
-        assertFalse(tutorAcademicoDAO.eliminarTutorAcademicoPorId(idTutorAcademico));
-    }
-
-    @Test
-    public void testModificarTutorAcademico() throws SQLException {
-        assertTrue(tutorAcademicoDAO.modificarTutorAcademico(tutorAcademico1));
-    }
     
     @Test
     public void testBuscarTutorAcademicoPorElIdDeUsuario()throws SQLException{
         TutorAcademico tutorAcademicoObtenido = tutorAcademicoDAO.buscarTutorAcademicoPorElIdDeUsuario(2);
         assertTrue(tutorAcademico2.equals(tutorAcademicoObtenido));
+    }
+    
+    @Test
+    public void testObtenerTutoresAcademicosDistintosA() throws SQLException {
+        
     }
 }

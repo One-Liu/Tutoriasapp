@@ -16,48 +16,6 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
     private final Logger LOGGER = Logger.getLogger(ListaDeAsistenciaDAO.class);
 
     @Override
-    public ListaDeAsistencia obtenerListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException {
-        ListaDeAsistencia listaDeAsistencia = new ListaDeAsistencia();
-        String consulta = "SELECT * FROM lista_de_asistencia WHERE id = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, idListaDeAsistencia);
-            ResultSet resultado = sentencia.executeQuery();
-            if(resultado.next()) {
-                listaDeAsistencia = getListaDeAsistencia(resultado);
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return listaDeAsistencia;
-    }
-
-    @Override
-    public List<ListaDeAsistencia> obtenerListasDeAsistenciaPorIdEstudiante(int idEstudiante) throws SQLException {
-        List<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
-        String consulta = "SELECT * FROM lista_de_asistencia WHERE idEstudiante = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, idEstudiante);
-            ResultSet resultado = sentencia.executeQuery();
-            while(resultado.next()) {
-                listasDeAsistencia.add(getListaDeAsistencia(resultado));
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return listasDeAsistencia;
-    }
-
-    @Override
     public List<ListaDeAsistencia> obtenerListasDeAsistencia() throws SQLException {
         List<ListaDeAsistencia> listasDeAsistencia = new ArrayList<>();
         String consulta = "SELECT * FROM lista_de_asistencia";
@@ -131,58 +89,6 @@ public class ListaDeAsistenciaDAO implements IListaDeAsistenciaDAO {
             sentencia.setBoolean(2, listaDeAsistencia.getAsistio());
             sentencia.setInt(3, listaDeAsistencia.getIdEstudiante());
             sentencia.setInt(4, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return resultado;
-    }
-
-    @Override
-    public boolean eliminarListaDeAsistenciaPorId(int idListaDeAsistencia) throws SQLException {
-        boolean resultado = false;
-        String consulta = "DELETE FROM lista_de_asistencia WHERE id = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setInt(1, idListaDeAsistencia);
-            int columnasAfectadas = sentencia.executeUpdate();
-            if(columnasAfectadas != 0) {
-                resultado = true;
-            }
-        } catch(SQLException excepcionSQL) {
-            LOGGER.warn(getClass().getName(), excepcionSQL);
-            throw excepcionSQL;
-        } finally {
-            baseDeDatos.cerrarConexion();
-        }
-        return resultado;
-    }
-
-    @Override
-    public boolean modificarListaDeAsistencia(ListaDeAsistencia listaDeAsistencia) throws SQLException {
-        boolean resultado = false;
-        String consulta =
-                "UPDATE lista_de_asistencia " +
-                "SET hora = ?, " +
-                "SET asistio = ?, " +
-                "SET idEstudiante = ?, " +
-                "SET idSesionDeTutoriaAcademica = ? " +
-                "WHERE id = ?";
-        ConexionBD baseDeDatos = new ConexionBD();
-        try(Connection conexion = baseDeDatos.abrirConexion()) {
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-            sentencia.setString(1, listaDeAsistencia.getHora());
-            sentencia.setBoolean(2, listaDeAsistencia.getAsistio());
-            sentencia.setInt(3, listaDeAsistencia.getIdEstudiante());
-            sentencia.setInt(4, listaDeAsistencia.getIdSesionDeTutoriaAcademica());
-            sentencia.setInt(5, listaDeAsistencia.getId());
             int columnasAfectadas = sentencia.executeUpdate();
             if(columnasAfectadas != 0) {
                 resultado = true;

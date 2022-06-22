@@ -14,11 +14,11 @@
             <Image url="@../../../../imagen/Universidad_Veracruzana.png" />
          </image>
       </ImageView>
-      <Button layoutX="212.0" layoutY="45.0" mnemonicParsing="false" prefWidth="300.0" text="Consultar reporte general de tutorias academicas" AnchorPane.topAnchor="45.0" />
-      <Button layoutX="212.0" layoutY="135.0" mnemonicParsing="false" prefWidth="300.0" text="Consultar solución a problemática académica" AnchorPane.topAnchor="135.0" />
-      <Button layoutX="212.0" layoutY="165.0" mnemonicParsing="false" prefWidth="300.0" text="Modificar solución a problemática académica" AnchorPane.topAnchor="165.0" />
-      <Button layoutX="212.0" layoutY="105.0" mnemonicParsing="false" prefWidth="300.0" text="Registrar solución a problemática académica" AnchorPane.topAnchor="105.0" />
-      <Button layoutX="212.0" layoutY="230.0" mnemonicParsing="false" prefWidth="300.0" text="Consultar oferta académica" AnchorPane.topAnchor="230.0" />
+      <Button layoutX="212.0" layoutY="45.0" mnemonicParsing="false" onAction="#clicConsultarReporteDeTutoriasAcademicas" prefWidth="300.0" text="Consultar reporte general de tutorias academicas" AnchorPane.topAnchor="45.0" />
+      <Button layoutX="212.0" layoutY="135.0" mnemonicParsing="false" onAction="#clicConsultarSolucionAProblematicaAcademica" prefWidth="300.0" text="Consultar solución a problemática académica" AnchorPane.topAnchor="135.0" />
+      <Button layoutX="212.0" layoutY="165.0" mnemonicParsing="false" onAction="#clicModificarSolucionAProblematicaAcademica" prefWidth="300.0" text="Modificar solución a problemática académica" AnchorPane.topAnchor="165.0" />
+      <Button layoutX="212.0" layoutY="105.0" mnemonicParsing="false" onAction="#clicRegistrarSolucionAProblematicaAcademica" prefWidth="300.0" text="Registrar solución a problemática académica" AnchorPane.topAnchor="105.0" />
+      <Button layoutX="212.0" layoutY="230.0" mnemonicParsing="false" onAction="#clicConsultarOfertaAcademica" prefWidth="300.0" text="Consultar oferta académica" AnchorPane.topAnchor="230.0" />
       <Button layoutX="27.0" layoutY="230.0" mnemonicParsing="false" onAction="#clicCerrarSesion" text="Cerrar sesión" />
       <Label layoutX="212.0" layoutY="20.0" text="Gestión de reportes tutoriales" textFill="#000000c0" underline="true" AnchorPane.topAnchor="20.0">
          <font>
