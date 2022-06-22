@@ -1,5 +1,6 @@
 package uv.fei.tutorias.main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -7,10 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import uv.fei.tutorias.bussinesslogic.ExperienciaEducativaDAO;
 import uv.fei.tutorias.bussinesslogic.ProblematicaAcademicaDAO;
 import uv.fei.tutorias.bussinesslogic.ProfesorDAO;
@@ -22,7 +28,7 @@ import uv.fei.tutorias.domain.SesionDeTutoriaAcademica;
 import uv.fei.tutorias.utilidades.TablaProblematica_FechaReporte_EE_Profesor;
 import uv.fei.tutorias.utilidades.UtilidadVentana;
 
-public class SeleccionDeSolucionAProblematicaAcademicaControlador implements Initializable {
+public class SeleccionDeSolucionAProblematicaAcademica_ModificacionSolucionControlador implements Initializable {
     
     @FXML
     private TableView<TablaProblematica_FechaReporte_EE_Profesor> tblProblematicasAcademicas;
@@ -78,6 +84,31 @@ public class SeleccionDeSolucionAProblematicaAcademicaControlador implements Ini
     
     @FXML
     private void clicSeleccionar(ActionEvent evento) {
+        TablaProblematica_FechaReporte_EE_Profesor problematicaSeleccionada = this.tblProblematicasAcademicas.getSelectionModel().getSelectedItem();
+        
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIModificacionDeSolucionAProblematicaAcademica.fxml"));
+            Parent raiz = cargadorFXML.load();
+            ModificacionDeSolucionAProblematicaAcademicaControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.setProblematicaAcademica(problematicaSeleccionada.getProblematicaAcademica());
+            controladorGUI.setSesionDeTutoriaAcademica(problematicaSeleccionada.getSesionDeTutoriaAcademica());
+            controladorGUI.setExperienciaEducativa(problematicaSeleccionada.getExperienciaEducativa());
+            controladorGUI.setProfesor(problematicaSeleccionada.getProfesor());
+            controladorGUI.cargarDatos();
+            controladorGUI.cargarCamposGUI();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Selección de solución a problemática académica");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+            UtilidadVentana.cerrarVentana(evento);
+        } catch(IOException excepcionIO) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
     }
     
     @FXML
