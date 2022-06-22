@@ -31,7 +31,9 @@ public class SeleccionDeSolucionAProblematicaAcademicaControlador implements Ini
     
     public void cargarDatos() throws SQLException {
         ProblematicaAcademicaDAO problematicaAcademicaDAO = new ProblematicaAcademicaDAO();
-        problematicasAcademicasConSolucion.addAll(problematicaAcademicaDAO.obtenerProblematicasAcademicasConSolucion());
+        this.problematicasAcademicasConSolucion.addAll(problematicaAcademicaDAO.obtenerProblematicasAcademicasConSolucion());
+        
+        
     }
     
     @Override
