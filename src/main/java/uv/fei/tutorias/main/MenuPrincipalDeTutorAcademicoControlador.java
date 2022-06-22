@@ -37,6 +37,24 @@ public class MenuPrincipalDeTutorAcademicoControlador {
 
     @FXML
     private void clicConsultarProblematicaAcademica(ActionEvent actionEvent) {
+        try {
+            FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource("GUIConsultarProblematicasAcademicas.fxml"));
+            Parent raiz = cargadorFXML.load();
+            ConsultarProblematicasAcademicasControlador controladorGUI = cargadorFXML.getController();
+            controladorGUI.crearTabla();
+            Scene escena = new Scene(raiz);
+            Stage escenario = new Stage();
+            escenario.setResizable(false);
+            escenario.setScene(escena);
+            escenario.setTitle("Selección de sesión de tutoría");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch(IOException ioException) {
+            UtilidadVentana.mensajeErrorAlCargarLaInformacionDeLaVentana();
+        } catch(SQLException excepcionSQL) {
+            UtilidadVentana.mensajePerdidaDeConexion();
+        }
+
 
     }
     

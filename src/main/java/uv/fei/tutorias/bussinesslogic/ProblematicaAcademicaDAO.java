@@ -8,9 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     private final Logger LOG = Logger.getLogger(ProblematicaAcademicaDAO.class);
 
@@ -37,8 +34,8 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
     }
 
     @Override
-    public ObservableList<ProblematicaAcademica> obtenerProblematicasAcademicas() throws SQLException {
-        ObservableList<ProblematicaAcademica> experienciasEducativas = FXCollections.observableArrayList();
+    public List<ProblematicaAcademica> obtenerProblematicasAcademicas() throws SQLException {
+        List<ProblematicaAcademica> experienciasEducativas = new ArrayList<>();
         ConexionBD dataBaseConnection = new ConexionBD();
         try (Connection connection = dataBaseConnection.abrirConexion()){
             String query = "SELECT  * from problematica_academica";
@@ -124,6 +121,33 @@ public class ProblematicaAcademicaDAO implements IProblematicaAcademicaDAO{
             dataBaseConnection.cerrarConexion();
         }
         return bandera;
+    }
+
+    @Override
+    public List<ProblematicaAcademica> obtenerProblematicasAcademicasDeUnTutor(int idTutorAcademico)throws SQLException{
+        List<ProblematicaAcademica> experienciasEducativas = new ArrayList<>();
+        ConexionBD dataBaseConnection = new ConexionBD();
+        try (Connection connection = dataBaseConnection.abrirConexion()){
+            String query = "SELECT  pa.* from " +
+                    "problematica_academica pa " +
+                    "inner join estudiantes_problematicasacademicas epa ON epa.idProblematicaAcademica = pa.id " +
+                    "inner join estudiante e ON e.id = epa.idEstudiante " +
+                    "where  e.idTutorAcademico = ? ";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idTutorAcademico);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                experienciasEducativas.add(getProblematicaAcademica(resultSet));
+            }
+        } catch (SQLException ex){
+            LOG.warn(getClass().getName(), ex);
+            throw ex;
+        }finally {
+            dataBaseConnection.cerrarConexion();
+        }
+
+        return experienciasEducativas;
+
     }
 
     private ProblematicaAcademica getProblematicaAcademica(ResultSet resultSet) throws SQLException {

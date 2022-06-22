@@ -22,7 +22,7 @@ public class ExperienciaEducativaDAO implements IExperienciaEducativaDAO{
     public ExperienciaEducativa obtenerExperienciaEducativaPorId(int searchId) throws SQLException{
         ConexionBD dataBaseConnection = new ConexionBD();
         ExperienciaEducativa experienciaEducativa = new ExperienciaEducativa();
-        String query = "SELECT * FROM experienciaeducativa WHERE idExperienciaEducativa like ?";
+        String query = "SELECT * FROM experiencia_educativa WHERE id like ?";
         try (Connection connection = dataBaseConnection.abrirConexion()){
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + searchId + "%");
